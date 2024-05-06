@@ -14,10 +14,10 @@ import AvatarCode from '@/components/routes/avatar-code';
 
 const Web3Page = () => {
     return (
-        <>
+        <main>
             <TransitionPage />
             <AvatarCode/>
-            <div className='flex flex-col justify-center h-lvh'>
+            <div className='flex flex-col justify-center min-h-dvh'>
                 <CircleImage />
                 <h1 className="text-2xl leading-tight text-center md:text-4xl md:mb-5">
                     Ejemplos de proyectos
@@ -26,7 +26,7 @@ const Web3Page = () => {
                 </h1>
                 <div className="flex items-center justify-center">
                     {/* <p className='p-4 px-8 text-white hover:text-white hover:border-secondary/60 border-secondary/10 rounded-md border-4'>Disponible <span className='text-red-600/10 hover:text-white'>en Mayo <i>04/2024</i></span> </p> */}
-                  <div>
+            ¡
                         <Swiper
                             breakpoints={{
                                 320: {
@@ -88,10 +88,10 @@ const Web3Page = () => {
                                 </SwiperSlide>
                             ))}
                         </Swiper>
-                    </div> 
+              ¡
                 </div>
             </div>
-        </>
+        </main>
     );
 }
 

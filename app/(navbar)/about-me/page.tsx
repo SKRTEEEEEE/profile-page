@@ -6,11 +6,11 @@ import Link from "next/link";
 
 const AboutMePage = () => {
     return (
-        <>
+        <main>
             
             <CircleImage />
             <AvatarServices />
-            <div className="md:grid flex flex-col items-center justify-center h-screen max-w-5xl md:gap-6 gap-6 mx-auto md:grid-cols-2">
+            <section className="md:grid flex flex-col items-center justify-center min-h-dvh max-w-5xl md:gap-6 gap-4 mx-auto md:grid-cols-2">
                 <div className="max-w-[450px]">
 
                     <h1 className="text-xl leading-tight text-center sm:text-left xl:text-4xl xl:mb-5">Mis <span className="font-bold text-secondary"> skills.</span></h1>
@@ -27,11 +27,11 @@ const AboutMePage = () => {
                 </div>
 
                 {/* SLIDER */}
-                <div>
+                
                     <SliderServices />
-                </div>
-            </div>
-        </>
+                
+            </section>
+        </main>
     );
 }
 
