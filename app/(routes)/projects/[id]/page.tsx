@@ -42,7 +42,8 @@ export default function ProjectsDynPage({ params }: { params: { id: number } }) 
 
         <section>
 
-          <ul><h3 className="text-xl text-primary-400 font-bold">Frontend</h3>
+          <ul>
+            <h3 className="text-xl text-primary-400 font-bold">Frontend</h3>
             <div className="grid grid-cols-3 gap-4">
 
               {project.technologies.frontend?.map((front) => {
@@ -53,7 +54,8 @@ export default function ProjectsDynPage({ params }: { params: { id: number } }) 
                     {front.icon}
                     <div className="flex flex-col">
                       <span> {front.title} {shouldRenderParagraph && front.version} </span>
-                      <span className="text-xs"><i>{front.desc}</i></span></div>
+                      <span className="text-xs"><i>{front.desc}</i></span>
+                    </div>
                   </li>
                 )
               })}
@@ -76,7 +78,7 @@ export default function ProjectsDynPage({ params }: { params: { id: number } }) 
                 )
               })}
             </div></ul></section>
-        
+
       </article>
       <Link href="/projects" className="px-8 mt-8 py-2 border-primary-200/80 hover:bg-primary-500/20 hover:border-primary-300 border-4 rounded-md bg-primary-700 ">Volver a la página de proyectos</Link>
 
