@@ -1,4 +1,4 @@
-
+/* 
   .htmlz,
   .bodyz {
     position: relative;
@@ -12,30 +12,38 @@
     margin: 0;
     padding: 0;
     /* height: min-content(100dvh);
-    width: min-content(100dvw);*/
+    width: min-content(100dvw);
     display: flex;
     justify-content: center;align-items: center; 
-  }
+  } */
   
   .mySwiper {
-    /* width: 400px; */
-    background-color: aqua;
-
-  }
+    width: 50dvw;
+    height: 15dvh;
+    background-color: rgba(0, 255, 255, 0.195);
+    /* display: flex;
+    justify-content: center; */
+     }
+     @media (max-width: 640px) {
+      .mySwiper {
+        width: 100%;
+        height: 14dvh;
+      }
+    }
   
   .swiperSlide {
-    text-align: center;
+    /*text-align: center;
     font-size: 18px;
     background: #fff;
     height: 10dvh;
-    /* width: 30dvw; No se puede aplicar ya que manda la config del elemento Swiper(modificar en el elemento) */
-    background: #eee;
+     width: 30dvw; No se puede aplicar ya que manda la config del elemento Swiper(modificar en el elemento) */
 
   
     /* Center slide text vertically */
     display: flex;
     justify-content: center;
     align-items: center;
+    
   }
   
   .swiperSlide img {

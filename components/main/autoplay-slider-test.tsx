@@ -1,29 +1,36 @@
 "use client"
 
 import { useRef} from 'react';
-// Import Swiper React components
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-import styles from './autoplay-slider.module.css';
+import styles from './autoplay-slider-test.module.css';
 
 // import required modules
 import  { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
-// SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 interface AutoplaySliderProps {
     delay?: number;
     disableOnInteraction?: boolean;
+    data: AutoplaySliderData[];
   }
 
-const AutoplaySlider: React.FC<AutoplaySliderProps> = ({
+interface AutoplaySliderData {
+  title: string;
+  icon: React.ReactElement;
+  version: string;
+  desc: string;
+}
+
+const AutoplaySliderTest: React.FC<AutoplaySliderProps> = ({
     delay = 5500,
     disableOnInteraction = false,
+    data
   }) => {
   const progressCircle = useRef<SVGSVGElement>(null);
   const progressContent = useRef<HTMLSpanElement>(null);
@@ -36,22 +43,21 @@ const AutoplaySlider: React.FC<AutoplaySliderProps> = ({
     }
   };
   return (
-    <div className={styles.htmlz}>
-    <div className={styles.bodyz}>
+
       <Swiper
       breakpoints={{
         320: {
             slidesPerView: 1,
-            spaceBetween: 150
+            spaceBetween: 15
         },
         // 768: {
-        //     slidesPerView: 2,
+        //     slidesPerView: 4,
         //     spaceBetween: 15
         // },
-        1024: {
-            slidesPerView: 6,
-            spaceBetween: 150
-        }
+        // 1024: {
+        //     slidesPerView: 6,
+        //     spaceBetween: 15
+        // }
     }}
         spaceBetween={30}
         centeredSlides={true}
@@ -67,18 +73,20 @@ const AutoplaySlider: React.FC<AutoplaySliderProps> = ({
         onAutoplayTimeLeft={onAutoplayTimeLeft}
         className={`py-12 ${styles.mySwiper}`}
       >
-        <SwiperSlide className={styles.swiperSlide}>Slide 1</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 2</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 3</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 4</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 1</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 2</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 3</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 4</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 1</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 2</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 3</SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>Slide 4</SwiperSlide>
+
+        {data.map((front)=> 
+        {const shouldRenderParagraph = front?.version && front?.version.trim() !== '';
+          return (<SwiperSlide className={styles.swiperSlide}>
+            {front.icon}
+                    <div className="flex flex-col">
+                      <span> {front.title} {shouldRenderParagraph && front.version} </span>
+                      <span className="text-xs"><i>{front.desc}</i></span>
+                    </div>
+
+          </SwiperSlide>)}
+        )}
+        
+      
         <div className={styles.autoplayProgress} slot="container-end">
           <svg viewBox="0 0 48 48" ref={progressCircle}>
             <circle cx="24" cy="24" r="20"></circle>
@@ -86,9 +94,9 @@ const AutoplaySlider: React.FC<AutoplaySliderProps> = ({
           <span ref={progressContent}></span>
         </div>
       </Swiper>
-    </div></div>
+  
   );
 }
 
 
-export default AutoplaySlider;
+export default AutoplaySliderTest;
