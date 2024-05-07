@@ -1,14 +1,20 @@
-import AvatarServices from "@/components/routes/avatar-services";
-import CircleImage from "@/components/routes/circle-image";
-import SliderServices from "@/components/routes/slider-services";
+import { MotionTransition } from "@/components/main/transition-component";
+import TransitionPage from "@/components/main/transition-page";
+
+import SliderServices from "@/components/navbar/slider-services";
+import Image from "next/image";
 import Link from "next/link";
 
 const AboutMePage = () => {
     return (
         <main>
-            
-            <CircleImage />
-            <AvatarServices />
+            <TransitionPage/>
+            <div className="bottom-0 right-0 hidden md:inline-block md:absolute">
+            <Image src="/circles.png" width="300" height="300" className="w-full h-full " alt="Particles " />
+        </div>
+        <MotionTransition position='right' className="bottom-0 left-0 hidden xl:inline-block xl:absolute">
+            <Image src="/services.svg" width="400" height="400" className="w-[350px] h-full " alt="Particles " />
+        </MotionTransition>
             <section className="md:grid flex flex-col items-center justify-center min-h-dvh max-w-5xl md:gap-6 gap-4 mx-auto md:grid-cols-2">
                 <div className="max-w-[450px]">
 
