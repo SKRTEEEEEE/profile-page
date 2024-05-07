@@ -2,7 +2,6 @@ import AvatarServices from "@/components/routes/avatar-services";
 import CircleImage from "@/components/routes/circle-image";
 import SliderServices from "@/components/routes/slider-services";
 import Link from "next/link";
-// import TransitionPage from "@/components/transition-page";
 
 const AboutMePage = () => {
     return (

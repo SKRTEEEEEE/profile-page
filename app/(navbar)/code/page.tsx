@@ -1,13 +1,9 @@
 "use client"
 
-import Image from 'next/image';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-
 import { web3page } from '@/data';
 import CircleImage from '@/components/routes/circle-image';
-// import AvatarPortfolio from '@/components/avatar-portfolio';
 import TransitionPage from '@/components/main/transition-page';
 import Link from 'next/link';
 import AvatarCode from '@/components/routes/avatar-code';
