@@ -9,9 +9,9 @@ body {
   background: #131424;
 }
 
-main {
+/* main {
   height: 100dvh;
-}
+} */
 
 .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
 .swiper-pagination-horizontal.swiper-pagination-bullets
@@ -19,8 +19,10 @@ main {
   background-color: #f51c52a1;
 }
 
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
+

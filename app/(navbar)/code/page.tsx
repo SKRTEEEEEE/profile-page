@@ -1,24 +1,25 @@
 "use client"
 
-import Image from 'next/image';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-
 import { web3page } from '@/data';
-import CircleImage from '@/components/routes/circle-image';
-// import AvatarPortfolio from '@/components/avatar-portfolio';
 import TransitionPage from '@/components/main/transition-page';
 import Link from 'next/link';
-import AvatarCode from '@/components/routes/avatar-code';
+// import AvatarCode from '@/components/routes/avatar-code';
+import { MotionTransition } from '@/components/main/transition-component';
+import Image from 'next/image';
 
 const Web3Page = () => {
     return (
-        <>
+        <main>
             <TransitionPage />
-            <AvatarCode/>
-            <div className='flex flex-col justify-center h-lvh'>
-                <CircleImage />
+            <MotionTransition position='bottom' className="bottom-0 left-0 hidden md:inline-block md:absolute ">
+                <Image src="/avatar-code.png" width="200" height="300" className="w-full h-full " alt="Particles " />
+            </MotionTransition>
+            <div className='flex flex-col justify-center min-h-dvh'>
+            <div className="bottom-0 right-0 hidden md:inline-block md:absolute">
+            <Image src="/circles.png" width="300" height="300" className="w-full h-full " alt="Particles " />
+        </div>
                 <h1 className="text-2xl leading-tight text-center md:text-4xl md:mb-5">
                     Ejemplos de proyectos
                     <span className="block font-bold text-secondary"> de desarrollo web3
@@ -26,7 +27,7 @@ const Web3Page = () => {
                 </h1>
                 <div className="flex items-center justify-center">
                     {/* <p className='p-4 px-8 text-white hover:text-white hover:border-secondary/60 border-secondary/10 rounded-md border-4'>Disponible <span className='text-red-600/10 hover:text-white'>en Mayo <i>04/2024</i></span> </p> */}
-                  <div>
+            ¡
                         <Swiper
                             breakpoints={{
                                 320: {
@@ -88,10 +89,10 @@ const Web3Page = () => {
                                 </SwiperSlide>
                             ))}
                         </Swiper>
-                    </div> 
+              ¡
                 </div>
             </div>
-        </>
+        </main>
     );
 }
 

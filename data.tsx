@@ -1,7 +1,11 @@
 import { BookText, CodeSquare,  HomeIcon, UserRound, Linkedin, Github, Mail, Link } from "lucide-react";
 import { FaNodeJs, FaReact } from "react-icons/fa";
-import { SiSolidity, SiTailwindcss } from "react-icons/si";
-import { TbBrandNextjs } from "react-icons/tb";
+// import { RiNextjsLine } from "react-icons/ri";
+
+import { SiChakraui, SiSolidity, SiStyledcomponents, SiSwiper, SiTailwindcss  } from "react-icons/si";
+import { TbBrandNextjs, TbBrandThreejs } from "react-icons/tb";
+import { SiThirdweb } from "react-icons/si";
+
 
 export const socialNetworks = [
     {
@@ -166,40 +170,227 @@ export const dataPortfolio = [
     // },
     {
         id: 2,
-        title: "Web Perfil del Desarrollador",
+        title: "Perfil del Desarrollador",
+        description: "Mi pagina de perfil como desarrollador",
+        objetivo: "Mostrar mis habilidades como desarrollador Fullstack",
+        objetivos:[ "SCRUM", "buena documentación", "autorrealización", "compatibilidad frontend"],
+        technologies: {
+            frontend: [{
+                title: "NextJS",
+                icon: <TbBrandNextjs size={40}/>,
+                version: "v14",
+                desc: "parte principal"
+            },
+            {
+                title: "TailwindCSS",
+                icon: <SiTailwindcss size={40}/>,
+                version: "v3",
+                desc: "parte visual principal"
+            },
+            {
+                title: "SwiperJs y TsParticles",
+                icon: <SiSwiper size={40}/>,
+                version: "",
+                desc: "parte visual interactiva"
+            }
+            ],
+            backend:[{
+                title: "NextJS",
+                icon: <TbBrandNextjs size={40}/>,
+                version: "v14",
+                desc: "parte principal"
+            },
+            ]
+            
+        },
         image: "/image-3.png",
         urlGithub: "https://github.com/SKRTEEEEEE/profile-test",
         urlDemo: "#!",
         operative: true,
+        ejemplo: true,
     },
     {
         id: 3,
-        title: "Web Presentación Blockchain",
+        title: "Blockchain para empresas",
+        description: "Pagina de presentación blockchain para empresas",
+        objetivo: "Mostrar las posibilidades que ofrece la blockchain para empresas",
+        objetivos:[ "conceptos teóricos", "frontend y visual", "autorrealización", "atraer inversiones"],
+        technologies: {
+            frontend: [{
+                title: "NextJS",
+                icon: <TbBrandNextjs size={40}/>,
+                version: "v14",
+                desc: "parte principal"
+            },
+            {
+                title: "TailwindCSS",
+                icon: <SiTailwindcss size={40}/>,
+                version: "v3",
+                desc: "parte visual principal"
+            },
+            {
+                title: "SwiperJs y TsParticles",
+                icon: <SiSwiper size={40}/>,
+                version: "",
+                desc: "parte visual interactiva"
+            }
+            ]
+            
+        },
         image: "/image-2.png",
         urlGithub: "https://github.com/SKRTEEEEEE/blockchain-presentation",
         urlDemo: "https://blockchain-presentation-eta.vercel.app/",
         operative: true,
+        ejemplo: true,
     },
  
     {
         id: 4,
         title: "Ejemplos Aplicaciones Descentralizadas",
+        description: "Ejemplos de aplicaciones descentralizadas que se pueden personalizar posteriormente",
+        objetivo: "Mostrar mis habilidades como desarrollador Fullstack blockchain",
+        objetivos:[ "Smart-Contracts", "integración web3/web", "compatibilidad frontend", "uso blockchain"],
+        technologies: {
+            frontend: [{
+                title: "NextJS",
+                icon: <TbBrandNextjs size={40}/>,
+                version: "v14",
+                desc: "parte principal"
+            },
+            {
+                title: "TailwindCSS",
+                icon: <SiTailwindcss size={40}/>,
+                version: "v3",
+                desc: "parte visual principal"
+            },
+            {
+                title: "Styled Compoenents",
+                icon: <SiStyledcomponents size={40} />,
+                version: "",
+                desc: "parte visual principal"
+            },
+            {
+                title: "ChakraUI",
+                icon: <SiChakraui size={40}/>,
+                version: "",
+                desc: "parte visual interactiva"
+            },
+            {
+                title: "ThreeJS",
+                icon: <TbBrandThreejs  size={40}/>,
+                version: "",
+                desc: "parte visual interactiva"
+            },
+            ],
+            backend:[{
+                title: "NextJS",
+                icon: <TbBrandNextjs size={40}/>,
+                version: "v14",
+                desc: "parte principal"
+            },
+            {
+                title: "Thirdweb SDK",
+                icon: <SiThirdweb size={40} />,
+                version: "v4",
+                desc: "conectividad web/blockchain"
+            },
+            {
+                title: "Thirdweb CLI",
+                icon: <SiThirdweb  size={40}/>,
+                version: "",
+                desc: "despliegue Smart Contracts"
+            },
+            {
+                title: "Solidity",
+                icon: <SiSolidity size={40} />,
+                version: "",
+                desc: "creación Smart Contracts"
+            },
+            ]
+            
+        },
         image: "/image-4.png",
         urlGithub: "https://github.com/SKRTEEEEEE/ejemplos-dApps",
         urlDemo: "http://ejemplos-d-apps.vercel.app/",
         operative: true,
+        ejemplo: true,
     },
     {
         id: 5,
         title: "Web Perfil v2",
-        image: "/image-5.jpg",
-        urlGithub: "https://github.com/SKRTEEEEEE/frontpruebas",
-        urlDemo: "#",
+        description: "Pagina de perfil como desarrollador mejorada",
+        objetivo: "Mejorar la parte del Backend para automatizar procesos",
+        objetivos:[ "SCRUM", "proyecto 'propio 100%'", "compatibilidad tecnologías", "añadir backend"],
+        technologies: {
+            frontend: [{
+                title: "NextJS",
+                icon: <TbBrandNextjs size={40} />,
+                version: "v14",
+                desc: "parte principal"
+            },
+            {
+                title: "TailwindCSS",
+                icon: <SiTailwindcss size={40}/>,
+                version: "v3",
+                desc: "parte visual principal"
+            },
+            {
+                title: "SwiperJs y TsParticles",
+                icon: <SiSwiper size={40}/>,
+                version: "",
+                desc: "parte visual interactiva"
+            }
+            ],
+            backend:[{
+                title: "NextJS",
+                icon: <TbBrandNextjs size={40}/>,
+                version: "v14",
+                desc: "parte principal"
+            },
+            ]
+            
+        },
+        image: "/image-3.jpg",
+        urlGithub: "https://github.com/SKRTEEEEEE/profile-test",
+        urlDemo: "#!",
         operative: false,
+        ejemplo: true,
     },
     // {
     //     id: 6,
     //     title: "Web Dinámica",
+    // description: "Mi pagina de perfil como desarrollador",
+    // objetivo: "Mostrar mis habilidades como desarrollador Fullstack",
+    //     objetivos:[ "SCRUM", "buena documentación", "proyecto 'propio 100%'", "compatibilidad tecnologías"],
+    //     technologies: {
+    //         frontend: [{
+    //             title: "NextJS",
+    //             icon: <TbBrandNextjs />,
+    //             version: "v14",
+    //             desc: "parte principal"
+    //         },
+    //         {
+    //             title: "TailwindCSS",
+    //             icon: <SiTailwindcss />,
+    //             version: "v3",
+    //             desc: "parte visual principal"
+    //         },
+    //         {
+    //             title: "SwiperJs y TsParticles",
+    //             icon: <SiSwiper />,
+    //             version: "",
+    //             desc: "parte visual interactiva"
+    //         }
+    //         ],
+    //         backend:[{
+    //             title: "NextJS",
+    //             icon: <TbBrandNextjs />,
+    //             version: "v14",
+    //             desc: "parte principal"
+    //         },
+    //         ]
+            
+    //     },
     //     image: "/image-6.jpg",
     //     urlGithub: "#!",
     //     urlDemo: "#!",
