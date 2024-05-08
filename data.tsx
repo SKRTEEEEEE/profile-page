@@ -173,30 +173,30 @@ export const dataPortfolio = [
         title: "Perfil del Desarrollador",
         description: "Mi pagina de perfil como desarrollador",
         objetivo: "Mostrar mis habilidades como desarrollador Fullstack",
-        objetivos:[ "SCRUM", "buena documentación", "proyecto 'propio 100%'", "compatibilidad tecnologías"],
+        objetivos:[ "SCRUM", "buena documentación", "autorrealización", "compatibilidad frontend"],
         technologies: {
             frontend: [{
                 title: "NextJS",
-                icon: <TbBrandNextjs size={25}/>,
+                icon: <TbBrandNextjs size={40}/>,
                 version: "v14",
                 desc: "parte principal"
             },
             {
                 title: "TailwindCSS",
-                icon: <SiTailwindcss size={25}/>,
+                icon: <SiTailwindcss size={40}/>,
                 version: "v3",
                 desc: "parte visual principal"
             },
             {
                 title: "SwiperJs y TsParticles",
-                icon: <SiSwiper size={25}/>,
+                icon: <SiSwiper size={40}/>,
                 version: "",
                 desc: "parte visual interactiva"
             }
             ],
             backend:[{
                 title: "NextJS",
-                icon: <TbBrandNextjs size={25}/>,
+                icon: <TbBrandNextjs size={40}/>,
                 version: "v14",
                 desc: "parte principal"
             },
@@ -214,23 +214,23 @@ export const dataPortfolio = [
         title: "Blockchain para empresas",
         description: "Pagina de presentación blockchain para empresas",
         objetivo: "Mostrar las posibilidades que ofrece la blockchain para empresas",
-        objetivos:[ "mostrar conceptos", "practicar frontend", "proyecto 'propio 100%'", "atraer inversiones"],
+        objetivos:[ "conceptos teóricos", "frontend y visual", "autorrealización", "atraer inversiones"],
         technologies: {
             frontend: [{
                 title: "NextJS",
-                icon: <TbBrandNextjs />,
+                icon: <TbBrandNextjs size={40}/>,
                 version: "v14",
                 desc: "parte principal"
             },
             {
                 title: "TailwindCSS",
-                icon: <SiTailwindcss />,
+                icon: <SiTailwindcss size={40}/>,
                 version: "v3",
                 desc: "parte visual principal"
             },
             {
                 title: "SwiperJs y TsParticles",
-                icon: <SiSwiper />,
+                icon: <SiSwiper size={40}/>,
                 version: "",
                 desc: "parte visual interactiva"
             }
@@ -249,60 +249,60 @@ export const dataPortfolio = [
         title: "Ejemplos Aplicaciones Descentralizadas",
         description: "Ejemplos de aplicaciones descentralizadas que se pueden personalizar posteriormente",
         objetivo: "Mostrar mis habilidades como desarrollador Fullstack blockchain",
-        objetivos:[ "Smart-Contracts", "integración web3 con web tradicional", "compatibilidad tecnologías Frontend", "blockchain"],
+        objetivos:[ "Smart-Contracts", "integración web3/web", "compatibilidad frontend", "uso blockchain"],
         technologies: {
             frontend: [{
                 title: "NextJS",
-                icon: <TbBrandNextjs />,
+                icon: <TbBrandNextjs size={40}/>,
                 version: "v14",
                 desc: "parte principal"
             },
             {
                 title: "TailwindCSS",
-                icon: <SiTailwindcss />,
+                icon: <SiTailwindcss size={40}/>,
                 version: "v3",
                 desc: "parte visual principal"
             },
             {
                 title: "Styled Compoenents",
-                icon: <SiStyledcomponents  />,
+                icon: <SiStyledcomponents size={40} />,
                 version: "",
                 desc: "parte visual principal"
             },
             {
                 title: "ChakraUI",
-                icon: <SiChakraui />,
+                icon: <SiChakraui size={40}/>,
                 version: "",
                 desc: "parte visual interactiva"
             },
             {
                 title: "ThreeJS",
-                icon: <TbBrandThreejs  />,
+                icon: <TbBrandThreejs  size={40}/>,
                 version: "",
                 desc: "parte visual interactiva"
             },
             ],
             backend:[{
                 title: "NextJS",
-                icon: <TbBrandNextjs />,
+                icon: <TbBrandNextjs size={40}/>,
                 version: "v14",
                 desc: "parte principal"
             },
             {
                 title: "Thirdweb SDK",
-                icon: <SiThirdweb  />,
+                icon: <SiThirdweb size={40} />,
                 version: "v4",
                 desc: "conectividad web/blockchain"
             },
             {
                 title: "Thirdweb CLI",
-                icon: <SiThirdweb  />,
+                icon: <SiThirdweb  size={40}/>,
                 version: "",
                 desc: "despliegue Smart Contracts"
             },
             {
                 title: "Solidity",
-                icon: <SiSolidity  />,
+                icon: <SiSolidity size={40} />,
                 version: "",
                 desc: "creación Smart Contracts"
             },
@@ -324,26 +324,26 @@ export const dataPortfolio = [
         technologies: {
             frontend: [{
                 title: "NextJS",
-                icon: <TbBrandNextjs size={25} />,
+                icon: <TbBrandNextjs size={40} />,
                 version: "v14",
                 desc: "parte principal"
             },
             {
                 title: "TailwindCSS",
-                icon: <SiTailwindcss size={25}/>,
+                icon: <SiTailwindcss size={40}/>,
                 version: "v3",
                 desc: "parte visual principal"
             },
             {
                 title: "SwiperJs y TsParticles",
-                icon: <SiSwiper size={25}/>,
+                icon: <SiSwiper size={40}/>,
                 version: "",
                 desc: "parte visual interactiva"
             }
             ],
             backend:[{
                 title: "NextJS",
-                icon: <TbBrandNextjs size={25}/>,
+                icon: <TbBrandNextjs size={40}/>,
                 version: "v14",
                 desc: "parte principal"
             },
