@@ -71,7 +71,7 @@ const AutoplaySliderTechs: React.FC<AutoplaySliderProps> = ({
 
         {data.map((tech)=> 
         {const shouldRenderParagraph = tech?.version && tech?.version.trim() !== '';
-          return (<SwiperSlide className={styles.swiperSlide}>
+          return (<SwiperSlide key={tech.title} className={styles.swiperSlide}>
             {tech.icon}
                     <div className="flex flex-col">
                       <span className='text-xl'> {tech.title} {shouldRenderParagraph && tech.version} </span>
