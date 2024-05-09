@@ -1,4 +1,4 @@
-"use client"
+// "use client" -> No me dejava quitar el use client porque el counter services no lo tenia
 
 import ContainerPage from "@/components/main/container-page";
 import CounterServices from "@/components/navbar/counter-services";
@@ -28,7 +28,7 @@ const StudiesPage = () => {
                 <TimeLine />
 
             </ContainerPage>
-            <TransitionPage />
+            {/* <TransitionPage /> */}
         </>
     );
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import { dataCounter } from "@/data";
 import CountUp from "react-countup";
 
