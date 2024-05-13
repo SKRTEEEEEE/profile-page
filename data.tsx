@@ -139,27 +139,27 @@ export const dataCounter = [
 
 export const serviceData = [
     {
-        icon: <FaReact />,
+        icon: <FaReact aria-description="React icono"/>,
         title: "ReactJS",
         description: "React-DOM, JWT, Hooks, APIs, Protected Routes, JSX, Router, Redux, etc...",
     },
     {
-        icon: <SiTailwindcss />,
+        icon: <SiTailwindcss aria-description="Tailwind icono"/>,
         title: "TailwindCSS",
         description: "Mobile-first, resposive, utility-first, classes y variables, plugins, etc...",
     },
     {
-        icon: <TbBrandNextjs />,
+        icon: <TbBrandNextjs aria-description="Next javascripts icono"/>,
         title: "NextJS",
         description: "SSR, CSR, APIs, Pre-rendering, SEO Friendly, Next.js14 Compability, etc...",
     },
     {
-        icon: <FaNodeJs />,
+        icon: <FaNodeJs aria-description="Node javascript icono"/>,
         title: "Node.js",
         description: "Async/Await, Nodemon.js, Express.js, NPM (Node Package Manager), JSON, etc...",
     },
     {
-        icon: <SiSolidity />,
+        icon: <SiSolidity aria-description="Solidity icono"/>,
         title: "Solidity",
         description: "Smart Contracts, Hardhat, Ethet.js, Thirdweb, Estandares ERC, Chainlink, etc... ",
     },
@@ -177,7 +177,7 @@ export const dataPortfolio = [
     // },
     {
         id: 2,
-        title: "Perfil del Desarrollador",
+        title: "Perfil Web del Desarrollador",
         description: "Mi pagina de perfil como desarrollador",
         objetivo: "Mostrar mis habilidades como desarrollador Fullstack",
         objetivos:[ "SCRUM", "buena documentación", "autorrealización", "compatibilidad frontend"],
@@ -212,7 +212,7 @@ export const dataPortfolio = [
         },
         image: "/image-3.png",
         urlGithub: "https://github.com/SKRTEEEEEE/profile-test",
-        urlDemo: "#!",
+        urlDemo: "#",
         operative: true,
         ejemplo: true,
     },

@@ -14,9 +14,9 @@ const StudiesPage = () => {
         <TransitionPage />
             <ContainerPage>
             <MotionTransition position="bottom" className="top-14 right-0 hidden md:inline-block md:absolute ">
-            <Image src="/avatar1.svg" width="550" height="550" className="" alt="Particles " />
+            <Image src="/avatar1.svg" width="550" height="550" className="" alt="Dev en su escritorio desarrollando" />
         </MotionTransition>
-                <h1 className="text-2xl leading-tight text-center md:text-left md:text-5xl md:mt-10">
+                <h1 tabIndex={0} className="text-2xl leading-tight text-center md:text-left md:text-5xl md:mt-10">
                     <span className="font-bold text-secondary">
                 Estudios certificados
                     </span>

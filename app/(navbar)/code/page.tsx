@@ -15,9 +15,9 @@ const Web3Page = async () => {
             </MotionTransition>
             <div className='flex flex-col justify-center min-h-dvh'>
                 <div className="bottom-0 right-0 hidden md:inline-block md:absolute">
-                    <Image src="/circles.png" width="300" height="300" className="w-full h-full " alt="Imagen decorativa circular" />
+                    <Image src="/circles.png" width="300" height="300" className="w-full h-full " alt="Imagen decorativa circular de una ciudad futurista" />
                 </div>
-                <h1 className="text-2xl leading-tight text-center md:text-4xl md:mb-5">
+                <h1 tabIndex={0} className="text-2xl leading-tight text-center md:text-4xl md:mb-5">
                     Ejemplos de proyectos
                     <span className="block font-bold text-secondary"> de desarrollo web3
                     </span>

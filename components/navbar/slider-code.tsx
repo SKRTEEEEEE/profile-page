@@ -44,7 +44,7 @@ const SliderCode: React.FC<SliderCodeProps> = ({data}) => {
                             <SwiperSlide key={id}>
                                 <article className='flex flex-col  h-full justify-evenly items-evenly'>
 
-                                    <h2 className='text-center text-3xl text-primary font-semibold'>{name}</h2>
+                                    <h2 tabIndex={0} className='text-center text-3xl text-primary font-semibold'>{name}</h2>
                                     <div className="mt-5 text-center">
                                         {description}
                                     </div>
@@ -66,14 +66,14 @@ const SliderCode: React.FC<SliderCodeProps> = ({data}) => {
                                             target="_blank"
                                             className="p-2 transition duration-150 rounded-lg bg-secondary hover:bg-secondary/80"
                                         >
-                                            Live demo
+                                            Ejemplo desplegado
                                         </Link>
                                         <Link
                                             href={contractUrl}
                                             target="_blank"
                                             className="p-2 transition duration-150 rounded-lg bg-slate-500 hover:bg-slate-500/80"
                                         >
-                                            <span className='hidden lg:inline'>Github </span>Blockchain Code
+                                            <span className='hidden lg:inline'>Github </span>Código Blockchain
                                         </Link>
                                     </div>
                                 </article>

@@ -27,10 +27,10 @@ const PortfolioBox = (props: PortfolioBoxProps) => {
     >
         
     
-            <h3 className="mb-4 text-xl">{title}</h3>
+            <h2 className="mb-4 text-xl">{title}</h2>
             <Image
                 src={image}
-                alt="Image"
+                alt={`Imagen de la web ${title}`}
                 width={200} height={200} className="w-full md:w-[200px] rounded-2xl h-auto"
             /></Link>
 

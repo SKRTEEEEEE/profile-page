@@ -15,7 +15,7 @@ const PortfolioPage = () => {
             <Image src="/avatar-works.png" width="200" height="300" className="w-full h-full " alt="Particles " />
         </MotionTransition>
         <div className="bottom-0 right-0 hidden md:inline-block md:absolute">
-            <Image src="/circles.png" width="300" height="300" className="w-full h-full " alt="Particles " />
+            <Image src="/circles.png" width="300" height="300" className="w-full h-full " alt="Imagen decorativa circular de una ciudad futurista " />
         </div>
             <div className="flex flex-col justify-center h-full">
                 <h1 className="text-2xl leading-tight text-center md:text-4xl md:mb-5">Ejemplos <span className="font-bold text-secondary">open-source</span> destacados</h1>
