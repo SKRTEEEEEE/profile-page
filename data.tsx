@@ -10,8 +10,10 @@ import { SiThirdweb } from "react-icons/si";
 export const socialNetworks = [
     {
         id: 1,
-        logo: <Github  size={30} strokeWidth={1} />,
+        logo: <Github  size={30} strokeWidth={1} aria-describedby="Github"/>,
         src: "https://github.com/SKRTEEEEEE",
+        title: "Github",
+        desc: "Mi perfil en Github"
     },
     // {
     //     id: 2,
@@ -20,8 +22,10 @@ export const socialNetworks = [
     // },
     {
         id: 3,
-        logo: <Mail size={30} strokeWidth={1} />,
+        logo: <Mail size={30} strokeWidth={1} aria-describedby="Mail"/>,
         src: "mailto:adanreh.m@gmail.com",
+        title: "Mail",
+        desc: "Contacto de correo electrónico"
     },
 
 ];
@@ -30,33 +34,38 @@ export const itemsNavbar = [
     {
         id: 1,
         title: "Home",
-        icon: <HomeIcon size={25} color="#fff" strokeWidth={1} />,
+        icon: <HomeIcon size={25} color="#fff" strokeWidth={1} aria-describedby="Home"/>,
         link: "/",
+        desc: "Volver al inicio"
     },
     {
         id: 2,
-        title: "User",
-        icon: <UserRound size={25} color="#fff" strokeWidth={1} />,
+        title: "AboutMe",
+        icon: <UserRound size={25} color="#fff" strokeWidth={1} aria-describedby="AboutMe"/>,
         link: "/about-me",
+        desc: "Información tecnológica sobre mi"
     },
     {
         id: 3,
-        title: "Target",
-        icon: <CodeSquare size={25} color="#fff" strokeWidth={1} />,
+        title: "Portfolio",
+        icon: <CodeSquare size={25} color="#fff" strokeWidth={1} aria-describedby="Portfolio"/>,
         link: "/portfolio",
+        desc: "Principales proyectos de código abierto"
         
     },
     {
         id: 4,
-        title: "Book",
-        icon: <BookText  size={25} color="#fff" strokeWidth={1} />,
+        title: "Services",
+        icon: <BookText  size={25} color="#fff" strokeWidth={1} aria-describedby="Services"/>,
         link: "/services",
+        desc: "Estudios certificados oficiales"
     },
     {
         id: 5,
         title: "Code",
-        icon: <Link  size={25} color="#fff" strokeWidth={1} />,
+        icon: <Link  size={25} color="#fff" strokeWidth={1} aria-describedby="Code"/>,
         link: "/code",
+        desc: "Información sobre proyectos de código abierto web3"
     },
 ];
 

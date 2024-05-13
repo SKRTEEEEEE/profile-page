@@ -12,8 +12,8 @@ const Introduction = () => {
             <div className="z-20 flex items-center justify-around h-full p-6 py-20 md:py-s0 md:grid-cols-2">
                 <Image src="/home-4.png" priority width="300" height="800" className="hidden sm:flex" alt="Avatar" />
                 <div className="flex flex-col justify-center max-w-md">
-                    <h1 className="text-4xl font-bold"><span className="text-primary-300">Hola, </span><span className="text-primary-400">soy </span><br/>Adan Reh Mañach</h1>
-                    <h2 className="h-32 pt-6 text-2xl leading-tight text-center md:text-left md:text-4xl md:mb-10">Desarrollador, <br />
+                    <h1 tabIndex={0} className="text-4xl font-bold"><span className="text-primary-300">Hola, </span><span className="text-primary-400">soy </span><br/>Adan Reh Mañach</h1>
+                    <h2  className="h-32 pt-6 text-2xl leading-tight text-center md:text-left md:text-4xl md:mb-10">Desarrollador, <br />
                         <TypeAnimation
                             sequence={[
                                 'de la nueva generación web descentralizada',
@@ -25,6 +25,7 @@ const Introduction = () => {
                                 'utilizando tecnologías web actuales e eficientes.',
                                 5000
                             ]}
+                            
                             wrapper="span"
                             speed={25}
                             repeat={Infinity}
@@ -32,7 +33,7 @@ const Introduction = () => {
                         />
                     </h2>
 
-                    <p className="mx-auto mb-2 text-md md:text-xl md:mx-0 md:mb-8">
+                    <p tabIndex={0} className="mx-auto mb-2 text-md md:text-xl md:mx-0 md:mb-8">
                         Fullstack especializado en tecnologías escalables e descentralizadas, enfocado en ofrecer una experiencia de usuario agradable a traves de funcionalidad interactiva y segura.
                     </p>
 

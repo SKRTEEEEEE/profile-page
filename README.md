@@ -13,7 +13,7 @@ Mi pagina de perfil como desarrollador.
 Pagina web desarrollada principalmente con:
 
 - **NextJS v14** para la parte principal, _Frontend y Backend._
--**TailwindCss, SwiperJs y TsParticles** para la parte visual, _Frontend_.
+- **TailwindCss, SwiperJs y TsParticles** para la parte visual, _Frontend_.
 
 
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns/blob/main/README.md)
