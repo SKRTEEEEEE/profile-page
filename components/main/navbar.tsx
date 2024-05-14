@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { itemsNavbar } from "@/data";
+import { itemsNavbar } from "@/data/data";
 
 import { MotionTransition } from "./transition-component";
 import { usePathname } from "next/navigation";

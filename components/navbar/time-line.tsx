@@ -1,4 +1,4 @@
-import { dataStudiesPage } from "@/data";
+import { dataStudiesPage } from "@/data/data";
 import Link from "next/link";
 
 const TimeLine = () => {

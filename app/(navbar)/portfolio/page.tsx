@@ -1,4 +1,4 @@
-import { dataPortfolio } from "@/data";
+import { dataPortfolio } from "@/data/data";
 import TransitionPage from "@/components/main/transition-page";
 import ContainerPage from "@/components/main/container-page";
 import PortfolioBox from "@/components/navbar/portfolio-box";

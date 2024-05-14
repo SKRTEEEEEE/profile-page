@@ -3,7 +3,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 
-import { lenguajes } from '@/data';
+import { lenguajes } from '@/data/data';
 
 const SliderServices = () => {
     return (
