@@ -137,7 +137,7 @@ export const dataCounter = [
     // },
 ];
 
-export const serviceData = [
+export const lenguajes = [
     {
         icon: <FaReact aria-description="React icono"/>,
         title: "ReactJS",

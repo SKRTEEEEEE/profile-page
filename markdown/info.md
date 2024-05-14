@@ -9,9 +9,9 @@ Crear un landing page vinculado y que se auto actualize junto con mi perfil de G
 
 ### v00 -> Basic Frontend
 
-### v01 -> Badges
+### v01 -> Badges techs
 
-Crear tres _badges_ interactivos, que al modificar-se la información en la BDD (desde la pagina web) se modifique la información de los _badges_. Los tres _badges_ serán:
+Crear tres _badges_ interactivos (sobre las tecnologías utilizadas), que al modificar-se la información en la BDD (desde la pagina web) se modifique la información de los _badges_. Los tres _badges_ serán:
 
 > - Afinidad: 5 palabras, HARDCODEADO
 
@@ -26,6 +26,10 @@ Crear tres _badges_ interactivos, que al modificar-se la información en la BDD 
 >   1. Badges del estándar de [shields.io](https://shields.io/) 
 >   2. Tres _graphics cards_ 
 >   3. Una _graphic card_ para toda la información
+
+#### v01.01 -> test afinidad y experiencia
+
+Creación del test del badge con la info de la afinidad y la experiencia. Y tratar de enviar-lo a un repositorio de prueba en Github a traves de la api rest.
 
 ## Esquemas
 
