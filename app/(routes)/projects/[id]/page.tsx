@@ -1,5 +1,5 @@
 import AutoplaySliderTechs from "@/components/main/autoplay-slider-techs";
-import { dataPortfolio } from "@/data";
+import { dataPortfolio } from "@/data/data";
 import { TechLenguajeItem } from "@/types";
 import Image from "next/image";
 import Link from "next/link";

@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-import { dataPortfolio } from '@/data';
+import { dataPortfolio } from '@/data/data';
 import Link from 'next/link';
 
 export default function ProjectsPage() {

@@ -8,7 +8,7 @@ const LenguajesSchema = new mongoose.Schema(
             required: true,
         },
         afinidad: {
-            type: String,
+            type: Number,
             required: true,
         },
     },
@@ -17,6 +17,6 @@ const LenguajesSchema = new mongoose.Schema(
     }
 );
 export const LenguajesModel =
-  mongoose.models.LenguajesModel || mongoose.model('Lenguajes', LenguajesSchema);
+  mongoose.models.Lenguajes || mongoose.model('Lenguajes', LenguajesSchema);
 
 // module.exports = ArticleModel;
