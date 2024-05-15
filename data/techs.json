@@ -1,18 +1,4 @@
-[
-  {
-    "name": "Javascript",
-    "afinidad": 70,
-    "_id": "664393daa77ae0388121e1ee",
-    "createdAt": "2024-05-14T16:39:54.369Z",
-    "updatedAt": "2024-05-14T16:39:54.369Z",
-    "__v": 0
-  },
-  {
-    "name": "Typescript",
-    "afinidad": 60,
-    "_id": "66439422a77ae0388121e1f2",
-    "createdAt": "2024-05-14T16:41:06.703Z",
-    "updatedAt": "2024-05-14T16:41:06.703Z",
-    "__v": 0
-  }
-]
+{
+  "name": "Typescript",
+  "afinidad": 90
+}

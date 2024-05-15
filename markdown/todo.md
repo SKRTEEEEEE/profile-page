@@ -19,3 +19,14 @@
 - [ ] Separar el navbar actual y ponerlo solo para (navbar) pages "folder"
 
 ## Remember meses antiguos
+
+
+
+## Random things
+
+
+![JavaScript Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/profile-page/v01/data/techs.json&query=$[?(@.name=='Javascript')].afinidad&suffix=%25&label=Afinidad&color=blue&style=flat)
+![Afinidad](https://img.shields.io/static/v1?label=Afinidad&message=|||||&color=blue&style=flat)
+![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/profile-page/v01/data/techs.json&query=$[?(@.name=='Javascript')].afinidad&label=Afinidad&colorA=blue&colorB=green&style=progress)
+![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/profile-page/v01/data/techs.json&query=$[?(@.name=='Javascript')].afinidad&label=Afinidad&colorA=blue&colorB=green&style=progress)
+![Progreso](https://progress-bar.dev/75/?title=Progreso&width=200&color=green)
