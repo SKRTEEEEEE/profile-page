@@ -3,6 +3,7 @@
 // import fs from "fs";
 import { LenguajesModel } from "./models/lenguajes-schema";
 import { Octokit } from "@octokit/rest";
+import { Afinidad, ILenguaje } from "./types";
 const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN,
 });
@@ -12,17 +13,27 @@ const repo = "markdowns";
 
 const path = { md: "sys/techs-test.md", json: "sys/techs-test.json" };
 
+const afinidadColores: Record<Afinidad, string> = {
+    maxima: "darkgreen",
+    alta: "brightgreen",
+    moderada: "blue",
+    baja: "yellow",
+    minima: "red",
+
+};
+
 //Trabajaremos con la rama main(AL FINAL) para no tener que estar haciendo "git pulls al main"
 const ref = "profile-page";
 
 export async function publicarProyecto() {
     // Parte datos hardcodd
-    const name = "Express";
-    const afinidad = 60;
+    const name = "Node.js";
+    const afinidad: Afinidad = "alta";
+    const web = "https://nodejs.org/";
 
 
     // Obtener todos los proyectos de la base de datos
-    const proyectosDB = await LenguajesModel.find();
+    const proyectosDB: ILenguaje[] = await LenguajesModel.find();
 
     // PARTE .JSON (GITHUB)
     // Obtener el contenido del archivo .json existente en el repositorio de GitHub
@@ -59,22 +70,6 @@ export async function publicarProyecto() {
         branch: ref,
     });
 
-    // // PARTE .JSON (SERVIDOR)
-
-    // // Actualizar el archivo .json en el servidor
-    // const filePath = "data/techs.json";
-    // const newData = { name: 'Typescript',
-    // afinidad: 90, };
-    // //SOBRE ESCRIBE TANTO TECHS.JSON COMO EL .MD de markdowns
-    // fs.writeFileSync(filePath, JSON.stringify(newData, null, 2));
-
-    // // Obtener el contenido actualizado del archivo
-    // const fileContent = fs.readFileSync(filePath, 'utf8');
-
-    // // Codificar el contenido en base64
-    // const encodedContent = Buffer.from(fileContent).toString('base64');
-
-
     // PARTE .MD (GITHUB)
 
     // Obtener el SHA del archivo .md existente en el repositorio de GitHub
@@ -99,7 +94,21 @@ export async function publicarProyecto() {
     }
 
     // Actualizar el archivo .md en el repositorio de GitHub
-    const newMdContent = `# Tecnologías\n\n${proyectosDB.map((proyecto) => `- ${proyecto.name} (Afinidad: ${proyecto.afinidad})`).join('\n')}\n- Express (Afinidad: ${afinidad})`;
+    const newMdContent = `
+    # Tecnologías y Lenguajes de Programación\n
+    _Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
+    <p align="center">
+    <a href="#">
+        <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
+    </a>
+    </p>\n***\n\n<br>\n
+    ${proyectosDB.map((proyecto) => 
+        {
+            const colorAfinidad = afinidadColores[proyecto.afinidad];
+    return(`- [![${proyecto.name}](https://img.shields.io/badge/-${proyecto.name}-F7DF1E?style=for-the-badge&logo=${proyecto.name.toLowerCase()}&logoColor=black)](${proyecto.web}) ![Afinidad ${proyecto.afinidad}](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${proyecto.name}')].afinidad&label=Afinidad&color=${colorAfinidad}&style=flat)
+    `)})}\n
+    - [![${name}](https://img.shields.io/badge/-${name}-F7DF1E?style=for-the-badge&logo=${name.toLowerCase()}&logoColor=black)](${web}) ![Afinidad ${afinidad}](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].afinidad&label=Afinidad&color=blue&style=flat)
+    `;
     const encodedMdContent = Buffer.from(newMdContent).toString("base64");
     await octokit.repos.createOrUpdateFileContents({
         owner,
@@ -114,6 +123,7 @@ export async function publicarProyecto() {
   const nuevoProyecto = new LenguajesModel({
     name,
     afinidad,
+    web
   });
 
   try {
