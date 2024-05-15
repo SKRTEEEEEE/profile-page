@@ -1,6 +1,6 @@
 # ToDo
-
-## Remember 05.2024 (Actual)
+## Remembers
+### Remember 05.2024 (Actual)
 
 - [ ] Mejorar/crear botones projectDyn & projects pages
     - [x] Para ir a la pagina web del proyecto
@@ -12,18 +12,44 @@
 - [x] Mejorar Frontend projects page
 - [ ] Mejorar Frontend projectDyn page
     - [ ] Objetivos a de ocupar menos visualmente, sobretodo en xl
+### Remember meses antiguos
+## Versions
+###  v02
 
-## Remember v02
-
-### Make a parallax 3d welkome page
+#### Make a parallax 3d welkome page
 - [ ] Separar el navbar actual y ponerlo solo para (navbar) pages "folder"
 
-## Remember meses antiguos
+## Others Versions/Ideas
+
+### Make option to create your own profile and techs etc markdowns offering it as SAAS using web3 aventajes
+
+
+
 
 
 
 ## Random things
 
+### Lista bdd techs:
+
+#### name
+Nombre de la tecnología.
+#### afinidad
+Afinidad de la tecnología.
+#### badge
+Badge(o titulo, en caso de no aver) estandard de la tecnología.
+<!-- descripcion: Descripción breve de la tecnología (opcional). -->
+#### preferencia: 
+Numero correspondiente al orden dentro de su "categoria"
+#### "categoria"
+Objeto (con nombre) que describen la categoría o tipo de la tecnología que contiene _(por ejemplo, [Framework->"NextJS"]>[Libreria->"NextUI"] para JavaScript)_.
+
+
+
+
+
+
+##### IDK
 github.com/SKRTEEEEEE/markdowns/blob/profile-page/sys/techs-test.json
 
 ##### JS

@@ -1,18 +1,18 @@
 
 import PublicarProyectoButton from "@/components/publicar-proyecto-button";
 import { fetchLenguajes } from "@/data/fetch"
-import { LenguajesModel } from "@/models/lenguajes-schema";
+// import { LenguajesModel } from "@/models/lenguajes-schema";
 
 
 const TestMongoPage = async( ) =>{
     const lenguajes = await fetchLenguajes()
-    LenguajesModel.find({})
-    .then((projects) => {
-        console.log('Proyectos encontrados:', projects);
-    })
-    .catch((error) => {
-        console.error('Error al buscar proyectos:', error);
-    });
+    // LenguajesModel.find({})
+    // .then((projects) => {
+    //     console.log('Proyectos encontrados:', projects);
+    // })
+    // .catch((error) => {
+    //     console.error('Error al buscar proyectos:', error);
+    // });
 
     return (
         <>

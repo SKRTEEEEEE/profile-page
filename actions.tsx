@@ -1,6 +1,6 @@
 "use server"
 
-// import fs from "fs";
+import fs from "fs";
 import { LenguajesModel } from "./models/lenguajes-schema";
 import { Octokit } from "@octokit/rest";
 import { Afinidad, ILenguaje } from "./types";
@@ -24,8 +24,10 @@ const afinidadColores: Record<Afinidad, string> = {
 
 //Trabajaremos con la rama main(AL FINAL) para no tener que estar haciendo "git pulls al main"
 const ref = "profile-page";
+
+
+
 async function publicarJsonYMd(name: String, afinidad: Afinidad, web: String){
-    // START
     // Obtener todos los proyectos de la base de datos
     const proyectosDB: ILenguaje[] = await LenguajesModel.find();
 
@@ -108,11 +110,43 @@ return(`- [![${proyecto.name}](https://img.shields.io/badge/-${proyecto.name}-F7
         content: encodedMdContent,
         sha: mdSha,
         branch: ref,
-    });
-    // FIN
+    })
 }
 
-export async function publicarProyecto() {
+async function publicarMdServer(name: String, afinidad: Afinidad, web: String){
+    const proyectosDB: ILenguaje[] = await LenguajesModel.find();
+
+
+    // Actualizar el archivo .md en el repositorio de GitHub
+    const newMdContent = 
+`# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
+<p align="center">
+<a href="#">
+    <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
+</a>
+</p>\n\n\n***\n\n<br>\n\n${proyectosDB.map((proyecto) => {
+const colorAfinidad = afinidadColores[proyecto.afinidad];
+return(`- [![${proyecto.name}](https://img.shields.io/badge/-${proyecto.name}-F7DF1E?style=for-the-badge&logo=${proyecto.name.toLowerCase()}&logoColor=black)](${proyecto.web}) ![Afinidad ${proyecto.afinidad}](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${proyecto.name}')].afinidad&label=Afinidad&color=${colorAfinidad}&style=flat)`)})}\n
+- [![${name}](https://img.shields.io/badge/-${name}-F7DF1E?style=for-the-badge&logo=${name.toLowerCase()}&logoColor=black)](${web}) ![Afinidad ${afinidad}](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].afinidad&label=Afinidad&color=blue&style=flat)
+`;
+    const encodedMdContent = Buffer.from(newMdContent).toString("base64");
+    const filePath = 'data/techs.md'; // Especifica la ruta y nombre del archivo
+    fs.writeFile(filePath, encodedMdContent, 'base64', (err) => {
+        if (err) {
+            console.error('Error al escribir el archivo .md', err);
+        } else {
+            console.log('Archivo .md creado o sobrescrito con éxito en el servidor');
+        }
+    });
+}
+export async function publicarProyecto(){
+    // Parte datos hardcodd
+    const name: String = "Pepe";
+    const afinidad: Afinidad = "moderada";
+    const web: String = "https://react.dev/";
+    publicarMdServer(name, afinidad, web)
+}
+export async function publicarProyectoB() {
     // Parte datos hardcodd
     const name: String = "React";
     const afinidad: Afinidad = "moderada";
