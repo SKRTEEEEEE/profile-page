@@ -1,8 +1,8 @@
 
-import { ILenguaje } from "@/types";
+import { IFramework, ILenguaje, ILibreria } from "@/types";
 import mongoose from "mongoose";
 // Define el esquema para una librería
-const LibreriaSchema = new mongoose.Schema({
+const LibreriaSchema = new mongoose.Schema<ILibreria>({
     name: {
         type: String,
         required: true,
@@ -29,7 +29,7 @@ const LibreriaSchema = new mongoose.Schema({
 });
 
 // Define el esquema para un framework, que incluye una lista de librerías
-const FrameworkSchema = new mongoose.Schema({
+const FrameworkSchema = new mongoose.Schema<IFramework>({
     name: {
         type: String,
         required: true,
@@ -60,7 +60,7 @@ const FrameworkSchema = new mongoose.Schema({
 
 
 
-const LenguajesSchema = new mongoose.Schema(
+const LenguajesSchema = new mongoose.Schema<ILenguaje>(
     {
 
         name: {
