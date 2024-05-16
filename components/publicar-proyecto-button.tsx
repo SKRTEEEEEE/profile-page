@@ -4,11 +4,11 @@
 
 // import { publicarFwATech } from "@/actions";
 
-import { publicarProyecto } from "@/actions";
+// import { publicarProyecto } from "@/actions";
 
 const PublicarProyectoButton = () => {
     const handleClick = async () => {
-        await publicarProyecto();
+        // await publicarProyecto();
         // await publicarFwATech();
         // await publicarLibAFw()
         alert("Proyecto publicado correctamente");

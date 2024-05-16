@@ -31,3 +31,31 @@ export interface ILibreria{
   color: string;
   experiencia: number;
 }
+
+export interface ILenguajeForm {
+  name: string;
+  afinidad: number;
+  badge: string;
+  preferencia: number;
+  color: string;
+  experiencia: number;
+}
+export interface IFrameworkForm {
+  name: string;
+  afinidad: number;
+  badge: string;
+  preferencia: number;
+  color: string;
+  experiencia: number;
+  lenguajeTo: string;
+}
+export interface ILibreriaForm {
+  name: string;
+  afinidad: number;
+  badge: string;
+  preferencia: number;
+  color: string;
+  experiencia: number;
+  lenguajeTo: string;
+  frameworkTo: string;
+}

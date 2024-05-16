@@ -3,8 +3,9 @@
 // import fs from "fs";
 import { LenguajesModel } from "./models/lenguajes-schema";
 import { Octokit } from "@octokit/rest";
-import {  IFramework, ILenguaje, ILibreria } from "./types";
+import {  IFramework, IFrameworkForm, ILenguaje, ILenguajeForm, ILibreria, ILibreriaForm } from "./types";
 import { flattenProyectos, getColorByRange } from "./utils/badges";
+
 //Conexión github
 const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN,
@@ -127,142 +128,14 @@ await octokit.repos.createOrUpdateFileContents({
 })
 }
 
-
-//TEST para el archivo y la estructura MD
-// async function publicarMdServer(name: String, badge: String, color: String){
-//     // const proyectosDB: ILenguaje[] = await LenguajesModel.find();
-//     //HARDCDD data
-//     const proyectosDB = [
-//         {
-//             name: "Javascript",
-//             preferencia: 1,
-//             badge: "[![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/es/docs/Web/JavaScript)",
-//             color: "darkgreen",
-//             frameworks: [
-//                 {
-//                     name: "react",
-//                     preferencia: 1,
-//                     badge: "[![React](https://img.shields.io/badge/-React-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/learn)",
-//                     color: "blue",
-//                     librerias: [
-//                         {
-//                             name: "Chakra-UI",
-//                             preferencia: 1,
-//                             badge: "[![Chakra UI](https://img.shields.io/badge/Chakra_UI-319795?style=for-the-badge&logo=Chakra-UI&logoColor=white)](https://chakra-ui.com/)",
-//                             afinidad: "Baja",
-//                             color: "yellow"
-//                         },
-//                         {
-//                             name: "React-Icons",
-//                             preferencia: 2,
-//                             badge: "[![React Icons](https://img.shields.io/badge/React_Icons-61DAFB?style=for-the-badge)](https://react-icons.github.io/react-icons/)",
-//                             afinidad: "Máxima",
-//                             color: "darkgreen"
-//                         }
-//                     ]
-//                 },
-//                 {
-//                     name: "Node.js",
-//                     preferencia: 3,
-//                     badge: "[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)",
-//                     color: "brightgreen"
-//                 },
-//                 {
-//                     name: "Next.js",
-//                     preferencia: 2,
-//                     badge: "[![Next.js](https://img.shields.io/badge/Next.js-%23111111.svg?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/docs)",
-//                     color: "darkgreen",
-//                     librerias: [
-//                         {
-//                             name: "NextUI",
-//                             preferencia: 1,
-//                             badge: "[![NextUI](https://img.shields.io/badge/NextUI-7928CA.svg?style=for-the-badge&logo=nextui&logoColor=white)](https://nextui.org/)",
-//                             afinidad: "Alta",
-//                             color: "brightgreen"
-//                         }
-//                     ]
-//                 }
-//             ]
-//         },
-//         {
-//             name: "CSS",
-//             preferencia: 2,
-//             badge: "[![CSS](https://img.shields.io/badge/-CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/es/docs/Web/CSS)",
-//             color: "blue",
-//             frameworks: [
-//                 {
-//                     name: "Tailwind CSS",
-//                     preferencia: 1,
-//                     badge: "[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-%231a202c.svg?style=for-the-badge&logo=tailwind-css&logoColor=38b2ac)](https://tailwindcss.com/)",
-//                     color: "brightgreen"
-//                 },
-//                 {
-//                     name: "Styled Components",
-//                     preferencia: 2,
-//                     badge: "[![Styled Components](https://img.shields.io/badge/Styled_Components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)](https://styled-components.com/)",
-//                     color: "blue"
-//                 }
-//             ]
-//         }
-//         // Agrega más tecnologías aquí con sus frameworks y librerías asociadas
-//     ];
-
-
-//     // Actualizar el archivo .md en el repositorio de GitHub
-//     let newMdContent = 
-// `# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
-// <p align="center">
-// <a href="#">
-//     <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
-// </a>
-// </p>\n\n\n***\n\n<br>\n\n`
-// proyectosDB.sort((a,b)=> a.preferencia - b.preferencia).forEach((proyecto) => {
-//     newMdContent += `\n\n>- ## ${proyecto.badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${proyecto.name}')].value&label=Afinidad&color=${proyecto.color}&style=flat&logo=${proyecto.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${proyecto.name}')].afinidad&color=${proyecto.color}&style=flat&label=%20&suffix=%25)`;
-//     if(proyecto.frameworks){
-//         proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);
-//         proyecto.frameworks.forEach((framework) => {
-//             newMdContent += `\n\n> ### ${framework.badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${framework.name}')].value&label=Afinidad&color=${framework.color}&style=flat&logo=${framework.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${framework.name}')].afinidad&color=${framework.color}&style=flat&label=%20&suffix=%25)`; 
-
-//             if (framework.librerias) {
-//                 framework.librerias.sort((a,b)=>a.preferencia - b.preferencia).forEach((libreria) => {
-//                     newMdContent += `\n> - #### ${libreria.badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${libreria.name}')].value&label=Afinidad&color=${libreria.color}&style=flat&logo=${libreria.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${libreria.name}')].afinidad&color=${libreria.color}&style=flat&label=%20&suffix=%25)`;
-//                 });}
-//         })
-
-//     }
-    
-// })
-// // HAY QUE TERMINAR ESTO !!!!
-// newMdContent += `- ## ${badge}\n\n![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].value&label=Afinidad&color=${color}&style=flat&logo=${name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].afinidad&color=${color}&style=flat&label=%20&suffix=%25)
-// `;
-//     const encodedMdContent = Buffer.from(newMdContent).toString("base64");
-//     const filePath = 'data/techs.md'; // Especifica la ruta y name del archivo
-//     fs.writeFile(filePath, encodedMdContent, 'base64', (err) => {
-//         if (err) {
-//             console.error('Error al escribir el archivo .md', err);
-//         } else {
-//             console.log('Archivo .md creado o sobrescrito con éxito en el servidor');
-//         }
-//     });
-// }
-// export async function publicarProyecto(){
-//     // Parte datos hardcodd
-//     const name: String = "Node.js";
-//     // const afinidad: number = 80; -> No es necesario pq solo es para el .json
-//     const badge: String = "[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)";
-//     // const preferencia: number = 3 -> Ahora vamos a trabajar con esto
-//     const color: string = "339933"
-//     publicarMdServer(name,  badge, color)
-// }
-
-export async function publicarProyecto() {
+export async function publicarProyecto({name , afinidad, badge, preferencia, color, experiencia}:ILenguajeForm) {
     // Parte datos hardcodd
-    const name: String = "Node.js";
-    const afinidad: number = 75;
-    const badge: String = "[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)";
-    const preferencia: number = 3
-    const color: string = "339933"
-    const experiencia: number = 70;
+    // const name: String = "Node.js";
+    // const afinidad: number = 75;
+    // const badge: String = "[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)";
+    // const preferencia: number = 3
+    // const color: string = "339933"
+    // const experiencia: number = 70;
     // PARTE GITHUB
    publicarJsonYMd(name, afinidad, badge, color,experiencia);
     // PARTE SUBIR A LA BDD
@@ -284,15 +157,15 @@ export async function publicarProyecto() {
 
   console.log("Archivos actualizados en el repositorio de GitHub");
 }
-export async function publicarFwATech(){
-const name = "Express";
-const afinidad = 70;
-const badge = "[![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)";
-const preferencia = 2;
-const color = "000000"
-const experiencia: number = 60;
+export async function publicarFwATech({name , afinidad, badge, preferencia, color, experiencia, lenguajeTo}:IFrameworkForm){
+// const name = "Express";
+// const afinidad = 70;
+// const badge = "[![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)";
+// const preferencia = 2;
+// const color = "000000"
+// const experiencia: number = 60;
 try{
-    const lenguaje = await LenguajesModel.findOne({ name: 'Node.js' });
+    const lenguaje = await LenguajesModel.findOne({ name: lenguajeTo });
     if (lenguaje){
         publicarJsonYMd(name, afinidad, badge, color, experiencia);
         const nuevoFramework = {
@@ -313,17 +186,17 @@ try{
     console.error('Error al agregar la framework:', error);
 }
 }
-export async function publicarLibAFw(){
-const name = "NextUI";
-const afinidad = 65;
-const badge = "[![NextUI Badge](https://img.shields.io/badge/NextUI-7928CA.svg?style=for-the-badge&logo=nextui&logoColor=white)](https://nextui.org/)";
-const preferencia = 1;
-const color = "7928CA"
-const experiencia: number = 70;
+export async function publicarLibAFw({name , afinidad, badge, preferencia, color, experiencia, lenguajeTo, frameworkTo}: ILibreriaForm){
+// const name = "NextUI";
+// const afinidad = 65;
+// const badge = "[![NextUI Badge](https://img.shields.io/badge/NextUI-7928CA.svg?style=for-the-badge&logo=nextui&logoColor=white)](https://nextui.org/)";
+// const preferencia = 1;
+// const color = "7928CA"
+// const experiencia: number = 70;
 try{
-    const lenguaje = await LenguajesModel.findOne({ name: "Node.js" });
+    const lenguaje = await LenguajesModel.findOne({ name: lenguajeTo });
     if (lenguaje){
-        const framework = lenguaje.frameworks.find((framework:IFramework) => framework.name === "Next.js");
+        const framework = lenguaje.frameworks.find((framework:IFramework) => framework.name === frameworkTo);
         if(framework){
             publicarJsonYMd(name, afinidad, badge, color, experiencia);
             const nuevaLibreria = {
