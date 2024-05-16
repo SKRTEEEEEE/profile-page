@@ -1,6 +1,6 @@
 "use server"
 
-// import fs from "fs";
+import fs from "fs";
 import { LenguajesModel } from "./models/lenguajes-schema";
 import { Octokit } from "@octokit/rest";
 import {  ILenguaje } from "./types";
@@ -17,6 +17,8 @@ interface ColorAndValue {
     color: string;
     value: string;
 }
+
+//El color ya no se obtendrá de aquí sino que de la bdd, ya que depende del lenguaje al que pertenece el badge. Esto lo guardamos para un futuro en una posible card, etc..
 function getColorByRange(numValue:number):ColorAndValue{
     let color: string;
     let value: string;
@@ -42,8 +44,8 @@ function getColorByRange(numValue:number):ColorAndValue{
 const ref = "profile-page";
 
 
-// Test para el CREATE triple
-async function publicarJsonYMd(name: String, afinidad: number, badge: String){
+// TEST para el CREATE triple
+async function publicarJsonYMd(name: String, afinidad: number, badge: String, color: String){
     // Obtener todos los proyectos de la base de datos
     const proyectosDB: ILenguaje[] = await LenguajesModel.find();
 
@@ -70,9 +72,9 @@ async function publicarJsonYMd(name: String, afinidad: number, badge: String){
     }
 
     // Actualizar el archivo .json en el repositorio de GitHub (Solo para los badges)
-    const newJsonData = [...proyectosDB.map((proyecto) => ({ name: proyecto.name, afinidad: proyecto.afinidad, color: getColorByRange(proyecto.afinidad).color, value: getColorByRange(proyecto.afinidad).value })), 
+    const newJsonData = [...proyectosDB.map((proyecto) => ({ name: proyecto.name, afinidad: proyecto.afinidad, value: getColorByRange(proyecto.afinidad).value })), 
         //Nueva info
-        { name, afinidad,color: getColorByRange(afinidad).color, value: getColorByRange(afinidad).value }];
+        { name, afinidad, value: getColorByRange(afinidad).value }];
     const encodedJsonContent = Buffer.from(JSON.stringify(newJsonData, null, 2)).toString("base64");
     await octokit.repos.createOrUpdateFileContents({
         owner,
@@ -116,10 +118,10 @@ async function publicarJsonYMd(name: String, afinidad: number, badge: String){
 </a>
 </p>\n\n\n***\n\n<br>\n\n`
 proyectosDB.map((proyecto) => {
-    newMdContent += `- ## ${proyecto.badge} ![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${proyecto.name}')].value&label=Afinidad&color=$[0].color&style=flat)\n\n`
+    newMdContent += `- ## ${proyecto.badge} ![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${proyecto.name}')].value&label=Afinidad&color=${proyecto.color}&style=flat&logo=${proyecto.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${proyecto.name}')].afinidad&color=${proyecto.color}&style=flat&label=%20&suffix=%25)\n\n`
 })
 
-newMdContent += `- ## ${badge} ![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].value&label=Afinidad&color=$[0].color&style=flat)
+newMdContent += `- ## ${badge} ![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].value&label=Afinidad&color=${color}&style=flat&logo=${name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].afinidad&color=${color}&style=flat&label=%20&suffix=%25)
 `;
     const encodedMdContent = Buffer.from(newMdContent).toString("base64");
     await octokit.repos.createOrUpdateFileContents({
@@ -132,54 +134,153 @@ newMdContent += `- ## ${badge} ![Afinidad](https://img.shields.io/badge/dynamic/
         branch: ref,
     })
 }
-// //Test para el archivo y la estructura MD
-// async function publicarMdServer(name: String, afinidad: number, web: String){
-//     const proyectosDB: ILenguaje[] = await LenguajesModel.find();
+//Test para el archivo y la estructura MD
+async function publicarMdServer(name: String, badge: String, color: String){
+    // const proyectosDB: ILenguaje[] = await LenguajesModel.find();
+    //HARDCDD data
+    const proyectosDB = [
+        {
+            name: "Javascript",
+            preferencia: 1,
+            badge: "[![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/es/docs/Web/JavaScript)",
+            color: "darkgreen",
+            frameworks: [
+                {
+                    name: "react",
+                    preferencia: 1,
+                    badge: "[![React](https://img.shields.io/badge/-React-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/learn)",
+                    color: "blue",
+                    librerias: [
+                        {
+                            name: "Chakra-UI",
+                            preferencia: 1,
+                            badge: "[![Chakra UI](https://img.shields.io/badge/Chakra_UI-319795?style=for-the-badge&logo=Chakra-UI&logoColor=white)](https://chakra-ui.com/)",
+                            afinidad: "Baja",
+                            color: "yellow"
+                        },
+                        {
+                            name: "React-Icons",
+                            preferencia: 2,
+                            badge: "[![React Icons](https://img.shields.io/badge/React_Icons-61DAFB?style=for-the-badge)](https://react-icons.github.io/react-icons/)",
+                            afinidad: "Máxima",
+                            color: "darkgreen"
+                        }
+                    ]
+                },
+                {
+                    name: "Node.js",
+                    preferencia: 3,
+                    badge: "[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)",
+                    color: "brightgreen"
+                },
+                {
+                    name: "Next.js",
+                    preferencia: 2,
+                    badge: "[![Next.js](https://img.shields.io/badge/Next.js-%23111111.svg?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/docs)",
+                    color: "darkgreen",
+                    librerias: [
+                        {
+                            name: "NextUI",
+                            preferencia: 1,
+                            badge: "[![NextUI](https://img.shields.io/badge/NextUI-7928CA.svg?style=for-the-badge&logo=nextui&logoColor=white)](https://nextui.org/)",
+                            afinidad: "Alta",
+                            color: "brightgreen"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            name: "CSS",
+            preferencia: 2,
+            badge: "[![CSS](https://img.shields.io/badge/-CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/es/docs/Web/CSS)",
+            color: "blue",
+            frameworks: [
+                {
+                    name: "Tailwind CSS",
+                    preferencia: 1,
+                    badge: "[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-%231a202c.svg?style=for-the-badge&logo=tailwind-css&logoColor=38b2ac)](https://tailwindcss.com/)",
+                    color: "brightgreen"
+                },
+                {
+                    name: "Styled Components",
+                    preferencia: 2,
+                    badge: "[![Styled Components](https://img.shields.io/badge/Styled_Components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)](https://styled-components.com/)",
+                    color: "blue"
+                }
+            ]
+        }
+        // Agrega más tecnologías aquí con sus frameworks y librerías asociadas
+    ];
 
 
-//     // Actualizar el archivo .md en el repositorio de GitHub
-//     const newMdContent = 
-// `# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
-// <p align="center">
-// <a href="#">
-//     <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
-// </a>
-// </p>\n\n\n***\n\n<br>\n\n${proyectosDB.map((proyecto) => {
-// const colorAfinidad = afinidadColores[proyecto.afinidad];
-// return(`- [![${proyecto.name}](https://img.shields.io/badge/-${proyecto.name}-F7DF1E?style=for-the-badge&logo=${proyecto.name.toLowerCase()}&logoColor=black)](${proyecto.web}) ![Afinidad ${proyecto.afinidad}](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${proyecto.name}')].afinidad&label=Afinidad&color=${colorAfinidad}&style=flat)`)})}\n
-// - [![${name}](https://img.shields.io/badge/-${name}-F7DF1E?style=for-the-badge&logo=${name.toLowerCase()}&logoColor=black)](${web}) ![Afinidad ${afinidad}](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].afinidad&label=Afinidad&color=blue&style=flat)
-// `;
-//     const encodedMdContent = Buffer.from(newMdContent).toString("base64");
-//     const filePath = 'data/techs.md'; // Especifica la ruta y nombre del archivo
-//     fs.writeFile(filePath, encodedMdContent, 'base64', (err) => {
-//         if (err) {
-//             console.error('Error al escribir el archivo .md', err);
-//         } else {
-//             console.log('Archivo .md creado o sobrescrito con éxito en el servidor');
-//         }
-//     });
-// }
-// export async function publicarProyecto(){
-//     // Parte datos hardcodd
-//     const name: String = "Pepe";
-//     const afinidad: number = 90;
-//     const web: String = "https://react.dev/";
-//     publicarMdServer(name, afinidad, web)
-// }
-export async function publicarProyecto() {
+    // Actualizar el archivo .md en el repositorio de GitHub
+    let newMdContent = 
+`# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
+<p align="center">
+<a href="#">
+    <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
+</a>
+</p>\n\n\n***\n\n<br>\n\n`
+proyectosDB.sort((a,b)=> a.preferencia - b.preferencia).forEach((proyecto) => {
+    newMdContent += `\n\n>- ## ${proyecto.badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${proyecto.name}')].value&label=Afinidad&color=${proyecto.color}&style=flat&logo=${proyecto.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${proyecto.name}')].afinidad&color=${proyecto.color}&style=flat&label=%20&suffix=%25)`;
+    if(proyecto.frameworks){
+        proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);
+        proyecto.frameworks.forEach((framework) => {
+            newMdContent += `\n\n> ### ${framework.badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${framework.name}')].value&label=Afinidad&color=${framework.color}&style=flat&logo=${framework.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${framework.name}')].afinidad&color=${framework.color}&style=flat&label=%20&suffix=%25)`; 
+
+            if (framework.librerias) {
+                framework.librerias.sort((a,b)=>a.preferencia - b.preferencia).forEach((libreria) => {
+                    newMdContent += `\n> - #### ${libreria.badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${libreria.name}')].value&label=Afinidad&color=${libreria.color}&style=flat&logo=${libreria.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${libreria.name}')].afinidad&color=${libreria.color}&style=flat&label=%20&suffix=%25)`;
+                });}
+        
+        
+        
+        
+        
+        })
+
+    }
+    
+})
+// HAY QUE TERMINAR ESTO !!!!
+newMdContent += `- ## ${badge}\n\n![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].value&label=Afinidad&color=${color}&style=flat&logo=${name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].afinidad&color=${color}&style=flat&label=%20&suffix=%25)
+`;
+    const encodedMdContent = Buffer.from(newMdContent).toString("base64");
+    const filePath = 'data/techs.md'; // Especifica la ruta y name del archivo
+    fs.writeFile(filePath, encodedMdContent, 'base64', (err) => {
+        if (err) {
+            console.error('Error al escribir el archivo .md', err);
+        } else {
+            console.log('Archivo .md creado o sobrescrito con éxito en el servidor');
+        }
+    });
+}
+export async function publicarProyecto(){
+    // Parte datos hardcodd
+    const name: String = "Node.js";
+    // const afinidad: number = 80; -> No es necesario pq solo es para el .json
+    const badge: String = "[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)";
+    // const preferencia: number = 3 -> Ahora vamos a trabajar con esto
+    const color: string = "339933"
+    publicarMdServer(name,  badge, color)
+}
+export async function publicarProyectoB() {
     // Parte datos hardcodd
     const name: String = "Node.js";
     const afinidad: number = 80;
     const badge: String = "[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)";
     const preferencia: number = 3
+    const color: string = "339933"
     // PARTE GITHUB
-   publicarJsonYMd(name, afinidad, badge);
+   publicarJsonYMd(name, afinidad, badge, color);
     // PARTE SUBIR A LA BDD
   const nuevoProyecto = new LenguajesModel({
     name,
     afinidad,
     badge,
-    preferencia
+    preferencia,
+    color
   });
 
   try {

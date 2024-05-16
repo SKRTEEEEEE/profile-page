@@ -11,18 +11,21 @@ export interface ILenguaje extends Document {
   afinidad: number;
   badge: string;
   preferencia: number;
+  color: string;
   frameworks?: IFramework[];
 }
 export interface IFramework {
-  nombre: string;
+  name: string;
   preferencia: number;
   badge:string;
   afinidad: number;
+  color: string;
   librerias?: ILibreria[];
 }
 export interface ILibreria{
-  nombre: string,
+  name: string,
   preferencia: number;
   afinidad: number;
   badge: string;
+  color: string;
 }

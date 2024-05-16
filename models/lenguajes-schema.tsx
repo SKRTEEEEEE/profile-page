@@ -19,6 +19,10 @@ const LibreriaSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    color:{
+        type: String,
+        required: true,
+    },
 },
 {
     timestamps: true,
@@ -40,6 +44,10 @@ const FrameworkSchema = new mongoose.Schema({
     },
     preferencia:{
         type: Number,
+        required: true,
+    },
+    color:{
+        type: String,
         required: true,
     },
     librerias: [LibreriaSchema]
@@ -69,6 +77,10 @@ const LenguajesSchema = new mongoose.Schema(
         },
         preferencia:{
             type: Number,
+            required: true,
+        },
+        color:{
+            type: String,
             required: true,
         },
         frameworks: [FrameworkSchema]
