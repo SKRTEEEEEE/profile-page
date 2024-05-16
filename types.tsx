@@ -5,9 +5,24 @@ export interface TechLenguajeItem {
     desc: string;
   }
 
-export type Afinidad = 'maxima' | 'alta' | 'moderada' | 'baja' | 'minima';
+
 export interface ILenguaje extends Document {
   name: string;
-  afinidad: Afinidad;
-  web: string;
+  afinidad: number;
+  badge: string;
+  preferencia: number;
+  frameworks?: IFramework[];
+}
+export interface IFramework {
+  nombre: string;
+  preferencia: number;
+  badge:string;
+  afinidad: number;
+  librerias?: ILibreria[];
+}
+export interface ILibreria{
+  nombre: string,
+  preferencia: number;
+  afinidad: number;
+  badge: string;
 }

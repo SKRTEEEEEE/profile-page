@@ -53,21 +53,29 @@ Objeto (con nombre) que describen la categoría o tipo de la tecnología que con
 github.com/SKRTEEEEEE/markdowns/blob/profile-page/sys/techs-test.json
 
 ##### JS
+![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='Javascript')].value&label=Afinidad&color=$[@name=='Javascript'].color&style=flat)
 
-![JavaScript Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/profile-page/v01/data/techs.json&query=$[?(@.name=='Javascript')].afinidad&suffix=%25&label=Afinidad&color=blue&style=flat)
-![JavaScript Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='Javascript')].afinidad&suffix=%25&label=Afinidad&color=blue&style=flat)
-![Afinidad](https://img.shields.io/static/v1?label=Afinidad&message=|||||&color=blue&style=flat)
-![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/profile-page/v01/data/techs.json&query=$[?(@.name=='Javascript')].afinidad&label=Afinidad&colorA=blue&colorB=green&style=progress)
-![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/profile-page/v01/data/techs.json&query=$[?(@.name=='Javascript')].afinidad&label=Afinidad&colorA=blue&colorB=green&style=progress)
+
+![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='Typescript')].afinidad&label=Afinidad%20$[?(@.name=='Typescript')].afinidad&color=red&style=flat)
+
+![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='Typescript')]&label=$[0].value&color=$[0].color&style=flat)
+
+
 ![Progreso](https://progress-bar.dev/75/?title=Progreso&width=200&color=green)
 
 ## Typescript
-![Typescript Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='Typescript')].afinidad&suffix=%25&label=Afinidad&color=blue&style=flat)
+![Typescript Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='Javascript')].afinidad&suffix=%25&label=Afinidad%20|%20$[0].value&color=blue&style=flat)
+
+![Typescript Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='Javascript')].afinidad&suffix=%25&label=Afinidad%20|%20$[0].value&color=$[0].color&style=flat)
+
+![Pepe](https://img.shields.io/badge/Afinidad-megusta_|_maxima-red&suffix=%25)
 
 
 
 
-![Afinidad afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='Javascript')].afinidad&suffix=%25&label=Afinidad&color=blue&style=flat)
+
+
+![Afinidad afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='Javascript')].afinidad&label=Afinidad&color=blue&style=flat)
 
 
 

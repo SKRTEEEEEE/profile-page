@@ -1,6 +1,54 @@
 
 import { ILenguaje } from "@/types";
 import mongoose from "mongoose";
+// Define el esquema para una librería
+const LibreriaSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    afinidad: {
+        type: Number,
+        required: true,
+    },
+    badge:{
+        type: String,
+        required: true,
+    },
+    preferencia:{
+        type: Number,
+        required: true,
+    },
+},
+{
+    timestamps: true,
+});
+
+// Define el esquema para un framework, que incluye una lista de librerías
+const FrameworkSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    afinidad: {
+        type: Number,
+        required: true,
+    },
+    badge:{
+        type: String,
+        required: true,
+    },
+    preferencia:{
+        type: Number,
+        required: true,
+    },
+    librerias: [LibreriaSchema]
+},
+{
+    timestamps: true,
+}
+);
+
 
 
 
@@ -12,14 +60,18 @@ const LenguajesSchema = new mongoose.Schema(
             required: true,
         },
         afinidad: {
-            type: String,
+            type: Number,
             required: true,
-            enum: ['maxima', 'alta', 'moderada', 'baja', 'minima'],
         },
-        web:{
+        badge:{
             type: String,
             required: true,
-        }
+        },
+        preferencia:{
+            type: Number,
+            required: true,
+        },
+        frameworks: [FrameworkSchema]
     },
     {
         timestamps: true,
