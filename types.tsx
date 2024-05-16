@@ -1,10 +1,9 @@
 export interface TechLenguajeItem {
-    title: string;
-    icon: React.ReactElement;
-    version: string;
-    desc: string;
-  }
-
+  title: string;
+  icon: React.ReactElement;
+  version: string;
+  desc: string;
+}
 
 export interface ILenguaje extends Document {
   name: string;
@@ -12,6 +11,7 @@ export interface ILenguaje extends Document {
   badge: string;
   preferencia: number;
   color: string;
+  experiencia: number;
   frameworks?: IFramework[];
 }
 export interface IFramework {
@@ -20,6 +20,7 @@ export interface IFramework {
   badge:string;
   afinidad: number;
   color: string;
+  experiencia: number;
   librerias?: ILibreria[];
 }
 export interface ILibreria{
@@ -28,4 +29,5 @@ export interface ILibreria{
   afinidad: number;
   badge: string;
   color: string;
+  experiencia: number;
 }

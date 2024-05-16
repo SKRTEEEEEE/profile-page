@@ -23,6 +23,10 @@ const LibreriaSchema = new mongoose.Schema<ILibreria>({
         type: String,
         required: true,
     },
+    experiencia:{
+        type: Number,
+        required: true,
+    }
 },
 {
     timestamps: true,
@@ -48,6 +52,10 @@ const FrameworkSchema = new mongoose.Schema<IFramework>({
     },
     color:{
         type: String,
+        required: true,
+    },
+    experiencia:{
+        type: Number,
         required: true,
     },
     librerias: [LibreriaSchema]
@@ -81,6 +89,10 @@ const LenguajesSchema = new mongoose.Schema<ILenguaje>(
         },
         color:{
             type: String,
+            required: true,
+        },
+        experiencia:{
+            type: Number,
             required: true,
         },
         frameworks: [FrameworkSchema]

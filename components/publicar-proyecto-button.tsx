@@ -2,14 +2,14 @@
 
 // import { publicarLibAFw } from "@/actions";
 
-import { publicarFwATech } from "@/actions";
+// import { publicarFwATech } from "@/actions";
 
-// import { publicarProyecto } from "@/actions";
+import { publicarProyecto } from "@/actions";
 
 const PublicarProyectoButton = () => {
     const handleClick = async () => {
-        // await publicarProyecto();
-        await publicarFwATech();
+        await publicarProyecto();
+        // await publicarFwATech();
         // await publicarLibAFw()
         alert("Proyecto publicado correctamente");
         // Lógica adicional después de llamar al Server Action

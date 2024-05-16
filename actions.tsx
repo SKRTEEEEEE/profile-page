@@ -1,9 +1,11 @@
 "use server"
 
-import fs from "fs";
+// import fs from "fs";
 import { LenguajesModel } from "./models/lenguajes-schema";
 import { Octokit } from "@octokit/rest";
-import {  IFramework, ILenguaje } from "./types";
+import {  IFramework, ILenguaje, ILibreria } from "./types";
+import { flattenProyectos, getColorByRange } from "./utils/badges";
+//Conexión github
 const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN,
 });
@@ -12,75 +14,19 @@ const owner = "SKRTEEEEEE";
 const repo = "markdowns";
 
 const path = { md: "sys/techs-test.md", json: "sys/techs-test.json" };
-const prefijo = { proyecto: "\n\n>- ## ", framework: "\n\n> ### ", lenguaje: "\n> - #### "}
-
-interface ColorAndValue {
-    color: string;
-    value: string;
-}
-
-//El color ya no se obtendrá de aquí sino que de la bdd, ya que depende del lenguaje al que pertenece el badge. Esto lo guardamos para un futuro en una posible card, etc..
-function getColorByRange(numValue:number):ColorAndValue{
-    let color: string;
-    let value: string;
-    if (numValue >= 80) {
-        color="darkgreen";value="Máxima" // darkgreen para valores >= 80
-    } else if (numValue >= 60) {
-        color = "brightgreen";
-        value = "Alta"; // brightgreen para valores >= 60 y < 80
-    } else if (numValue >= 40) {
-        color = "blue";
-        value = "Moderada"; // "moderada" para valores >= 40 y < 60
-    } else if (numValue >= 20) {
-        color = "yellow";
-        value = "Baja"; // "baja" para valores >= 20 y < 40
-    } else {
-        color = "red";
-        value = "Mínima"; // "minima" para valores < 20
-    }
-    return { color, value };
-}
-
 //Trabajaremos con la rama main(AL FINAL) para no tener que estar haciendo "git pulls al main"
 const ref = "profile-page";
-const flattenProyectos = (proyectos: ILenguaje[]) => {
-    let flattenedArray: { name: string; afinidad: number; value: string }[] = [];
 
-    proyectos.forEach((proyecto) => {
-        flattenedArray.push({
-            name: proyecto.name,
-            afinidad: proyecto.afinidad,
-            value: getColorByRange(proyecto.afinidad).value
-        });
 
-        proyecto.frameworks?.forEach((framework) => {
-            flattenedArray.push({
-                name: framework.name,
-                afinidad: framework.afinidad,
-                value: getColorByRange(framework.afinidad).value
-            });
-
-            framework.librerias?.forEach((libreria) => {
-                flattenedArray.push({
-                    name: libreria.name,
-                    afinidad: libreria.afinidad,
-                    value: getColorByRange(libreria.afinidad).value
-                });
-            });
-        });
-    });
-
-    return flattenedArray;
-};
-
+// const prefijo = { proyecto: "\n\n>- ## ", framework: "\n\n> ### ", lenguaje: "\n> - #### "}
 
 // TEST para el CREATE triple
-async function publicarJsonYMd(name: String, afinidad: number, badge: String, color: String){
+async function publicarJsonYMd(name: String, afinidad: number, badge: String, color: String, experiencia: number){
     // Obtener todos los proyectos de la base de datos
     const proyectosDB: ILenguaje[] = await LenguajesModel.find();
 
     // PARTE .JSON (GITHUB)
-    // HAY QUE HACER QUE GUARDE LOS FRAMEWORKS Y LIBRERIAS TMB
+
     // Obtener el contenido del archivo .json existente en el repositorio de GitHub
     const jsonResponse = await octokit.repos.getContent({
         owner,
@@ -88,7 +34,6 @@ async function publicarJsonYMd(name: String, afinidad: number, badge: String, co
         path: path.json,
         ref,
     });
-
     let jsonSha;
     if (Array.isArray(jsonResponse.data)) {
         const jsonFile = jsonResponse.data.find((item) => item.name === "techs-test.json");
@@ -105,7 +50,7 @@ async function publicarJsonYMd(name: String, afinidad: number, badge: String, co
     // Actualizar el archivo .json en el repositorio de GitHub (Solo para los badges)
     const newJsonData = [...flattenProyectos(proyectosDB),
         //Nueva info
-        { name, afinidad, value: getColorByRange(afinidad).value }];
+        { name, afinidad, value: getColorByRange(afinidad).value, experiencia, valueexp: getColorByRange(experiencia).value }];
     const encodedJsonContent = Buffer.from(JSON.stringify(newJsonData, null, 2)).toString("base64");
     await octokit.repos.createOrUpdateFileContents({
         owner,
@@ -126,7 +71,6 @@ async function publicarJsonYMd(name: String, afinidad: number, badge: String, co
         path: path.md,
         ref,
     });
-
     let mdSha;
     if (Array.isArray(mdResponse.data)) {
         const mdFile = mdResponse.data.find((item) => item.name === "techs-test.md");
@@ -139,7 +83,11 @@ async function publicarJsonYMd(name: String, afinidad: number, badge: String, co
     } else {
         mdSha = mdResponse.data.sha;
     }
-
+    function createBadgeTech(tech: ILenguaje|IFramework|ILibreria){
+        return(
+            `${tech.badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${tech.name}')].value&label=Afinidad&color=${tech.color}&style=flat&logo=${tech.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${tech.name}')].afinidad&color=${tech.color}&style=flat&label=%20&suffix=%25)\n![Experiencia](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${tech.name}')].valueexp&label=Experiencia&color=${tech.color}&style=flat&logo=${tech.name})![Experiencia %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${tech.name}')].experiencia&color=${tech.color}&style=flat&label=%20&suffix=%25)`
+        )
+    }
     // Actualizar el archivo .md en el repositorio de GitHub
     let newMdContent = 
 `# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
@@ -148,37 +96,36 @@ async function publicarJsonYMd(name: String, afinidad: number, badge: String, co
     <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
 </a>
 </p>\n\n\n***\n<br>\n\n`
-//Nuevo lenguaje
-newMdContent += `>- ## ${badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].value&label=Afinidad&color=${color}&style=flat&logo=${name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].afinidad&color=${color}&style=flat&label=%20&suffix=%25)\n>\n>![Static Badge](https://img.shields.io/badge/%C2%A1_novedad_%F0%9F%91%8D_!-NEW_%F0%9F%93%A5_%F0%9F%97%92%EF%B8%8F-blue?style=social)
+//Nuevo lenguaje 
+newMdContent += `>- ## ${badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].value&label=Afinidad&color=${color}&style=flat&logo=${name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].afinidad&color=${color}&style=flat&label=%20&suffix=%25)\n![Experiencia](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].valueexp&label=Experiencia&color=${color}&style=flat&logo=${name})![Experiencia %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].experiencia&color=${color}&style=flat&label=%20&suffix=%25)\n>\n>![New Badge](https://img.shields.io/badge/%C2%A1_novedad_%F0%9F%91%8D_!-NEW_%F0%9F%93%A5_%F0%9F%97%92%EF%B8%8F-blue?style=social)
 \n\n`;
 proyectosDB.sort((a,b)=> a.preferencia - b.preferencia).forEach((proyecto) => {
-    newMdContent += `\n\n>- ## ${proyecto.badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${proyecto.name}')].value&label=Afinidad&color=${proyecto.color}&style=flat&logo=${proyecto.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${proyecto.name}')].afinidad&color=${proyecto.color}&style=flat&label=%20&suffix=%25)`;
+    newMdContent += `\n\n>- ## ${createBadgeTech(proyecto)}`
     if(proyecto.frameworks){
         proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);
         proyecto.frameworks.forEach((framework) => {
-            newMdContent += `\n\n> ### ${framework.badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${framework.name}')].value&label=Afinidad&color=${framework.color}&style=flat&logo=${framework.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${framework.name}')].afinidad&color=${framework.color}&style=flat&label=%20&suffix=%25)`; 
+            newMdContent += `\n\n> ### ${createBadgeTech(framework)}`; 
 
             if (framework.librerias) {
                 framework.librerias.sort((a,b)=>a.preferencia - b.preferencia).forEach((libreria) => {
-                    newMdContent += `\n> - #### ${libreria.badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${libreria.name}')].value&label=Afinidad&color=${libreria.color}&style=flat&logo=${libreria.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${libreria.name}')].afinidad&color=${libreria.color}&style=flat&label=%20&suffix=%25)`;
+                    newMdContent += `\n> - #### ${createBadgeTech(libreria)}`;
                 });}
         })
     }   
 })
 
 
-    const encodedMdContent = Buffer.from(newMdContent).toString("base64");
-    await octokit.repos.createOrUpdateFileContents({
-        owner,
-        repo,
-        path: path.md,
-        message: "Actualizar archivo .md",
-        content: encodedMdContent,
-        sha: mdSha,
-        branch: ref,
-    })
+const encodedMdContent = Buffer.from(newMdContent).toString("base64");
+await octokit.repos.createOrUpdateFileContents({
+    owner,
+    repo,
+    path: path.md,
+    message: "Actualizar archivo .md",
+    content: encodedMdContent,
+    sha: mdSha,
+    branch: ref,
+})
 }
-
 
 
 //TEST para el archivo y la estructura MD
@@ -307,6 +254,7 @@ proyectosDB.sort((a,b)=> a.preferencia - b.preferencia).forEach((proyecto) => {
 //     const color: string = "339933"
 //     publicarMdServer(name,  badge, color)
 // }
+
 export async function publicarProyecto() {
     // Parte datos hardcodd
     const name: String = "Node.js";
@@ -314,15 +262,17 @@ export async function publicarProyecto() {
     const badge: String = "[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)";
     const preferencia: number = 3
     const color: string = "339933"
+    const experiencia: number = 70;
     // PARTE GITHUB
-   publicarJsonYMd(name, afinidad, badge, color);
+   publicarJsonYMd(name, afinidad, badge, color,experiencia);
     // PARTE SUBIR A LA BDD
   const nuevoProyecto = new LenguajesModel({
     name,
     afinidad,
     badge,
     preferencia,
-    color
+    color,
+    experiencia
   });
 
   try {
@@ -334,23 +284,24 @@ export async function publicarProyecto() {
 
   console.log("Archivos actualizados en el repositorio de GitHub");
 }
-
 export async function publicarFwATech(){
 const name = "Express";
-const afinidad = 100;
+const afinidad = 70;
 const badge = "[![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)";
 const preferencia = 2;
 const color = "000000"
+const experiencia: number = 60;
 try{
     const lenguaje = await LenguajesModel.findOne({ name: 'Node.js' });
     if (lenguaje){
-        publicarJsonYMd(name, afinidad, badge, color);
+        publicarJsonYMd(name, afinidad, badge, color, experiencia);
         const nuevoFramework = {
             name,
             afinidad,
             badge,
             preferencia,
-            color
+            color,
+            experiencia
         }
         lenguaje.frameworks.push(nuevoFramework)
         await lenguaje.save();
@@ -368,18 +319,20 @@ const afinidad = 65;
 const badge = "[![NextUI Badge](https://img.shields.io/badge/NextUI-7928CA.svg?style=for-the-badge&logo=nextui&logoColor=white)](https://nextui.org/)";
 const preferencia = 1;
 const color = "7928CA"
+const experiencia: number = 70;
 try{
     const lenguaje = await LenguajesModel.findOne({ name: "Node.js" });
     if (lenguaje){
         const framework = lenguaje.frameworks.find((framework:IFramework) => framework.name === "Next.js");
         if(framework){
-            publicarJsonYMd(name, afinidad, badge, color);
+            publicarJsonYMd(name, afinidad, badge, color, experiencia);
             const nuevaLibreria = {
                 name,
                 afinidad,
                 badge,
                 preferencia,
-                color
+                color,
+                experiencia
             }
             framework.librerias.push(nuevaLibreria)
             await lenguaje.save();
