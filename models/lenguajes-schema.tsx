@@ -104,4 +104,5 @@ const LenguajesSchema = new mongoose.Schema<ILenguaje>(
 export const LenguajesModel =
   mongoose.models.Lenguajes || mongoose.model<ILenguaje>('Lenguajes', LenguajesSchema);
 
+
 // module.exports = ArticleModel;
