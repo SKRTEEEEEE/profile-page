@@ -221,5 +221,33 @@ try{
     console.error("Error al agregar la libreria: ", error)
 }
 }
+export async function testPeticionRepos(){
+    const {data: repos} = await octokit.repos.listForUser({
+        username: owner,
+        per_page: 100,
+    })
+    // console.log("repositorios: ",repos)
+    const reposDetails = await Promise.all(repos.map(async (repo) => {
+        const { data: repoDetails } = await octokit.repos.get({
+          owner,
+          repo: repo.name
+        });
+  
+        const { data: languages } = await octokit.repos.listLanguages({
+          owner,
+          repo: repo.name
+        });
+  
+        return {
+          name: repo.name,
+          size: repoDetails.size, // El tamaño está en KB
+          languages: Object.keys(languages),
+          topics: repoDetails.topics,
+          html_url: repoDetails.html_url, // URL del repositorio
+            description: repoDetails.description // Descripción del repositorio
+        };
+      }));
+      console.log("reposDetails: ", reposDetails);
+}
 
 

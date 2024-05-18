@@ -1,5 +1,7 @@
 "use client"
 
+import { testPeticionRepos } from "@/actions";
+
 // import { publicarLibAFw } from "@/actions";
 
 // import { publicarFwATech } from "@/actions";
@@ -11,7 +13,8 @@ const PublicarProyectoButton = () => {
         // await publicarProyecto();
         // await publicarFwATech();
         // await publicarLibAFw()
-        alert("Proyecto publicado correctamente");
+        await testPeticionRepos();
+        alert("Petición realizada correctamente");
         // Lógica adicional después de llamar al Server Action
       };
     return (
