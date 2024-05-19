@@ -1,4 +1,4 @@
-import { FrameworkModel, LenguajesModel } from "@/models/lenguajes-schema";
+import { LenguajesModel } from "@/models/lenguajes-schema";
 import { Web3ProjectModel } from "@/models/web3_project-schema";
 import { connectToDB } from "@/utils/db-connect";
 
