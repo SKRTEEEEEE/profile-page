@@ -3,6 +3,8 @@
 ### Remember 05.2024 (Actual)
 
 - [ ] Configurar "Switch" para en el Formualrio-techs, en el name (titulo) poder marcar cuando nuestra tech no tiene logo
+- [ ] Crear boton actualizar ListOfIcons
+    - [ ] Update createListOfIcons fetch from online page.
 
 - [ ] Mejorar/crear botones projectDyn & projects pages
     - [x] Para ir a la pagina web del proyecto

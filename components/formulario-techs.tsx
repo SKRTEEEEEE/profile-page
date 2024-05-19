@@ -37,9 +37,17 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
       });
     
     // console.log("fw: ", techBadges)
-    const [selectedCat, setSelectedCat] = useState("lenguaje");
-    const techMessage = `Selecciona tu ${selectedCat}`
-    // const avalibleTechs = createListOfIcons();
+    const [selectedCat, setSelectedCat] = useState<string>("lenguaje");
+    const [inputValue, setInputValue] = useState<string>('');
+
+  const handleCopyClick = () => {
+    setInputValue(list.filterText);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+    const techMessage = `Busca un(a) ${selectedCat} con logo`
     return(
         <form onSubmit={async (ev) => {
             
@@ -138,10 +146,10 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
                     className="max-w-xl" size="lg" labelPlacement="outside"
                 >
                     {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
-                </Autocomplete>
-             <Input isRequired name="name" type="string" label="Tecnología" description="Nombre que se pueda usar como logo en los badges de shields.io" size="lg" /> */}
+                </Autocomplete>*/}
+             <Input isRequired name="name" type="string" label="Tecnología" description="Nombre que se pueda usar como logo en los badges de shields.io" size="lg" value={inputValue} onChange={handleInputChange}/> <Button onClick={handleCopyClick}>Copiar</Button>
             {(selectedCat === "framework" || selectedCat == "libreria") &&
-                //<Input isRequired name="lenguajeTo" type="string" label="Lenguaje perteneciente" description="Lenguaje al que pertenece este Framework"/>
+
                 <Autocomplete
                     isRequired
                     variant="bordered"
@@ -156,7 +164,7 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
                 </Autocomplete>
                 }
             {(selectedCat === "libreria") && 
-            //<Input isRequired name="frameworkTo" type="string" label="Framework perteneciente" description="Framework al que pertenece este Librería" />
+
             <Autocomplete
                     isRequired
                     variant="bordered"
