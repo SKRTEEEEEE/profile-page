@@ -12,6 +12,10 @@
 - [x] Mejorar Frontend projects page
 - [ ] Mejorar Frontend projectDyn page
     - [ ] Objetivos a de ocupar menos visualmente, sobretodo en xl
+
+#### - [ ] Configurar el analytics de Vercel!!!
+
+
 ### Remember meses antiguos
 ## Versions
 ###  v02

@@ -3,19 +3,22 @@
 import { publicarFwATech, publicarLibAFw, publicarProyecto } from "@/actions";
 import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
 import { IFrameworkForm, ILenguajeForm, ILibreriaForm } from "@/types";
+// import { createListOfIcons } from "@/utils/scripts/createListOfIcons";
 import {  Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slider } from "@nextui-org/react";
 import { useState } from "react";
 
 interface FormularioTechsProps {
     dispoLeng: ILenguajeDispo[];
     dispoFw: IFrameworkDispo[];
+    techBadges: {name: string}[];
 }
 
 
-const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) => {
+const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw, techBadges}) => {
     
-    console.log("fw: ", dispoFw)
+    console.log("fw: ", techBadges)
     const [selectedCat, setSelectedCat] = useState("lenguaje");
+    // const avalibleTechs = createListOfIcons();
     return(
         <form onSubmit={async (ev) => {
             
@@ -87,7 +90,19 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
                 <Radio value="libreria">Librería</Radio>
             </RadioGroup>
 
-            <Input isRequired name="name" type="string" label="Tecnología" description="Nombre que se pueda usar como logo en los badges de shields.io" size="lg" />
+            <Autocomplete
+                    isRequired
+                    variant="bordered"
+                    defaultItems={techBadges}
+                    name="name"
+                    label="Tecnología"
+                    placeholder="Nombre de la tecnología"
+                    description="Tecnologías con logo disponible en shields.io"
+                    className="max-w-xs" size="lg" labelPlacement="outside"
+                >
+                    {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
+                </Autocomplete>
+            {/* <Input isRequired name="name" type="string" label="Tecnología" description="Nombre que se pueda usar como logo en los badges de shields.io" size="lg" /> */}
             {(selectedCat === "framework" || selectedCat == "libreria") &&
                 //<Input isRequired name="lenguajeTo" type="string" label="Lenguaje perteneciente" description="Lenguaje al que pertenece este Framework"/>
                 <Autocomplete
