@@ -1,7 +1,7 @@
 
 import FormularioTechs from "@/components/formulario-techs";
 import {  fetchLenguajes } from "@/data/fetch";
-import { createListOfIcons } from "@/utils/scripts/createListOfIcons";
+// import { createListOfIcons } from "@/utils/scripts/createListOfIcons";
 
 export interface ILenguajeDispo {
     name: string;
@@ -15,7 +15,7 @@ export interface IFrameworkDispo {
 
 const FormInputTest: React.FC = async() => {
 
-    const techBadges = createListOfIcons()
+    // const techBadges = createListOfIcons()
 
     const lenguajes = await fetchLenguajes()
     const dispoLeng = lenguajes.map((lenguaje: ILenguajeDispo) => ({ name: lenguaje.name }));
@@ -25,11 +25,11 @@ const FormInputTest: React.FC = async() => {
         }
         return [];
       });
-    console.log(techBadges);
+    // console.log(techBadges);
     
     return (
         <div className="py-14 my-28 h-dvh flex flex-col align-center items-center justify-center">
-            <FormularioTechs dispoLeng={dispoLeng} dispoFw={dispoFw} techBadges={techBadges}/>
+            <FormularioTechs dispoLeng={dispoLeng} dispoFw={dispoFw} />
             
         </div>
     )

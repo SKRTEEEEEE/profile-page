@@ -2,22 +2,43 @@
 
 import { publicarFwATech, publicarLibAFw, publicarProyecto } from "@/actions";
 import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
+import techBadges from "@/data/slugs";
 import { IFrameworkForm, ILenguajeForm, ILibreriaForm } from "@/types";
 // import { createListOfIcons } from "@/utils/scripts/createListOfIcons";
 import {  Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slider } from "@nextui-org/react";
 import { useState } from "react";
+import { useAsyncList } from "@react-stately/data";
 
 interface FormularioTechsProps {
     dispoLeng: ILenguajeDispo[];
     dispoFw: IFrameworkDispo[];
-    techBadges: {name: string}[];
+    // techBadges: {name: string}[];
 }
+type TechBadge = {
+    name: string;
+  };
 
 
-const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw, techBadges}) => {
+const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) => {
+    let list = useAsyncList<TechBadge>({
+        async load({ signal, filterText }) {
+          // Filtra la lista local según el texto ingresado
+          let searchText = filterText ? filterText.toLowerCase() : "";
+
+      // Filtra la lista local según el texto ingresado
+      let filteredItems = techBadges.filter(item =>
+        item.name.toLowerCase().includes(searchText)
+      );
     
-    console.log("fw: ", techBadges)
+          return {
+            items: filteredItems,
+          };
+        },
+      });
+    
+    // console.log("fw: ", techBadges)
     const [selectedCat, setSelectedCat] = useState("lenguaje");
+    const techMessage = `Selecciona tu ${selectedCat}`
     // const avalibleTechs = createListOfIcons();
     return(
         <form onSubmit={async (ev) => {
@@ -91,6 +112,22 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw, te
             </RadioGroup>
 
             <Autocomplete
+      className="max-w-xs"
+      inputValue={list.filterText}
+      isLoading={list.isLoading}
+      items={list.items}
+      label={techMessage}
+      placeholder="Escribe para buscar..."
+      variant="bordered"
+      onInputChange={list.setFilterText}
+    >
+      {(item) => (
+        <AutocompleteItem key={item.name} className="capitalize">
+          {item.name}
+        </AutocompleteItem>
+      )}
+    </Autocomplete>
+            {/*<Autocomplete
                     isRequired
                     variant="bordered"
                     defaultItems={techBadges}
@@ -98,11 +135,11 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw, te
                     label="Tecnología"
                     placeholder="Nombre de la tecnología"
                     description="Tecnologías con logo disponible en shields.io"
-                    className="max-w-xs" size="lg" labelPlacement="outside"
+                    className="max-w-xl" size="lg" labelPlacement="outside"
                 >
                     {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
                 </Autocomplete>
-            {/* <Input isRequired name="name" type="string" label="Tecnología" description="Nombre que se pueda usar como logo en los badges de shields.io" size="lg" /> */}
+             <Input isRequired name="name" type="string" label="Tecnología" description="Nombre que se pueda usar como logo en los badges de shields.io" size="lg" /> */}
             {(selectedCat === "framework" || selectedCat == "libreria") &&
                 //<Input isRequired name="lenguajeTo" type="string" label="Lenguaje perteneciente" description="Lenguaje al que pertenece este Framework"/>
                 <Autocomplete
@@ -133,7 +170,7 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw, te
                     {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
                 </Autocomplete>
             }
-            <Input isRequired name="preferencia" type="number" label="Preferencia" description="Orden en su categoría" size="md" />
+            <Input isRequired name="preferencia" type="number" label="Preferencia" description="Orden en categoría" size="sm" className="max-w-[120px]"/>
             <Input isRequired name="badge" type="string" label="Badge MD" description="Badge para usar en markdown" size="md" />
             <Input isRequired name="color" type="color-hex" label="Color" description="Color que se pueda usar como logo en los badges de shields.io" size="sm" variant="underlined" labelPlacement="outside-left" />
             <Slider

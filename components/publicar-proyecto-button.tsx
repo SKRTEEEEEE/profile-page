@@ -1,5 +1,7 @@
 "use client"
 
+import {createListOfIcons} from "@/utils/scripts/createListOfIcons"
+
 // import { testPeticionRepos } from "@/actions";
 
 // import { publicarLibAFw } from "@/actions";
@@ -14,7 +16,7 @@ const PublicarProyectoButton = () => {
         // await publicarFwATech();
         // await publicarLibAFw()
         // await testPeticionRepos();
-        // createListOfIcons();
+        createListOfIcons();
         alert("Petición realizada correctamente");
         // Lógica adicional después de llamar al Server Action
       };
