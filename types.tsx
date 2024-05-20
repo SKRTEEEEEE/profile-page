@@ -59,3 +59,7 @@ export interface ILibreriaForm {
   lenguajeTo: string;
   frameworkTo: string;
 }
+
+export interface IJsonTech {
+  name: String; afinidad: number; value: string; experiencia: number; valueexp: string;
+}

@@ -38,6 +38,32 @@
 
 ## Random things
 
+### Badges techs "label":
+
+#### Afinidad: 
+%F0%9F%92%97Afinidad
+#### Experiencia:
+%F0%9F%8F%85Experiencia
+#### Uso en Github:
+%F0%9F%98%BBUso%20en%20github
+##### Words uso Github por %
+0 - Sin uso -> 0 huecos
+0 - 0.05%: Ínfimo
+0.05 - 0.2%: Minúsculo 
+0.2 - 0.5%: Bajo
+0.5 - 1.0%: Reducido 
+1.0 - 1.5%: Menor 
+1.5 - 2.5%: Moderado
+2.5 - 4.0%: Notable 
+4.0 - 6.0%: Alto 
+6.0 - 9.0%: Elevado
+9.0 - 14.0%: Superior
+>14.0%: Dominante
+
+### Redondas para marcar la cantidad
+Ejemplo -> %F0%9F%9F%A3%F0%9F%9F%A3%F0%9F%9F%A3%F0%9F%9F%A3%E2%9A%AA
+
+
 ### Lista bdd techs:
 
 #### name

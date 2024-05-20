@@ -1,4 +1,4 @@
-import { ILenguaje } from "@/types";
+import { IJsonTech, ILenguaje } from "@/types";
 
 interface ColorAndValue {
     color: string;
@@ -28,7 +28,7 @@ export function getColorByRange(numValue:number):ColorAndValue{
 }
 
 export const flattenProyectos = (proyectos: ILenguaje[]) => {
-    let flattenedArray: { name: string; afinidad: number; value: string; experiencia: number; valueexp: string;  }[] = [];
+    let flattenedArray: IJsonTech[] = [];
 
     proyectos.forEach((proyecto) => {
         flattenedArray.push({
