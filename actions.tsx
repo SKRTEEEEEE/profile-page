@@ -6,6 +6,15 @@ import { Octokit } from "@octokit/rest";
 import {  IFramework, IFrameworkForm, ILenguaje, ILenguajeForm, ILibreria, ILibreriaForm } from "./types";
 import { flattenProyectos, getColorByRange } from "./utils/badges";
 
+interface RepoDetails {
+    name: string;
+    size: number;
+    topics: string[];
+    languages: string[];
+    html_url: string;
+    description: string | null;
+}
+
 //Conexión github
 const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN,
@@ -25,7 +34,7 @@ const ref = "profile-page";
 async function publicarJsonYMd(name: String, afinidad: number, badge: String, color: String, experiencia: number){
     // Obtener todos los proyectos de la base de datos
     const proyectosDB: ILenguaje[] = await LenguajesModel.find();
-
+    // A partir de aquí hay que añadir la parte de Uso en Github
     // PARTE .JSON (GITHUB)
 
     // Obtener el contenido del archivo .json existente en el repositorio de GitHub
@@ -126,6 +135,9 @@ await octokit.repos.createOrUpdateFileContents({
     sha: mdSha,
     branch: ref,
 })
+
+
+
 }
 
 export async function publicarProyecto({name , afinidad, badge, preferencia, color, experiencia}:ILenguajeForm) {
@@ -227,7 +239,8 @@ export async function testPeticionRepos(){
         per_page: 100,
     })
     // console.log("repositorios: ",repos)
-    const reposDetails = await Promise.all(repos.map(async (repo) => {
+    // Falta tipar reposDetails
+    const reposDetails: RepoDetails[] = await Promise.all(repos.map(async (repo) => {
         const { data: repoDetails } = await octokit.repos.get({
           owner,
           repo: repo.name
@@ -242,12 +255,43 @@ export async function testPeticionRepos(){
           name: repo.name,
           size: repoDetails.size, // El tamaño está en KB
           languages: Object.keys(languages),
-          topics: repoDetails.topics,
+          topics: repoDetails.topics|| [],
           html_url: repoDetails.html_url, // URL del repositorio
             description: repoDetails.description // Descripción del repositorio
         };
       }));
-      console.log("reposDetails: ", reposDetails);
+    const reposDetailsLength = reposDetails.length;
+      // Filtrar los repositorios que no tienen topics
+    const filteredReposDetails = reposDetails.filter(repo => repo.topics.length > 0);
+    const filteredReposLength = filteredReposDetails.length
+      // Paso 2: Calcular el peso total de todos los repositorios
+    const totalSize = filteredReposDetails.reduce((acc, repo) => acc + repo.size, 0);
+      
+    // Paso 3: Calcular el peso de cada lenguaje en función del tamaño del repositorio y el número de lenguajes en él
+    const languageWeights: { [key: string]: number } = {};
+    filteredReposDetails.forEach(repo => {
+        const weightPerLanguage = repo.size / repo.topics.length;
+        repo.topics.forEach(topic => {
+            if (languageWeights[topic]) {
+                languageWeights[topic] += weightPerLanguage;
+            } else {
+                languageWeights[topic] = weightPerLanguage;
+            }
+        });
+    });
+
+    // Paso 4: Calcular el porcentaje de uso de cada lenguaje
+    const languagePercentages: { [key: string]: number } = {};
+    for (const [language, weight] of Object.entries(languageWeights)) {
+        languagePercentages[language] = (weight / totalSize) * 100;
+    }
+    // console.log("reposDetails: ", reposDetails);
+    // console.log("filteredReposDetails: ", filteredReposDetails);
+    console.log("totalSize: ", totalSize);
+    console.log("languageWeights: ", languageWeights);
+    console.log("languagePercentages: ", languagePercentages);
+    console.log("filteredTechsLength/reposDetailsLength: ", filteredReposLength,"/",reposDetailsLength)
+    
 }
 
 

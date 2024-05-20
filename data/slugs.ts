@@ -1,7 +1,7 @@
 // Auto-generated file
 
 const techBadges: {name: string}[] = [
-  { name: "dotenv" },
+{ name: "dotenv" },
   { name: "dotnet" },
   { name: "e" },
   { name: "1001tracklists" },
