@@ -112,106 +112,6 @@ async function actualizarJson() {
     });
     console.log("Archivo Json actualizado")
 }
-// async function actualizarJson(name: string, afinidad: number, experiencia: number) {
-//     // Obtener todos los proyectos de la base de datos
-//     const proyectosDB: ILenguaje[] = await LenguajesModel.find();
-//     const techsTemp = flattenProyectos(proyectosDB).map(proyecto => ({
-//         name: proyecto.name,
-//         afinidad: proyecto.afinidad,
-//         experiencia: proyecto.experiencia
-//     }));
-
-//     // Obtener el contenido del archivo .json existente en el repositorio de GitHub
-//     const jsonResponse = await octokit.repos.getContent({
-//         owner,
-//         repo,
-//         path: path.json,
-//         ref,
-//     });
-//     let jsonSha;
-//     if (Array.isArray(jsonResponse.data)) {
-//         const jsonFile = jsonResponse.data.find((item) => item.name === "techs-test.json");
-//         if (jsonFile) {
-//             jsonSha = jsonFile.sha;
-//         } else {
-//             console.error("El archivo .json no se encuentra en el repositorio");
-//             return;
-//         }
-//     } else {
-//         jsonSha = jsonResponse.data.sha;
-//     }
-
-//     // Actualizar el archivo .json en el repositorio de GitHub
-//     const lenguajePorcentaje = await testPeticionRepos();
-
-//     const getGithubPercentage = (name: string) => {
-//         const replaceDashWithDot = (str: string) => str.replace(/-/g, '.');
-//         const usogithubString = lenguajePorcentaje.find(lenguaje => {
-//             const normalizedName = name.toLowerCase();
-//             const modifiedName = replaceDashWithDot(normalizedName);
-//             const searchedName = replaceDashWithDot(lenguaje.name.toLowerCase());
-//             return modifiedName === searchedName;
-//         })?.percentage.toFixed(2);
-//         const usogithub = usogithubString !== undefined ? parseFloat(usogithubString) : 0;
-
-//         return usogithub;
-//     };
-//     // const usogithub = getGithubPercentage(name);
-
-//     // Crear un nuevo objeto con la información del proyecto actualizado o nuevo
-//     const proyectoActualizado = {
-//         name,
-//         afinidad,
-
-//         experiencia,
-//     };
-
-//     // Verificar si ya existe un proyecto con el mismo nombre en la base de datos
-//     const existingProjectIndex = proyectosDB.findIndex(proyecto => {
-//         console.log("proyecto.name: ", proyecto.name);
-//         console.log("name: ", name);
-//         proyecto.name == name});
-//     //Aqui esta pasando algo
-//     console.log("existingProjectIndex: ", existingProjectIndex)
-//     // console.log("proyectoActualizado: ", proyectoActualizado);
-
-//     // Creo que esto no va bien
-//     if (existingProjectIndex !== -1) {
-//         // Si existe, actualizar el proyecto en la lista de proyectos
-//         techsTemp[existingProjectIndex] = proyectoActualizado;
-//         console.log("Si existe, actualizar proyecto: ", proyectoActualizado);
-//     } else {
-//         // Si no existe, agregar el nuevo proyecto a la lista de proyectos
-//         techsTemp.push(proyectoActualizado);
-//         console.log("Si no existe, agregar proyecto: ", proyectoActualizado);
-//     }
-//     console.log("techsTemp: ", techsTemp);
-//     // // Generar el nuevo contenido del archivo .json
-//     const newJsonData = techsTemp.map(proyecto => {
-//         const porcentajeGithub = getGithubPercentage(proyecto.name.toString());
-//         return { ...proyecto, value: getColorByRange(proyecto.afinidad).value, valueexp: getColorByRange(proyecto.experiencia).value, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value };
-
-//     })
-//     // const newJsonData = flattenProyectos(proyectosDB).map(proyecto => {
-//     //     const porcentajeGithub = getGithubPercentage(proyecto.name);
-//     //     return { ...proyecto, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value };
-//     // });
-
-//     // Codificar el nuevo contenido del archivo .json
-//     const encodedJsonContent = Buffer.from(JSON.stringify(newJsonData, null, 2)).toString("base64");
-
-//     // Actualizar el archivo .json en el repositorio de GitHub
-//     await octokit.repos.createOrUpdateFileContents({
-//         owner,
-//         repo,
-//         path: path.json,
-//         message: "Actualizar archivo .json",
-//         content: encodedJsonContent,
-//         sha: jsonSha,
-//         branch: ref,
-//     });
-// }
-
 async function actualizarMd(name: string, badge: String, color: String) {
     // Obtener todos los proyectos de la base de datos
     const proyectosDB: ILenguaje[] = await LenguajesModel.find();
@@ -277,10 +177,6 @@ async function actualizarMd(name: string, badge: String, color: String) {
     })
     console.log("Archivo .md actualizado correctamente")
 }
-// async function publicarJsonYMd(name: string, afinidad: number, badge: String, color: String, experiencia: number) {
-//     await actualizarJson();
-//     await actualizarMd(name, badge, color);
-// }
 async function testPeticionRepos() {
     const { data: repos } = await octokit.repos.listForUser({
         username: owner,
@@ -444,84 +340,47 @@ export async function publicarLibAFw({ name, afinidad, badge, preferencia, color
 type UpdateData = ILenguajeForm | IFrameworkForm | ILibreriaForm;
 export async function updateTech(updateData: UpdateData) {
     try {
-        
-        // let proyectoActualizado;
-        // if ('frameworkTo' in updateData) {
-        //     console.log(`Actualizando lenguaje perteneciente a: ${updateData.lenguajeTo}`);
-        //     const leng = await LenguajesModel.findOne({ name: updateData.lenguajeTo });
-        //     if (leng) {
-        //         const fw = leng.find((framework: IFramework) => framework.name === updateData.frameworkTo)
-        //         if(fw){
-        //             const libreriaIndex = fw.librerias.findIndex((libreria: ILibreriaForm) => libreria.name === updateData.name);
-        //             // const nuevaLibreria = {
-        //             //     name: updateData.name,
-        //             //     afinidad: updateData.afinidad,
-        //             //     badge: updateData.badge,
-        //             //     preferencia: updateData.preferencia,
-        //             //     color: updateData.color,
-        //             //     experiencia: updateData.experiencia
-        //             // }
-        //             fw.librerias[libreriaIndex] = {
-        //                 ...fw.librerias[libreriaIndex],
-        //                 afinidad: updateData.afinidad,
-        //                 badge: updateData.badge,
-        //                 preferencia: updateData.preferencia,
-        //                 color: updateData.color,
-        //                 experiencia: updateData.experiencia
-        //               };
+        let proyectoActualizado = null;
 
-        //               console.log("Librería modificada correctamente:", fw.librerias[libreriaIndex]);
-        //         }
-        //     }
-        // } else if ('lenguajeTo' in updateData) {
-        //     // Aqui entra
-        //     console.log(`Actualizando framework perteneciente a: ${updateData.lenguajeTo}`);
-        //     const leng = await LenguajesModel.findOne({ name: updateData.lenguajeTo });
-        //     if(leng){
-        //         const frameworkIndex = leng.frameworks.findIndex((framework: IFrameworkForm) => framework.name === updateData.name);
-        //         // const nuevoFramework = {
-        //         //     name: updateData.name,
-        //         //     afinidad: updateData.afinidad,
-        //         //     badge: updateData.badge,
-        //         //     preferencia: updateData.preferencia,
-        //         //     color: updateData.color,
-        //         //     experiencia: updateData.experiencia
-        //         // }
-        //         // leng.frameworks.push(nuevoFramework)
-        //         // await leng.save();
-        //         // console.log("Framework agregado correctamente:", nuevoFramework);
-        //         leng.frameworks[frameworkIndex] = {
-        //             ...leng.frameworks[frameworkIndex],
-        //             afinidad: updateData.afinidad,
-        //             badge: updateData.badge,
-        //             preferencia: updateData.preferencia,
-        //             color: updateData.color,
-        //             experiencia: updateData.experiencia
-        //           };
-        //           console.log("Framework modificado correctamente:", leng.frameworks[frameworkIndex]);
-        //           await leng.save();
-        //     }
-        // } else {
-        //     const proyectoActualizado = await LenguajesModel.findOneAndUpdate({ name: updateData.name }, updateData, {
-        //         new: true, // Para que devuelva el documento actualizado
-        //         runValidators: true // Para correr las validaciones definidas en el schema
-        //     }
-        //     );
-        //     if (!proyectoActualizado) {
-        //         console.log('No se encontró un proyecto con el nombre especificado. ', updateData.name);
-        //     } else {
-        //         console.log("Proyecto actualizado correctamente:", proyectoActualizado);
-        //     }
-        // }
-        // const proyectoActualizado = await LenguajesModel.findOneAndUpdate({ name: updateData.name }, updateData, {
-        //     new: true, // Para que devuelva el documento actualizado
-        //     runValidators: true // Para correr las validaciones definidas en el schema
-        // });
-        const proyectoActualizado = await LenguajesModel.findOneAndUpdate({ name: updateData.name }, updateData, {
-                    new: true, // Para que devuelva el documento actualizado
-                    runValidators: true // Para correr las validaciones definidas en el schema
+        if ('frameworkTo' in updateData) {
+            // Es una librería
+            const lenguaje = await LenguajesModel.findOne({ "frameworks.librerias.name": updateData.name });
+            if (!lenguaje) {
+                console.log('No se encontró una librería con el nombre especificado. ', updateData.name);
+                return;
+            }
+
+            const frameworkIndex = lenguaje.frameworks.findIndex((fw:IFramework) =>{ if(fw.librerias)fw.librerias.some((lib:ILibreria) => lib.name === updateData.name)});
+            const libreriaIndex = lenguaje.frameworks[frameworkIndex].librerias.findIndex((lib:ILibreria) => lib.name === updateData.name);
+
+            lenguaje.frameworks[frameworkIndex].librerias[libreriaIndex] = updateData;
+
+            proyectoActualizado = await lenguaje.save();
+        } else if ('lenguajeTo' in updateData) {
+            // Es un framework
+            const lenguaje = await LenguajesModel.findOne({ "frameworks.name": updateData.name });
+            if (!lenguaje) {
+                console.log('No se encontró un framework con el nombre especificado. ', updateData.name);
+                return;
+            }
+
+            const frameworkIndex = lenguaje.frameworks.findIndex((fw:IFramework) => fw.name === updateData.name);
+
+            lenguaje.frameworks[frameworkIndex] = updateData;
+
+            proyectoActualizado = await lenguaje.save();
+        } else {
+            // Es un lenguaje
+            proyectoActualizado = await LenguajesModel.findOneAndUpdate(
+                { name: updateData.name },
+                updateData,
+                {
+                    new: true,
+                    runValidators: true
                 }
-                );
+            );
+        }
+
         if (!proyectoActualizado) {
             console.log('No se encontró un proyecto con el nombre especificado. ', updateData.name);
         } else {
@@ -533,6 +392,7 @@ export async function updateTech(updateData: UpdateData) {
         console.error('Error actualizando el proyecto:', error);
     }
 }
+
 
 
 
