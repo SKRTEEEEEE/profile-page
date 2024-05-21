@@ -152,7 +152,7 @@ async function actualizarJson(name: string, afinidad: number, experiencia: numbe
         const usogithub = usogithubString !== undefined ? parseFloat(usogithubString) : 0;
 
         return usogithub;
-    }; 
+    };
     // const usogithub = getGithubPercentage(name);
 
     // Crear un nuevo objeto con la información del proyecto actualizado o nuevo
@@ -165,9 +165,11 @@ async function actualizarJson(name: string, afinidad: number, experiencia: numbe
 
     // Verificar si ya existe un proyecto con el mismo nombre en la base de datos
     const existingProjectIndex = proyectosDB.findIndex(proyecto => proyecto.name == name);
+    //Aqui esta pasando algo
     console.log("existingProjectIndex: ", existingProjectIndex)
     console.log("proyectoActualizado: ", proyectoActualizado);
-    
+
+    // Creo que esto no va bien
     if (existingProjectIndex !== -1) {
         // Si existe, actualizar el proyecto en la lista de proyectos
         techsTemp[existingProjectIndex] = proyectoActualizado;
@@ -175,12 +177,12 @@ async function actualizarJson(name: string, afinidad: number, experiencia: numbe
         // Si no existe, agregar el nuevo proyecto a la lista de proyectos
         techsTemp.push(proyectoActualizado);
     }
-    console.log("techsTemp: ", techsTemp); 
+    console.log("techsTemp: ", techsTemp);
     // // Generar el nuevo contenido del archivo .json
     const newJsonData = techsTemp.map(proyecto => {
         const porcentajeGithub = getGithubPercentage(proyecto.name.toString());
-        return { ...proyecto,value: getColorByRange(proyecto.afinidad).value, valueexp: getColorByRange(proyecto.experiencia).value, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value };
-    
+        return { ...proyecto, value: getColorByRange(proyecto.afinidad).value, valueexp: getColorByRange(proyecto.experiencia).value, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value };
+
     })
     // const newJsonData = flattenProyectos(proyectosDB).map(proyecto => {
     //     const porcentajeGithub = getGithubPercentage(proyecto.name);
@@ -339,9 +341,9 @@ async function testPeticionRepos() {
     // console.log("filteredReposDetails: ", filteredReposDetails);
     // console.log("totalSize: ", totalSize);
     // console.log("languageWeights: ", languageWeights);
-    console.log("languagePercentages: ", convertToLanguagePercentageArray(languagePercentages));
+    // console.log("languagePercentages: ", convertToLanguagePercentageArray(languagePercentages));
     // console.log("languagePercentages: ", languagePercentages);
-    console.log("filteredTechsLength/reposDetailsLength: ", filteredReposLength, "/", reposDetailsLength)
+    // console.log("filteredTechsLength/reposDetailsLength: ", filteredReposLength, "/", reposDetailsLength)
     return convertToLanguagePercentageArray(languagePercentages)
 
 }
@@ -420,37 +422,86 @@ export async function publicarLibAFw({ name, afinidad, badge, preferencia, color
     } catch (error) {
         console.error("Error al agregar la libreria: ", error)
     }
-}
+}<
 
 // Falta hacer el update en caso de que sea Fw o que sea Lib
 type UpdateData = ILenguajeForm | IFrameworkForm | ILibreriaForm;
-export async function updateTech(updateData:UpdateData){
+export async function updateTech(updateData: UpdateData) {
     try {
         await actualizarJson(updateData.name, updateData.afinidad, updateData.experiencia)
         // let proyectoActualizado;
-        // if ('lenguajeTo' in updateData) {
-        //     console.log(`Actualizando lenguaje: ${updateData.lenguajeTo}`);
-        //     const lenguaje = await LenguajesModel.findOne({ name: updateData.lenguajeTo });
-        //     if (lenguaje) {
+        if ('frameworkTo' in updateData) {
+            console.log(`Actualizando lenguaje perteneciente a: ${updateData.lenguajeTo}`);
+            const leng = await LenguajesModel.findOne({ name: updateData.lenguajeTo });
+            if (leng) {
+                const fw = leng.find((framework: IFramework) => framework.name === updateData.frameworkTo)
+                if(fw){
+                    const libreriaIndex = fw.librerias.findIndex((libreria: ILibreriaForm) => libreria.name === updateData.name);
+                    // const nuevaLibreria = {
+                    //     name: updateData.name,
+                    //     afinidad: updateData.afinidad,
+                    //     badge: updateData.badge,
+                    //     preferencia: updateData.preferencia,
+                    //     color: updateData.color,
+                    //     experiencia: updateData.experiencia
+                    // }
+                    fw.librerias[libreriaIndex] = {
+                        ...fw.librerias[libreriaIndex],
+                        afinidad: updateData.afinidad,
+                        badge: updateData.badge,
+                        preferencia: updateData.preferencia,
+                        color: updateData.color,
+                        experiencia: updateData.experiencia
+                      };
 
-        //     }
-            
-        //   } else if ('frameworkTo' in updateData) {
-        //     console.log(`Actualizando framework: ${updateData.frameworkTo}`);
-        //   }else {
-        //  proyectoActualizado = await LenguajesModel.findOneAndUpdate({ name: updateData.name }, updateData, {
+                      console.log("Librería modificada correctamente:", fw.librerias[libreriaIndex]);
+                }
+            }
+        } else if ('lenguajeTo' in updateData) {
+            // Aqui entra
+            console.log(`Actualizando framework perteneciente a: ${updateData.lenguajeTo}`);
+            const leng = await LenguajesModel.findOne({ name: updateData.lenguajeTo });
+            if(leng){
+                const frameworkIndex = leng.frameworks.findIndex((framework: IFrameworkForm) => framework.name === updateData.name);
+                // const nuevoFramework = {
+                //     name: updateData.name,
+                //     afinidad: updateData.afinidad,
+                //     badge: updateData.badge,
+                //     preferencia: updateData.preferencia,
+                //     color: updateData.color,
+                //     experiencia: updateData.experiencia
+                // }
+                // leng.frameworks.push(nuevoFramework)
+                // await leng.save();
+                // console.log("Framework agregado correctamente:", nuevoFramework);
+                leng.frameworks[frameworkIndex] = {
+                    ...leng.frameworks[frameworkIndex],
+                    afinidad: updateData.afinidad,
+                    badge: updateData.badge,
+                    preferencia: updateData.preferencia,
+                    color: updateData.color,
+                    experiencia: updateData.experiencia
+                  };
+                  console.log("Framework modificado correctamente:", leng.frameworks[frameworkIndex]);
+                  await leng.save();
+            }
+        } else {
+            const proyectoActualizado = await LenguajesModel.findOneAndUpdate({ name: updateData.name }, updateData, {
+                new: true, // Para que devuelva el documento actualizado
+                runValidators: true // Para correr las validaciones definidas en el schema
+            }
+            );
+            if (!proyectoActualizado) {
+                console.log('No se encontró un proyecto con el nombre especificado. ', updateData.name);
+            } else {
+                console.log("Proyecto actualizado correctamente:", proyectoActualizado);
+            }
+        }
+        // const proyectoActualizado = await LenguajesModel.findOneAndUpdate({ name: updateData.name }, updateData, {
         //     new: true, // Para que devuelva el documento actualizado
         //     runValidators: true // Para correr las validaciones definidas en el schema
-        // });}
-        const proyectoActualizado = await LenguajesModel.findOneAndUpdate({ name: updateData.name }, updateData, {
-            new: true, // Para que devuelva el documento actualizado
-            runValidators: true // Para correr las validaciones definidas en el schema
-        });
-        if (!proyectoActualizado) {
-            console.log('No se encontró un proyecto con el nombre especificado. ', updateData.name);
-        } else {
-            console.log("Proyecto actualizado correctamente:", proyectoActualizado);
-        }
+        // });
+        
     } catch (error) {
         console.error('Error actualizando el proyecto:', error);
     }
