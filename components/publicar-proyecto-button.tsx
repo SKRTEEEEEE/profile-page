@@ -2,7 +2,7 @@
 
 // import {createListOfIcons} from "@/utils/scripts/createListOfIcons"
 
-import { testPeticionRepos } from "@/actions";
+import { actualizarJsonServerTest, actualizarMdServerTest, testPeticionRepos } from "@/actions";
 
 // import { publicarLibAFw } from "@/actions";
 
@@ -12,11 +12,10 @@ import { testPeticionRepos } from "@/actions";
 
 const PublicarProyectoButton = () => {
     const handleClick = async () => {
-        // await publicarProyecto();
-        // await publicarFwATech();
-        // await publicarLibAFw()
-        await testPeticionRepos();
+        // await testPeticionRepos();
         // createListOfIcons();
+        await actualizarJsonServerTest();
+        // await actualizarMdServerTest();
         alert("Petición realizada correctamente");
         // Lógica adicional después de llamar al Server Action
       };

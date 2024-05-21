@@ -61,5 +61,5 @@ export interface ILibreriaForm {
 }
 
 export interface IJsonTech {
-  name: String; afinidad: number; value: string; experiencia: number; valueexp: string;
+  name: String; afinidad: number; value: string; experiencia: number; valueexp: string; usogithub?: number;
 }
