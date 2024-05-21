@@ -106,16 +106,16 @@ const FormularioUpdateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispo
                 default:
                     throw new Error("Categoría no reconocida");
             }
-            const transformedData: ILenguajeForm = {
-                            name: data.name as string,
-                            afinidad: parseInt(data.afinidad as string, 10),
-                            badge: data.badge as string,
-                            preferencia: parseInt(data.preferencia as string, 10),
-                            color: data.color as string,
-                            experiencia: parseFloat(data.experiencia as string),
-                            // frameworks: []  // As specified, no frameworks will be included
-                        };
-                        updateTech(transformedData);
+            // const transformedData: ILenguajeForm = {
+            //                 name: data.name as string,
+            //                 afinidad: parseInt(data.afinidad as string, 10),
+            //                 badge: data.badge as string,
+            //                 preferencia: parseInt(data.preferencia as string, 10),
+            //                 color: data.color as string,
+            //                 experiencia: parseFloat(data.experiencia as string),
+            //                 // frameworks: []  // As specified, no frameworks will be included
+            //             };
+            //             updateTech(transformedData);
             // const formData = new FormData(ev.target as HTMLFormElement);
             // const data = Object.fromEntries(formData.entries());
             // console.log(data);
