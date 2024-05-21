@@ -1,9 +1,9 @@
 "use client"
 
-import { publicarFwALeng, publicarLeng, publicarLibAFw } from "@/actions/badges";
+import { publicarFwALeng, publicarLeng, publicarLibAFw, updateTech } from "@/actions/badges";
 import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
 import techBadges from "@/data/slugs";
-import { IFrameworkForm, ILenguajeForm, ILibreriaForm } from "@/types";
+import { IFrameworkForm, IJsonTech, ILenguajeForm, ILibreriaForm } from "@/types";
 import {  Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slider } from "@nextui-org/react";
 import { useState } from "react";
 import { useAsyncList } from "@react-stately/data";
@@ -12,13 +12,14 @@ interface FormularioTechsProps {
     dispoLeng: ILenguajeDispo[];
     dispoFw: IFrameworkDispo[];
     // techBadges: {name: string}[];
+    tech: IJsonTech;
 }
 type TechBadge = {
     name: string;
   };
 
 
-const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) => {
+const FormularioUpdateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw, tech}) => {
     let list = useAsyncList<TechBadge>({
         async load({ signal, filterText }) {
           // Filtra la lista local según el texto ingresado
@@ -35,9 +36,17 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
         },
       });
     
-    // console.log("fw: ", techBadges)
-    const [selectedCat, setSelectedCat] = useState<string>("lenguaje");
-    const [inputValue, setInputValue] = useState<string>('');
+//     // console.log("fw: ", techBadges)
+      let catTech = ""
+      if (!tech.isLib && !tech.isFw) {
+        catTech = "lenguaje";
+      } else if (!tech.isLib) {
+        catTech = "framework";
+      } else {
+        catTech = "libreria";
+      }
+    const [selectedCat, setSelectedCat] = useState<string>(catTech);
+    const [inputValue, setInputValue] = useState<string>(tech.name.toString());
 
   const handleCopyClick = () => {
     setInputValue(list.filterText);
@@ -48,12 +57,13 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
   };
     const techMessage = `Busca un(a) ${selectedCat} con logo`
     return(
-        <form onSubmit={async (ev) => {
+        <form onSubmit={
+            async (ev) => {
             
             ev.preventDefault();
             const formData = new FormData(ev.target as HTMLFormElement);
             const data = Object.fromEntries(formData.entries());
-            console.log(data);
+
             switch (selectedCat) {
                 case "lenguaje":
                     const transformedData: ILenguajeForm = {
@@ -65,7 +75,7 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
                         experiencia: parseFloat(data.experiencia as string),
                         // frameworks: []  // As specified, no frameworks will be included
                     };
-                    publicarLeng(transformedData);
+                    updateTech(transformedData);
                     break;
                 case "framework":
                     const transformedDataFw: IFrameworkForm = {
@@ -76,10 +86,10 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
                         color: data.color as string,
                         experiencia: parseFloat(data.experiencia as string),
                         lenguajeTo: data.lenguajeTo as string,
-                        // frameworks: []  // As specified, no frameworks will be included
+                        
 
                     };
-                    publicarFwALeng(transformedDataFw);
+                    updateTech(transformedDataFw)
                     break;
                 case "libreria":
                     const transformedDataLib: ILibreriaForm = {
@@ -90,20 +100,73 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
                         color: data.color as string,
                         experiencia: parseFloat(data.experiencia as string),
                         lenguajeTo: data.lenguajeTo as string,
-                        frameworkTo: data.frameworkTo as string,
-                        // frameworks: []  // As specified, no frameworks will be included
-                    };
-                    publicarLibAFw(transformedDataLib);
-                    break;
+                        frameworkTo: data.frameworkTo as string};
+                        updateTech(transformedDataLib);
+                        break;
                 default:
                     throw new Error("Categoría no reconocida");
-
-
             }
-            alert("Congrats🤖🚀🕵️")
+            const transformedData: ILenguajeForm = {
+                            name: data.name as string,
+                            afinidad: parseInt(data.afinidad as string, 10),
+                            badge: data.badge as string,
+                            preferencia: parseInt(data.preferencia as string, 10),
+                            color: data.color as string,
+                            experiencia: parseFloat(data.experiencia as string),
+                            // frameworks: []  // As specified, no frameworks will be included
+                        };
+                        updateTech(transformedData);
+            // const formData = new FormData(ev.target as HTMLFormElement);
+            // const data = Object.fromEntries(formData.entries());
+            // console.log(data);
+            // switch (selectedCat) {
+            //     case "lenguaje":
+            //         const transformedData: ILenguajeForm = {
+            //             name: data.name as string,
+            //             afinidad: parseInt(data.afinidad as string, 10),
+            //             badge: data.badge as string,
+            //             preferencia: parseInt(data.preferencia as string, 10),
+            //             color: data.color as string,
+            //             experiencia: parseFloat(data.experiencia as string),
+            //             // frameworks: []  // As specified, no frameworks will be included
+            //         };
+            //         publicarLeng(transformedData);
+            //         break;
+            //     case "framework":
+            //         const transformedDataFw: IFrameworkForm = {
+            //             name: data.name as string,
+            //             afinidad: parseInt(data.afinidad as string, 10),
+            //             badge: data.badge as string,
+            //             preferencia: parseInt(data.preferencia as string, 10),
+            //             color: data.color as string,
+            //             experiencia: parseFloat(data.experiencia as string),
+            //             lenguajeTo: data.lenguajeTo as string,
+            //             // frameworks: []  // As specified, no frameworks will be included
+
+            //         };
+            //         publicarFwALeng(transformedDataFw);
+            //         break;
+            //     case "libreria":
+            //         const transformedDataLib: ILibreriaForm = {
+            //             name: data.name as string,
+            //             afinidad: parseInt(data.afinidad as string, 10),
+            //             badge: data.badge as string,
+            //             preferencia: parseInt(data.preferencia as string, 10),
+            //             color: data.color as string,
+            //             experiencia: parseFloat(data.experiencia as string),
+            //             lenguajeTo: data.lenguajeTo as string,
+            //             frameworkTo: data.frameworkTo as string,
+            //             // frameworks: []  // As specified, no frameworks will be included
+            //         };
+            //         publicarLibAFw(transformedDataLib);
+            //         break;
+            //     default:
+            //         throw new Error("Categoría no reconocida");
 
 
-        }}>
+            // }
+            alert("Congrats🤖🚀🕵️")}
+            }>
             <h1>Form input test</h1>
             <RadioGroup
                 label="Selecciona a que categoría pertenece la tecnología"
@@ -133,9 +196,7 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
           {item.name}
         </AutocompleteItem>
       )}
-    </Autocomplete>
-            
-             <Input isRequired name="name" type="string" label="Tecnología" description="Nombre que se pueda usar como logo en los badges de shields.io" size="lg" value={inputValue} onChange={handleInputChange}/> <Button onClick={handleCopyClick}>Copiar</Button>
+    </Autocomplete> <Input  isRequired name="name" type="string" label="Tecnología" description="Nombre que se pueda usar como logo en los badges de shields.io" size="lg" value={inputValue} onChange={handleInputChange}/> <Button onClick={handleCopyClick}>Copiar</Button><Button type="submit">Enviar</Button>
             {(selectedCat === "framework" || selectedCat == "libreria") &&
 
                 <Autocomplete
@@ -166,9 +227,9 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
                     {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
                 </Autocomplete>
             }
-            <Input isRequired name="preferencia" type="number" label="Preferencia" description="Orden en categoría" size="sm" className="max-w-[120px]"/>
-            <Input isRequired name="badge" type="string" label="Badge MD" description="Badge para usar en markdown" size="md" />
-            <Input isRequired name="color" type="color-hex" label="Color" description="Color que se pueda usar como logo en los badges de shields.io" size="sm" variant="underlined" labelPlacement="outside-left" />
+            <Input isRequired name="preferencia" type="number" label="Preferencia" defaultValue={tech.preferencia.toString()} description="Orden en categoría" size="sm" className="max-w-[120px]"/>
+            <Input isRequired name="badge" type="string" label="Badge MD" defaultValue={tech.badge} description="Badge para usar en markdown" size="md" />
+            <Input isRequired name="color" type="color-hex" label="Color" defaultValue={tech.color} description="Color que se pueda usar como logo en los badges de shields.io" size="sm" variant="underlined" labelPlacement="outside-left" />
             <Slider
                 aria-required
                 name="experiencia"
@@ -194,7 +255,7 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
                         label: "80%",
                     },
                 ]}
-                defaultValue={20}
+                defaultValue={tech.experiencia}
                 className="max-w-md"
             /><Slider
                 name="afinidad"
@@ -220,12 +281,12 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
                         label: "80%",
                     },
                 ]}
-                defaultValue={30}
+                defaultValue={tech.afinidad}
                 className="max-w-md"
             />
-            <Button type="submit">Enviar</Button>
+            
         </form>
     )
 }
 
-export default FormularioTechs;
+export default FormularioUpdateTechs;

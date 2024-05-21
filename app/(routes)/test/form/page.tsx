@@ -1,5 +1,5 @@
 
-import FormularioTechs from "@/components/formulario-techs";
+import FormularioTechs from "@/components/routes/formulario-techs";
 import {  fetchLenguajes } from "@/data/fetch";
 // import { createListOfIcons } from "@/utils/scripts/createListOfIcons";
 

@@ -1,10 +1,11 @@
 
-import PublicarProyectoButton from "@/components/routes/publicar-proyecto-button";
 import { fetchLenguajes } from "@/data/fetch"
+import { flattenProyectos } from "@/utils/badges"
+import Link from "next/link"
 // import { LenguajesModel } from "@/models/lenguajes-schema";
 
 
-const TestMongoPage = async( ) =>{
+const TechsAdminPage = async( ) =>{
     const lenguajes = await fetchLenguajes()
     // LenguajesModel.find({})
     // .then((projects) => {
@@ -13,21 +14,27 @@ const TestMongoPage = async( ) =>{
     // .catch((error) => {
     //     console.error('Error al buscar proyectos:', error);
     // });
+    const allLeng = flattenProyectos(lenguajes)
+    console.log(allLeng);
+    
 
     return (
         <>
         <p className="mt-36">Hola mundo!</p>
-        {lenguajes.map(article => (
+        {allLeng.map(article => {
+            
+            return(
             <>
             <p>{article.name}</p>
             <p>{article.afinidad}</p>
+            <Link href={`techs/${article.name}`}>Editar</Link>
             
             
             </>
-        ))}
-        <PublicarProyectoButton/>
+        )})}
+        
         </>
     )
 }
 
-export default TestMongoPage
+export default TechsAdminPage

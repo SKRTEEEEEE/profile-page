@@ -97,6 +97,11 @@ export const flattenProyectos = (proyectos: ILenguaje[]) => {
             value: getColorByRange(proyecto.afinidad).value,
             experiencia: proyecto.experiencia,
             valueexp: getColorByRange(proyecto.experiencia).value,
+            color: proyecto.color,
+            badge: proyecto.badge,
+            isFw: false,
+            isLib: false,
+            preferencia: proyecto.preferencia,
         });
 
         proyecto.frameworks?.forEach((framework) => {
@@ -106,6 +111,11 @@ export const flattenProyectos = (proyectos: ILenguaje[]) => {
                 value: getColorByRange(framework.afinidad).value,
                 experiencia: framework.experiencia,
                 valueexp: getColorByRange(framework.experiencia).value,
+                color: framework.color,
+            badge: framework.badge,
+            isFw: proyecto.name,
+            isLib: false,
+            preferencia: framework.preferencia,
             });
 
             framework.librerias?.forEach((libreria) => {
@@ -115,6 +125,11 @@ export const flattenProyectos = (proyectos: ILenguaje[]) => {
                     value: getColorByRange(libreria.afinidad).value,
                     experiencia: libreria.experiencia,
                     valueexp: getColorByRange(libreria.experiencia).value,
+                    color: libreria.color,
+                    badge: libreria.badge,
+                    isFw: proyecto.name,
+                    isLib: framework.name,
+                    preferencia: libreria.preferencia,
                 });
             });
         });

@@ -37,9 +37,86 @@ function createBadgeTech(tech: ILenguaje | IFramework | ILibreria) {
 }
 // const prefijo = { proyecto: "\n\n>- ## ", framework: "\n\n> ### ", lenguaje: "\n> - #### "}
 
-async function actualizarJson(name: String, afinidad: number, experiencia: number) {
+// async function actualizarJson(name: String, afinidad: number, experiencia: number) {
+//     // Obtener todos los proyectos de la base de datos
+//     const proyectosDB: ILenguaje[] = await LenguajesModel.find();
+
+//     // Obtener el contenido del archivo .json existente en el repositorio de GitHub
+//     const jsonResponse = await octokit.repos.getContent({
+//         owner,
+//         repo,
+//         path: path.json,
+//         ref,
+//     });
+//     let jsonSha;
+//     if (Array.isArray(jsonResponse.data)) {
+//         const jsonFile = jsonResponse.data.find((item) => item.name === "techs-test.json");
+//         if (jsonFile) {
+//             jsonSha = jsonFile.sha;
+//         } else {
+//             console.error("El archivo .json no se encuentra en el repositorio");
+//             return;
+//         }
+//     } else {
+//         jsonSha = jsonResponse.data.sha;
+//     }
+
+
+//     // Actualizar el archivo .json en el repositorio de GitHub (Solo para los badges)
+//     // Generar el nuevo contenido del archivo .json
+//     const lenguajePorcentaje = await testPeticionRepos();
+
+//     const getGithubPercentage = (name: String) => {
+
+//         const replaceDashWithDot = (str: string) => str.replace(/-/g, '.');
+//         const usogithubString = lenguajePorcentaje.find(lenguaje => {
+//             const normalizedName = name.toLowerCase();
+//             const modifiedName = replaceDashWithDot(normalizedName);
+//             const searchedName = replaceDashWithDot(lenguaje.name.toLowerCase());
+//             return modifiedName === searchedName;
+//         })?.percentage.toFixed(2);
+//         const usogithub = usogithubString !== undefined ? parseFloat(usogithubString) : 0;
+
+//         return usogithub;
+//     }; const usogithub = getGithubPercentage(name)
+//     const newJsonData = [
+//         ...flattenProyectos(proyectosDB).map(proyecto => {
+
+//             const porcentajeGithub = getGithubPercentage(proyecto.name);
+//             return { ...proyecto, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value };
+//         }),
+//         {
+//             name,
+//             afinidad,
+//             value: getColorByRange(afinidad).value,
+//             experiencia,
+//             valueexp: getColorByRange(experiencia).value,
+//             usogithub,
+//             valueuso: getGithubUsoByRange(usogithub).value
+//         }
+//     ];
+
+
+
+//     const encodedJsonContent = Buffer.from(JSON.stringify(newJsonData, null, 2)).toString("base64");
+//     await octokit.repos.createOrUpdateFileContents({
+//         owner,
+//         repo,
+//         path: path.json,
+//         message: "Actualizar archivo .json",
+//         content: encodedJsonContent,
+//         sha: jsonSha,
+//         branch: ref,
+//     });
+// }
+async function actualizarJson(name: string, afinidad: number, experiencia: number) {
     // Obtener todos los proyectos de la base de datos
     const proyectosDB: ILenguaje[] = await LenguajesModel.find();
+    const techsTemp = flattenProyectos(proyectosDB).map(proyecto => ({
+        name: proyecto.name,
+        afinidad: proyecto.afinidad,
+        experiencia: proyecto.experiencia
+    }));
 
     // Obtener el contenido del archivo .json existente en el repositorio de GitHub
     const jsonResponse = await octokit.repos.getContent({
@@ -61,13 +138,10 @@ async function actualizarJson(name: String, afinidad: number, experiencia: numbe
         jsonSha = jsonResponse.data.sha;
     }
 
-
-    // Actualizar el archivo .json en el repositorio de GitHub (Solo para los badges)
-    // Generar el nuevo contenido del archivo .json
+    // Actualizar el archivo .json en el repositorio de GitHub
     const lenguajePorcentaje = await testPeticionRepos();
 
-    const getGithubPercentage = (name: String) => {
-
+    const getGithubPercentage = (name: string) => {
         const replaceDashWithDot = (str: string) => str.replace(/-/g, '.');
         const usogithubString = lenguajePorcentaje.find(lenguaje => {
             const normalizedName = name.toLowerCase();
@@ -78,27 +152,45 @@ async function actualizarJson(name: String, afinidad: number, experiencia: numbe
         const usogithub = usogithubString !== undefined ? parseFloat(usogithubString) : 0;
 
         return usogithub;
-    }; const usogithub = getGithubPercentage(name)
-    const newJsonData = [
-        ...flattenProyectos(proyectosDB).map(proyecto => {
+    }; 
+    // const usogithub = getGithubPercentage(name);
 
-            const porcentajeGithub = getGithubPercentage(proyecto.name);
-            return { ...proyecto, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value };
-        }),
-        {
-            name,
-            afinidad,
-            value: getColorByRange(afinidad).value,
-            experiencia,
-            valueexp: getColorByRange(experiencia).value,
-            usogithub,
-            valueuso: getGithubUsoByRange(usogithub).value
-        }
-    ];
+    // Crear un nuevo objeto con la información del proyecto actualizado o nuevo
+    const proyectoActualizado = {
+        name,
+        afinidad,
 
+        experiencia,
+    };
 
+    // Verificar si ya existe un proyecto con el mismo nombre en la base de datos
+    const existingProjectIndex = proyectosDB.findIndex(proyecto => proyecto.name == name);
+    console.log("existingProjectIndex: ", existingProjectIndex)
+    console.log("proyectoActualizado: ", proyectoActualizado);
+    
+    if (existingProjectIndex !== -1) {
+        // Si existe, actualizar el proyecto en la lista de proyectos
+        techsTemp[existingProjectIndex] = proyectoActualizado;
+    } else {
+        // Si no existe, agregar el nuevo proyecto a la lista de proyectos
+        techsTemp.push(proyectoActualizado);
+    }
+    console.log("techsTemp: ", techsTemp); 
+    // // Generar el nuevo contenido del archivo .json
+    const newJsonData = techsTemp.map(proyecto => {
+        const porcentajeGithub = getGithubPercentage(proyecto.name.toString());
+        return { ...proyecto,value: getColorByRange(proyecto.afinidad).value, valueexp: getColorByRange(proyecto.experiencia).value, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value };
+    
+    })
+    // const newJsonData = flattenProyectos(proyectosDB).map(proyecto => {
+    //     const porcentajeGithub = getGithubPercentage(proyecto.name);
+    //     return { ...proyecto, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value };
+    // });
 
+    // Codificar el nuevo contenido del archivo .json
     const encodedJsonContent = Buffer.from(JSON.stringify(newJsonData, null, 2)).toString("base64");
+
+    // Actualizar el archivo .json en el repositorio de GitHub
     await octokit.repos.createOrUpdateFileContents({
         owner,
         repo,
@@ -109,6 +201,7 @@ async function actualizarJson(name: String, afinidad: number, experiencia: numbe
         branch: ref,
     });
 }
+
 async function actualizarMd(name: String, badge: String, color: String) {
     // Obtener todos los proyectos de la base de datos
     const proyectosDB: ILenguaje[] = await LenguajesModel.find();
@@ -252,6 +345,7 @@ async function testPeticionRepos() {
     return convertToLanguagePercentageArray(languagePercentages)
 
 }
+//Create
 export async function publicarLeng({ name, afinidad, badge, preferencia, color, experiencia }: ILenguajeForm) {
 
     publicarJsonYMd(name, afinidad, badge, color, experiencia);
@@ -327,6 +421,41 @@ export async function publicarLibAFw({ name, afinidad, badge, preferencia, color
         console.error("Error al agregar la libreria: ", error)
     }
 }
+
+// Falta hacer el update en caso de que sea Fw o que sea Lib
+type UpdateData = ILenguajeForm | IFrameworkForm | ILibreriaForm;
+export async function updateTech(updateData:UpdateData){
+    try {
+        await actualizarJson(updateData.name, updateData.afinidad, updateData.experiencia)
+        // let proyectoActualizado;
+        // if ('lenguajeTo' in updateData) {
+        //     console.log(`Actualizando lenguaje: ${updateData.lenguajeTo}`);
+        //     const lenguaje = await LenguajesModel.findOne({ name: updateData.lenguajeTo });
+        //     if (lenguaje) {
+
+        //     }
+            
+        //   } else if ('frameworkTo' in updateData) {
+        //     console.log(`Actualizando framework: ${updateData.frameworkTo}`);
+        //   }else {
+        //  proyectoActualizado = await LenguajesModel.findOneAndUpdate({ name: updateData.name }, updateData, {
+        //     new: true, // Para que devuelva el documento actualizado
+        //     runValidators: true // Para correr las validaciones definidas en el schema
+        // });}
+        const proyectoActualizado = await LenguajesModel.findOneAndUpdate({ name: updateData.name }, updateData, {
+            new: true, // Para que devuelva el documento actualizado
+            runValidators: true // Para correr las validaciones definidas en el schema
+        });
+        if (!proyectoActualizado) {
+            console.log('No se encontró un proyecto con el nombre especificado. ', updateData.name);
+        } else {
+            console.log("Proyecto actualizado correctamente:", proyectoActualizado);
+        }
+    } catch (error) {
+        console.error('Error actualizando el proyecto:', error);
+    }
+}
+
 
 
 
