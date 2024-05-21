@@ -2,7 +2,7 @@
 
 // import {createListOfIcons} from "@/utils/scripts/createListOfIcons"
 
-import { actualizarJsonServerTest, actualizarMdServerTest, testPeticionRepos } from "@/actions";
+import { actualizarJsonServerTest, actualizarMdServerTest } from "@/actions/badges";
 
 // import { publicarLibAFw } from "@/actions";
 
@@ -12,12 +12,23 @@ import { actualizarJsonServerTest, actualizarMdServerTest, testPeticionRepos } f
 
 const PublicarProyectoButton = () => {
     const handleClick = async () => {
-        // await testPeticionRepos();
-        // createListOfIcons();
-        await actualizarJsonServerTest();
-        // await actualizarMdServerTest();
-        alert("Petición realizada correctamente");
-        // Lógica adicional después de llamar al Server Action
+        try {
+            // Verifica si estas funciones son realmente necesarias
+            // await testPeticionRepos();
+            // createListOfIcons();
+    
+            // await actualizarJsonServerTest();
+            // console.log("actualizarJsonServerTest completed");
+    
+            await actualizarMdServerTest();
+            console.log("actualizarMdServerTest completed");
+    
+            alert("Petición realizada correctamente");
+            // Lógica adicional después de llamar al Server Action
+        } catch (error) {
+            console.error("An error occurred:", error);
+            alert("Ocurrió un error durante la petición");
+        }
       };
     return (
         <form onSubmit={handleClick}>

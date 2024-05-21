@@ -1,4 +1,4 @@
-import { testPeticionRepos } from "@/actions"
+import { testPeticionRepos } from "@/actions/badges"
 // import { NextResponse } from "next/server"
 
 

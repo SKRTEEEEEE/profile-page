@@ -1,10 +1,9 @@
 "use client"
 
-import { publicarFwATech, publicarLibAFw, publicarProyecto } from "@/actions";
+import { publicarFwALeng, publicarLeng, publicarLibAFw } from "@/actions/badges";
 import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
 import techBadges from "@/data/slugs";
 import { IFrameworkForm, ILenguajeForm, ILibreriaForm } from "@/types";
-// import { createListOfIcons } from "@/utils/scripts/createListOfIcons";
 import {  Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slider } from "@nextui-org/react";
 import { useState } from "react";
 import { useAsyncList } from "@react-stately/data";
@@ -66,7 +65,7 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
                         experiencia: parseFloat(data.experiencia as string),
                         // frameworks: []  // As specified, no frameworks will be included
                     };
-                    publicarProyecto(transformedData);
+                    publicarLeng(transformedData);
                     break;
                 case "framework":
                     const transformedDataFw: IFrameworkForm = {
@@ -80,7 +79,7 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
                         // frameworks: []  // As specified, no frameworks will be included
 
                     };
-                    publicarFwATech(transformedDataFw);
+                    publicarFwALeng(transformedDataFw);
                     break;
                 case "libreria":
                     const transformedDataLib: ILibreriaForm = {
@@ -135,18 +134,7 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
         </AutocompleteItem>
       )}
     </Autocomplete>
-            {/*<Autocomplete
-                    isRequired
-                    variant="bordered"
-                    defaultItems={techBadges}
-                    name="name"
-                    label="Tecnología"
-                    placeholder="Nombre de la tecnología"
-                    description="Tecnologías con logo disponible en shields.io"
-                    className="max-w-xl" size="lg" labelPlacement="outside"
-                >
-                    {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
-                </Autocomplete>*/}
+            
              <Input isRequired name="name" type="string" label="Tecnología" description="Nombre que se pueda usar como logo en los badges de shields.io" size="lg" value={inputValue} onChange={handleInputChange}/> <Button onClick={handleCopyClick}>Copiar</Button>
             {(selectedCat === "framework" || selectedCat == "libreria") &&
 

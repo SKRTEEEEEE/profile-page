@@ -2,25 +2,29 @@
 ## Remembers
 ### Remember 05.2024 (Actual)
 
-- [ ] Configurar "Switch" para en el Formualrio-techs, en el name (titulo) poder marcar cuando nuestra tech no tiene logo
-- [ ] Crear boton actualizar ListOfIcons
-    - [ ] Update createListOfIcons fetch from online page.
+- [ ] Hacer AdminPages Sections
+    - [ ] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
 
+- [x] Configurar "Switch" para en el Formualrio-techs, en el name (titulo) poder marcar cuando nuestra tech no tiene logo
+- [ ] Crear boton actualizar ListOfIcons
+    - [x] Update createListOfIcons fetch from online page.
+
+#### Frontend projects pages
 - [ ] Mejorar/crear botones projectDyn & projects pages
     - [x] Para ir a la pagina web del proyecto
         - [ ] Si el proyecto es /# osea que aun no esta desplegado no mostrar botón
     - [ ] Para ir al github del proyecto
         - [ ] Si el proyecto es /# osea que aun no esta desplegado no mostrar botón
-
+#### Frontend General
 - [ ] Mejorar Frontend main("/") page
-- [x] Mejorar Frontend projects page
+- [ ] Mejorar Frontend projects page
 - [ ] Mejorar Frontend projectDyn page
     - [ ] Objetivos a de ocupar menos visualmente, sobretodo en xl
 
 #### - [ ] Configurar el analytics de Vercel!!!
 
 
-### Remember meses antiguos
+## Remember meses antiguos
 ## Versions
 ###  v02
 

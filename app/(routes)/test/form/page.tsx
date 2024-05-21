@@ -8,7 +8,6 @@ export interface ILenguajeDispo {
 }
 export interface IFrameworkDispo {
     name: string;
-
 }
 
 
