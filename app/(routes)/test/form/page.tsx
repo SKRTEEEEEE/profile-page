@@ -1,5 +1,5 @@
 
-import FormularioTechs from "@/components/routes/formulario-techs";
+import FormularioCreateTechs from "@/components/routes/formulario-techs-create";
 import {  fetchLenguajes } from "@/data/fetch";
 // import { createListOfIcons } from "@/utils/scripts/createListOfIcons";
 
@@ -28,7 +28,7 @@ const FormInputTest: React.FC = async() => {
     
     return (
         <div className="py-14 my-28 h-dvh flex flex-col align-center items-center justify-center">
-            <FormularioTechs dispoLeng={dispoLeng} dispoFw={dispoFw} />
+            <FormularioCreateTechs dispoLeng={dispoLeng} dispoFw={dispoFw} />
             
         </div>
     )

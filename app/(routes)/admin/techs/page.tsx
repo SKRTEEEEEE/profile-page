@@ -3,22 +3,12 @@ import DeleteTechButton from "@/components/routes/delete-tech-button"
 import { fetchLenguajes } from "@/data/fetch"
 import { flattenProyectos } from "@/utils/badges"
 import Link from "next/link"
-// import { LenguajesModel } from "@/models/lenguajes-schema";
-
 
 const TechsAdminPage = async( ) =>{
     const lenguajes = await fetchLenguajes()
-    // LenguajesModel.find({})
-    // .then((projects) => {
-    //     console.log('Proyectos encontrados:', projects);
-    // })
-    // .catch((error) => {
-    //     console.error('Error al buscar proyectos:', error);
-    // });
-    const allLeng = flattenProyectos(lenguajes)
-    // console.log(allLeng);
-    
 
+    const allLeng = flattenProyectos(lenguajes)
+ 
     return (
         <>
         <p className="mt-36">Hola mundo!</p>

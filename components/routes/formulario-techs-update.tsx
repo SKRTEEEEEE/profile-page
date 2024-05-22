@@ -35,8 +35,6 @@ const FormularioUpdateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispo
           };
         },
       });
-    
-//     // console.log("fw: ", techBadges)
       let catTech = ""
       if (!tech.isLib && !tech.isFw) {
         catTech = "lenguaje";
@@ -106,8 +104,8 @@ const FormularioUpdateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispo
                 default:
                     throw new Error("Categoría no reconocida");
             }
-            alert("Congrats🤖🚀🕵️")}
-            }>
+            alert("Congrats🤖🚀🕵️")
+        }}>
             <h1>Form input test</h1>
             <RadioGroup
                 label="Selecciona a que categoría pertenece la tecnología"
@@ -148,7 +146,11 @@ const FormularioUpdateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispo
                     label="Lenguaje perteneciente"
                     placeholder="Busca el lenguaje"
                     description="Lenguaje al que pertenece este Framework"
-                    className="max-w-xs" size="lg" labelPlacement="outside"
+                    className="max-w-xs" size="lg" labelPlacement="outside" 
+                    
+                    
+                    
+                    
                 >
                     {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
                 </Autocomplete>

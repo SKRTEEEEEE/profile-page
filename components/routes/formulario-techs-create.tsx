@@ -18,7 +18,7 @@ type TechBadge = {
   };
 
 
-const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) => {
+const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) => {
     let list = useAsyncList<TechBadge>({
         async load({ signal, filterText }) {
           // Filtra la lista local según el texto ingresado
@@ -229,4 +229,4 @@ const FormularioTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispoFw}) =
     )
 }
 
-export default FormularioTechs;
+export default FormularioCreateTechs;

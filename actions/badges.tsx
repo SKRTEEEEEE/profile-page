@@ -311,7 +311,7 @@ async function testPeticionRepos() {
     return convertToLanguagePercentageArray(languagePercentages)
 
 }
-//Create
+//CREATE
 export async function publicarLeng({ name, afinidad, badge, preferencia, color, experiencia }: ILenguajeForm) {
 
     await actualizarMd(name, badge, color);
@@ -395,7 +395,7 @@ export async function publicarLibAFw({ name, afinidad, badge, preferencia, color
     }
 }
 
-// Falta hacer el update en caso de que sea Fw o que sea Lib
+// UPDATE
 type UpdateData = ILenguajeForm | IFrameworkForm | ILibreriaForm;
 export async function updateTech(updateData: UpdateData) {
     try {
@@ -452,7 +452,7 @@ export async function updateTech(updateData: UpdateData) {
     }
 }
 type TechName = string;
-
+// DELETE
 export async function deleteTech(name: TechName) {
     try {
         let proyectoActualizado = null;
