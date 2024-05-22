@@ -1,9 +1,9 @@
 "use client"
 
-import { publicarFwALeng, publicarLeng, publicarLibAFw } from "@/actions/badges";
+import { publicarFwALeng, publicarLeng, publicarLibAFw, updateTech } from "@/actions/badges";
 import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
 import techBadges from "@/data/slugs";
-import { IFrameworkForm, ILenguajeForm, ILibreriaForm } from "@/types";
+import { IFrameworkForm, IJsonTech, ILenguajeForm, ILibreriaForm } from "@/types";
 import { Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slider } from "@nextui-org/react";
 import { useState } from "react";
 import { useAsyncList } from "@react-stately/data";
@@ -12,17 +12,24 @@ interface FormularioTechsProps {
     dispoLeng: ILenguajeDispo[];
     dispoFw: IFrameworkDispo[];
     // techBadges: {name: string}[];
+    tech?: IJsonTech;
 }
 type TechBadge = {
     name: string;
 };
 
+// Falta manejar los casos en el que el usuario cambie de fwTo, o libTo en el form
+// Falta manejar el caso en el que el usuario este haciendo un update que no pueda cambiar el fwTo y el libTo
 
-const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw }) => {
-    const [selectedCat, setSelectedCat] = useState<string>("lenguaje");
-    const [inputValue, setInputValue] = useState<string>('');
+const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, tech }) => {
+    const initialCatTech = tech ? (tech.isLib ? "libreria" : (tech.isFw ? "framework" : "lenguaje")) : "lenguaje";
+    const [selectedCat, setSelectedCat] = useState<string>(initialCatTech);
+    const [inputValue, setInputValue] = useState<string>(tech?.name||'');
     const [serverResponse, setServerResponse] = useState<{ success: boolean, message: string } | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const isUpdating = !!tech;
+
     let list = useAsyncList<TechBadge>({
         async load({ signal, filterText }) {
             // Filtra la lista local según el texto ingresado
@@ -49,51 +56,88 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
         setIsLoading(true);
 
         try {
-            const data: any = {};
-            const formElements = Array.prototype.slice.call(e.currentTarget.elements) as HTMLInputElement[];
-            formElements.forEach((field: HTMLInputElement) => {
-                if (field.name) {
-                    data[field.name] = field.value;
-                }
-            });
+            // const data: any = {};
+            // const formElements = Array.prototype.slice.call(e.currentTarget.elements) as HTMLInputElement[];
+            // formElements.forEach((field: HTMLInputElement) => {
+            //     if (field.name) {
+            //         data[field.name] = field.value;
+            //     }
+            // });
+            
+            const formData = new FormData(e.currentTarget);
+            const data: any = Object.fromEntries(formData.entries());
 
 
-            const requestData = {
+            // const requestData = {
+            //     name: data.name,
+            //     afinidad: parseInt(data.afinidad, 10),
+            //     badge: data.badge,
+            //     preferencia: parseInt(data.preferencia, 10),
+            //     color: data.color,
+            //     experiencia: parseFloat(data.experiencia),
+            //     lenguajeTo: selectedCat === "framework" || selectedCat === "libreria" ? data.lenguajeTo : undefined,
+            //     frameworkTo: selectedCat === "libreria" ? data.frameworkTo : undefined,
+            // };
+            const commonData = {
                 name: data.name,
                 afinidad: parseInt(data.afinidad, 10),
                 badge: data.badge,
                 preferencia: parseInt(data.preferencia, 10),
                 color: data.color,
                 experiencia: parseFloat(data.experiencia),
-                lenguajeTo: selectedCat === "framework" || selectedCat === "libreria" ? data.lenguajeTo : undefined,
-                frameworkTo: selectedCat === "libreria" ? data.frameworkTo : undefined,
             };
-
-            let response;
+            
+            let transformedData;
             switch (selectedCat) {
                 case "lenguaje":
-                    response = await publicarLeng(requestData as ILenguajeForm);
+                    transformedData = commonData;
                     break;
                 case "framework":
-                    response = await publicarFwALeng(requestData as IFrameworkForm);
+                    transformedData = {
+                        ...commonData,
+                        lenguajeTo: data.lenguajeTo,
+                    };
                     break;
                 case "libreria":
-                    response = await publicarLibAFw(requestData as ILibreriaForm);
+                    transformedData = {
+                        ...commonData,
+                        lenguajeTo: data.lenguajeTo,
+                        frameworkTo: data.frameworkTo,
+                    };
                     break;
                 default:
                     throw new Error("Categoría no reconocida");
             }
-            setServerResponse(response);
+            let response;
+            if(isUpdating){
+                await updateTech(transformedData as ILenguajeForm|IFrameworkForm|ILibreriaForm);
+            } else {
+            switch (selectedCat) {
+                case "lenguaje":
+                    response = await publicarLeng(transformedData as ILenguajeForm);
+                    break;
+                case "framework":
+                    response = await publicarFwALeng(transformedData as IFrameworkForm);
+                    break;
+                case "libreria":
+                    response = await publicarLibAFw(transformedData as ILibreriaForm);
+                    break;
+                default:
+                    throw new Error("Categoría no reconocida");
+            }
+            setServerResponse(response);}
         } catch (error) {
             console.error(error);
         } finally {
-            setIsLoading(false);
+            
             if (serverResponse?.success === true) {
                 alert(`¡Felicidades! ${serverResponse.message}`);
-                window.location.href = "/admin/techs";
+                
             } else if (serverResponse?.success === false) {
                 alert(`Oops! ${serverResponse.message}`);
             }
+            window.location.href = "/admin/techs";
+            setIsLoading(false);
         }
     };
 
@@ -163,9 +207,9 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
                     {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
                 </Autocomplete>
             }
-            <Input isRequired name="preferencia" type="number" label="Preferencia" description="Orden en categoría" size="sm" className="max-w-[120px]" />
-            <Input isRequired name="badge" type="string" label="Badge MD" description="Badge para usar en markdown" size="md" />
-            <Input isRequired name="color" type="color-hex" label="Color" description="Color que se pueda usar como logo en los badges de shields.io" size="sm" variant="underlined" labelPlacement="outside-left" />
+            <Input isRequired name="preferencia" type="number" label="Preferencia" description="Orden en categoría" size="sm" className="max-w-[120px]" defaultValue={tech?.preferencia.toString()}/>
+            <Input isRequired name="badge" type="string" label="Badge MD" description="Badge para usar en markdown" size="md"  defaultValue={tech?.badge}/>
+            <Input isRequired name="color" type="color-hex" label="Color" description="Color que se pueda usar como logo en los badges de shields.io" size="sm" variant="underlined" labelPlacement="outside-left" defaultValue={tech?.color} />
             <Slider
                 aria-required
                 name="experiencia"
@@ -191,7 +235,7 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
                         label: "80%",
                     },
                 ]}
-                defaultValue={20}
+                defaultValue={tech?.experiencia||25}
                 className="max-w-md"
             /><Slider
                 name="afinidad"
@@ -217,7 +261,7 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
                         label: "80%",
                     },
                 ]}
-                defaultValue={30}
+                defaultValue={tech?.afinidad||30}
                 className="max-w-md"
             />
             {isLoading ? (

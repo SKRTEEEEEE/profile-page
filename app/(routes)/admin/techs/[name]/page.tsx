@@ -1,5 +1,6 @@
 import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page"
-import FormularioUpdateTechs from "@/components/routes/formulario-techs-update"
+import FormularioCreateTechs from "@/components/routes/formulario-techs-create"
+// import FormularioUpdateTechs from "@/components/routes/formulario-techs-update"
 import { fetchLenguajes } from "@/data/fetch"
 import { flattenProyectos } from "@/utils/badges"
 
@@ -16,7 +17,7 @@ export default async function TechsDynAdminPage ({params}:{params: {name:string}
       });
     return(
         <>
-        {tech&&<FormularioUpdateTechs dispoLeng={dispoLeng} dispoFw={dispoFw} tech={tech}/>}
+        {tech&&<FormularioCreateTechs dispoLeng={dispoLeng} dispoFw={dispoFw} tech={tech}/>}
         
         {/* <h1>{tech.name}</h1> */}
         </>
