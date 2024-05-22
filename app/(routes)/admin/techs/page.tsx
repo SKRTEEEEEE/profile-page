@@ -11,7 +11,7 @@ const TechsAdminPage = async( ) =>{
  
     return (
         <>
-        <p className="mt-36">Hola mundo!</p>
+        <p className="mt-36">Hola mundo!</p><section><h1>Techs page</h1><Link href={`techs/new`}>Añadir nuevo proyecto</Link></section>
         {allLeng.map(article => {
             
             

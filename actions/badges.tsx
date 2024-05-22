@@ -329,71 +329,78 @@ export async function publicarLeng({ name, afinidad, badge, preferencia, color, 
     try {
         const proyectoGuardado = await nuevoProyecto.save();
         console.log("Proyecto guardado correctamente:", proyectoGuardado);
-        
     } catch (error) {
         console.error(error);
+        return {success: false, message: `Error al guardar el proyecto`}
     }
     await actualizarJson();
     console.log("Archivos actualizados en el repositorio de GitHub");
+    return {success: true, message: `Proyecto guardado correctamente en la bdd y en el Json. Proyecto: ${nuevoProyecto}`}
 }
 export async function publicarFwALeng({ name, afinidad, badge, preferencia, color, experiencia, lenguajeTo }: IFrameworkForm) {
+    const nuevoFramework = {
+        name,
+        afinidad,
+        badge,
+        preferencia,
+        color,
+        experiencia
+    }
     try {
         // publicarJsonYMd(name, afinidad, badge, color, experiencia);
         await actualizarMd(name, badge, color)
-            const nuevoFramework = {
-                name,
-                afinidad,
-                badge,
-                preferencia,
-                color,
-                experiencia
-            }
+            
         const lenguaje = await LenguajesModel.findOne({ name: lenguajeTo });
         if (lenguaje) {
             lenguaje.frameworks.push(nuevoFramework)
             await lenguaje.save();
-            console.log("Framework agregado correctamente:", nuevoFramework);
             await actualizarJson();
+        console.log("Framework agregado correctamente:", nuevoFramework);
+        return {success: true, message: `Proyecto guardado correctamente en la bdd y en el Json. Proyecto: ${nuevoFramework}`} 
+            
         } else {
-            console.log("Lenguaje no encontrado", lenguajeTo);
+            return{success:false, message:`Lenguaje no encontrado ${lenguajeTo}`};
         }
     } catch (error) {
         console.error('Error al agregar la framework:', error);
-    }
+        return {success: false, message: `Error al guardar el proyecto`}
+    }   
 }
 export async function publicarLibAFw({ name, afinidad, badge, preferencia, color, experiencia, lenguajeTo, frameworkTo }: ILibreriaForm) {
-
     try {
-        // publicarJsonYMd(name, afinidad, badge, color, experiencia);
         await actualizarMd(name, badge, color);
-                const nuevaLibreria = {
-                    name,
-                    afinidad,
-                    badge,
-                    preferencia,
-                    color,
-                    experiencia
-                }
-        const lenguaje = await LenguajesModel.findOne({ name: lenguajeTo });
-        if (lenguaje) {
-            const framework = lenguaje.frameworks.find((framework: IFramework) => framework.name === frameworkTo);
-            if (framework) {
-                
-                framework.librerias.push(nuevaLibreria)
-                await lenguaje.save();
-                console.log("Libreria agregada correctamente:", nuevaLibreria);
-                await actualizarJson();
+        
+        const nuevaLibreria = {
+            name,
+            afinidad,
+            badge,
+            preferencia,
+            color,
+            experiencia
+        };
 
-            } else {
-                console.error("Framework no encontrado en la bdd", frameworkTo)
-            }
-        } else {
-            console.error("Lenguaje no encontrado en la bdd", lenguajeTo)
+        const lenguaje = await LenguajesModel.findOne({ name: lenguajeTo });
+        if (!lenguaje) {
+            return { success: false, message: `Lenguaje no encontrado: ${lenguajeTo}` };
         }
+
+        const framework = lenguaje.frameworks.find((framework: IFramework) => framework.name === frameworkTo);
+        if (!framework) {
+            return { success: false, message: `Framework no encontrado en la base de datos: ${frameworkTo}` };
+        }
+
+        framework.librerias.push(nuevaLibreria);
+        await lenguaje.save();
+        await actualizarJson();
+        console.log("Libreria agregada correctamente:", nuevaLibreria);
+
+        return { success: true, message: `Librería agregada correctamente: ${nuevaLibreria}` };
     } catch (error) {
-        console.error("Error al agregar la libreria: ", error)
+        console.error("Error al agregar la librería: ", error);
+        return { success: false, message: `Error al agregar la librería` };
     }
 }
+
 
 // UPDATE
 type UpdateData = ILenguajeForm | IFrameworkForm | ILibreriaForm;

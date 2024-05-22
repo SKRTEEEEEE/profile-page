@@ -38,6 +38,8 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispo
     // console.log("fw: ", techBadges)
     const [selectedCat, setSelectedCat] = useState<string>("lenguaje");
     const [inputValue, setInputValue] = useState<string>('');
+    const [serverResponse, setServerResponse] = useState<{ success: boolean, message: string } | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleCopyClick = () => {
     setInputValue(list.filterText);
@@ -52,7 +54,9 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispo
             async (ev) => {
             
             ev.preventDefault();
-            const formData = new FormData(ev.target as HTMLFormElement);
+            setIsLoading(true);
+                try {
+                    const formData = new FormData(ev.target as HTMLFormElement);
             const data = Object.fromEntries(formData.entries());
             console.log(data);
             switch (selectedCat) {
@@ -64,9 +68,9 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispo
                         preferencia: parseInt(data.preferencia as string, 10),
                         color: data.color as string,
                         experiencia: parseFloat(data.experiencia as string),
-                        // frameworks: []  // As specified, no frameworks will be included
                     };
-                    publicarLeng(transformedData);
+                    const resLeng = await publicarLeng(transformedData);
+                    setServerResponse(resLeng);
                     break;
                 case "framework":
                     const transformedDataFw: IFrameworkForm = {
@@ -80,7 +84,10 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispo
                         // frameworks: []  // As specified, no frameworks will be included
 
                     };
-                    publicarFwALeng(transformedDataFw);
+                    const resFw = await publicarFwALeng(transformedDataFw);
+                    console.log("resFw: ", resFw);
+                    
+                    setServerResponse(resFw);
                     break;
                 case "libreria":
                     const transformedDataLib: ILibreriaForm = {
@@ -94,16 +101,24 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispo
                         frameworkTo: data.frameworkTo as string,
                         // frameworks: []  // As specified, no frameworks will be included
                     };
-                    publicarLibAFw(transformedDataLib);
+                    const resLib = await publicarLibAFw(transformedDataLib);
+                    setServerResponse(resLib);
                     break;
                 default:
                     throw new Error("Categoría no reconocida");
 
 
             }
-            alert("Congrats🤖🚀🕵️")
-
-
+                } catch (error) {
+                    console.log(error)
+                } finally {
+                    console.log("finally", serverResponse?.success)
+                    if(serverResponse?.success === true){
+                        alert(`Congrats🤖🚀🕵️\n${serverResponse?.message}`)
+                        window.location.href="/admin/techs"}
+                        if(serverResponse?.success === false)alert(`Oops🤖🙋‍♂️🕵️\n${serverResponse?.message}`)
+                    setIsLoading(false);
+                }
         }}>
             <h1>Form input test</h1>
             <RadioGroup
@@ -224,7 +239,11 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispo
                 defaultValue={30}
                 className="max-w-md"
             />
-            <Button type="submit">Enviar</Button>
+            {isLoading ? (
+      <p>Cargando...</p>
+    ) : (
+      <Button type="submit">Enviar</Button>
+    )}
         </form>
     )
 }
