@@ -177,6 +177,65 @@ async function actualizarMd(name: string, badge: String, color: String) {
     })
     console.log("Archivo .md actualizado correctamente")
 }
+async function updateMd(){
+    // Obtener todos los proyectos de la base de datos
+    const proyectosDB: ILenguaje[] = await LenguajesModel.find();
+    // Obtener el SHA del archivo .md existente en el repositorio de GitHub
+    const mdResponse = await octokit.repos.getContent({
+        owner,
+        repo,
+        path: path.md,
+        ref,
+    });
+    let mdSha;
+    if (Array.isArray(mdResponse.data)) {
+        const mdFile = mdResponse.data.find((item) => item.name === "techs-test.md");
+        if (mdFile) {
+            mdSha = mdFile.sha;
+        } else {
+            console.error("El archivo .md no se encuentra en el repositorio");
+            return;
+        }
+    } else {
+        mdSha = mdResponse.data.sha;
+    }
+    // Actualizar el archivo .md en el repositorio de GitHub
+    let newMdContent =
+        `# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
+<p align="center">
+<a href="#">
+    <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
+</a>
+</p>\n\n\n***\n<br>\n\n`
+proyectosDB.sort((a, b) => a.preferencia - b.preferencia).forEach((proyecto) => {
+    newMdContent += `\n\n>- ## ${createBadgeTech(proyecto)}`
+    if (proyecto.frameworks) {
+        proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);
+        proyecto.frameworks.forEach((framework) => {
+            newMdContent += `\n\n> ### ${createBadgeTech(framework)}`;
+
+            if (framework.librerias) {
+                framework.librerias.sort((a, b) => a.preferencia - b.preferencia).forEach((libreria) => {
+                    newMdContent += `\n> - #### ${createBadgeTech(libreria)}`;
+                });
+            }
+        })
+    }
+})
+
+
+const encodedMdContent = Buffer.from(newMdContent).toString("base64");
+await octokit.repos.createOrUpdateFileContents({
+    owner,
+    repo,
+    path: path.md,
+    message: "Actualizar archivo .md",
+    content: encodedMdContent,
+    sha: mdSha,
+    branch: ref,
+})
+console.log("Archivo .md actualizado correctamente")
+}
 async function testPeticionRepos() {
     const { data: repos } = await octokit.repos.listForUser({
         username: owner,
@@ -392,6 +451,68 @@ export async function updateTech(updateData: UpdateData) {
         console.error('Error actualizando el proyecto:', error);
     }
 }
+type TechName = string;
+
+export async function deleteTech(name: TechName) {
+    try {
+        let proyectoActualizado = null;
+
+        // Buscar en librerías
+        let lenguaje = await LenguajesModel.findOne({ "frameworks.librerias.name": name });
+        if (lenguaje) {
+            const frameworkIndex = lenguaje.frameworks.findIndex((fw:IFramework) => fw.librerias?.some((lib:ILibreria) => lib.name === name));
+            const libreriaIndex = lenguaje.frameworks[frameworkIndex].librerias.findIndex((lib:ILibreria) => lib.name === name);
+
+            // Eliminar la librería
+            lenguaje.frameworks[frameworkIndex].librerias.splice(libreriaIndex, 1);
+
+            proyectoActualizado = await lenguaje.save();
+            if (proyectoActualizado) {
+                console.log(`Librería ${name} eliminada correctamente`);
+                await actualizarJson();
+                console.log("fw eliminado del json");
+                // await actualizarMd();
+                await updateMd();
+                return;
+            }
+        }
+
+        // Buscar en frameworks
+        lenguaje = await LenguajesModel.findOne({ "frameworks.name": name });
+        if (lenguaje) {
+            const frameworkIndex = lenguaje.frameworks.findIndex((fw:IFramework) => fw.name === name);
+
+            // Eliminar el framework
+            lenguaje.frameworks.splice(frameworkIndex, 1);
+
+            proyectoActualizado = await lenguaje.save();
+            if (proyectoActualizado) {
+                console.log(`Framework ${name} eliminado correctamente`);
+                await actualizarJson();
+                console.log("fw eliminado del json");
+                // await actualizarMd();
+                await updateMd();
+                return;
+            }
+        }
+
+        // Buscar en lenguajes
+        const lenguajeEliminado = await LenguajesModel.findOneAndDelete({ name: name });
+        if (lenguajeEliminado) {
+            console.log(`Lenguaje ${name} eliminado correctamente`);
+            await actualizarJson();
+            console.log("fw eliminado del json");
+            // await actualizarMd();
+            await updateMd();
+            return;
+        }
+
+        console.log(`No se encontró una tecnología con el nombre especificado: ${name}`);
+    } catch (error) {
+        console.error('Error eliminando la tecnología:', error);
+    }
+}
+
 
 
 

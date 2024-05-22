@@ -5,8 +5,10 @@
 - [ ] Hacer AdminPages Sections
     - [ ] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
 
-- [x] Configurar "Switch" para en el Formualrio-techs, en el name (titulo) poder marcar cuando nuestra tech no tiene logo
-- [ ] Crear boton actualizar ListOfIcons
+- [ ] Documentar bien como funciona los nombres de las Techs, para que se vincule con los topics de github, debe tener el mismo nombre a excepción de la -/.
+
+- [x] Configurar "Switch" para en el Formulario-techs, en el name (titulo) poder marcar cuando nuestra tech no tiene logo
+- [ ] Crear botón actualizar ListOfIcons
     - [x] Update createListOfIcons fetch from online page.
 
 #### Frontend projects pages
