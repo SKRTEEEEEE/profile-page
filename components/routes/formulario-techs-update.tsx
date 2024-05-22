@@ -1,6 +1,6 @@
 "use client"
 
-import { publicarFwALeng, publicarLeng, publicarLibAFw, updateTech } from "@/actions/badges";
+import { updateTech } from "@/actions/badges";
 import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
 import techBadges from "@/data/slugs";
 import { IFrameworkForm, IJsonTech, ILenguajeForm, ILibreriaForm } from "@/types";
@@ -106,65 +106,6 @@ const FormularioUpdateTechs: React.FC<FormularioTechsProps> = ({dispoLeng, dispo
                 default:
                     throw new Error("Categoría no reconocida");
             }
-            // const transformedData: ILenguajeForm = {
-            //                 name: data.name as string,
-            //                 afinidad: parseInt(data.afinidad as string, 10),
-            //                 badge: data.badge as string,
-            //                 preferencia: parseInt(data.preferencia as string, 10),
-            //                 color: data.color as string,
-            //                 experiencia: parseFloat(data.experiencia as string),
-            //                 // frameworks: []  // As specified, no frameworks will be included
-            //             };
-            //             updateTech(transformedData);
-            // const formData = new FormData(ev.target as HTMLFormElement);
-            // const data = Object.fromEntries(formData.entries());
-            // console.log(data);
-            // switch (selectedCat) {
-            //     case "lenguaje":
-            //         const transformedData: ILenguajeForm = {
-            //             name: data.name as string,
-            //             afinidad: parseInt(data.afinidad as string, 10),
-            //             badge: data.badge as string,
-            //             preferencia: parseInt(data.preferencia as string, 10),
-            //             color: data.color as string,
-            //             experiencia: parseFloat(data.experiencia as string),
-            //             // frameworks: []  // As specified, no frameworks will be included
-            //         };
-            //         publicarLeng(transformedData);
-            //         break;
-            //     case "framework":
-            //         const transformedDataFw: IFrameworkForm = {
-            //             name: data.name as string,
-            //             afinidad: parseInt(data.afinidad as string, 10),
-            //             badge: data.badge as string,
-            //             preferencia: parseInt(data.preferencia as string, 10),
-            //             color: data.color as string,
-            //             experiencia: parseFloat(data.experiencia as string),
-            //             lenguajeTo: data.lenguajeTo as string,
-            //             // frameworks: []  // As specified, no frameworks will be included
-
-            //         };
-            //         publicarFwALeng(transformedDataFw);
-            //         break;
-            //     case "libreria":
-            //         const transformedDataLib: ILibreriaForm = {
-            //             name: data.name as string,
-            //             afinidad: parseInt(data.afinidad as string, 10),
-            //             badge: data.badge as string,
-            //             preferencia: parseInt(data.preferencia as string, 10),
-            //             color: data.color as string,
-            //             experiencia: parseFloat(data.experiencia as string),
-            //             lenguajeTo: data.lenguajeTo as string,
-            //             frameworkTo: data.frameworkTo as string,
-            //             // frameworks: []  // As specified, no frameworks will be included
-            //         };
-            //         publicarLibAFw(transformedDataLib);
-            //         break;
-            //     default:
-            //         throw new Error("Categoría no reconocida");
-
-
-            // }
             alert("Congrats🤖🚀🕵️")}
             }>
             <h1>Form input test</h1>

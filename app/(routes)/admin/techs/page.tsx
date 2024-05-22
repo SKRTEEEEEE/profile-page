@@ -15,7 +15,7 @@ const TechsAdminPage = async( ) =>{
     //     console.error('Error al buscar proyectos:', error);
     // });
     const allLeng = flattenProyectos(lenguajes)
-    console.log(allLeng);
+    // console.log(allLeng);
     
 
     return (
