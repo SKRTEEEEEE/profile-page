@@ -1,4 +1,4 @@
-import { testPeticionRepos } from "@/actions/badges"
+// import { testPeticionRepos } from "@/actions/badges"
 // import { NextResponse } from "next/server"
 
 
@@ -12,6 +12,7 @@ import { testPeticionRepos } from "@/actions/badges"
 //     return NextResponse.json({ data: result })
 
 // }
+import { actualizarJson } from '@/actions/badges';
 import type { NextRequest } from 'next/server';
  
 export async function GET(request: NextRequest) {
@@ -21,6 +22,7 @@ export async function GET(request: NextRequest) {
       status: 401,
     });
   }
-    await testPeticionRepos();
+    // await testPeticionRepos();
+  await actualizarJson();
   return Response.json({ success: true });
 }

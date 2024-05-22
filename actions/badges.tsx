@@ -37,7 +37,7 @@ function createBadgeTech(tech: ILenguaje | IFramework | ILibreria) {
 }
 // const prefijo = { proyecto: "\n\n>- ## ", framework: "\n\n> ### ", lenguaje: "\n> - #### "}
 
-async function actualizarJson() {
+export async function actualizarJson() {
     // Obtener todos los proyectos de la base de datos
     const proyectosDB: ILenguaje[] = await LenguajesModel.find();
 
