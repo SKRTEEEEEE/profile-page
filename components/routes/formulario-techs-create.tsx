@@ -108,9 +108,10 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
                 default:
                     throw new Error("Categoría no reconocida");
             }
+            console.log(transformedData);
             let response;
             if(isUpdating){
-                await updateTech(transformedData as ILenguajeForm|IFrameworkForm|ILibreriaForm);
+                response = await updateTech(transformedData as ILenguajeForm|IFrameworkForm|ILibreriaForm);
             } else {
             switch (selectedCat) {
                 case "lenguaje":
@@ -136,7 +137,7 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
             } else if (serverResponse?.success === false) {
                 alert(`Oops! ${serverResponse.message}`);
             }
-            window.location.href = "/admin/techs";
+            // window.location.href = "/admin/techs";
             setIsLoading(false);
         }
     };
