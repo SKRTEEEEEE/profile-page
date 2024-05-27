@@ -416,8 +416,21 @@ export async function updateTech(updateData: UpdateData) {
                 return;
             }
 
-            const frameworkIndex = lenguaje.frameworks.findIndex((fw:IFramework) =>{ if(fw.librerias)fw.librerias.some((lib:ILibreria) => lib.name === updateData.name)});
-            const libreriaIndex = lenguaje.frameworks[frameworkIndex].librerias.findIndex((lib:ILibreria) => lib.name === updateData.name);
+            const frameworkIndex = lenguaje.frameworks.findIndex((fw: IFramework) => 
+                fw.librerias && fw.librerias.some((lib: ILibreria) => lib.name === updateData.name)
+            );
+
+            if (frameworkIndex === -1) {
+                console.log('No se encontró un framework con una librería con el nombre especificado. ', updateData.name);
+                return;
+            }
+
+            const libreriaIndex = lenguaje.frameworks[frameworkIndex].librerias.findIndex((lib: ILibreria) => lib.name === updateData.name);
+
+            if (libreriaIndex === -1) {
+                console.log('No se encontró una librería con el nombre especificado dentro del framework. ', updateData.name);
+                return;
+            }
 
             lenguaje.frameworks[frameworkIndex].librerias[libreriaIndex] = updateData;
 
@@ -455,6 +468,7 @@ export async function updateTech(updateData: UpdateData) {
         }
         
     } catch (error) {
+        //El error salta aquí
         console.error('Error actualizando el proyecto:', error);
     }
 }

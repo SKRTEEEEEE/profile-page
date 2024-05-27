@@ -7,6 +7,7 @@ import { IFrameworkForm, IJsonTech, ILenguajeForm, ILibreriaForm } from "@/types
 import { Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slider } from "@nextui-org/react";
 import { useState } from "react";
 import { useAsyncList } from "@react-stately/data";
+import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
 
 interface FormularioTechsProps {
     dispoLeng: ILenguajeDispo[];
@@ -14,19 +15,23 @@ interface FormularioTechsProps {
     // techBadges: {name: string}[];
     tech?: IJsonTech;
 }
-type TechBadge = {
+export type TechBadge = {
     name: string;
 };
 
-// Falta manejar los casos en el que el usuario cambie de fwTo, o libTo en el form
-// Falta manejar el caso en el que el usuario este haciendo un update que no pueda cambiar el fwTo y el libTo
+/* 
+- [x] Falta manejar los casos en el que el usuario cambie de fwTo, o libTo en el form
+- [x] Falta manejar el caso en el que el usuario este haciendo un update que no pueda cambiar el fwTo y el libTo
 
+El caso create de librerias esta funcionando
+*/
 const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, tech }) => {
     const initialCatTech = tech ? (tech.isLib ? "libreria" : (tech.isFw ? "framework" : "lenguaje")) : "lenguaje";
     const [selectedCat, setSelectedCat] = useState<string>(initialCatTech);
     const [inputValue, setInputValue] = useState<string>(tech?.name||'');
     const [serverResponse, setServerResponse] = useState<{ success: boolean, message: string } | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    console.log("tech: ", tech)
 
     const isUpdating = !!tech;
 
@@ -65,8 +70,7 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
             // });
             
             const formData = new FormData(e.currentTarget);
-            const data: any = Object.fromEntries(formData.entries());
-
+            const data: any = Object.fromEntries(formData.entries());// Coger datos para en input
 
             // const requestData = {
             //     name: data.name,
@@ -95,20 +99,22 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
                 case "framework":
                     transformedData = {
                         ...commonData,
-                        lenguajeTo: data.lenguajeTo,
+                        lenguajeTo: isUpdating ? tech?.isFw : data.lenguajeTo,
                     };
                     break;
+                
                 case "libreria":
                     transformedData = {
                         ...commonData,
-                        lenguajeTo: data.lenguajeTo,
-                        frameworkTo: data.frameworkTo,
+                        lenguajeTo: isUpdating ? tech?.isFw : data.lenguajeTo,
+                        frameworkTo: isUpdating ? tech?.isLib : data.frameworkTo,
                     };
+                    
                     break;
                 default:
                     throw new Error("Categoría no reconocida");
             }
-            console.log(transformedData);
+            console.log("transformedData: ", transformedData);
             let response;
             if(isUpdating){
                 response = await updateTech(transformedData as ILenguajeForm|IFrameworkForm|ILibreriaForm);
@@ -178,35 +184,47 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
             </Autocomplete>
 
             <Input isRequired name="name" type="string" label="Tecnología" description="Nombre que se pueda usar como logo en los badges de shields.io" size="lg" value={inputValue} onChange={handleInputChange} /> <Button onClick={() => setInputValue(list.filterText)}>Copiar</Button>
-            {(selectedCat === "framework" || selectedCat == "libreria") &&
+            {(selectedCat === "framework" && !isUpdating || selectedCat == "libreria" && !isUpdating)  &&
 
-                <Autocomplete
-                    isRequired
-                    variant="bordered"
-                    defaultItems={dispoLeng}
-                    name="lenguajeTo"
-                    label="Lenguaje perteneciente"
-                    placeholder="Busca el lenguaje"
-                    description="Lenguaje al que pertenece este Framework"
-                    className="max-w-xs" size="lg" labelPlacement="outside"
-                >
-                    {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
-                </Autocomplete>
+                // <Autocomplete
+                //     isRequired
+                //     variant="bordered"
+                //     defaultItems={dispoLeng}
+                //     name="lenguajeTo"
+                //     label="Lenguaje perteneciente"
+                //     placeholder="Busca el lenguaje"
+                //     description="Lenguaje al que pertenece este Framework"
+                //     className="max-w-xs" size="lg" labelPlacement="outside"
+                // >
+                //     {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
+                // </Autocomplete>
+                // Me da error porque no lo muestro entonces no tiene dicha propiedad?
+                <CustomAsyncAutocomplete items={dispoLeng}
+                label="Lenguaje perteneciente"
+                placeholder="Escribe para buscar..."
+                description="Lenguaje al que pertenece este Framework"
+                name="lenguajeTo"
+                isRequired />
             }
-            {(selectedCat === "libreria") &&
-
-                <Autocomplete
-                    isRequired
-                    variant="bordered"
-                    defaultItems={dispoFw}
-                    name="frameworkTo"
-                    label="Framework perteneciente"
-                    placeholder="Busca el lenguaje"
-                    description="Framework al que pertenece esta Librería"
-                    className="max-w-xs" size="lg" labelPlacement="outside"
-                >
-                    {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
-                </Autocomplete>
+            {(selectedCat === "libreria" && !isUpdating) &&
+                <CustomAsyncAutocomplete items={dispoFw}
+                label="Framework perteneciente"
+                placeholder="Escribe para buscar..."
+                description="Framework al que pertenece esta Librería"
+                name="frameworkTo"
+                isRequired />
+                // <Autocomplete
+                //     isRequired
+                //     variant="bordered"
+                //     defaultItems={dispoFw}
+                //     name="frameworkTo"
+                //     label="Framework perteneciente"
+                //     placeholder="Busca el lenguaje"
+                //     description="Framework al que pertenece esta Librería"
+                //     className="max-w-xs" size="lg" labelPlacement="outside"
+                // >
+                //     {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
+                // </Autocomplete>
             }
             <Input isRequired name="preferencia" type="number" label="Preferencia" description="Orden en categoría" size="sm" className="max-w-[120px]" defaultValue={tech?.preferencia.toString()}/>
             <Input isRequired name="badge" type="string" label="Badge MD" description="Badge para usar en markdown" size="md"  defaultValue={tech?.badge}/>
