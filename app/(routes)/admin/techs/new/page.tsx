@@ -1,5 +1,5 @@
 
-import FormularioCreateTechs from "@/components/routes/formulario-techs-create";
+import TechFormulario from "@/components/routes/tech-formulario";
 import {  fetchLenguajes } from "@/data/fetch";
 // import { createListOfIcons } from "@/utils/scripts/createListOfIcons";
 
@@ -28,7 +28,7 @@ const NewTechAdminPage: React.FC = async() => {
     
     return (
         <div className="py-14 my-28 h-dvh flex flex-col align-center items-center justify-center">
-            <FormularioCreateTechs dispoLeng={dispoLeng} dispoFw={dispoFw} />
+            <TechFormulario dispoLeng={dispoLeng} dispoFw={dispoFw} />
             
         </div>
     )

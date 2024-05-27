@@ -25,9 +25,10 @@ const TechsAdminPage = async( ) =>{
             
             </p>
         )})}
-        
         </>
     )
 }
 
 export default TechsAdminPage
+
+

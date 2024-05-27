@@ -25,7 +25,7 @@ export type TechBadge = {
 
 El caso create de librerias esta funcionando
 */
-const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, tech }) => {
+const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, tech }) => {
     const initialCatTech = tech ? (tech.isLib ? "libreria" : (tech.isFw ? "framework" : "lenguaje")) : "lenguaje";
     const [selectedCat, setSelectedCat] = useState<string>(initialCatTech);
     const [inputValue, setInputValue] = useState<string>(tech?.name||'');
@@ -248,4 +248,4 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
     )
 }
 
-export default FormularioCreateTechs;
+export default TechFormulario;

@@ -2,7 +2,7 @@
 ## Remembers
 ### Remember 05.2024 (Actual)
 
-
+- [ ]
 
 - [ ] Hacer AdminPages Sections
     - [ ] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
