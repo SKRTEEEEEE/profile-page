@@ -31,7 +31,6 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
     const [inputValue, setInputValue] = useState<string>(tech?.name||'');
     const [serverResponse, setServerResponse] = useState<{ success: boolean, message: string } | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    console.log("tech: ", tech)
 
     const isUpdating = !!tech;
 
@@ -53,35 +52,15 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
     };
-    //   const handleCopyClick = () => {
-    //     setInputValue(list.filterText);
-    //   };
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
 
         try {
-            // const data: any = {};
-            // const formElements = Array.prototype.slice.call(e.currentTarget.elements) as HTMLInputElement[];
-            // formElements.forEach((field: HTMLInputElement) => {
-            //     if (field.name) {
-            //         data[field.name] = field.value;
-            //     }
-            // });
-            
             const formData = new FormData(e.currentTarget);
             const data: any = Object.fromEntries(formData.entries());// Coger datos para en input
 
-            // const requestData = {
-            //     name: data.name,
-            //     afinidad: parseInt(data.afinidad, 10),
-            //     badge: data.badge,
-            //     preferencia: parseInt(data.preferencia, 10),
-            //     color: data.color,
-            //     experiencia: parseFloat(data.experiencia),
-            //     lenguajeTo: selectedCat === "framework" || selectedCat === "libreria" ? data.lenguajeTo : undefined,
-            //     frameworkTo: selectedCat === "libreria" ? data.frameworkTo : undefined,
-            // };
             const commonData = {
                 name: data.name,
                 afinidad: parseInt(data.afinidad, 10),
@@ -143,7 +122,7 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
             } else if (serverResponse?.success === false) {
                 alert(`Oops! ${serverResponse.message}`);
             }
-            // window.location.href = "/admin/techs";
+            window.location.href = "/admin/techs";
             setIsLoading(false);
         }
     };
@@ -186,45 +165,22 @@ const FormularioCreateTechs: React.FC<FormularioTechsProps> = ({ dispoLeng, disp
             <Input isRequired name="name" type="string" label="Tecnología" description="Nombre que se pueda usar como logo en los badges de shields.io" size="lg" value={inputValue} onChange={handleInputChange} /> <Button onClick={() => setInputValue(list.filterText)}>Copiar</Button>
             {(selectedCat === "framework" && !isUpdating || selectedCat == "libreria" && !isUpdating)  &&
 
-                // <Autocomplete
-                //     isRequired
-                //     variant="bordered"
-                //     defaultItems={dispoLeng}
-                //     name="lenguajeTo"
-                //     label="Lenguaje perteneciente"
-                //     placeholder="Busca el lenguaje"
-                //     description="Lenguaje al que pertenece este Framework"
-                //     className="max-w-xs" size="lg" labelPlacement="outside"
-                // >
-                //     {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
-                // </Autocomplete>
-                // Me da error porque no lo muestro entonces no tiene dicha propiedad?
                 <CustomAsyncAutocomplete items={dispoLeng}
-                label="Lenguaje perteneciente"
-                placeholder="Escribe para buscar..."
-                description="Lenguaje al que pertenece este Framework"
-                name="lenguajeTo"
-                isRequired />
+                    label="Lenguaje perteneciente"
+                    placeholder="Escribe para buscar..."
+                    description="Lenguaje al que pertenece este Framework"
+                    name="lenguajeTo"
+                    isRequired 
+                />
             }
             {(selectedCat === "libreria" && !isUpdating) &&
                 <CustomAsyncAutocomplete items={dispoFw}
-                label="Framework perteneciente"
-                placeholder="Escribe para buscar..."
-                description="Framework al que pertenece esta Librería"
-                name="frameworkTo"
-                isRequired />
-                // <Autocomplete
-                //     isRequired
-                //     variant="bordered"
-                //     defaultItems={dispoFw}
-                //     name="frameworkTo"
-                //     label="Framework perteneciente"
-                //     placeholder="Busca el lenguaje"
-                //     description="Framework al que pertenece esta Librería"
-                //     className="max-w-xs" size="lg" labelPlacement="outside"
-                // >
-                //     {(lenguaje) => <AutocompleteItem key={lenguaje.name}>{lenguaje.name}</AutocompleteItem>}
-                // </Autocomplete>
+                    label="Framework perteneciente"
+                    placeholder="Escribe para buscar..."
+                    description="Framework al que pertenece esta Librería"
+                    name="frameworkTo"
+                    isRequired 
+                />
             }
             <Input isRequired name="preferencia" type="number" label="Preferencia" description="Orden en categoría" size="sm" className="max-w-[120px]" defaultValue={tech?.preferencia.toString()}/>
             <Input isRequired name="badge" type="string" label="Badge MD" description="Badge para usar en markdown" size="md"  defaultValue={tech?.badge}/>

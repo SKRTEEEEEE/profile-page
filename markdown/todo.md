@@ -2,6 +2,8 @@
 ## Remembers
 ### Remember 05.2024 (Actual)
 
+
+
 - [ ] Hacer AdminPages Sections
     - [ ] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
 
@@ -25,6 +27,11 @@
 
 #### - [ ] Configurar el analytics de Vercel!!!
 
+#### Test v01.01.01
+- [x] Update ->Librería, Framework y Lenguaje
+- [x] Create ->Librería, Framework y Lenguaje
+- [x] Delete cascada ->Lenguaje y Framework 
+- [x] Delete ->Librería, Framework y Lenguaje
 
 ## Remember meses antiguos
 ## Versions
