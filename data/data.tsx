@@ -235,8 +235,8 @@ export const dataPortfolio = [
             
         },
         image: "/image-3.png",
-        urlGithub: "https://github.com/SKRTEEEEEE/profile-test",
-        urlDemo: "#",
+        urlGithub: "https://github.com/SKRTEEEEEE/profile-page",
+        urlDemo: "",
         operative: true,
         ejemplo: true,
     },
@@ -382,8 +382,8 @@ export const dataPortfolio = [
             
         },
         image: "/image-3.jpg",
-        urlGithub: "https://github.com/SKRTEEEEEE/profile-test",
-        urlDemo: "#!",
+        urlGithub: "https://github.com/SKRTEEEEEE/profile-page/tree/v01.02/",
+        urlDemo: "",
         operative: false,
         ejemplo: true,
     },

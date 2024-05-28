@@ -42,7 +42,7 @@ const Introduction = () => {
                             Ver proyectos
                         </Link>
                         <Link href="mailto:adanreh.m@gmail.com"
-                            className="px-3 py-2 my-5 transition-all border-2 cursor-pointer text-md w-fit text-secondary border-secondary rounded-xl hover:shadow-xl hover:shadow-secondary" >
+                            className="px-3 py-2 my-5 transition-all border-2 cursor-pointer text-md w-fit text-primary-200/80 border-secondary rounded-xl hover:shadow-xl hover:shadow-secondary" >
                             Contacta conmigo
                         </Link>
                     </div>

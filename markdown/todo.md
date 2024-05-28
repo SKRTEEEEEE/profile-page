@@ -1,33 +1,35 @@
 # ToDo
 ## Remembers
 ### Remember 05.2024 (Actual)
-- [ ] Averiguar porque no hace el Create desde el móvil
+#### Other
+- ##### [ ] Averiguar porque no hace el Create desde el móvil
+- ##### [ ] Unificar lógica techs (Data y BDD)
 
-- [ ] Configurar "Switch" para en el Formulario-techs, en el name (titulo) poder marcar cuando nuestra tech no tiene logo
-- [ ] Crear botón actualizar ListOfIcons
-    - [ ] Update createListOfIcons fetch from online page?.
 #### 28/05
-
+- [x] Terminar documentación v01.01
+- [ ] Terminar documentación v01.02
 
 #### Frontend General
-- [ ] Poner el favicon
+- [x] Poner el favicon ? [ ] Test?
 - [ ] Hacer AdminPages Sections
     - [x] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
-- [ ] Mejorar Frontend main("/") page
+- [x] Mejorar Frontend main("/") page
 
 ##### Mejorar Frontend projects & projectDyn page
-- [ ] Mejorar/crear botones projectDyn & projects pages
+- [x] Mejorar/crear botones projectDyn & projects pages
     - [x] Para ir a la pagina web del proyecto
-        - [ ] Si el proyecto es /# (osea que aun no esta desplegado, o esta en la misma pagina, etc..) no mostrar botón
-    - [ ] Para ir al github del proyecto
-        - [ ] Si el proyecto es /# osea que aun no esta desplegado no mostrar botón
-- [ ] Mejorar Frontend projectDyn page
-    - [ ] Objetivos a de ocupar menos visualmente, sobretodo en xl
+        - [x] Si el proyecto es /# (osea que aun no esta desplegado, o esta en la misma pagina, etc..) no mostrar botón
+    - [x] Para ir al github del proyecto
+        - [x] Si el proyecto es /# osea que aun no esta desplegado no mostrar botón
+- [x] Mejorar Frontend projectDyn page
+    - [x] Objetivos a de ocupar menos visualmente, sobretodo en xl
+    - [x] Crear botones para proyectos (parte superior)
+##### Empezar Frontend techs (about-me page)
 
 
 #### Configurar el analytics de Vercel!!!
-
-#### Test v01.01.01 Backend techs CRUD
+## Test
+### Test v01.01.01 Backend techs CRUD
 - [x] Update ->Librería, Framework y Lenguaje
 - [x] Create ->Librería, Framework y Lenguaje
 - [x] Delete cascada ->Lenguaje y Framework 
@@ -36,9 +38,13 @@
 ## Remember meses antiguos
 ## Versions
 ###  v02
-
 #### Make a parallax 3d welkome page
 - [ ] Separar el navbar actual y ponerlo solo para (navbar) pages "folder"
+
+#### "name" Formulario-tech
+- [ ] Configurar "Switch" para en el Formulario-techs, en el name (titulo) poder marcar cuando nuestra tech no tiene logo
+- [ ] Crear botón actualizar ListOfIcons
+    - [ ] Update createListOfIcons fetch from online page?.
 
 ## Others Versions/Ideas
 
