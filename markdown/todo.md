@@ -1,33 +1,33 @@
 # ToDo
 ## Remembers
 ### Remember 05.2024 (Actual)
+- [ ] Averiguar porque no hace el Create desde el móvil
 
-- [ ]
-
-- [ ] Hacer AdminPages Sections
-    - [ ] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
-
-- [ ] Documentar bien como funciona los nombres de las Techs, para que se vincule con los topics de github, debe tener el mismo nombre a excepción de la -/.
-
-- [x] Configurar "Switch" para en el Formulario-techs, en el name (titulo) poder marcar cuando nuestra tech no tiene logo
+- [ ] Configurar "Switch" para en el Formulario-techs, en el name (titulo) poder marcar cuando nuestra tech no tiene logo
 - [ ] Crear botón actualizar ListOfIcons
-    - [x] Update createListOfIcons fetch from online page.
+    - [ ] Update createListOfIcons fetch from online page?.
+#### 28/05
 
-#### Frontend projects pages
+
+#### Frontend General
+- [ ] Poner el favicon
+- [ ] Hacer AdminPages Sections
+    - [x] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
+- [ ] Mejorar Frontend main("/") page
+
+##### - [ ] Mejorar Frontend projects & projectDyn page
 - [ ] Mejorar/crear botones projectDyn & projects pages
     - [x] Para ir a la pagina web del proyecto
-        - [ ] Si el proyecto es /# osea que aun no esta desplegado no mostrar botón
+        - [ ] Si el proyecto es /# (osea que aun no esta desplegado, o esta en la misma pagina, etc..) no mostrar botón
     - [ ] Para ir al github del proyecto
         - [ ] Si el proyecto es /# osea que aun no esta desplegado no mostrar botón
-#### Frontend General
-- [ ] Mejorar Frontend main("/") page
-- [ ] Mejorar Frontend projects page
 - [ ] Mejorar Frontend projectDyn page
     - [ ] Objetivos a de ocupar menos visualmente, sobretodo en xl
 
+
 #### - [ ] Configurar el analytics de Vercel!!!
 
-#### Test v01.01.01
+#### Test v01.01.01 Backend techs CRUD
 - [x] Update ->Librería, Framework y Lenguaje
 - [x] Create ->Librería, Framework y Lenguaje
 - [x] Delete cascada ->Lenguaje y Framework 

@@ -1,4 +1,4 @@
-# Información
+# Información detallada
 
 ## Propósito general
 

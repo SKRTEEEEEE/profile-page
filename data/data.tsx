@@ -143,7 +143,7 @@ export const lenguajesResources = [
         icon: <FaReact aria-description="React icono"/>,
         title: "React",
         description: "React-DOM, JWT, Hooks, APIs, Protected Routes, JSX, Router, Redux, etc...",
-        img: "https://iili.io/H7ALWtR.jpg"
+        img: "https://cdn3d.iconscout.com/3d/free/thumb/free-react-js-5562354-4642758.png"
     },
     {
         icon: <SiTailwindcss aria-description="Tailwind icono"/>,
@@ -183,7 +183,7 @@ export const lenguajesResources = [
     {
         icon: <SiNextui  aria-describedby="NextUI icono"/>,
         title: "NextUI",
-        description: "Diseño UI, componentes accesibles, personalizables, interfaces de usuario modernas, interfaces elegantes.",
+        description: "Diseño UI, componentes accesibles, UI modernas y elegantes, etc...",
         img: "https://avatars.githubusercontent.com/u/86160567?v=4",
     },
 

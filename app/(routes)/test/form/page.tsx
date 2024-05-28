@@ -4,6 +4,9 @@ import TechFormulario from "@/components/routes/tech-formulario";
 import {  fetchLenguajes } from "@/data/fetch";
 // import { createListOfIcons } from "@/utils/scripts/createListOfIcons";
 
+
+
+//Hay que pasar esto a Types, o mirar donde se usa(en dos o tres sitios distintos)
 export interface ILenguajeDispo {
     name: string;
 }
