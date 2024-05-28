@@ -1,7 +1,9 @@
 "use client"
 
 import { deleteTech } from "@/actions/badges";
+import { Spinner } from "@nextui-org/react";
 import { useState } from "react";
+import { LuDelete } from "react-icons/lu";
 
 interface DeleteTechButtonProps {
     name: string;
@@ -12,7 +14,7 @@ const DeleteTechButton:React.FC<DeleteTechButtonProps> = ({name}) =>{
     const [isLoading, setIsLoading] = useState<boolean>(false);
     return (
         <>
-        {isLoading ? <p>Loading...</p> : <button onClick={async ()=>{
+        {isLoading ? <Spinner size="lg"/> : <LuDelete size={"45px"} onClick={async ()=>{
             setIsLoading(true);
             try {
                 const res = await deleteTech(name);
@@ -25,7 +27,7 @@ const DeleteTechButton:React.FC<DeleteTechButtonProps> = ({name}) =>{
                 setIsLoading(false);window.location.reload();
             }
             
-        }}>Delete {name}</button>}
+        }}/>}
         </>
         
     )

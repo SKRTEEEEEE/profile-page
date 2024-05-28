@@ -2,7 +2,7 @@
 
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
-import { TechBadge } from "./formulario-techs-create";
+import { TechBadge } from "./tech-formulario";
 // import { TechBadge } from "@/types";
 
 interface CustomAsyncAutocompleteProps {

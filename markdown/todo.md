@@ -111,3 +111,10 @@ Objeto (con nombre) que describen la categoría o tipo de la tecnología que con
 
 
 ##### IDK
+
+re img: "https://iili.io/H7ALWtR.jpg"
+tw img: "https://cdn3d.iconscout.com/3d/free/preview/free-tailwind-9294852-7577995.png?f=webp&h=700"
+nx img: "https://tsh.io/wp-content/uploads/2022/03/Next-logo-adj.png"
+
+
+
