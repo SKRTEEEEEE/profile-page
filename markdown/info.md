@@ -31,9 +31,5 @@ Crear tres _badges_ interactivos (sobre las tecnologías utilizadas), que al mod
 
 Creación del test del badge con la info de la afinidad y la experiencia. Y tratar de enviar-lo a un repositorio de prueba en Github a traves de la api rest.
 
-## Esquemas
-
-### Esquema arquitectura web
-
-> #### v01
-> ![ProjectCief](/markdown/img/arqProfile.jpg)
+## [Esquemas](resum.md)
+### [Esquema arquitectura web](resum.md/#arquitectura-web)

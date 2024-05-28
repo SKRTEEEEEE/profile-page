@@ -16,7 +16,7 @@ Pagina web desarrollada principalmente con:
 - **TailwindCss, NextUI, SwiperJs y TsParticles** para la parte visual, _Frontend_.
 - **MongoDb** como Base de datos, _Backend_.
 - **Mongoose** para la conexión con la Base de datos, _Backend_.
-### - [Información gráfica sobre este proyecto](markdown/resum.md)
+- ### [Información gráfica sobre este proyecto](markdown/resum.md)
 
 
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns/blob/main/README.md)

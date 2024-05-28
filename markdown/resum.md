@@ -1,5 +1,7 @@
 # Información gráfica.
 
+- ## [Toda la información detallada](info.md)
+
 ## Resumen
 
 ![Resumen v01](img/estructura-arquitectura-web.jpg)
@@ -10,12 +12,9 @@
 
 ## Estructura techs CRUD
 
-![Estructura techs CRUD](img/badge-uso-v1-whitepng.png)
+![Estructura techs CRUD](img/techs-badges-crud-v1-whitepng)
 
-![Estructura techs CRUD](img/badge-uso-v1-whitesvg.svg)
 
 ## Estructura/cálculos badge Uso en Github
 
-![Estructura badge uso](img/techs-badges-crud-v1-whitepng)
-
-![Estructura badge uso](img/techs-badges-crud-v1-whitesvg)
+![Estructura badge uso](img/badge-uso-v1-whitepng)

@@ -15,7 +15,7 @@
     - [x] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
 - [ ] Mejorar Frontend main("/") page
 
-##### - [ ] Mejorar Frontend projects & projectDyn page
+##### Mejorar Frontend projects & projectDyn page
 - [ ] Mejorar/crear botones projectDyn & projects pages
     - [x] Para ir a la pagina web del proyecto
         - [ ] Si el proyecto es /# (osea que aun no esta desplegado, o esta en la misma pagina, etc..) no mostrar botón
@@ -25,7 +25,7 @@
     - [ ] Objetivos a de ocupar menos visualmente, sobretodo en xl
 
 
-#### - [ ] Configurar el analytics de Vercel!!!
+#### Configurar el analytics de Vercel!!!
 
 #### Test v01.01.01 Backend techs CRUD
 - [x] Update ->Librería, Framework y Lenguaje
@@ -73,18 +73,7 @@
 9.0 - 14.0%: Superior
 >14.0%: Dominante -> 5 huecos
 
-### Redondas para marcar la cantidad
-Ejemplo v1 -> %F0%9F%9F%A3%F0%9F%9F%A3%F0%9F%9F%A3%F0%9F%9F%A3%E2%9A%AA
-Ejemplo v2 ->
-    - Logo estatico "label": %F0%9F%93%B6
-    - 1 bola llena -> %F0%9F%9F%A1%F0%9F%94%98%F0%9F%94%98%F0%9F%94%98%F0%9F%94%98
-    %F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%94%98%F0%9F%94%98%F0%9F%94%98
-    %F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%94%98%F0%9F%94%98
-    %F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%94%98
-    %F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1
-
-
-
+### Redondas para marcar la cantidad (sin uso)
 14%: 🟡🔘🔘🔘🔘
 13%: 🟡🟡🔘🔘🔘
 12%: 🟡🟡🟡🔘🔘
@@ -107,14 +96,6 @@ Objeto (con nombre) que describen la categoría o tipo de la tecnología que con
 
 
 
-
-
-
-##### IDK
-
-re img: "https://iili.io/H7ALWtR.jpg"
-tw img: "https://cdn3d.iconscout.com/3d/free/preview/free-tailwind-9294852-7577995.png?f=webp&h=700"
-nx img: "https://tsh.io/wp-content/uploads/2022/03/Next-logo-adj.png"
 
 
 
