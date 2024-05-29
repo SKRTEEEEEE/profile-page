@@ -17,22 +17,21 @@ interface AdminTechTableProps {
 }
 
 const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
-
+  //Inst. pagination
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 4;
-
+  //Inst. error
   const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-
+  //prepare pagination
   const pages = Math.ceil(lenguajes.length / rowsPerPage);
-
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
     return lenguajes.slice(start, end);
   }, [page, lenguajes]);
-
+  //Manage delete
   const handleDelete = async (name:string) => {
     setIsLoading(true);
     setError(null);
@@ -51,7 +50,7 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
         if(setError===null)window.location.reload();
     }
 };
-
+  //Celdas de cada fila "estilos"
   const renderCell = (item: IJsonTech, columnKey: string) => {
     switch (columnKey) {
       case "name":
@@ -59,10 +58,8 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
         return <TableCell>
           <User
             avatarProps={{ radius: "lg", src: language?.img, icon: language?.icon }}
-            // description={item.isFw}
             description={<UserDescAdminTechTable item={item}/>}
             name={item.name}
-          // name={cellValue}
           >
             {item.name}
           </User></TableCell>
@@ -100,9 +97,8 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
         return <TableCell>{getKeyValue(item, columnKey)}</TableCell>;
     }
   };
-
   const getColorChip = (color: string) => {
-    console.log("color: ", color)
+    // console.log("color: ", color)
     return (
       <Chip
         style={{ backgroundColor: `#${color}`, borderWidth: "1px", borderStyle: "solid" }}
