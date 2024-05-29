@@ -181,7 +181,11 @@ async function actualizarMd(name: string, badge: String, color: String) {
 
         console.log("Archivo .md actualizado correctamente");
     } catch (error) {
-        console.error("Error al actualizar el archivo .md:", error.message);
+        if (error instanceof Error) {
+            console.error('Error al actualizar el archivo .md', error.message);
+        } else {
+            console.error('Error al actualizar el archivo .md', error);
+        }
     }
 }
 
