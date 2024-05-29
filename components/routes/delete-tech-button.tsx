@@ -20,8 +20,11 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ name }) => {
                     const res = await deleteTech(name);
                     console.log("Deleted:", res);
                 } catch (error) {
-                    console.error("Error deleting tech:", error.message);
-                    console.error("Detalles del error:", error);
+                    if (error instanceof Error) {
+                        console.error('Error al eliminar tech', error.message);
+                    } else {
+                        console.error('Error al eliminar tech', error);
+                    }
                     alert("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
                 } finally {
                     setIsLoading(false);
