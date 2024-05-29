@@ -113,129 +113,150 @@ export async function actualizarJson() {
     console.log("Archivo Json actualizado")
 }
 async function actualizarMd(name: string, badge: String, color: String) {
-    // Obtener todos los proyectos de la base de datos
-    const proyectosDB: ILenguaje[] = await LenguajesModel.find();
-    // Obtener el SHA del archivo .md existente en el repositorio de GitHub
-    const mdResponse = await octokit.repos.getContent({
-        owner,
-        repo,
-        path: path.md,
-        ref,
-    });
-    let mdSha;
-    if (Array.isArray(mdResponse.data)) {
-        const mdFile = mdResponse.data.find((item) => item.name === "techs-test.md");
-        if (mdFile) {
-            mdSha = mdFile.sha;
-        } else {
-            console.error("El archivo .md no se encuentra en el repositorio");
-            return;
-        }
-    } else {
-        mdSha = mdResponse.data.sha;
-    }
+    try {
+        // Obtener todos los proyectos de la base de datos
+        const proyectosDB: ILenguaje[] = await LenguajesModel.find();
+        console.log("Proyectos obtenidos de la base de datos:", proyectosDB.length);
 
-    // Actualizar el archivo .md en el repositorio de GitHub
-    let newMdContent =
-        `# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
+        // Obtener el SHA del archivo .md existente en el repositorio de GitHub
+        const mdResponse = await octokit.repos.getContent({
+            owner,
+            repo,
+            path: path.md,
+            ref,
+        });
+
+        let mdSha;
+        if (Array.isArray(mdResponse.data)) {
+            const mdFile = mdResponse.data.find((item) => item.name === "techs-test.md");
+            if (mdFile) {
+                mdSha = mdFile.sha;
+            } else {
+                throw new Error("El archivo .md no se encuentra en el repositorio");
+            }
+        } else {
+            mdSha = mdResponse.data.sha;
+        }
+
+        // Generar el nuevo contenido del archivo .md
+        let newMdContent =
+            `# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
 <p align="center">
 <a href="#">
     <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
 </a>
-</p>\n\n\n***\n<br>\n\n`
-    //Nuevo lenguaje 
-    newMdContent += `>- ## ${badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].value&label=%F0%9F%92%97%20Afinidad&color=${color}&style=flat&logo=${name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].afinidad&color=${color}&style=flat&label=%20&suffix=%25)
-    ![Experiencia](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].valueexp&label=%F0%9F%8F%85%20Experiencia&color=${color}&style=flat&logo=${name})![Experiencia %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].experiencia&color=${color}&style=flat&label=%20&suffix=%25)
-    ![Uso En Github](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].valueuso&label=%F0%9F%98%BB%20Uso%20en%20github&color=${color}&style=flat&logo=${name})![Uso en Github %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].usogithub&color=${color}&style=flat&label=%20&suffix=%25)\n>\n>![New Badge](https://img.shields.io/badge/%C2%A1_novedad_%F0%9F%91%8D_!-NEW_%F0%9F%93%A5_%F0%9F%97%92%EF%B8%8F-blue?style=social)
+</p>\n\n\n***\n<br>\n\n`;
+
+        // Nuevo lenguaje 
+        newMdContent += `>- ## ${badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].value&label=%F0%9F%92%97%20Afinidad&color=${color}&style=flat&logo=${name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].afinidad&color=${color}&style=flat&label=%20&suffix=%25)
+        ![Experiencia](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].valueexp&label=%F0%9F%8F%85%20Experiencia&color=${color}&style=flat&logo=${name})![Experiencia %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].experiencia&color=${color}&style=flat&label=%20&suffix=%25)
+        ![Uso En Github](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].valueuso&label=%F0%9F%98%BB%20Uso%20en%20github&color=${color}&style=flat&logo=${name})![Uso en Github %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].usogithub&color=${color}&style=flat&label=%20&suffix=%25)\n>\n>![New Badge](https://img.shields.io/badge/%C2%A1_novedad_%F0%9F%91%8D_!-NEW_%F0%9F%93%A5_%F0%9F%97%92%EF%B8%8F-blue?style=social)
 \n\n`;
-    proyectosDB.sort((a, b) => a.preferencia - b.preferencia).forEach((proyecto) => {
-        newMdContent += `\n\n>- ## ${createBadgeTech(proyecto)}`
-        if (proyecto.frameworks) {
-            proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);
-            proyecto.frameworks.forEach((framework) => {
-                newMdContent += `\n\n> ### ${createBadgeTech(framework)}`;
 
-                if (framework.librerias) {
-                    framework.librerias.sort((a, b) => a.preferencia - b.preferencia).forEach((libreria) => {
-                        newMdContent += `\n> - #### ${createBadgeTech(libreria)}`;
-                    });
-                }
-            })
-        }
-    })
-
-
-    const encodedMdContent = Buffer.from(newMdContent).toString("base64");
-    await octokit.repos.createOrUpdateFileContents({
-        owner,
-        repo,
-        path: path.md,
-        message: "Actualizar archivo .md",
-        content: encodedMdContent,
-        sha: mdSha,
-        branch: ref,
-    })
-    console.log("Archivo .md actualizado correctamente")
-}
-async function updateMd(){
-    // Obtener todos los proyectos de la base de datos
-    const proyectosDB: ILenguaje[] = await LenguajesModel.find();
-    // Obtener el SHA del archivo .md existente en el repositorio de GitHub
-    const mdResponse = await octokit.repos.getContent({
-        owner,
-        repo,
-        path: path.md,
-        ref,
-    });
-    let mdSha;
-    if (Array.isArray(mdResponse.data)) {
-        const mdFile = mdResponse.data.find((item) => item.name === "techs-test.md");
-        if (mdFile) {
-            mdSha = mdFile.sha;
-        } else {
-            console.error("El archivo .md no se encuentra en el repositorio");
-            return;
-        }
-    } else {
-        mdSha = mdResponse.data.sha;
-    }
-    // Actualizar el archivo .md en el repositorio de GitHub
-    let newMdContent =
-        `# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
-<p align="center">
-<a href="#">
-    <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
-</a>
-</p>\n\n\n***\n<br>\n\n`
-proyectosDB.sort((a, b) => a.preferencia - b.preferencia).forEach((proyecto) => {
-    newMdContent += `\n\n>- ## ${createBadgeTech(proyecto)}`
-    if (proyecto.frameworks) {
-        proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);
-        proyecto.frameworks.forEach((framework) => {
-            newMdContent += `\n\n> ### ${createBadgeTech(framework)}`;
-
-            if (framework.librerias) {
-                framework.librerias.sort((a, b) => a.preferencia - b.preferencia).forEach((libreria) => {
-                    newMdContent += `\n> - #### ${createBadgeTech(libreria)}`;
+        proyectosDB.sort((a, b) => a.preferencia - b.preferencia).forEach((proyecto) => {
+            newMdContent += `\n\n>- ## ${createBadgeTech(proyecto)}`;
+            if (proyecto.frameworks) {
+                proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);
+                proyecto.frameworks.forEach((framework) => {
+                    newMdContent += `\n\n> ### ${createBadgeTech(framework)}`;
+                    if (framework.librerias) {
+                        framework.librerias.sort((a, b) => a.preferencia - b.preferencia).forEach((libreria) => {
+                            newMdContent += `\n> - #### ${createBadgeTech(libreria)}`;
+                        });
+                    }
                 });
             }
-        })
+        });
+
+        const encodedMdContent = Buffer.from(newMdContent).toString("base64");
+        await octokit.repos.createOrUpdateFileContents({
+            owner,
+            repo,
+            path: path.md,
+            message: "Actualizar archivo .md",
+            content: encodedMdContent,
+            sha: mdSha,
+            branch: ref,
+        });
+
+        console.log("Archivo .md actualizado correctamente");
+    } catch (error) {
+        console.error("Error al actualizar el archivo .md:", error.message);
     }
-})
-
-
-const encodedMdContent = Buffer.from(newMdContent).toString("base64");
-await octokit.repos.createOrUpdateFileContents({
-    owner,
-    repo,
-    path: path.md,
-    message: "Actualizar archivo .md",
-    content: encodedMdContent,
-    sha: mdSha,
-    branch: ref,
-})
-console.log("Archivo .md actualizado correctamente")
 }
+
+async function updateMd() {
+    try {
+        // Obtener todos los proyectos de la base de datos
+        const proyectosDB: ILenguaje[] = await LenguajesModel.find();
+        console.log("Proyectos obtenidos de la base de datos:", proyectosDB.length);
+
+        // Obtener el SHA del archivo .md existente en el repositorio de GitHub
+        const mdResponse = await octokit.repos.getContent({
+            owner,
+            repo,
+            path: path.md,
+            ref,
+        });
+
+        let mdSha;
+        if (Array.isArray(mdResponse.data)) {
+            const mdFile = mdResponse.data.find((item) => item.name === "techs-test.md");
+            if (mdFile) {
+                mdSha = mdFile.sha;
+            } else {
+                throw new Error("El archivo .md no se encuentra en el repositorio");
+            }
+        } else {
+            mdSha = mdResponse.data.sha;
+        }
+
+        // Generar el nuevo contenido del archivo .md
+        let newMdContent =
+            `# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
+<p align="center">
+<a href="#">
+    <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
+</a>
+</p>\n\n\n***\n<br>\n\n`;
+
+        proyectosDB.sort((a, b) => a.preferencia - b.preferencia).forEach((proyecto) => {
+            newMdContent += `\n\n>- ## ${createBadgeTech(proyecto)}`;
+            if (proyecto.frameworks) {
+                proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);
+                proyecto.frameworks.forEach((framework) => {
+                    newMdContent += `\n\n> ### ${createBadgeTech(framework)}`;
+                    if (framework.librerias) {
+                        framework.librerias.sort((a, b) => a.preferencia - b.preferencia).forEach((libreria) => {
+                            newMdContent += `\n> - #### ${createBadgeTech(libreria)}`;
+                        });
+                    }
+                });
+            }
+        });
+
+        const encodedMdContent = Buffer.from(newMdContent).toString("base64");
+        await octokit.repos.createOrUpdateFileContents({
+            owner,
+            repo,
+            path: path.md,
+            message: "Actualizar archivo .md",
+            content: encodedMdContent,
+            sha: mdSha,
+            branch: ref,
+        });
+
+        console.log("Archivo .md actualizado correctamente");
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error('Error al actualizar el archivo .md', error.message);
+        } else {
+            console.error('Error al actualizar el archivo .md', error);
+        }
+        
+    }
+}
+
 async function testPeticionRepos() {
     const { data: repos } = await octokit.repos.listForUser({
         username: owner,
@@ -311,7 +332,7 @@ async function testPeticionRepos() {
     return convertToLanguagePercentageArray(languagePercentages)
 
 }
-//CREATE
+//CREATE (no se crea desde Vercel, la bdd + el json i md)
 export async function publicarLeng({ name, afinidad, badge, preferencia, color, experiencia }: ILenguajeForm) {
 
     await actualizarMd(name, badge, color);
@@ -473,7 +494,7 @@ export async function updateTech(updateData: UpdateData) {
     }
 }
 type TechName = string;
-// DELETE
+// DELETE(no se elimina desde Vercel, la bdd + el json i md)
 export async function deleteTech(name: TechName) {
     try {
         let proyectoActualizado = null;
@@ -491,9 +512,9 @@ export async function deleteTech(name: TechName) {
             if (proyectoActualizado) {
                 console.log(`Librería ${name} eliminada correctamente`);
                 await actualizarJson();
-                console.log("fw eliminado del json");
-                // await actualizarMd();
+                console.log("Librería eliminada del JSON");
                 await updateMd();
+                console.log("Librería eliminada del MD");
                 return;
             }
         }
@@ -510,9 +531,9 @@ export async function deleteTech(name: TechName) {
             if (proyectoActualizado) {
                 console.log(`Framework ${name} eliminado correctamente`);
                 await actualizarJson();
-                console.log("fw eliminado del json");
-                // await actualizarMd();
+                console.log("Framework eliminado del JSON");
                 await updateMd();
+                console.log("Framework eliminado del MD");
                 return;
             }
         }
@@ -522,15 +543,19 @@ export async function deleteTech(name: TechName) {
         if (lenguajeEliminado) {
             console.log(`Lenguaje ${name} eliminado correctamente`);
             await actualizarJson();
-            console.log("fw eliminado del json");
-            // await actualizarMd();
+            console.log("Lenguaje eliminado del JSON");
             await updateMd();
+            console.log("Lenguaje eliminado del MD");
             return;
         }
 
         console.log(`No se encontró una tecnología con el nombre especificado: ${name}`);
     } catch (error) {
-        console.error('Error eliminando la tecnología:', error);
+        if (error instanceof Error) {
+            console.error('Error eliminando la tecnología:', error.message);
+        } else {
+            console.error('Error eliminando la tecnología:', error);
+        }
     }
 }
 
