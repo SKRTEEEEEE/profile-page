@@ -1,14 +1,16 @@
 "use client"
 
-import React from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Chip, Tooltip, User} from "@nextui-org/react";
+import React, { useState } from "react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Chip, Tooltip, User, Spinner} from "@nextui-org/react";
 import { IJsonTech } from "@/types";
 import { CiEdit } from "react-icons/ci";
 import Link from "next/link";
-import DeleteTechButton from "./delete-tech-button";
+// import DeleteTechButton from "./delete-tech-button";
 import { lenguajesResources } from "@/data/data";
 import UserDescAdminTechTable from "./user-desc-admin-tech-table";
 import TopContentAdminTechTable from "./top-content-admin-tech-table";
+import { deleteTech } from "@/actions/badges";
+import { LuDelete } from "react-icons/lu";
 
 interface AdminTechTableProps {
   lenguajes: IJsonTech[];
@@ -19,6 +21,9 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 4;
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+
   const pages = Math.ceil(lenguajes.length / rowsPerPage);
 
   const items = React.useMemo(() => {
@@ -27,6 +32,25 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
 
     return lenguajes.slice(start, end);
   }, [page, lenguajes]);
+
+  const handleDelete = async (name:string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+        const deleted = await deleteTech(name);
+        if (deleted) {
+            console.log(`${name} eliminado correctamente`);
+        } else {
+            setError(`No se pudo eliminar ${name}`);
+        }
+    } catch (error) {
+        console.error("Error eliminando tech:", error);
+        setError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
+    } finally {
+        setIsLoading(false);
+        window.location.reload();
+    }
+};
 
   const renderCell = (item: IJsonTech, columnKey: string) => {
     switch (columnKey) {
@@ -59,7 +83,10 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
             </Tooltip>
             <Tooltip color="danger" content="Delete user">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <DeleteTechButton name={item.name} />
+                {/* <DeleteTechButton name={item.name} /> */}
+                {isLoading ? <Spinner size="lg"/> : <LuDelete size={"45px"} onClick={() => handleDelete(item.name)}/>}
+            
+                
               </span>
             </Tooltip>
           </TableCell>
@@ -94,7 +121,7 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
       <Table
         aria-label="Example table with client side pagination"
         bottomContent={
-          <div className="flex w-full justify-center">
+          <div className="flex w-full justify-center items-center flex-col">
             <Pagination
               isCompact
               showControls
@@ -104,6 +131,9 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
               total={pages}
               onChange={(page) => setPage(page)}
             />
+            <div className="h-6">
+            {error && <span>Error: {error}</span>}
+            </div>
           </div>
         }
         topContent={<TopContentAdminTechTable/>}
