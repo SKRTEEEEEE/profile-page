@@ -103,6 +103,19 @@ Numero correspondiente al orden dentro de su "categoria"
 #### "categoria"
 Objeto (con nombre) que describen la categoría o tipo de la tecnología que contiene _(por ejemplo, [Framework->"NextJS"]>[Libreria->"NextUI"] para JavaScript)_.
 
+#### Json vercel
+- func para darle mas tiempo pero no lo consigo ejecutar correctamente
+```json
+  // "functions": {
+  //   "admin/techs": {
+  //     "maxDuration": 60
+  //   },
+  //   "admin/techs/new": {
+  //     "maxDuration": 60
+  //   }
+  // },
+```
+
 
 
 

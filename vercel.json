@@ -1,12 +1,4 @@
 {
-  "functions": {
-    "/admin/techs": {
-      "maxDuration": 60
-    },
-    "/admin/techs/new": {
-      "maxDuration": 60
-    }
-  },
     "crons": [
       {
         "path": "/api/cron",

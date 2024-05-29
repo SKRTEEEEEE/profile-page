@@ -97,9 +97,7 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
       case "afinidad":
         return <TableCell className="hidden sm:table-cell">{getKeyValue(item, columnKey)}</TableCell>;
       default:
-        return <TableCell
-
-        >{getKeyValue(item, columnKey)}</TableCell>;
+        return <TableCell>{getKeyValue(item, columnKey)}</TableCell>;
     }
   };
 
@@ -150,8 +148,6 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
           <TableColumn key="afinidad" className="hidden sm:table-cell">Afinidad</TableColumn>
           <TableColumn key="experiencia" className="hidden sm:table-cell">Experiencia</TableColumn>
           <TableColumn className="hidden sm:table-cell" key="color">Color</TableColumn>
-          {/* <TableColumn key="isFw" className="hidden sm:table-cell">Is FW</TableColumn>
-          <TableColumn key="isLib" className="hidden sm:table-cell">Is Lib</TableColumn> */}
           <TableColumn key="actions" >Actions</TableColumn>
         </TableHeader>
         <TableBody items={items}>
