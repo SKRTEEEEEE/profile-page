@@ -45,10 +45,10 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
         }
     } catch (error) {
         console.error("Error eliminando tech:", error);
-        setError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
+        throw new Error("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
     } finally {
         setIsLoading(false);
-        window.location.reload();
+        if(setError===null)window.location.reload();
     }
 };
 
