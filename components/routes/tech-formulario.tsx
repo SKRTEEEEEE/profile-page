@@ -113,7 +113,9 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
                     throw new Error("Categoría no reconocida");
             }
             await actualizarJson();
-            setServerResponse(response);}
+            setServerResponse(response);
+            console.log("response: ", response)
+        }
         } catch (error) {
             console.error(error);
         } finally {

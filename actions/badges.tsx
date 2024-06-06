@@ -5,6 +5,7 @@ import { LenguajesModel } from "../models/lenguajes-schema";
 import { Octokit } from "@octokit/rest";
 import { IFramework, IFrameworkForm, IJsonTech, ILenguaje, ILenguajeForm, ILibreria, ILibreriaForm } from "../types";
 import { flattenProyectos, getColorByRange, getGithubUsoByRange } from "../utils/badges";
+import { connectToDB } from "@/utils/db-connect";
 
 interface RepoDetails {
     name: string;
@@ -38,6 +39,7 @@ function createBadgeTech(tech: ILenguaje | IFramework | ILibreria) {
 // const prefijo = { proyecto: "\n\n>- ## ", framework: "\n\n> ### ", lenguaje: "\n> - #### "}
 
 export async function actualizarJson() {
+    await connectToDB()
     // Obtener todos los proyectos de la base de datos
     const proyectosDB: ILenguaje[] = await LenguajesModel.find();
 
@@ -113,6 +115,7 @@ export async function actualizarJson() {
     console.log("Archivo Json actualizado")
 }
 export async function actualizarMd(name: string, badge: String, color: String) {
+    await connectToDB();
     try {
         // Obtener todos los proyectos de la base de datos
         const proyectosDB: ILenguaje[] = await LenguajesModel.find();
@@ -420,6 +423,7 @@ async function testPeticionRepos() {
 
 // Actualizar base de datos sin operaciones de archivo
 export async function publicarLeng({ name, afinidad, badge, preferencia, color, experiencia }: ILenguajeForm) {
+    await connectToDB();
     const nuevoProyecto = new LenguajesModel({
         name,
         afinidad,
@@ -440,6 +444,7 @@ export async function publicarLeng({ name, afinidad, badge, preferencia, color, 
 }
 
 export async function publicarFwALeng({ name, afinidad, badge, preferencia, color, experiencia, lenguajeTo }: IFrameworkForm) {
+    await connectToDB();
     const nuevoFramework = {
         name,
         afinidad,
