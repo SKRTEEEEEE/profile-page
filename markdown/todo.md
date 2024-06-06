@@ -5,7 +5,8 @@
 - ##### [ ] Averiguar porque no hace el Create desde el móvil
         - El create, y el Delete no funcionan en VERCEL
         - Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
-    - [ ] Crear handlers
+    - [x] Crear handlers errors
+    - [ ] Llamar a las funciones por separado desde el cliente
 - ##### [ ] Unificar lógica techs (Data y BDD)
 
 #### 28/05

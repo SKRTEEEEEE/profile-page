@@ -17,12 +17,12 @@ interface AdminTechTableProps {
 }
 
 const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
-  //Inst. pagination
-  const [page, setPage] = React.useState(1);
-  const rowsPerPage = 4;
-  //Inst. error
+  //Inst.
+  const [page, setPage] = React.useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+  const rowsPerPage = 4;
+  
   //prepare pagination
   const pages = Math.ceil(lenguajes.length / rowsPerPage);
   const items = React.useMemo(() => {

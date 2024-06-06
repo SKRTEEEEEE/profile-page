@@ -1,6 +1,6 @@
 "use client"
 
-import { publicarFwALeng, publicarLeng, publicarLibAFw, updateTech } from "@/actions/badges";
+import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, updateTech } from "@/actions/badges";
 import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
 import techBadges from "@/data/slugs";
 import { IFrameworkForm, IJsonTech, ILenguajeForm, ILibreriaForm } from "@/types";
@@ -98,6 +98,7 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
             if(isUpdating){
                 response = await updateTech(transformedData as ILenguajeForm|IFrameworkForm|ILibreriaForm);
             } else {
+            await actualizarMd(data.name, data.badge, data.color);
             switch (selectedCat) {
                 case "lenguaje":
                     response = await publicarLeng(transformedData as ILenguajeForm);
@@ -111,6 +112,7 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
                 default:
                     throw new Error("Categoría no reconocida");
             }
+            await actualizarJson();
             setServerResponse(response);}
         } catch (error) {
             console.error(error);
