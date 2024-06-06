@@ -126,7 +126,7 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
             } else if (serverResponse?.success === false) {
                 alert(`Oops! ${serverResponse.message}`);
             }
-            window.location.href = "/admin/techs";
+            // window.location.href = "/admin/techs";
             setIsLoading(false);
         }
     };

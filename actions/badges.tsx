@@ -193,6 +193,7 @@ export async function actualizarMd(name: string, badge: String, color: String) {
 }
 
 async function updateMd() {
+    await connectToDB();
     try {
         const proyectosDB: ILenguaje[] = await LenguajesModel.find();
         const mdResponse = await octokit.repos.getContent({
@@ -471,6 +472,7 @@ export async function publicarFwALeng({ name, afinidad, badge, preferencia, colo
 }
 
 export async function publicarLibAFw({ name, afinidad, badge, preferencia, color, experiencia, lenguajeTo, frameworkTo }: ILibreriaForm) {
+    await connectToDB();
     try {
         const nuevaLibreria = {
             name,
@@ -506,6 +508,7 @@ export async function publicarLibAFw({ name, afinidad, badge, preferencia, color
 // UPDATE
 type UpdateData = ILenguajeForm | IFrameworkForm | ILibreriaForm;
 export async function updateTech(updateData: UpdateData) {
+    await connectToDB()
     try {
         let proyectoActualizado = null;
 
@@ -577,6 +580,7 @@ type TechName = string;
 // DELETE(no se elimina desde Vercel, la bdd + el json i md)
 
 export async function deleteTech(name: TechName) {
+    await connectToDB();
     try {
         let proyectoActualizado = null;
 
