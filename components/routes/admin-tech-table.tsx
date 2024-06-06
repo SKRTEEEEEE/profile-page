@@ -10,38 +10,38 @@ import UserDescAdminTechTable from "./user-desc-admin-tech-table";
 import TopContentAdminTechTable from "./top-content-admin-tech-table";
 import { deleteTech } from "@/actions/badges";
 import { LuDelete } from "react-icons/lu";
-import { fetchLenguajes } from "@/data/fetch";
-import { flattenProyectos } from "@/utils/badges";
+// import { fetchLenguajes } from "@/data/fetch";
+// import { flattenProyectos } from "@/utils/badges";
 
-// interface AdminTechTableProps {
-//   lenguajes: IJsonTech[];
-// }
+interface AdminTechTableProps {
+  lenguajes: IJsonTech[];
+}
 
-const AdminTechTable: React.FC = () => {
+const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes: initialLenguajes }) => {
+// const lenguajesFetched = await fetchLenguajes()
 
-  const [lenguajes, setLenguajes] = useState<IJsonTech[]>([]);
+//     const initialLenguajes = flattenProyectos(lenguajesFetched)
+  const [lenguajes, setLenguajes] = useState<IJsonTech[]>(initialLenguajes);
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const rowsPerPage = 4;
-      // const lenguajes = await fetchLenguajes()
-
-    // const initialLenguajes = flattenProyectos(lenguajes)
-    useEffect(() => {
-      const loadLenguajes = async () => {
-        setIsLoading(true);
-        try {
-          const data = await fetchLenguajes();
-          const allLeng = flattenProyectos(data);
-          setLenguajes(allLeng);
-        } catch (error) {
-          setError("Error al cargar las tecnologías");
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      loadLenguajes();
-    }, []);
+      
+    // useEffect(() => {
+    //   const loadLenguajes = async () => {
+    //     setIsLoading(true);
+    //     try {
+    //       const data = await fetchLenguajes();
+    //       const allLeng = flattenProyectos(data);
+    //       setLenguajes(allLeng);
+    //     } catch (error) {
+    //       setError("Error al cargar las tecnologías");
+    //     } finally {
+    //       setIsLoading(false);
+    //     }
+    //   };
+    //   loadLenguajes();
+    // }, []);
 
   // Prepare pagination
   const pages = Math.ceil(lenguajes.length / rowsPerPage);

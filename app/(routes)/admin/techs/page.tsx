@@ -1,14 +1,14 @@
 
 import AdminTechTable from "@/components/routes/admin-tech-table"
 // import DeleteTechButton from "@/components/routes/delete-tech-button"
-// import { fetchLenguajes } from "@/data/fetch"
-// import { flattenProyectos } from "@/utils/badges"
+import { fetchLenguajes } from "@/data/fetch"
+import { flattenProyectos } from "@/utils/badges"
 // import Link from "next/link"
 
-const TechsAdminPage = ( ) =>{
-    // const lenguajes = await fetchLenguajes()
+const TechsAdminPage = async( ) =>{
+    const lenguajes = await fetchLenguajes()
 
-    // const allLeng = flattenProyectos(lenguajes)
+    const allLeng = flattenProyectos(lenguajes)
  
     return (
         // <>
@@ -28,7 +28,7 @@ const TechsAdminPage = ( ) =>{
         // )})}
         // </>
         <section className="h-dvh flex justify-center items-center">
-        <AdminTechTable  />
+        <AdminTechTable lenguajes={allLeng} />
         </section>
     )
 }
