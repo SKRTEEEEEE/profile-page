@@ -1,5 +1,5 @@
 "use client"
-
+import { useRouter } from 'next/navigation'
 import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, updateTech } from "@/actions/badges";
 import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
 import techBadges from "@/data/slugs";
@@ -29,8 +29,10 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
     const initialCatTech = tech ? (tech.isLib ? "libreria" : (tech.isFw ? "framework" : "lenguaje")) : "lenguaje";
     const [selectedCat, setSelectedCat] = useState<string>(initialCatTech);
     const [inputValue, setInputValue] = useState<string>(tech?.name||'');
-    const [serverResponse, setServerResponse] = useState<{ success: boolean, message: string } | null>(null);
+    // const [serverResponse, setServerResponse] = useState<string>("No se ha actualizado el estado");
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const router = useRouter();
 
     const isUpdating = !!tech;
 
@@ -56,11 +58,11 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
-
+    
         try {
             const formData = new FormData(e.currentTarget);
-            const data: any = Object.fromEntries(formData.entries());// Coger datos para en input
-
+            const data: any = Object.fromEntries(formData.entries());
+    
             const commonData = {
                 name: data.name,
                 afinidad: parseInt(data.afinidad, 10),
@@ -69,7 +71,7 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
                 color: data.color,
                 experiencia: parseFloat(data.experiencia),
             };
-            
+    
             let transformedData;
             switch (selectedCat) {
                 case "lenguaje":
@@ -81,55 +83,64 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
                         lenguajeTo: isUpdating ? tech?.isFw : data.lenguajeTo,
                     };
                     break;
-                
                 case "libreria":
                     transformedData = {
                         ...commonData,
                         lenguajeTo: isUpdating ? tech?.isFw : data.lenguajeTo,
                         frameworkTo: isUpdating ? tech?.isLib : data.frameworkTo,
                     };
-                    
                     break;
                 default:
                     throw new Error("Categoría no reconocida");
             }
+    
             console.log("transformedData: ", transformedData);
+            // console.log("serverResponse: ", serverResponse)
             let response;
-            if(isUpdating){
-                response = await updateTech(transformedData as ILenguajeForm|IFrameworkForm|ILibreriaForm);
+            if (isUpdating) {
+                response = await updateTech(transformedData as ILenguajeForm | IFrameworkForm | ILibreriaForm);
             } else {
-            await actualizarMd(data.name, data.badge, data.color);
-            switch (selectedCat) {
-                case "lenguaje":
-                    response = await publicarLeng(transformedData as ILenguajeForm);
-                    break;
-                case "framework":
-                    response = await publicarFwALeng(transformedData as IFrameworkForm);
-                    break;
-                case "libreria":
-                    response = await publicarLibAFw(transformedData as ILibreriaForm);
-                    break;
-                default:
-                    throw new Error("Categoría no reconocida");
+                await actualizarMd(data.name, data.badge, data.color);
+                switch (selectedCat) {
+                    case "lenguaje":
+                        response = await publicarLeng(transformedData as ILenguajeForm);
+                        break;
+                    case "framework":
+                        response = await publicarFwALeng(transformedData as IFrameworkForm);
+                        break;
+                    case "libreria":
+                        response = await publicarLibAFw(transformedData as ILibreriaForm);
+                        break;
+                    default:
+                        response = {success:false, message: "Categoría no reconocida"}
+                        throw new Error("Categoría no reconocida");
+                        
+                }
+                await actualizarJson();
             }
-            await actualizarJson();
-            setServerResponse(response);
-            console.log("response: ", response)
-        }
+    
+            if (response) {
+                // setServerResponse(response.message);
+                console.log("response: ", response);
+                if (response.success) {
+                    alert(`¡Felicidades! ${response.message}`);
+                    
+                    router.push("/admin/techs")
+
+                } else {
+                    alert(`Oops! ${response.message}`);
+                }
+            } 
         } catch (error) {
             console.error(error);
+            // setServerResponse( "Ocurrió un error durante la operación" );
         } finally {
-            
-            if (serverResponse?.success === true) {
-                alert(`¡Felicidades! ${serverResponse.message}`);
-                
-            } else if (serverResponse?.success === false) {
-                alert(`Oops! ${serverResponse.message}`);
-            }
-            window.location.href = "/admin/techs";
+            // console.log("serverResponse: ", serverResponse);
             setIsLoading(false);
         }
     };
+    
+    
 
 
     const techMessage = `Busca un(a) ${selectedCat} con logo`

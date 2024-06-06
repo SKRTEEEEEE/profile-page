@@ -437,7 +437,7 @@ export async function publicarLeng({ name, afinidad, badge, preferencia, color, 
     try {
         const proyectoGuardado = await nuevoProyecto.save();
         console.log("Proyecto guardado correctamente:", proyectoGuardado);
-        return { success: true, message: `Proyecto guardado correctamente en la BDD. Proyecto: ${nuevoProyecto}` };
+        return { success: true, message: `Proyecto guardado correctamente en la BDD. Proyecto: ${nuevoProyecto.name}` };
     } catch (error) {
         console.error(error);
         return { success: false, message: `Error al guardar el proyecto` };
@@ -461,7 +461,7 @@ export async function publicarFwALeng({ name, afinidad, badge, preferencia, colo
             lenguaje.frameworks.push(nuevoFramework);
             await lenguaje.save();
             console.log("Framework agregado correctamente:", nuevoFramework);
-            return { success: true, message: `Framework guardado correctamente en la BDD. Proyecto: ${nuevoFramework}` };
+            return { success: true, message: `Framework guardado correctamente en la BDD. Proyecto: ${nuevoFramework.name}` };
         } else {
             return { success: false, message: `Lenguaje no encontrado ${lenguajeTo}` };
         }
@@ -497,7 +497,7 @@ export async function publicarLibAFw({ name, afinidad, badge, preferencia, color
         await lenguaje.save();
         console.log("Libreria agregada correctamente:", nuevaLibreria);
 
-        return { success: true, message: `Librería agregada correctamente: ${nuevaLibreria}` };
+        return { success: true, message: `Librería agregada correctamente: ${nuevaLibreria.name}` };
     } catch (error) {
         console.error("Error al agregar la librería: ", error);
         return { success: false, message: `Error al agregar la librería` };
