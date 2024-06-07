@@ -125,8 +125,7 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
                 console.log("response: ", response);
                 if (response.success) {
                     alert(`¡Felicidades! ${response.message}`);
-                    
-                    router.push("/admin/techs")
+                    router.push("/admin/techs") //Mirar si funciona
 
                 } else {
                     alert(`Oops! ${response.message}`);
