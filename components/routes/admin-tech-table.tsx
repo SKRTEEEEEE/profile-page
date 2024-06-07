@@ -10,6 +10,7 @@ import UserDescAdminTechTable from "./user-desc-admin-tech-table";
 import TopContentAdminTechTable from "./top-content-admin-tech-table";
 import { deleteTech } from "@/actions/badges";
 import { LuDelete } from "react-icons/lu";
+import { revalidatePath } from "next/cache";
 // import { fetchLenguajes } from "@/data/fetch";
 // import { flattenProyectos } from "@/utils/badges";
 
@@ -60,6 +61,11 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes: initialLengu
       if (deleted) {
         console.log(`${name} eliminado correctamente`);
         // Update the state to remove the deleted item
+        // try {
+        //   revalidatePath("/admin/techs", "page");
+        // } catch (error) {
+        //   console.error("Error revalidando ruta:", error)
+        // }
         setLenguajes(prev => prev.filter(item => item.name !== name));
       } else {
         setError(`No se pudo eliminar ${name}`);
@@ -69,6 +75,7 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes: initialLengu
       setError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
     } finally {
       setIsLoading(false);
+      
     }
   };
 

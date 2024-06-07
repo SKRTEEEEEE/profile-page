@@ -6,6 +6,7 @@ import { Octokit } from "@octokit/rest";
 import { IFramework, IFrameworkForm, IJsonTech, ILenguaje, ILenguajeForm, ILibreria, ILibreriaForm } from "../types";
 import { flattenProyectos, getColorByRange, getGithubUsoByRange } from "../utils/badges";
 import { connectToDB } from "@/utils/db-connect";
+import { revalidatePath } from "next/cache";
 
 interface RepoDetails {
     name: string;
@@ -37,7 +38,7 @@ function createBadgeTech(tech: ILenguaje | IFramework | ILibreria) {
     )
 }
 // const prefijo = { proyecto: "\n\n>- ## ", framework: "\n\n> ### ", lenguaje: "\n> - #### "}
-
+//Aqui revalidate
 export async function actualizarJson() {
     await connectToDB()
     // Obtener todos los proyectos de la base de datos
@@ -112,6 +113,11 @@ export async function actualizarJson() {
         sha: jsonSha,
         branch: ref,
     });
+    try {
+        revalidatePath("/admin/techs", "page");
+    } catch (error) {
+        console.error("Error al revalidar la ruta:", error);
+    }
     console.log("Archivo Json actualizado")
 }
 export async function actualizarMd(name: string, badge: String, color: String) {
@@ -191,7 +197,7 @@ export async function actualizarMd(name: string, badge: String, color: String) {
         }
     }
 }
-
+//Aqui revalidate
 async function updateMd() {
     await connectToDB();
     try {
@@ -208,6 +214,11 @@ async function updateMd() {
             const mdFile = mdResponse.data.find((item) => item.name === "techs-test.md");
             if (mdFile) {
                 mdSha = mdFile.sha;
+                try {
+                    revalidatePath("/admin/techs", "page");
+                } catch (error) {
+                    console.error("Error al revalidar la ruta:", error);
+                }
             } else {
                 throw new Error("El archivo .md no se encuentra en el repositorio");
             }
