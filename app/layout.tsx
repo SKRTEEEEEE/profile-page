@@ -8,6 +8,7 @@ import 'swiper/css/scrollbar';
 
 import Navbar from "@/components/main/navbar";
 import Header from "@/components/main/header";
+// import { Providers } from "@/providers";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
@@ -22,8 +23,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es-ES">
+    <html lang="es-ES" className="dark">
       <body className={urbanist.className}>
+      
         <Navbar />
         <Header />
         {children}

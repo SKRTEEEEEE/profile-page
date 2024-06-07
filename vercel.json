@@ -1,0 +1,12 @@
+{"functions": {
+    "app/**/*": {
+      "maxDuration": 60
+    }
+  },
+    "crons": [
+      {
+        "path": "/api/cron",
+        "schedule": "0 0 1,8,15,23 * *"
+      }
+    ]
+  }

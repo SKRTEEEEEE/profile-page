@@ -12,8 +12,11 @@ Mi pagina de perfil como desarrollador.
 
 Pagina web desarrollada principalmente con:
 
-- **NextJS v14** para la parte principal, _Frontend y Backend._
-- **TailwindCss, SwiperJs y TsParticles** para la parte visual, _Frontend_.
+- **NextJS v14** para la parte principal, _Frontend y Backend_.
+- **TailwindCss, NextUI, SwiperJs y TsParticles** para la parte visual, _Frontend_.
+- **MongoDb** como Base de datos, _Backend_.
+- **Mongoose** para la conexión con la Base de datos, _Backend_.
+- ### [Información gráfica sobre este proyecto](markdown/resum.md)
 
 
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns/blob/main/README.md)

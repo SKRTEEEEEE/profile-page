@@ -1,14 +1,124 @@
 # ToDo
+## Remembers
+### Remember 05.2024 (Actual)
+#### Other
+- ##### [ ] Averiguar porque no hace el Create desde el móvil
+        - El create, y el Delete no funcionan en VERCEL
+        - Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
+    - [x] Crear handlers errors
+    - [ ] Llamar a las funciones por separado desde el cliente
+- ##### [ ] Unificar lógica techs (Data y BDD)
 
-## Remember 05.2024
+#### 28/05
+- [x] Terminar documentación v01.01
+- [ ] Terminar documentación v01.02
 
-- [ ] Mejorar/crear botones projectDyn page
-    - [ ] Para ir a la pagina web del proyecto
-    - [ ] Para ir al github del proyecto
+#### Frontend General
+- [x] Poner el favicon ? [ ] Test?
+- [ ] Hacer AdminPages Sections
+    - [x] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
+- [x] Mejorar Frontend main("/") page
 
-- [ ] Mejorar Frontend projects page
+##### Mejorar Frontend projects & projectDyn page
+- [x] Mejorar/crear botones projectDyn & projects pages
+    - [x] Para ir a la pagina web del proyecto
+        - [x] Si el proyecto es /# (osea que aun no esta desplegado, o esta en la misma pagina, etc..) no mostrar botón
+    - [x] Para ir al github del proyecto
+        - [x] Si el proyecto es /# osea que aun no esta desplegado no mostrar botón
+- [x] Mejorar Frontend projectDyn page
+    - [x] Objetivos a de ocupar menos visualmente, sobretodo en xl
+    - [x] Crear botones para proyectos (parte superior)
+##### Empezar Frontend techs (about-me page)
 
-## Remember v02
 
-### Make a parallax 3d welkome page
+#### Configurar el analytics de Vercel!!!
+## Test
+### Test v01.01.01 Backend techs CRUD
+- [x] Update ->Librería, Framework y Lenguaje
+- [x] Create ->Librería, Framework y Lenguaje
+- [x] Delete cascada ->Lenguaje y Framework 
+- [x] Delete ->Librería, Framework y Lenguaje
+
+## Remember meses antiguos
+## Versions
+###  v02
+#### Make a parallax 3d welkome page
 - [ ] Separar el navbar actual y ponerlo solo para (navbar) pages "folder"
+
+#### "name" Formulario-tech
+- [ ] Configurar "Switch" para en el Formulario-techs, en el name (titulo) poder marcar cuando nuestra tech no tiene logo
+- [ ] Crear botón actualizar ListOfIcons
+    - [ ] Update createListOfIcons fetch from online page?.
+
+## Others Versions/Ideas
+
+### Make option to create your own profile and techs etc markdowns offering it as SAAS using web3 aventajes
+
+
+
+
+
+
+## Random things
+
+### Badges techs "label":
+
+#### Afinidad: 
+%F0%9F%92%97Afinidad
+#### Experiencia:
+%F0%9F%8F%85Experiencia
+#### Uso en Github:
+%F0%9F%98%BBUso%20en%20github
+##### Words uso Github por %
+0 - Sin uso -> 0 huecos
+0 - 0.05%: Ínfimo
+0.05 - 0.2%: Minúsculo -> 1 hueco
+0.2 - 0.5%: Bajo 
+0.5 - 1.0%: Reducido -> 2 huecos
+1.0 - 1.5%: Menor 
+1.5 - 2.5%: Moderado - 3 huecos
+2.5 - 4.0%: Notable 
+4.0 - 6.0%: Alto - 4 huecos
+6.0 - 9.0%: Elevado
+9.0 - 14.0%: Superior
+>14.0%: Dominante -> 5 huecos
+
+### Redondas para marcar la cantidad (sin uso)
+14%: 🟡🔘🔘🔘🔘
+13%: 🟡🟡🔘🔘🔘
+12%: 🟡🟡🟡🔘🔘
+11%: 🟡🟡🟡🟡🔘
+10%: 🟡🟡🟡🟡🟡
+
+### Lista bdd techs:
+
+#### name
+Nombre de la tecnología.
+#### afinidad
+Afinidad de la tecnología.
+#### badge
+Badge(o titulo, en caso de no aver) estandard de la tecnología.
+<!-- descripcion: Descripción breve de la tecnología (opcional). -->
+#### preferencia: 
+Numero correspondiente al orden dentro de su "categoria"
+#### "categoria"
+Objeto (con nombre) que describen la categoría o tipo de la tecnología que contiene _(por ejemplo, [Framework->"NextJS"]>[Libreria->"NextUI"] para JavaScript)_.
+
+#### Json vercel
+- func para darle mas tiempo pero no lo consigo ejecutar correctamente
+```json
+  // "functions": {
+  //   "admin/techs": {
+  //     "maxDuration": 60
+  //   },
+  //   "admin/techs/new": {
+  //     "maxDuration": 60
+  //   }
+  // },
+```
+
+
+
+
+
+

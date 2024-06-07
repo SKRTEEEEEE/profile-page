@@ -2,9 +2,10 @@ import { BookText, CodeSquare,  HomeIcon, UserRound, Linkedin, Github, Mail, Lin
 import { FaNodeJs, FaReact } from "react-icons/fa";
 // import { RiNextjsLine } from "react-icons/ri";
 
-import { SiChakraui, SiSolidity, SiStyledcomponents, SiSwiper, SiTailwindcss  } from "react-icons/si";
-import { TbBrandNextjs, TbBrandThreejs } from "react-icons/tb";
+import { SiChakraui, SiNextui, SiSolidity, SiStyledcomponents, SiSwiper, SiTailwindcss  } from "react-icons/si";
+import { TbBrandNextjs, TbBrandThreejs, TbBrandTypescript } from "react-icons/tb";
 import { SiThirdweb } from "react-icons/si";
+import { RiJavascriptLine } from "react-icons/ri";
 
 
 export const socialNetworks = [
@@ -137,32 +138,55 @@ export const dataCounter = [
     // },
 ];
 
-export const lenguajes = [
+export const lenguajesResources = [
     {
         icon: <FaReact aria-description="React icono"/>,
-        title: "ReactJS",
+        title: "React",
         description: "React-DOM, JWT, Hooks, APIs, Protected Routes, JSX, Router, Redux, etc...",
+        img: "https://cdn3d.iconscout.com/3d/free/thumb/free-react-js-5562354-4642758.png"
     },
     {
         icon: <SiTailwindcss aria-description="Tailwind icono"/>,
         title: "TailwindCSS",
         description: "Mobile-first, resposive, utility-first, classes y variables, plugins, etc...",
+        img: "https://cdn3d.iconscout.com/3d/free/preview/free-tailwind-9294852-7577995.png?f=webp&h=700"
     },
     {
         icon: <TbBrandNextjs aria-description="Next javascripts icono"/>,
-        title: "NextJS",
+        title: "Next.js",
         description: "SSR, CSR, APIs, Pre-rendering, SEO Friendly, Next.js14 Compability, etc...",
+        img: "https://tsh.io/wp-content/uploads/2022/03/Next-logo-adj.png"
     },
     {
         icon: <FaNodeJs aria-description="Node javascript icono"/>,
         title: "Node.js",
         description: "Async/Await, Nodemon.js, Express.js, NPM (Node Package Manager), JSON, etc...",
+        img: "https://cdn3d.iconscout.com/3d/free/thumb/free-nodejs-11492982-9325317.png"
     },
     {
         icon: <SiSolidity aria-description="Solidity icono"/>,
         title: "Solidity",
         description: "Smart Contracts, Hardhat, Ethet.js, Thirdweb, Estandares ERC, Chainlink, etc... ",
     },
+    {
+        icon: <RiJavascriptLine aria-describedby="Javascript icono"/>,
+        title: "Javascript",
+        description: "DOM, Eventos, Objetos, Arrays, Funciones, etc...",
+        img: "https://static.vecteezy.com/system/resources/previews/012/697/298/non_2x/3d-javascript-logo-design-free-png.png",
+    },
+    {
+        icon: <TbBrandTypescript aria-describedby="Typescript icono"/>,
+        title: "Typescript",
+        description: "Tipado de classes, funciones, promesas, hooks, etc...",
+        img: "https://cdn3d.iconscout.com/3d/free/thumb/free-typescript-11492969-9325304.png?f=webp",
+    },
+    {
+        icon: <SiNextui  aria-describedby="NextUI icono"/>,
+        title: "NextUI",
+        description: "Diseño UI, componentes accesibles, UI modernas y elegantes, etc...",
+        img: "https://avatars.githubusercontent.com/u/86160567?v=4",
+    },
+
 ];
 
 export const dataPortfolio = [
@@ -211,8 +235,8 @@ export const dataPortfolio = [
             
         },
         image: "/image-3.png",
-        urlGithub: "https://github.com/SKRTEEEEEE/profile-test",
-        urlDemo: "#",
+        urlGithub: "https://github.com/SKRTEEEEEE/profile-page",
+        urlDemo: "",
         operative: true,
         ejemplo: true,
     },
@@ -358,8 +382,8 @@ export const dataPortfolio = [
             
         },
         image: "/image-3.jpg",
-        urlGithub: "https://github.com/SKRTEEEEEE/profile-test",
-        urlDemo: "#!",
+        urlGithub: "https://github.com/SKRTEEEEEE/profile-page/tree/v01.02/",
+        urlDemo: "",
         operative: false,
         ejemplo: true,
     },

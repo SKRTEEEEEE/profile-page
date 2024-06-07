@@ -10,10 +10,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/react": "^2.3.6",
+    "@octokit/rest": "^20.1.1",
+    "@react-stately/data": "^3.11.3",
     "@tsparticles/react": "^3.0.0",
     "dotenv": "^16.4.5",
     "env": "^0.0.2",
-    "framer-motion": "^11.0.3",
+    "framer-motion": "^11.2.3",
     "lucide-react": "^0.323.0",
     "mongoose": "^8.3.4",
     "next": "14.1.0",
