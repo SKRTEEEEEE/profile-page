@@ -8,7 +8,6 @@ import { Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slide
 import { useState } from "react";
 import { useAsyncList } from "@react-stately/data";
 import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
-import { revalidatePath } from 'next/cache';
 
 interface FormularioTechsProps {
     dispoLeng: ILenguajeDispo[];

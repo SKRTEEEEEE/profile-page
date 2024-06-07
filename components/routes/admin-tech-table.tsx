@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Chip, Tooltip, User, Spinner } from "@nextui-org/react";
 import { IJsonTech } from "@/types";
 import { CiEdit } from "react-icons/ci";
@@ -10,47 +10,22 @@ import UserDescAdminTechTable from "./user-desc-admin-tech-table";
 import TopContentAdminTechTable from "./top-content-admin-tech-table";
 import { deleteTech } from "@/actions/badges";
 import { LuDelete } from "react-icons/lu";
-import { revalidatePath } from "next/cache";
-// import { fetchLenguajes } from "@/data/fetch";
-// import { flattenProyectos } from "@/utils/badges";
 
 interface AdminTechTableProps {
   lenguajes: IJsonTech[];
 }
 
-const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes: initialLenguajes }) => {
-// const lenguajesFetched = await fetchLenguajes()
-
-//     const initialLenguajes = flattenProyectos(lenguajesFetched)
-  const [lenguajes, setLenguajes] = useState<IJsonTech[]>(initialLenguajes);
+const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const rowsPerPage = 4;
-      
-    // useEffect(() => {
-    //   const loadLenguajes = async () => {
-    //     setIsLoading(true);
-    //     try {
-    //       const data = await fetchLenguajes();
-    //       const allLeng = flattenProyectos(data);
-    //       setLenguajes(allLeng);
-    //     } catch (error) {
-    //       setError("Error al cargar las tecnologías");
-    //     } finally {
-    //       setIsLoading(false);
-    //     }
-    //   };
-    //   loadLenguajes();
-    // }, []);
 
   // Prepare pagination
   const pages = Math.ceil(lenguajes.length / rowsPerPage);
-  const items = React.useMemo(() => {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    return lenguajes.slice(start, end);
-  }, [page, lenguajes]);
+  const start = (page - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const items = lenguajes.slice(start, end);
 
   // Manage delete
   const handleDelete = async (name: string) => {
@@ -61,12 +36,7 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes: initialLengu
       if (deleted) {
         console.log(`${name} eliminado correctamente`);
         // Update the state to remove the deleted item
-        // try {
-        //   revalidatePath("/admin/techs", "page");
-        // } catch (error) {
-        //   console.error("Error revalidando ruta:", error)
-        // }
-        setLenguajes(prev => prev.filter(item => item.name !== name));
+        setError(`Eliminación de ${name} completada.`);
       } else {
         setError(`No se pudo eliminar ${name}`);
       }
@@ -75,7 +45,6 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes: initialLengu
       setError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
     } finally {
       setIsLoading(false);
-      
     }
   };
 
