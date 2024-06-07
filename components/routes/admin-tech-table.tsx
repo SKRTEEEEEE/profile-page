@@ -8,17 +8,20 @@ import Link from "next/link";
 import { lenguajesResources } from "@/data/data";
 import UserDescAdminTechTable from "./user-desc-admin-tech-table";
 import TopContentAdminTechTable from "./top-content-admin-tech-table";
-import { deleteTech } from "@/actions/badges";
-import { LuDelete } from "react-icons/lu";
+// import { deleteTech } from "@/actions/badges";
+// import { LuDelete } from "react-icons/lu";
+import DeleteTechButton from "./delete-admin-tech-button";
 
 interface AdminTechTableProps {
   lenguajes: IJsonTech[];
 }
 
+
 const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
   const [page, setPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [error, setError] = useState<string | null>(null);
+  // const [showSpinner, setShowSpinner] = useState<boolean>(false);
   const rowsPerPage = 4;
 
   // Prepare pagination
@@ -27,26 +30,32 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
   const end = start + rowsPerPage;
   const items = lenguajes.slice(start, end);
 
+
   // Manage delete
-  const handleDelete = async (name: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const deleted = await deleteTech(name);
-      if (deleted) {
-        console.log(`${name} eliminado correctamente`);
-        // Update the state to remove the deleted item
-        setError(`Eliminación de ${name} completada.`);
-      } else {
-        setError(`No se pudo eliminar ${name}`);
-      }
-    } catch (error) {
-      console.error("Error eliminando tech:", error);
-      setError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const handleDelete = async (name: string) => {
+  //   setShowSpinner(true)
+  //   alert("Hola mundo")
+
+  //   setError(null);
+  //   try {
+  //     console.log("show spinner: ", showSpinner)
+  //     // const deleted = await deleteTech(name);
+  //     const deleted = await mockDeleteTech(name);
+  //     if (deleted) {
+  //       console.log(`${name} eliminado correctamente`);
+  //       // Update the state to remove the deleted item
+  //       setError(`Eliminación de ${name} completada.`);
+  //     } else {
+  //       setError(`No se pudo eliminar ${name}`);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error eliminando tech:", error);
+  //     setError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
+  //   } finally {
+  //     setShowSpinner(false)
+
+  //   }
+  // };
 
   // Celdas de cada fila "estilos"
   const renderCell = (item: IJsonTech, columnKey: string) => {
@@ -76,7 +85,8 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
             </Tooltip>
             <Tooltip color="danger" content="Delete user">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                {isLoading ? <Spinner size="lg" /> : <LuDelete size={"45px"} onClick={() => handleDelete(item.name)} />}
+                {/* {showSpinner ? <Spinner size="lg" /> : <LuDelete size={"45px"} onClick={() => handleDelete(item.name)} />} */}
+                <DeleteTechButton name={item.name} onError={(error) => setError(error)} />
               </span>
             </Tooltip>
           </TableCell>
@@ -149,3 +159,5 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
 };
 
 export default AdminTechTable;
+
+
