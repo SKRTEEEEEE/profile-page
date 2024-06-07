@@ -118,7 +118,7 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
               onChange={(page) => setPage(page)}
             />
             <div className="h-6">
-              {error && <span>Error: {error}</span>}
+              {error && <span>{error}</span>}
             </div>
           </div>
         }
