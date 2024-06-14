@@ -7,6 +7,7 @@ import { IFramework, IFrameworkForm, IJsonTech, ILenguaje, ILenguajeForm, ILibre
 import { flattenProyectos, getColorByRange, getGithubUsoByRange } from "../utils/badges";
 import { connectToDB } from "@/utils/db-connect";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 interface RepoDetails {
     name: string;
@@ -626,6 +627,7 @@ export async function deleteTech(name: TechName) {
                 await actualizarJson();
                 console.log("fw eliminado del json");
                 await updateMd();
+                revalidatePath("/admin/techs")
                 return true;
             }
         }
@@ -644,6 +646,7 @@ export async function deleteTech(name: TechName) {
                 await actualizarJson();
                 console.log("fw eliminado del json");
                 await updateMd();
+                revalidatePath("/admin/techs")
                 return true;
             }
         }
@@ -655,6 +658,7 @@ export async function deleteTech(name: TechName) {
             await actualizarJson();
             console.log("fw eliminado del json");
             await updateMd();
+            revalidatePath("/admin/techs")
             return true;
         }
 
@@ -790,4 +794,11 @@ _Documentación de lenguajes, tecnologías (frameworks, librerías...) de progra
     } catch (error) {
         console.error('Error actualizando el archivo .md:', error);
     }
+}
+export async function revalidateLenguajes() {
+    revalidatePath('/admin/techs')
+    redirect('/admin/techs')
+  }
+export async function revalidateLeng(){
+    revalidatePath("/admin/techs")
 }

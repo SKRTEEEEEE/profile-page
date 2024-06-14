@@ -1,6 +1,6 @@
 "use client"
 import { useRouter } from 'next/navigation'
-import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, updateTech } from "@/actions/badges";
+import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, revalidateLenguajes, updateTech } from "@/actions/badges";
 import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
 import techBadges from "@/data/slugs";
 import { IFrameworkForm, IJsonTech, ILenguajeForm, ILibreriaForm } from "@/types";
@@ -32,7 +32,7 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
     // const [serverResponse, setServerResponse] = useState<string>("No se ha actualizado el estado");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const router = useRouter();
+    // const router = useRouter();
 
     const isUpdating = !!tech;
 
@@ -117,20 +117,21 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
                         
                 }
                 await actualizarJson();
-                
+                if (response) {
+                    // setServerResponse(response.message);
+                    console.log("response: ", response);
+                    if (response.success) {
+                        alert(`¡Felicidades! ${response.message}`);
+                        // router.push("/admin/techs") //Mirar si funciona(funciona pero...)
+                        await revalidateLenguajes();
+    
+                    } else {
+                        alert(`Oops! ${response.message}`);
+                    }
+                } 
             }
     
-            if (response) {
-                // setServerResponse(response.message);
-                console.log("response: ", response);
-                if (response.success) {
-                    alert(`¡Felicidades! ${response.message}`);
-                    router.push("/admin/techs") //Mirar si funciona
-
-                } else {
-                    alert(`Oops! ${response.message}`);
-                }
-            } 
+            
         } catch (error) {
             console.error(error);
             // setServerResponse( "Ocurrió un error durante la operación" );
