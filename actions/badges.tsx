@@ -627,6 +627,7 @@ export async function deleteTech(name: TechName) {
                 await actualizarJson();
                 console.log("fw eliminado del json");
                 await updateMd();
+                revalidatePath("/admin/techs")
                 return true;
             }
         }
@@ -645,6 +646,7 @@ export async function deleteTech(name: TechName) {
                 await actualizarJson();
                 console.log("fw eliminado del json");
                 await updateMd();
+                revalidatePath("/admin/techs")
                 return true;
             }
         }
@@ -656,6 +658,7 @@ export async function deleteTech(name: TechName) {
             await actualizarJson();
             console.log("fw eliminado del json");
             await updateMd();
+            revalidatePath("/admin/techs")
             return true;
         }
 
@@ -796,3 +799,6 @@ export async function revalidateLenguajes() {
     revalidatePath('/admin/techs')
     redirect('/admin/techs')
   }
+export async function revalidateLeng(){
+    revalidatePath("/admin/techs")
+}

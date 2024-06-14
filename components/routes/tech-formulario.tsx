@@ -32,7 +32,7 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
     // const [serverResponse, setServerResponse] = useState<string>("No se ha actualizado el estado");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const router = useRouter();
+    // const router = useRouter();
 
     const isUpdating = !!tech;
 

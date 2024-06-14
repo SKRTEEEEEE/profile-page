@@ -1,6 +1,6 @@
 "use client"
 
-import { deleteTech } from "@/actions/badges";
+import { deleteTech} from "@/actions/badges";
 import { Spinner } from "@nextui-org/react";
 import { useState } from "react";
 import { LuDelete } from "react-icons/lu";
@@ -44,6 +44,7 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ name, onError }) =>
                             //     }
                         if(res){
                             onError(`Eliminación de ${name} completada.`)
+                            // await revalidateLeng();
                         } else {
                             onError(`No se pudo eliminar ${name}`)
                         }
