@@ -7,6 +7,7 @@ import { IFramework, IFrameworkForm, IJsonTech, ILenguaje, ILenguajeForm, ILibre
 import { flattenProyectos, getColorByRange, getGithubUsoByRange } from "../utils/badges";
 import { connectToDB } from "@/utils/db-connect";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 interface RepoDetails {
     name: string;
@@ -791,3 +792,7 @@ _Documentación de lenguajes, tecnologías (frameworks, librerías...) de progra
         console.error('Error actualizando el archivo .md:', error);
     }
 }
+export async function revalidateLenguajes() {
+    revalidatePath('/admin/techs')
+    redirect('/admin/techs')
+  }
