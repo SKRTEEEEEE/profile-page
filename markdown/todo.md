@@ -11,19 +11,19 @@
     - [x] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
 
 
-##### [ ] Empezar Frontend techs (about-me page)
+##### - [ ] Empezar Frontend techs (about-me page)
 Empezar el Read del CRUD de las techs en la pagina web.
 #### Other
-##### [x] Averiguar porque no hace el Create desde el móvil
-    - El create, y el Delete no funcionan en VERCEL
-    - Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
-    - No se actualizaba automáticamente por el uso del `revalidatePath()` y del `redirect()`:
-        - En muchas funciones no se utilizaba y ¿en las que si se utilizaba mal?
-        - [ ] Test que la función updateMd() y updateJson() no sea necesario el uso de redirect(), ya que esta en medio de las ejecuciones y no al final.
+##### - [x] Averiguar porque no hace el Create desde el móvil
+- El create, y el Delete no funcionan en VERCEL
+- Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
+- No se actualizaba automáticamente por el uso del `revalidatePath()` y del `redirect()`:
+    - En muchas funciones no se utilizaba y ¿en las que si se utilizaba mal?
+    - [ ] Test que la función updateMd() y updateJson() no sea necesario el uso de redirect(), ya que esta en medio de las ejecuciones y no al final.
 
 
-##### [ ] Unificar lógica techs (Data y BDD)?
-##### [ ] Configurar el analytics de Vercel!!!
+##### - [ ] Unificar lógica techs (Data y BDD)?
+##### - [ ] Configurar el analytics de Vercel!!!
 #### Test
 
 
@@ -64,7 +64,7 @@ Empezar el Read del CRUD de las techs en la pagina web.
 #### Frontend 
 - [x] Poner el favicon ? [x] Test?
 - [x] Mejorar Frontend main("/") page
-##### [x] Mejorar Frontend projects & projectDyn page
+##### - [x] Mejorar Frontend projects & projectDyn page
 - [x] Mejorar/crear botones projectDyn & projects pages
     - [x] Para ir a la pagina web del proyecto
         - [x] Si el proyecto es /# (osea que aun no esta desplegado, o esta en la misma pagina, etc..) no mostrar botón
@@ -78,7 +78,7 @@ Empezar el Read del CRUD de las techs en la pagina web.
 - [x] Crear handlers errors
 - [x] Llamar a las funciones por separado desde el cliente
 #### Test
-##### [x] Test v01.01.01 Backend techs CRUD
+##### - [x] Test v01.01.01 Backend techs CRUD
 - [x] Update ->Librería, Framework y Lenguaje
 - [x] Create ->Librería, Framework y Lenguaje
 - [x] Delete cascada ->Lenguaje y Framework 
