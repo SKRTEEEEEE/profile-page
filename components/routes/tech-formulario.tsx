@@ -1,13 +1,16 @@
 "use client"
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, revalidateLenguajes, updateTech } from "@/actions/badges";
 import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
 import techBadges from "@/data/slugs";
 import { IFrameworkForm, IJsonTech, ILenguajeForm, ILibreriaForm } from "@/types";
-import { Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slider } from "@nextui-org/react";
+import { Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slider, Spinner, Tooltip } from "@nextui-org/react";
 import { useState } from "react";
 import { useAsyncList } from "@react-stately/data";
 import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
+import { ConnectButton, useActiveAccount } from "thirdweb/react";
+import { client } from "@/app/client";
+// import { smartWallet } from 'thirdweb/wallets';
 
 interface FormularioTechsProps {
     dispoLeng: ILenguajeDispo[];
@@ -29,12 +32,15 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
     const initialCatTech = tech ? (tech.isLib ? "libreria" : (tech.isFw ? "framework" : "lenguaje")) : "lenguaje";
     const [selectedCat, setSelectedCat] = useState<string>(initialCatTech);
     const [inputValue, setInputValue] = useState<string>(tech?.name||'');
-    // const [serverResponse, setServerResponse] = useState<string>("No se ha actualizado el estado");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    // const router = useRouter();
-
     const isUpdating = !!tech;
+
+    // - [ ] Falta hacer el isAdmin en el server*
+    const account = useActiveAccount();
+    const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
+    console.log("isAdmin: ",isAdmin )
+
 
     let list = useAsyncList<TechBadge>({
         async load({ signal, filterText }) {
@@ -95,48 +101,40 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
             }
     
             console.log("transformedData: ", transformedData);
-            // console.log("serverResponse: ", serverResponse)
             let response;
-            if (isUpdating) {
-                response = await updateTech(transformedData as ILenguajeForm | IFrameworkForm | ILibreriaForm);
-            } else {
-                await actualizarMd(data.name, data.badge, data.color);
-                switch (selectedCat) {
-                    case "lenguaje":
-                        response = await publicarLeng(transformedData as ILenguajeForm);
-                        break;
-                    case "framework":
-                        response = await publicarFwALeng(transformedData as IFrameworkForm);
-                        break;
-                    case "libreria":
-                        response = await publicarLibAFw(transformedData as ILibreriaForm);
-                        break;
-                    default:
-                        response = {success:false, message: "Categoría no reconocida"}
-                        throw new Error("Categoría no reconocida");
-                        
-                }
-                await actualizarJson();
-                if (response) {
-                    // setServerResponse(response.message);
-                    console.log("response: ", response);
-                    if (response.success) {
-                        alert(`¡Felicidades! ${response.message}`);
-                        // router.push("/admin/techs") //Mirar si funciona(funciona pero...)
-                        await revalidateLenguajes();
-    
-                    } else {
-                        alert(`Oops! ${response.message}`);
+            if(isAdmin){
+                if (isUpdating) {
+                    response = await updateTech(transformedData as ILenguajeForm | IFrameworkForm | ILibreriaForm);
+                } else {
+                    await actualizarMd(data.name, data.badge, data.color);
+                    switch (selectedCat) {
+                        case "lenguaje":
+                            response = await publicarLeng(transformedData as ILenguajeForm);
+                            break;
+                        case "framework":
+                            response = await publicarFwALeng(transformedData as IFrameworkForm);
+                            break;
+                        case "libreria":
+                            response = await publicarLibAFw(transformedData as ILibreriaForm);
+                            break;
+                        default:
+                            response = {success:false, message: "Categoría no reconocida"}
+                            throw new Error("Categoría no reconocida");                         
                     }
-                } 
+                    await actualizarJson();                    
+                }
+            }else{response={success:false, message: "User not admin"}}
+            console.log("response: ", response);
+            if (response.success) {
+                alert(`¡Felicidades! ${response.message}`);
+                await revalidateLenguajes();
+
+            } else {
+                alert(`Oops! ${response.message}`);
             }
-    
-            
         } catch (error) {
             console.error(error);
-            // setServerResponse( "Ocurrió un error durante la operación" );
         } finally {
-            // console.log("serverResponse: ", serverResponse);
             setIsLoading(false);
         }
     };
@@ -255,11 +253,17 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
                 defaultValue={tech?.afinidad||30}
                 className="max-w-md"
             />
-            {isLoading ? (
-                <p>Cargando...</p>
-            ) : (
-                <Button type="submit">Enviar</Button>
-            )}
+            {
+            account ? (
+                isLoading ? (
+                  <p><Spinner size="sm" /> Cargando...</p>
+                ) : (
+                    <Tooltip  color={isAdmin?"default":"danger"} content={isAdmin?"Update Tech":"Only Admin"}>
+                  <Button style={{cursor: !isAdmin?"not-allowed":"pointer"}}  disabled={!isAdmin} type="submit">Enviar</Button></Tooltip>
+                )
+              ) : <ConnectButton client={client}/>
+            
+            }
         </form>
     )
 }

@@ -1,16 +1,16 @@
 "use client"
 
 import React, { useState } from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Chip, Tooltip, User, Spinner } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Chip, Tooltip, User } from "@nextui-org/react";
 import { IJsonTech } from "@/types";
 import { CiEdit } from "react-icons/ci";
 import Link from "next/link";
 import { lenguajesResources } from "@/data/data";
 import UserDescAdminTechTable from "./user-desc-admin-tech-table";
 import TopContentAdminTechTable from "./top-content-admin-tech-table";
-// import { deleteTech } from "@/actions/badges";
-// import { LuDelete } from "react-icons/lu";
 import DeleteTechButton from "./delete-admin-tech-button";
+import { useActiveAccount } from "thirdweb/react";
+
 
 interface AdminTechTableProps {
   lenguajes: IJsonTech[];
@@ -23,6 +23,9 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
   const [error, setError] = useState<string | null>(null);
   // const [showSpinner, setShowSpinner] = useState<boolean>(false);
   const rowsPerPage = 4;
+
+  const account = useActiveAccount();
+  const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
 
   // Prepare pagination
   const pages = Math.ceil(lenguajes.length / rowsPerPage);
@@ -56,10 +59,9 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
                 <CiEdit size={"45px"} />
               </Link>
             </Tooltip>
-            <Tooltip color="danger" content="Delete user">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                {/* {showSpinner ? <Spinner size="lg" /> : <LuDelete size={"45px"} onClick={() => handleDelete(item.name)} />} */}
-                <DeleteTechButton name={item.name} onError={(error) => setError(error)} />
+            <Tooltip color="danger" content={isAdmin?"Delete user":"Only Admin"}>
+              <span className="text-lg text-danger active:opacity-50">
+                <DeleteTechButton account={account} isAdmin={isAdmin} name={item.name} onError={(error) => setError(error)} />
               </span>
             </Tooltip>
           </TableCell>
@@ -105,11 +107,13 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
             </div>
           </div>
         }
-        topContent={<TopContentAdminTechTable />}
+        topContent={
+          <TopContentAdminTechTable account={account}/>
+        }
         topContentPlacement="inside"
         classNames={{
           wrapper: ["min-h-[222px]", "sm:min-w-[50dvw]", "min-w-[100dvw]"],
-          table: ["mt-6"],
+          // table: ["mt-6"],
         }}
       >
         <TableHeader>
