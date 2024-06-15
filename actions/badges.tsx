@@ -39,7 +39,7 @@ function createBadgeTech(tech: ILenguaje | IFramework | ILibreria) {
     )
 }
 // const prefijo = { proyecto: "\n\n>- ## ", framework: "\n\n> ### ", lenguaje: "\n> - #### "}
-//Aqui revalidate
+//Aqui revalidate(TESTEAR)
 export async function actualizarJson() {
     await connectToDB()
     // Obtener todos los proyectos de la base de datos
@@ -114,11 +114,11 @@ export async function actualizarJson() {
         sha: jsonSha,
         branch: ref,
     });
-    try {
-        revalidatePath("/admin/techs", "page");
-    } catch (error) {
-        console.error("Error al revalidar la ruta:", error);
-    }
+    // try {
+    //     revalidatePath("/admin/techs", "page");
+    // } catch (error) {
+    //     console.error("Error al revalidar la ruta:", error);
+    // }
     console.log("Archivo Json actualizado")
 }
 export async function actualizarMd(name: string, badge: String, color: String) {
@@ -198,7 +198,7 @@ export async function actualizarMd(name: string, badge: String, color: String) {
         }
     }
 }
-//Aqui revalidate
+//Aqui revalidate(TESTEAR)
 async function updateMd() {
     await connectToDB();
     try {
@@ -215,11 +215,11 @@ async function updateMd() {
             const mdFile = mdResponse.data.find((item) => item.name === "techs-test.md");
             if (mdFile) {
                 mdSha = mdFile.sha;
-                try {
-                    revalidatePath("/admin/techs", "page");
-                } catch (error) {
-                    console.error("Error al revalidar la ruta:", error);
-                }
+                // try {
+                //     revalidatePath("/admin/techs", "page");
+                // } catch (error) {
+                //     console.error("Error al revalidar la ruta:", error);
+                // }
             } else {
                 throw new Error("El archivo .md no se encuentra en el repositorio");
             }
@@ -344,96 +344,9 @@ async function testPeticionRepos() {
     return convertToLanguagePercentageArray(languagePercentages)
 
 }
-//CREATE (no se crea desde Vercel, la bdd + el json i md)
-// export async function publicarLeng({ name, afinidad, badge, preferencia, color, experiencia }: ILenguajeForm) {
 
-//     await actualizarMd(name, badge, color);
-    
-//     // PARTE SUBIR A LA BDD
-//     const nuevoProyecto = new LenguajesModel({
-//         name,
-//         afinidad,
-//         badge,
-//         preferencia,
-//         color,
-//         experiencia
-//     });
 
-//     try {
-//         const proyectoGuardado = await nuevoProyecto.save();
-//         console.log("Proyecto guardado correctamente:", proyectoGuardado);
-//     } catch (error) {
-//         console.error(error);
-//         return {success: false, message: `Error al guardar el proyecto`}
-//     }
-//     await actualizarJson();
-//     console.log("Archivos actualizados en el repositorio de GitHub");
-//     return {success: true, message: `Proyecto guardado correctamente en la bdd y en el Json. Proyecto: ${nuevoProyecto}`}
-// }
-// export async function publicarFwALeng({ name, afinidad, badge, preferencia, color, experiencia, lenguajeTo }: IFrameworkForm) {
-//     const nuevoFramework = {
-//         name,
-//         afinidad,
-//         badge,
-//         preferencia,
-//         color,
-//         experiencia
-//     }
-//     try {
-//         // publicarJsonYMd(name, afinidad, badge, color, experiencia);
-//         await actualizarMd(name, badge, color)
-            
-//         const lenguaje = await LenguajesModel.findOne({ name: lenguajeTo });
-//         if (lenguaje) {
-//             lenguaje.frameworks.push(nuevoFramework)
-//             await lenguaje.save();
-//             await actualizarJson();
-//         console.log("Framework agregado correctamente:", nuevoFramework);
-//         return {success: true, message: `Proyecto guardado correctamente en la bdd y en el Json. Proyecto: ${nuevoFramework}`} 
-            
-//         } else {
-//             return{success:false, message:`Lenguaje no encontrado ${lenguajeTo}`};
-//         }
-//     } catch (error) {
-//         console.error('Error al agregar la framework:', error);
-//         return {success: false, message: `Error al guardar el proyecto`}
-//     }   
-// }
-// export async function publicarLibAFw({ name, afinidad, badge, preferencia, color, experiencia, lenguajeTo, frameworkTo }: ILibreriaForm) {
-//     try {
-//         await actualizarMd(name, badge, color);
-        
-//         const nuevaLibreria = {
-//             name,
-//             afinidad,
-//             badge,
-//             preferencia,
-//             color,
-//             experiencia
-//         };
-
-//         const lenguaje = await LenguajesModel.findOne({ name: lenguajeTo });
-//         if (!lenguaje) {
-//             return { success: false, message: `Lenguaje no encontrado: ${lenguajeTo}` };
-//         }
-
-//         const framework = lenguaje.frameworks.find((framework: IFramework) => framework.name === frameworkTo);
-//         if (!framework) {
-//             return { success: false, message: `Framework no encontrado en la base de datos: ${frameworkTo}` };
-//         }
-
-//         framework.librerias.push(nuevaLibreria);
-//         await lenguaje.save();
-//         await actualizarJson();
-//         console.log("Libreria agregada correctamente:", nuevaLibreria);
-
-//         return { success: true, message: `Librería agregada correctamente: ${nuevaLibreria}` };
-//     } catch (error) {
-//         console.error("Error al agregar la librería: ", error);
-//         return { success: false, message: `Error al agregar la librería` };
-//     }
-// }
-
+// CREATE (se usa la funcion revalidateLenguajes en el "client")
 // Actualizar base de datos sin operaciones de archivo
 export async function publicarLeng({ name, afinidad, badge, preferencia, color, experiencia }: ILenguajeForm) {
     await connectToDB();
@@ -515,12 +428,8 @@ export async function publicarLibAFw({ name, afinidad, badge, preferencia, color
         return { success: false, message: `Error al agregar la librería` };
     }
 }
-
-
-// UPDATE
+// UPDATE(se usa la funcion revalidateLenguajes en el "client")
 type UpdateData = ILenguajeForm | IFrameworkForm | ILibreriaForm;
-
-
 export async function updateTech(updateData: UpdateData) {
     await connectToDB();
     try {
@@ -605,8 +514,7 @@ export async function updateTech(updateData: UpdateData) {
     }
 }
 type TechName = string;
-// DELETE(no se elimina desde Vercel, la bdd + el json i md)
-
+// DELETE(se usa el revalidatePath aquí dentro)
 export async function deleteTech(name: TechName) {
     await connectToDB();
     try {
@@ -799,6 +707,6 @@ export async function revalidateLenguajes() {
     revalidatePath('/admin/techs')
     redirect('/admin/techs')
   }
-export async function revalidateLeng(){
-    revalidatePath("/admin/techs")
-}
+// export async function revalidateLeng(){
+//     revalidatePath("/admin/techs")
+// }

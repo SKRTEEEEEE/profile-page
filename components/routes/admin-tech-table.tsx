@@ -16,7 +16,7 @@ interface AdminTechTableProps {
   lenguajes: IJsonTech[];
 }
 
-
+// El revalidate del delete se hace en su funcion del servidor, pero el revalidate del update y del create se llama desde el componente del cliente
 const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
   const [page, setPage] = useState<number>(1);
 
@@ -29,33 +29,6 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
   const start = (page - 1) * rowsPerPage;
   const end = start + rowsPerPage;
   const items = lenguajes.slice(start, end);
-
-
-  // Manage delete
-  // const handleDelete = async (name: string) => {
-  //   setShowSpinner(true)
-  //   alert("Hola mundo")
-
-  //   setError(null);
-  //   try {
-  //     console.log("show spinner: ", showSpinner)
-  //     // const deleted = await deleteTech(name);
-  //     const deleted = await mockDeleteTech(name);
-  //     if (deleted) {
-  //       console.log(`${name} eliminado correctamente`);
-  //       // Update the state to remove the deleted item
-  //       setError(`Eliminación de ${name} completada.`);
-  //     } else {
-  //       setError(`No se pudo eliminar ${name}`);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error eliminando tech:", error);
-  //     setError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
-  //   } finally {
-  //     setShowSpinner(false)
-
-  //   }
-  // };
 
   // Celdas de cada fila "estilos"
   const renderCell = (item: IJsonTech, columnKey: string) => {

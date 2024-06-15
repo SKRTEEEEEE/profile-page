@@ -1,45 +1,35 @@
 # ToDo
 ## Remembers
 ### Remember 05.2024 (Actual)
-#### Other
-- ##### [ ] Averiguar porque no hace el Create desde el móvil
-        - El create, y el Delete no funcionan en VERCEL
-        - Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
-    - [x] Crear handlers errors
-    - [ ] Llamar a las funciones por separado desde el cliente
-- ##### [ ] Unificar lógica techs (Data y BDD)
 
-#### 28/05
-- [x] Terminar documentación v01.01
+#### Documentación
 - [ ] Terminar documentación v01.02
 
-#### Frontend General
-- [x] Poner el favicon ? [ ] Test?
+#### Frontend 
+
 - [ ] Hacer AdminPages Sections
     - [x] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
-- [x] Mejorar Frontend main("/") page
-
-##### Mejorar Frontend projects & projectDyn page
-- [x] Mejorar/crear botones projectDyn & projects pages
-    - [x] Para ir a la pagina web del proyecto
-        - [x] Si el proyecto es /# (osea que aun no esta desplegado, o esta en la misma pagina, etc..) no mostrar botón
-    - [x] Para ir al github del proyecto
-        - [x] Si el proyecto es /# osea que aun no esta desplegado no mostrar botón
-- [x] Mejorar Frontend projectDyn page
-    - [x] Objetivos a de ocupar menos visualmente, sobretodo en xl
-    - [x] Crear botones para proyectos (parte superior)
-##### Empezar Frontend techs (about-me page)
 
 
-#### Configurar el analytics de Vercel!!!
-## Test
-### Test v01.01.01 Backend techs CRUD
-- [x] Update ->Librería, Framework y Lenguaje
-- [x] Create ->Librería, Framework y Lenguaje
-- [x] Delete cascada ->Lenguaje y Framework 
-- [x] Delete ->Librería, Framework y Lenguaje
+##### [ ] Empezar Frontend techs (about-me page)
+Empezar el Read del CRUD de las techs en la pagina web.
+#### Other
+##### [x] Averiguar porque no hace el Create desde el móvil
+    - El create, y el Delete no funcionan en VERCEL
+    - Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
+    - No se actualizaba automáticamente por el uso del `revalidatePath()` y del `redirect()`:
+        - En muchas funciones no se utilizaba y ¿en las que si se utilizaba mal?
+        - [ ] Test que la función updateMd() y updateJson() no sea necesario el uso de redirect(), ya que esta en medio de las ejecuciones y no al final.
 
-## Remember meses antiguos
+
+##### [ ] Unificar lógica techs (Data y BDD)?
+##### [ ] Configurar el analytics de Vercel!!!
+#### Test
+
+
+
+***
+
 ## Versions
 ###  v02
 #### Make a parallax 3d welkome page
@@ -54,10 +44,48 @@
 
 ### Make option to create your own profile and techs etc markdowns offering it as SAAS using web3 aventajes
 
+***
+
+## Template
+### Estructura "todos" v01
+#### Documentación
+#### Frontend 
+#### Backend
+#### Other
+#### Test
+
+***
+## Remember meses antiguos
+### Nuevo mes _primero_
+
+### Remember 05.2024
+#### Documentación
+- [x] Terminar documentación ¿v01.01?
+#### Frontend 
+- [x] Poner el favicon ? [x] Test?
+- [x] Mejorar Frontend main("/") page
+##### [x] Mejorar Frontend projects & projectDyn page
+- [x] Mejorar/crear botones projectDyn & projects pages
+    - [x] Para ir a la pagina web del proyecto
+        - [x] Si el proyecto es /# (osea que aun no esta desplegado, o esta en la misma pagina, etc..) no mostrar botón
+    - [x] Para ir al github del proyecto
+        - [x] Si el proyecto es /# osea que aun no esta desplegado no mostrar botón
+- [x] Mejorar Frontend projectDyn page
+    - [x] Objetivos a de ocupar menos visualmente, sobretodo en xl
+    - [x] Crear botones para proyectos (parte superior)
+#### Backend
+#### Other
+- [x] Crear handlers errors
+- [x] Llamar a las funciones por separado desde el cliente
+#### Test
+##### [x] Test v01.01.01 Backend techs CRUD
+- [x] Update ->Librería, Framework y Lenguaje
+- [x] Create ->Librería, Framework y Lenguaje
+- [x] Delete cascada ->Lenguaje y Framework 
+- [x] Delete ->Librería, Framework y Lenguaje
 
 
-
-
+*** 
 
 ## Random things
 

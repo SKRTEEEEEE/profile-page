@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   description: "Landing page made by SKRTEEEEEEDev",
 };
 
+
+// El thirdweb provider lo he de usar en el Layout de mas al fondo NO EN ESTE
 export default function RootLayout({
   children,
 }: Readonly<{
