@@ -8,6 +8,7 @@ import 'swiper/css/scrollbar';
 
 import Navbar from "@/components/main/navbar";
 import Header from "@/components/main/header";
+import { ThirdwebProvider } from "thirdweb/react";
 // import { Providers } from "@/providers";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
@@ -25,10 +26,11 @@ export default function RootLayout({
   return (
     <html lang="es-ES" className="dark">
       <body className={urbanist.className}>
-      
+      <ThirdwebProvider>
         <Navbar />
         <Header />
         {children}
+      </ThirdwebProvider>
       </body>
     </html>
   );
