@@ -10,6 +10,7 @@ import { useAsyncList } from "@react-stately/data";
 import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { client } from "@/app/client";
+import { useIsAdmin } from "@/utils/isAdmin";
 // import { CalculateIsAdmin, useIsAdmin } from "./admin-tech-table";
 // import { smartWallet } from 'thirdweb/wallets';
 
@@ -41,8 +42,9 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
     Al hacer el isAdmin en el server, utilizando la función creada en auth.ts `actionAdmin()`, lo que hacemos es comprobar desde el servidor, y con la blockchain, que el usuario es "admin".
     Al hacer esto, a diferencia de que no, nos pedirá firmar la comprobación con nuestra wallet (para así demostrar que somos dicho usuario), pero no nos costara gas.
     */
-    const account = useActiveAccount();
-    const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
+    // const account = useActiveAccount();
+    // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
+    const { isAdmin, account } = useIsAdmin();
     console.log("isAdmin: ",isAdmin )
     // const isAdmin = CalculateIsAdmin();
     // const isAdmin = useIsAdmin()

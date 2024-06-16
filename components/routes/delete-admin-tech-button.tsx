@@ -7,11 +7,12 @@
 
 import { actionAdmin, generatePayload } from "@/actions/auth";
 import { deleteTech } from "@/actions/badges";
+import { useIsAdmin } from "@/utils/isAdmin";
 import { Spinner, Tooltip } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { LuDelete } from "react-icons/lu";
 import { signLoginPayload } from "thirdweb/auth";
-import { useActiveAccount } from "thirdweb/react";
+// import { useActiveAccount } from "thirdweb/react";
 
 interface DeleteTechButtonProps {
   name: string;
@@ -25,13 +26,15 @@ interface DeleteTechButtonProps {
 const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({  name, onError }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const account = useActiveAccount();
-  const [isAdmin, setIsAdmin] = useState(false);
-  useEffect(() => {
-    setIsAdmin(account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988");
-  }, [account]);
-
-
+//   const account = useActiveAccount();
+//   const [isAdmin, setIsAdmin] = useState(false);
+//   useEffect(() => {
+//     setIsAdmin(account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988");
+//   }, [account]);
+    
+    // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
+    // console.log("isAdmin (ButtonTable): ",isAdmin)
+    const { isAdmin, account } = useIsAdmin();
   const handleClick = async () => {
     setIsLoading(true);
     try {

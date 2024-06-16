@@ -1,8 +1,8 @@
 import { client } from "@/app/client";
 import { Button } from "@nextui-org/react"
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import { FaPlus } from "react-icons/fa"
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 

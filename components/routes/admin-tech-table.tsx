@@ -10,6 +10,7 @@ import UserDescAdminTechTable from "./user-desc-admin-tech-table";
 import TopContentAdminTechTable from "./top-content-admin-tech-table";
 import DeleteTechButton from "./delete-admin-tech-button";
 import { useActiveAccount } from "thirdweb/react";
+import { useIsAdmin } from "@/utils/isAdmin";
 
 
 interface AdminTechTableProps {
@@ -34,15 +35,18 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
 
   const rowsPerPage = 4;
 
-  const account = useActiveAccount();
+  // is Admin - [ ] Ver si funciona sin el useEffect -> NO ES NECESARIO(Solo hay que llamar siempre a la re-asignación)
+  // const account = useActiveAccount();
 
-  const [isAdmin, setIsAdmin] = useState(false);
-  useEffect(() => {
-    setIsAdmin(account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988");
-  }, [account]);
-
-  // const isAdmin = useIsAdmin(account);
+  // const [isAdmin, setIsAdmin] = useState(false);
+  // useEffect(() => {
+  //   setIsAdmin(account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988");
+  // }, [account]);
+  // const account = useActiveAccount();
+  // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
+  const { isAdmin, account } = useIsAdmin();
   console.log("isAdmin (TechTable): ",isAdmin)
+  console.log("address: ",account?.address)
 
   // Prepare pagination
   const pages = Math.ceil(lenguajes.length / rowsPerPage);
