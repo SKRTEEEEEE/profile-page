@@ -1,6 +1,8 @@
 
+import { client } from "@/app/client";
 import PublicarProyectoButton from "@/components/routes/publicar-proyecto-button";
 import { fetchLenguajes } from "@/data/fetch"
+import { ConnectButton } from "thirdweb/react";
 // import { LenguajesModel } from "@/models/lenguajes-schema";
 
 
@@ -25,7 +27,9 @@ const TestMongoPage = async( ) =>{
             
             </>
         ))}
-        <PublicarProyectoButton/>
+        <ConnectButton client={client}/>
+        {/* <PublicarProyectoButton/> */}
+
         </>
     )
 }
