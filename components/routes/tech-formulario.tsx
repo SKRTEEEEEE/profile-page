@@ -10,6 +10,7 @@ import { useAsyncList } from "@react-stately/data";
 import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { client } from "@/app/client";
+import { CalculateIsAdmin, useIsAdmin } from "./admin-tech-table";
 // import { smartWallet } from 'thirdweb/wallets';
 
 interface FormularioTechsProps {
@@ -36,10 +37,15 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
 
     const isUpdating = !!tech;
 
-    // - [ ] Falta hacer el isAdmin en el server*
+    /* - [ ] Falta hacer el isAdmin en el server
+    Al hacer el isAdmin en el server, utilizando la función creada en auth.ts `actionAdmin()`, lo que hacemos es comprobar desde el servidor, y con la blockchain, que el usuario es "admin".
+    Al hacer esto, a diferencia de que no, nos pedirá firmar la comprobación con nuestra wallet (para así demostrar que somos dicho usuario), pero no nos costara gas.
+    */
     const account = useActiveAccount();
     const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
     console.log("isAdmin: ",isAdmin )
+    // const isAdmin = CalculateIsAdmin();
+    // const isAdmin = useIsAdmin()
 
 
     let list = useAsyncList<TechBadge>({
@@ -47,7 +53,6 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
             // Filtra la lista local según el texto ingresado
             let searchText = filterText ? filterText.toLowerCase() : "";
 
-            // Filtra la lista local según el texto ingresado
             let filteredItems = techBadges.filter(item =>
                 item.name.toLowerCase().includes(searchText)
             );
@@ -258,7 +263,7 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
                 isLoading ? (
                   <p><Spinner size="sm" /> Cargando...</p>
                 ) : (
-                    <Tooltip  color={isAdmin?"default":"danger"} content={isAdmin?"Update Tech":"Only Admin"}>
+                    <Tooltip  color={isAdmin?"default":"danger"} content={isUpdating?(isAdmin?"Update Tech":"Only Admin"):(isAdmin?"Create Tech":"Only Admin")}>
                   <Button style={{cursor: !isAdmin?"not-allowed":"pointer"}}  disabled={!isAdmin} type="submit">Enviar</Button></Tooltip>
                 )
               ) : <ConnectButton client={client}/>

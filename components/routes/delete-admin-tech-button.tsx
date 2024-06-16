@@ -66,8 +66,8 @@
 
 import { actionAdmin, generatePayload } from "@/actions/auth";
 import { deleteTech } from "@/actions/badges";
-import { Spinner } from "@nextui-org/react";
-import { useState } from "react";
+import { Spinner, Tooltip } from "@nextui-org/react";
+import { useEffect, useState } from "react";
 import { LuDelete } from "react-icons/lu";
 import { signLoginPayload } from "thirdweb/auth";
 import { useActiveAccount } from "thirdweb/react";
@@ -76,20 +76,35 @@ interface DeleteTechButtonProps {
   name: string;
   onError: (error: string) => void; // Función de callback para pasar el error
   
-  isAdmin: boolean;
-  account: ReturnType<typeof useActiveAccount> | null;
+//   isAdmin: boolean;
+//   account: ReturnType<typeof useActiveAccount> | null;
   //Aunque se podría pasar solo un argumento(account), ya que esta creado isAdmin nos ahorramos eso
 }
 
-const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onError, account }) => {
+const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({  name, onError }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const account = useActiveAccount();
+
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    setIsAdmin(account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988");
+  }, [account]);
+
+  // const isAdmin = useIsAdmin(account);
+  console.log("isAdmin (TechTable): ",isAdmin)
+    console.log("isAdmin (DeleteButton): ",isAdmin)
+//   useEffect(() => {
+//     // Aquí puedes agregar cualquier lógica que necesite ejecutarse cuando isAdmin cambie
+//     console.log('isAdmin ha cambiado:', isAdmin);
+//   }, [isAdmin]);
 
   const handleClick = async () => {
     setIsLoading(true);
     try {
-        if(!isAdmin){
-            return alert("Only admin can do")
-        }
+        // if(!isAdmin){
+        //     onError(`Administrador no válido: ${account?.address}`)
+        //     return alert("Only admin can do")
+        // }
         if(account){
             const payload = await generatePayload({ address: account.address });
             const signatureResult = await signLoginPayload({ account, payload });
@@ -103,7 +118,7 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
                     onError(`No se pudo eliminar ${name}`);
                 }
             }else{
-                onError(`Administrador no válido: ${account.address}`)
+                onError(response.message)
             }
         }
 
@@ -112,10 +127,10 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error al eliminar tech', error.message);
-        onError(error.message); // Llamar a la función de callback con el mensaje de error
+        // onError(error.message); // Llamar a la función de callback con el mensaje de error
       } else {
         console.error('Error al eliminar tech', error);
-        onError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
+        // onError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
       }
     } finally {
       setIsLoading(false);
@@ -128,6 +143,7 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
       {isLoading ? (
         <Spinner size="lg" />
       ) : (
+        <Tooltip color="danger" content={isAdmin?"Delete user":"Only Admin"}>
         <button
           onClick={handleClick}
           disabled={!isAdmin}
@@ -141,6 +157,7 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
         >
           <LuDelete size={"45px"} />
         </button>
+        </Tooltip>
       )}
     </>
   );

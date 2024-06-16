@@ -41,11 +41,12 @@ export async function actionAdmin(payload: VerifyLoginPayloadParams, path: strin
     return {message: `Una acción ha sido realizada en ${path}`, success: true}
     }
     else{
-      return {message: "Comprobación en el servidor fallida", success: false}
+      return {message: "Usuario no reconocido como administrador", success: false}
     }
     
   }
-  return {message: "Error con el verifiedPayload", success: false}
+//   return {message: "Error con el verifiedPayload", success: false}
+    return {message: "Error. Enviar un correo si persiste", success: false}
 }
 
 // Para -> protected route "only admin"

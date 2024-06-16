@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Chip, Tooltip, User } from "@nextui-org/react";
 import { IJsonTech } from "@/types";
 import { CiEdit } from "react-icons/ci";
@@ -15,6 +15,15 @@ import { useActiveAccount } from "thirdweb/react";
 interface AdminTechTableProps {
   lenguajes: IJsonTech[];
 }
+// export const useIsAdmin = (account:any) => {
+//   // const account = useActiveAccount();
+  
+
+  
+
+//   return isAdmin;
+// };
+
 
 // El revalidate del delete se hace en su funcion del servidor, pero el revalidate del update y del create se llama desde el componente del cliente
 const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
@@ -22,10 +31,18 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
 
   const [error, setError] = useState<string | null>(null);
   // const [showSpinner, setShowSpinner] = useState<boolean>(false);
+
   const rowsPerPage = 4;
 
   const account = useActiveAccount();
-  const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
+
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    setIsAdmin(account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988");
+  }, [account]);
+
+  // const isAdmin = useIsAdmin(account);
+  console.log("isAdmin (TechTable): ",isAdmin)
 
   // Prepare pagination
   const pages = Math.ceil(lenguajes.length / rowsPerPage);
@@ -54,16 +71,16 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
       case "actions":
         return (
           <TableCell className="relative flex items-center gap-2">
-            <Tooltip content="Edit user">
+            <Tooltip content="Edit tech">
               <Link href={`techs/${item.name}`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
                 <CiEdit size={"45px"} />
               </Link>
             </Tooltip>
-            <Tooltip color="danger" content={isAdmin?"Delete user":"Only Admin"}>
+            
               <span className="text-lg text-danger active:opacity-50">
-                <DeleteTechButton account={account} isAdmin={isAdmin} name={item.name} onError={(error) => setError(error)} />
+                <DeleteTechButton  name={item.name} onError={(error) => setError(error)}/>
               </span>
-            </Tooltip>
+            
           </TableCell>
         );
       case "experiencia":
