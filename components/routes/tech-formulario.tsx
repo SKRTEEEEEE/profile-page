@@ -10,7 +10,7 @@ import { useAsyncList } from "@react-stately/data";
 import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { client } from "@/app/client";
-import { CalculateIsAdmin, useIsAdmin } from "./admin-tech-table";
+// import { CalculateIsAdmin, useIsAdmin } from "./admin-tech-table";
 // import { smartWallet } from 'thirdweb/wallets';
 
 interface FormularioTechsProps {
