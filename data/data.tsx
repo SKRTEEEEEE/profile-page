@@ -69,7 +69,7 @@ export const itemsNavbar = [
         desc: "Información sobre proyectos de código abierto web3"
     },
 ];
-
+// De aquí, para abajo, se ha de recoger/guardar en la bdd
 export const dataStudiesPage = [
     {
         id: 1,
