@@ -1,14 +1,9 @@
-// "use client"
-
-
-
-
 "use client"
 
 import { adminOnlyAction} from "@/actions/auth";
 import { deleteTech } from "@/actions/badges";
 import useIsAdmin from "@/hooks/useIsAdmin";
-import { FlattenedAdmin } from "@/utils/isAdmin";
+import { FlattenedAdmin } from "@/utils/auth";
 import { Spinner, Tooltip } from "@nextui-org/react";
 import {  useState } from "react";
 import { LuDelete } from "react-icons/lu";
@@ -19,27 +14,14 @@ interface DeleteTechButtonProps {
   // isAdmin: boolean;
   admins: FlattenedAdmin[];
   name: string;
-  onError: (error: string) => void; // Función de callback para pasar el error
-  
-  
+  onError: (error: string) => void; // Función de callback para pasar el error  
 //   
 //   account: ReturnType<typeof useActiveAccount> | null;
 }
 
 const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ admins ,name, onError }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  
-
-
-  
-
   const {account, isAdmin} = useIsAdmin(admins)
-
-
-
-
-
-
   console.log("isAdmin delete admin tech: ", isAdmin)
   const handleClick = async () => {
     setIsLoading(true);

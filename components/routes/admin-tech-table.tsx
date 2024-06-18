@@ -9,7 +9,7 @@ import { lenguajesResources } from "@/data/data";
 import UserDescAdminTechTable from "./user-desc-admin-tech-table";
 import TopContentAdminTechTable from "./top-content-admin-tech-table";
 import DeleteTechButton from "./delete-admin-tech-button";
-import { FlattenedAdmin } from "@/utils/isAdmin";
+import { FlattenedAdmin } from "@/utils/auth";
 import useIsAdmin from "@/hooks/useIsAdmin";
 import { useActiveAccount } from "thirdweb/react";
 // import { useActiveAccount } from "thirdweb/react";

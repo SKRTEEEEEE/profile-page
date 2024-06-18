@@ -122,9 +122,10 @@ export async function protectedAction(path: string | false): Promise<ActionAdmin
 /*  
 Función de comprobación de acciones solo para administradores
 =============================================================
-- Esta función tiene un pequeño error o bug, el cual al hacer uso de Switch Account, del ConnectButton, este no refresca el token y porlotanto aqui salta error.
+- Esta función tiene un pequeño error o bug?, el cual al hacer uso de Switch Account, del ConnectButton, este no refresca el token y por lo tanto, aquí puedes forzar un error(confirmado) salta error.
 Lo bueno es que esta limitado en el cliente y ahi si que salta error/se deshabilita la acción 
-También es verdad que al final al hacer switch account se esta utilizando la misma propietaria de la "wallet"
+También es verdad que al final al hacer switch account se esta utilizando la misma propietaria de la "wallet"...
+ 
 */
 export async function adminOnlyAction(path: string | false): Promise<ActionAdminResponse> {
   const jwt = cookies().get("jwt");

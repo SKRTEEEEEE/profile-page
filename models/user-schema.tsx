@@ -1,6 +1,13 @@
 import mongoose, { Types } from 'mongoose';
 
 // Definición del esquema de usuario
+export interface IUser extends Document {
+    nick?: string,
+    address: string,
+    isAdmin: boolean,
+    solicitudAdmin: boolean,
+}
+
 const userSchema = new mongoose.Schema({
     nick: String,
     address: {

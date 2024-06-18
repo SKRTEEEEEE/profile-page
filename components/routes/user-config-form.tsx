@@ -3,19 +3,27 @@
 import { publicarUser } from "@/actions/user";
 // import { client } from "@/app/client";
 import { IUserBdd } from "@/types";
-import { useIsAdmin } from "@/utils/isAdmin";
+// import { useIsAdmin } from "@/utils/auth";
 import { Button, Input, Spinner, Switch } from "@nextui-org/react";
 import React, { useState } from "react";
 import CConnectButton from "../main/custom-connect-button";
-// import { ConnectButton } from "thirdweb/react";
+import { FlattenedAdmin } from "@/utils/auth";
+import useIsAdmin from "@/hooks/useIsAdmin";
 
-//Falta hacer el isUpdate
-const UserConfigForm: React.FC = async ()=>{
+interface UserConfigFormProps {
+  admins: FlattenedAdmin[];
+}
+
+// - [ ] Falta hacer el isUpdate
+const UserConfigForm: React.FC<UserConfigFormProps> =  ({admins})=>{
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [solicitarIsAdmin, setSolicitarIsAdmin] = React.useState<boolean>(false);
     const [noIsAdmin, setNoIsAdmin] = React.useState<boolean>(false);
 
-    const { isAdmin, account } = await useIsAdmin();
+    // //SOLO PUEDE ACEPTAR NUEVOS ADMINS EL SUPER-ADMIN :)
+    // const { isAdmin, account } = useIsSuperAdmin();
+    const {isAdmin, account } = useIsAdmin(admins)
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
         setIsLoading(true);
@@ -27,7 +35,7 @@ const UserConfigForm: React.FC = async ()=>{
         console.log("data: ", data)
         const isAdminParsed = isAdmin ? !data.noIsAdmin : false
         console.log("data SolIsAdmin: ", solicitarIsAdmin);
-        console.log("comprobacion:", !isAdmin ? solicitarIsAdmin : false  )
+        console.log("comprobación:", !isAdmin ? solicitarIsAdmin : false  )
         const transData:IUserBdd = {
             nick: data.nick,
             address: account?.address || "",
@@ -64,9 +72,6 @@ const UserConfigForm: React.FC = async ()=>{
         Solicitar permisos de "Admin"
       </Switch>
         }
-        {/* <Switch isSelected={solicitarIsAdmin} onValueChange={setSolicitarIsAdmin}>
-        Solicitar permisos de "Admin"
-      </Switch>  */}
         <br />
         {
             account ? (

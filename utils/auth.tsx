@@ -1,15 +1,15 @@
 import { IAdmins } from '@/models/user-schema';
-// import { useActiveAccount } from 'thirdweb/react';
+import { useActiveAccount } from 'thirdweb/react';
 
-// export const useIsAdmin = () => {
-//   const account = useActiveAccount();
+export const useIsSuperAdmin = () => {
+  const account = useActiveAccount();
 
   
-//   const isAdmin = account?.address === process.env.ADMIN_USER;
+  const isAdmin = account?.address === process.env.ADMIN_USER;
 
 
-//   return { isAdmin, account };
-// };
+  return { isAdmin, account };
+};
 
 
 export interface FlattenedAdmin {

@@ -1,6 +1,6 @@
 "use client"
 
-import { FlattenedAdmin } from '@/utils/isAdmin';
+import { FlattenedAdmin } from '@/utils/auth';
 import { useState, useEffect } from 'react';
 import { useActiveAccount } from 'thirdweb/react';
 

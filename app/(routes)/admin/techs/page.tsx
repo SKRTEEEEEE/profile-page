@@ -1,7 +1,7 @@
 import AdminTechTable from "@/components/routes/admin-tech-table"
 import { fetchAdmins, fetchLenguajes } from "@/data/fetch"
+import { flattenAdmin } from "@/utils/auth"
 import { flattenProyectos } from "@/utils/badges"
-import { flattenAdmin } from "@/utils/isAdmin"
 
 const TechsAdminPage = async( ) =>{
     const lenguajes = await fetchLenguajes()

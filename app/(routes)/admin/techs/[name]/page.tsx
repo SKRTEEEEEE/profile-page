@@ -2,7 +2,7 @@ import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page"
 import TechFormulario from "@/components/routes/tech-formulario"
 import { fetchAdmins, fetchLenguajes } from "@/data/fetch"
 import { flattenProyectos } from "@/utils/badges"
-import { flattenAdmin } from "@/utils/isAdmin"
+import { flattenAdmin } from "@/utils/auth"
 
 export default async function TechsDynAdminPage ({params}:{params: {name:string}}){
     const lenguajes = await fetchLenguajes()

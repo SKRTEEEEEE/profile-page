@@ -1,13 +1,16 @@
-import { fetchUsers } from "@/data/fetch"
+import { fetchAdmins, fetchUsers } from "@/data/fetch"
 import AdminUsersTable from "@/components/routes/admin-users-table";
+import { flattenUsers } from "@/utils/users";
+import { flattenAdmin } from "@/utils/auth";
 
 const TechsAdminPage = async () => {
     const users = await fetchUsers()
-    console.log("users client: ", users)
-
+    const allUsers = flattenUsers(users)
+    const admins = await fetchAdmins();
+    const allAdmins = flattenAdmin(admins)
 
     return (
-        <AdminUsersTable users={users}/>
+        <AdminUsersTable users={allUsers} admins={allAdmins}/>
     )
 }
 

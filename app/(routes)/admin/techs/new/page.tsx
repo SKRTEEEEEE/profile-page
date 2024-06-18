@@ -1,7 +1,7 @@
 
 import TechFormulario from "@/components/routes/tech-formulario";
 import {  fetchAdmins, fetchLenguajes } from "@/data/fetch";
-import { flattenAdmin } from "@/utils/isAdmin";
+import { flattenAdmin } from "@/utils/auth";
 // import { createListOfIcons } from "@/utils/scripts/createListOfIcons";
 
 export interface ILenguajeDispo {

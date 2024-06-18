@@ -1,8 +1,10 @@
 "use client"
 
-import { adminOnlyAction, generatePayload, updateUserAdminStatus} from "@/actions/auth";
+import { updateUserAdminStatus } from "@/actions/admin";
+import { adminOnlyAction, generatePayload} from "@/actions/auth";
+import useIsAdmin from "@/hooks/useIsAdmin";
+import { FlattenedAdmin } from "@/utils/auth";
 // import { deleteTech } from "@/actions/badges";
-import {  useIsAdmin } from "@/utils/isAdmin";
 import { Spinner, Tooltip } from "@nextui-org/react";
 import {  useState } from "react";
 import { LuDelete } from "react-icons/lu";
@@ -12,6 +14,7 @@ import { signLoginPayload } from "thirdweb/auth";
 
 interface DeleteTechButtonProps {
   address: string;
+  admins: FlattenedAdmin[];
 //   onError: (error: string) => void; // Función de callback para pasar el error
   
 //   isAdmin: boolean;
@@ -19,9 +22,9 @@ interface DeleteTechButtonProps {
   //Aunque se podría pasar solo un argumento(account), ya que esta creado isAdmin nos ahorramos eso
 }
 
-const GiveAdminButton: React.FC<DeleteTechButtonProps> = async ({  address }) => {
+const GiveAdminButton: React.FC<DeleteTechButtonProps> = ({  address, admins }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { isAdmin, account } = useIsAdmin();
+  const { isAdmin, account } = useIsAdmin(admins);
 
   // const account = useActiveAccount();
 //   const [isAdmin, setIsAdmin] = useState(false);
