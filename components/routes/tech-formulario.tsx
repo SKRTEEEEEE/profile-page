@@ -11,6 +11,7 @@ import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { client } from "@/app/client";
 import { useIsAdmin } from "@/utils/isAdmin";
+import CConnectButton from "../main/custom-connect-button";
 // import { CalculateIsAdmin, useIsAdmin } from "./admin-tech-table";
 // import { smartWallet } from 'thirdweb/wallets';
 
@@ -268,7 +269,7 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
                     <Tooltip  color={isAdmin?"default":"danger"} content={isUpdating?(isAdmin?"Update Tech":"Only Admin"):(isAdmin?"Create Tech":"Only Admin")}>
                   <Button style={{cursor: !isAdmin?"not-allowed":"pointer"}}  disabled={!isAdmin} type="submit">Enviar</Button></Tooltip>
                 )
-              ) : <ConnectButton client={client}/>
+              ) : <CConnectButton/>
             
             }
         </form>

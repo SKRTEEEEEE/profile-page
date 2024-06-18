@@ -5,12 +5,18 @@ import { client } from "@/app/client";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { AdminModel, UserModel } from "@/models/user-schema";
 
 
   interface ActionAdminResponse {
     message: string;
     success: boolean;
   }
+
+  
+
+  
+  
 
 const privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY || "";
 
@@ -26,30 +32,135 @@ const thirdwebAuth = createAuth({
 export const generatePayload = thirdwebAuth.generatePayload;
 
 //"login" that can only be handled by a "admin" user
-export async function actionAdmin(payload: VerifyLoginPayloadParams, path: string | false): Promise<ActionAdminResponse> {
+// export async function actionAdmin(payload: VerifyLoginPayloadParams, path: string | false): Promise<ActionAdminResponse> {
+//   const verifiedPayload = await thirdwebAuth.verifyPayload(payload);
+//   console.log("verifiedPayload :", verifiedPayload)
+//   if (verifiedPayload.valid ) {
+//     if(verifiedPayload.payload.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988"){
+//       const jwt = await thirdwebAuth.generateJWT({
+//         payload: verifiedPayload.payload,
+//         context: {
+//           isAdmin: true,
+//           nick: "Pepe"
+//         }
+//       });
+//       cookies().set("jwt", jwt);
+//     //   // redirect to the secure page
+//     //   return redirect("/jwt-admin-action");
+//     path && revalidatePath(path);
+//     return {message: `Una acción ha sido realizada en ${path}`, success: true}
+//     }
+//     else{
+//       return {message: "Usuario no reconocido como administrador", success: false}
+//     }
+    
+//   }
+// //   return {message: "Error con el verifiedPayload", success: false}
+//     return {message: "Error. Enviar un correo si persiste", success: false}
+// }
+
+// Función de inicio de sesión
+
+//Funciona pero no con el switch Account
+export async function login(payload: VerifyLoginPayloadParams): Promise<string | null> {
   const verifiedPayload = await thirdwebAuth.verifyPayload(payload);
-  console.log("verifiedPayload :", verifiedPayload)
-  if (verifiedPayload.valid ) {
-    if(verifiedPayload.payload.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988"){
+  if (verifiedPayload.valid) {
+    const user = await UserModel.findOne({ address: verifiedPayload.payload.address });
+    if (user) {
       const jwt = await thirdwebAuth.generateJWT({
         payload: verifiedPayload.payload,
+        context: {
+          isAdmin: user.isAdmin,
+          nick: user.nick
+        }
       });
       cookies().set("jwt", jwt);
-    //   // redirect to the secure page
-    //   return redirect("/jwt-admin-action");
-    path && revalidatePath(path);
-    return {message: `Una acción ha sido realizada en ${path}`, success: true}
-    }
-    else{
-      return {message: "Usuario no reconocido como administrador", success: false}
-    }
-    
+      return jwt;
+    }else {
+    const jwt = await thirdwebAuth.generateJWT({
+      payload: verifiedPayload.payload,
+      context:{
+        isAdmin: false,
+      }
+    });
+    cookies().set("jwt", jwt);
+    console.log("jwt login: ", jwt)
+    return jwt;
   }
-//   return {message: "Error con el verifiedPayload", success: false}
-    return {message: "Error. Enviar un correo si persiste", success: false}
+  } 
+  return null;
 }
 
+
+
+export async function isLoggedIn() {
+  const jwt = cookies().get("jwt");
+  if (!jwt?.value) {
+    return false;
+  }
+ 
+  const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
+  if (!authResult.valid) {
+    return false;
+  }
+  return true;
+}
+
+// Función de comprobación de acciones protegidas -> Falta terminar y hacer test
+export async function protectedAction(path: string | false): Promise<ActionAdminResponse> {
+  const jwt = cookies().get("jwt");
+  if (!jwt?.value) {
+    path && redirect(path);
+    return { message: "Debes iniciar sesión para realizar esta acción", success: false };
+  }
+
+  const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
+  if (!authResult.valid) {
+    return { message: "Token de autenticación no válido", success: false };
+  }
+
+  path && revalidatePath(path);
+  return { message: `Una acción protegida ha sido realizada en ${path}`, success: true };
+}
+
+/* 
+Función de comprobación de acciones solo para administradores
+=============================================================
+- Esta función tiene un pequeño error o bug, el cual al hacer uso de Switch Account, del ConnectButton, este no refresca el token y porlotanto aqui salta error.
+Lo bueno es que esta limitado en el cliente y ahi si que salta error/se deshabilita la acción 
+También es verdad que alfinal al hacer switch account se esta utilizando la misma propietaria de la "wallet"
+*/
+export async function adminOnlyAction(path: string | false): Promise<ActionAdminResponse> {
+  const jwt = cookies().get("jwt");
+  if (!jwt?.value) {
+    path && redirect(path);
+    return { message: "Debes iniciar sesión para realizar esta acción", success: false };
+  }
+  console.log("jwt value: ", jwt.value)
+
+  const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
+  if (!authResult.valid) {
+    return { message: "Token de autenticación no válido", success: false };
+  }
+  console.log("authResult: ", authResult)
+
+  // Se asume que authResult.parsedJWT es de tipo JWTPayload y se accede al campo de contexto personalizado
+  // const parsedJWT = authResult.parsedJWT as any & { context: { isAdmin?: boolean } };
+  const parsedJWT = authResult.parsedJWT as any;
+  const isAdmin = parsedJWT.ctx?.isAdmin;
+
+  if (!isAdmin) {
+    return { message: "No tienes permisos de administrador para realizar esta acción", success: false };
+  }
+
+  path && revalidatePath(path);
+  return { message: `Una acción de administrador ha sido realizada en ${path}`, success: true };
+}
+
+
+
 // Para -> protected route "only admin"
+// Falta comprobar que funcione ¿y adaptarla para admin, ahora generica/user logeado"
 export async function authedOnlyAdmin() {
   const jwt = cookies().get("jwt");
   if (!jwt?.value) {
@@ -63,6 +174,71 @@ export async function authedOnlyAdmin() {
   return authResult.parsedJWT;
 }
 
+
 export async function logout() {
   cookies().delete("jwt");
 }
+
+
+/*
+Función para hacer a un usuario Admin
+=====================================
+
+*/
+
+
+interface ActionAdminResponse {
+  message: string;
+  success: boolean;
+}
+
+export const updateUserAdminStatus = async (
+  payload: VerifyLoginPayloadParams,
+  isAdmin: boolean,
+  address: string, 
+): Promise<ActionAdminResponse> => {
+  try {
+    // Verificar la validez del payload utilizando thirdwebAuth
+    const verifiedPayload = await thirdwebAuth.verifyPayload(payload);
+
+    if (!verifiedPayload.valid) {
+      return { message: 'Token de autenticación no válido', success: false };
+    }
+
+    // Buscar al usuario por su dirección en la base de datos
+    const user = await UserModel.findOne({ address });
+
+    if (!user) {
+      return { message: 'Usuario no encontrado', success: false };
+    }
+
+    // Actualizar el estado isAdmin del usuario
+    user.isAdmin = isAdmin;
+    user.solicitudAdmin = false;
+    await user.save();
+
+    // Manejar la tabla de administradores según el estado isAdmin
+    if (isAdmin) {
+      await AdminModel.create({ userId: user._id, address: user.address });
+    } else {
+      await AdminModel.findOneAndDelete({ userId: user._id });
+    }
+
+    // Generar un nuevo JWT con el contexto actualizado si es necesario (opcional)
+    const jwt = await thirdwebAuth.generateJWT({
+      payload: verifiedPayload.payload,
+      context: {
+        isAdmin: isAdmin,
+        nick: user.nick
+      }
+    });
+
+    // Establecer la cookie JWT con el nuevo token (opcional)
+    cookies().set('jwt', jwt);
+
+    return { message: `Estado de isAdmin actualizado exitosamente para ${user.nick}`, success: true };
+  } catch (error) {
+    console.error('Error al actualizar isAdmin:', error);
+    return { message: 'Error interno del servidor', success: false };
+  }
+};
