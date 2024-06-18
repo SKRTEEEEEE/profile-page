@@ -1,4 +1,4 @@
-// "use client"
+"use client"
 
 import { generatePayload, isLoggedIn, login, logout } from "@/actions/auth";
 import { client } from "@/app/client";

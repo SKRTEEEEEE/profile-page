@@ -444,3 +444,9 @@ export const dataPortfolio = [
     //     operative: false,
     // }
 ];
+
+export const admins = [
+    "0x490bb233c707A0841cA52979Be4D88B6621d1988",
+    "0x246264E2741C1bdDA990e9d48fF63DAa6fF242A3",
+    "0xd65EC541B9EC79859A9a34F0665B824d46b62F6f"
+]

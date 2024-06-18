@@ -2,7 +2,7 @@
 
 import { adminOnlyAction, generatePayload, updateUserAdminStatus} from "@/actions/auth";
 // import { deleteTech } from "@/actions/badges";
-import { useIsAdmin } from "@/utils/isAdmin";
+import {  useIsAdmin } from "@/utils/isAdmin";
 import { Spinner, Tooltip } from "@nextui-org/react";
 import {  useState } from "react";
 import { LuDelete } from "react-icons/lu";
@@ -21,21 +21,8 @@ interface DeleteTechButtonProps {
 
 const GiveAdminButton: React.FC<DeleteTechButtonProps> = ({  address }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { isAdmin, account } = useIsAdmin();
 
-  // const account = useActiveAccount();
-//   const [isAdmin, setIsAdmin] = useState(false);
-//   useEffect(() => {
-//     setIsAdmin(account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988");
-//   }, [account]);
-    
-    // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
-    // console.log("isAdmin (ButtonTable): ",isAdmin)
-
-
-
-    const { isAdmin, account } = useIsAdmin();
-    // const isAdmin = true;
-    // const account = {address: "0x490bb233c707A0841cA52979Be4D88B6621d1988"}
   const handleClick = async () => {
     setIsLoading(true);
     try {
@@ -68,10 +55,10 @@ const GiveAdminButton: React.FC<DeleteTechButtonProps> = ({  address }) => {
       
     } catch (error) {
       if (error instanceof Error) {
-        console.error(`Error al dar permisos de admin a ${name}`, error.message);
+        console.error(`Error al dar permisos de admin a ${address}`, error.message);
         // onError(error.message); // Llamar a la función de callback con el mensaje de error
       } else {
-        console.error(`Error al dar permisos de admin a ${name}`, error);
+        console.error(`Error al dar permisos de admin a ${address}`, error);
         // onError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
       }
     } finally {

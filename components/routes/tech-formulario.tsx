@@ -8,8 +8,6 @@ import { Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slide
 import { useState } from "react";
 import { useAsyncList } from "@react-stately/data";
 import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
-import { ConnectButton, useActiveAccount } from "thirdweb/react";
-import { client } from "@/app/client";
 import { useIsAdmin } from "@/utils/isAdmin";
 import CConnectButton from "../main/custom-connect-button";
 // import { CalculateIsAdmin, useIsAdmin } from "./admin-tech-table";
