@@ -14,33 +14,18 @@ import { LuDelete } from "react-icons/lu";
 import { useActiveAccount } from "thirdweb/react";
 
 interface DeleteTechButtonProps {
-  isAdmin: any;
+  isAdmin: boolean;
   name: string;
   onError: (error: string) => void; // Función de callback para pasar el error
   
-//   isAdmin: boolean;
+//   
 //   account: ReturnType<typeof useActiveAccount> | null;
-  //Aunque se podría pasar solo un argumento(account), ya que esta creado isAdmin nos ahorramos eso
 }
 
 const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onError }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const account = useActiveAccount();
-//   const [isAdmin, setIsAdmin] = useState(false);
-//   useEffect(() => {
-//     setIsAdmin(account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988");
-//   }, [account]);
-    // console.log("admins: ",admins)
-    // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
-
-    // console.log("isAdmin (ButtonTable): ",isAdmin)
-
-
-
-  
-    // const isAdmin = true;
-    // const account = {address: "0x490bb233c707A0841cA52979Be4D88B6621d1988"}
   const handleClick = async () => {
     setIsLoading(true);
     try {

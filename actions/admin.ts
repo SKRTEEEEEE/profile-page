@@ -3,7 +3,6 @@
 /*
 Función para hacer a un usuario Admin
 =====================================
-
 */
 
 import { AdminModel, UserModel } from "@/models/user-schema";

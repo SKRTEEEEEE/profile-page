@@ -17,6 +17,8 @@ const userSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
+
+// Definición del esquema de administrador
 export interface IAdmins extends Document {
     userId: Types.ObjectId;
     address: String;
@@ -24,7 +26,6 @@ export interface IAdmins extends Document {
     updatedAt?: Date;
 }
 
-// Definición del esquema de administrador
 const adminSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,

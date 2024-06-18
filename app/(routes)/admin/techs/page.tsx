@@ -10,7 +10,7 @@ const TechsAdminPage = async( ) =>{
     const allLeng = flattenProyectos(lenguajes)
     const allAdmins = flattenAdmin(admins)
 
-    console.log("admins techsadmins page: ",admins)
+    // console.log("admins techsadmins page: ",admins)
  
     return (
         <section className="h-dvh flex flex-col justify-center items-center">
