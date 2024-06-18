@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Chip, Tooltip, User } from "@nextui-org/react";
 import { IJsonTech } from "@/types";
 import { CiEdit } from "react-icons/ci";
@@ -11,6 +11,8 @@ import TopContentAdminTechTable from "./top-content-admin-tech-table";
 import DeleteTechButton from "./delete-admin-tech-button";
 import { FlattenedAdmin } from "@/utils/isAdmin";
 import useIsAdmin from "@/hooks/useIsAdmin";
+import { useActiveAccount } from "thirdweb/react";
+// import { useActiveAccount } from "thirdweb/react";
 
 
 interface AdminTechTableProps {
@@ -52,11 +54,11 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({lenguajes, admins}) => {
   //       checkIsAdmin(); // Llamar a la función para verificar si la cuenta es administrador
 
   //   }, [account]);
-  // const account = useActiveAccount();
+  const account = useActiveAccount();
   
   
   // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
-  const { isAdmin, account } = useIsAdmin(admins);
+  // const { isAdmin, account } = useIsAdmin(admins);
   
 
   // Prepare pagination
@@ -93,7 +95,7 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({lenguajes, admins}) => {
             </Tooltip>
             
               <span className="text-lg text-danger active:opacity-50">
-                <DeleteTechButton isAdmin={isAdmin} name={item.name} onError={(error) => setError(error)}/>
+                <DeleteTechButton admins={admins} name={item.name} onError={(error) => setError(error)}/>
               </span>
             
           </TableCell>

@@ -1,5 +1,5 @@
 "use client"
-// import { useRouter } from 'next/navigation'
+
 import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, revalidateLenguajes, updateTech } from "@/actions/badges";
 import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
 import techBadges from "@/data/slugs";
@@ -8,16 +8,17 @@ import { Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slide
 import { useState } from "react";
 import { useAsyncList } from "@react-stately/data";
 import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
-import { useIsAdmin } from "@/utils/isAdmin";
 import CConnectButton from "../main/custom-connect-button";
-// import { CalculateIsAdmin, useIsAdmin } from "./admin-tech-table";
-// import { smartWallet } from 'thirdweb/wallets';
+import { FlattenedAdmin } from "@/utils/isAdmin";
+import useIsAdmin from "@/hooks/useIsAdmin";
+
 
 interface FormularioTechsProps {
     dispoLeng: ILenguajeDispo[];
     dispoFw: IFrameworkDispo[];
     // techBadges: {name: string}[];
     tech?: IJsonTech;
+    admins: FlattenedAdmin[];
 }
 export type TechBadge = {
     name: string;
@@ -29,7 +30,7 @@ export type TechBadge = {
 
 El caso create de librerias esta funcionando
 */
-const TechFormulario: React.FC<FormularioTechsProps> = async ({ dispoLeng, dispoFw, tech }) => {
+const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, tech, admins }) => {
     const initialCatTech = tech ? (tech.isLib ? "libreria" : (tech.isFw ? "framework" : "lenguaje")) : "lenguaje";
     const [selectedCat, setSelectedCat] = useState<string>(initialCatTech);
     const [inputValue, setInputValue] = useState<string>(tech?.name||'');
@@ -43,7 +44,7 @@ const TechFormulario: React.FC<FormularioTechsProps> = async ({ dispoLeng, dispo
     */
     // const account = useActiveAccount();
     // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
-    const { isAdmin, account } = await useIsAdmin();
+    const { isAdmin, account } =  useIsAdmin(admins);
     console.log("isAdmin: ",isAdmin )
     // const isAdmin = CalculateIsAdmin();
     // const isAdmin = useIsAdmin()
