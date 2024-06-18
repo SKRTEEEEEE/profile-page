@@ -5,18 +5,14 @@ import { client } from "@/app/client";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { AdminModel, UserModel } from "@/models/user-schema";
+import {  UserModel } from "@/models/user-schema";
 
 
   interface ActionAdminResponse {
     message: string;
     success: boolean;
   }
-
-  
-
-  
-  
+ 
 
 const privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY || "";
 
@@ -59,7 +55,7 @@ export const generatePayload = thirdwebAuth.generatePayload;
 //     return {message: "Error. Enviar un correo si persiste", success: false}
 // }
 
-// Función de inicio de sesión
+// Funciones de inicio de sesión
 
 //Funciona pero no con el switch Account
 export async function login(payload: VerifyLoginPayloadParams): Promise<string | null> {
@@ -92,7 +88,7 @@ export async function login(payload: VerifyLoginPayloadParams): Promise<string |
 }
 
 
-
+// Función de para rutas protegidas de usuarios logeados -> Falta test
 export async function isLoggedIn() {
   const jwt = cookies().get("jwt");
   if (!jwt?.value) {
@@ -123,12 +119,12 @@ export async function protectedAction(path: string | false): Promise<ActionAdmin
   return { message: `Una acción protegida ha sido realizada en ${path}`, success: true };
 }
 
-/* 
+/*  
 Función de comprobación de acciones solo para administradores
 =============================================================
 - Esta función tiene un pequeño error o bug, el cual al hacer uso de Switch Account, del ConnectButton, este no refresca el token y porlotanto aqui salta error.
 Lo bueno es que esta limitado en el cliente y ahi si que salta error/se deshabilita la acción 
-También es verdad que alfinal al hacer switch account se esta utilizando la misma propietaria de la "wallet"
+También es verdad que al final al hacer switch account se esta utilizando la misma propietaria de la "wallet"
 */
 export async function adminOnlyAction(path: string | false): Promise<ActionAdminResponse> {
   const jwt = cookies().get("jwt");
@@ -178,67 +174,3 @@ export async function authedOnlyAdmin() {
 export async function logout() {
   cookies().delete("jwt");
 }
-
-
-/*
-Función para hacer a un usuario Admin
-=====================================
-
-*/
-
-
-interface ActionAdminResponse {
-  message: string;
-  success: boolean;
-}
-
-export const updateUserAdminStatus = async (
-  payload: VerifyLoginPayloadParams,
-  isAdmin: boolean,
-  address: string, 
-): Promise<ActionAdminResponse> => {
-  try {
-    // Verificar la validez del payload utilizando thirdwebAuth
-    const verifiedPayload = await thirdwebAuth.verifyPayload(payload);
-
-    if (!verifiedPayload.valid) {
-      return { message: 'Token de autenticación no válido', success: false };
-    }
-
-    // Buscar al usuario por su dirección en la base de datos
-    const user = await UserModel.findOne({ address });
-
-    if (!user) {
-      return { message: 'Usuario no encontrado', success: false };
-    }
-
-    // Actualizar el estado isAdmin del usuario
-    user.isAdmin = isAdmin;
-    user.solicitudAdmin = false;
-    await user.save();
-
-    // Manejar la tabla de administradores según el estado isAdmin
-    if (isAdmin) {
-      await AdminModel.create({ userId: user._id, address: user.address });
-    } else {
-      await AdminModel.findOneAndDelete({ userId: user._id });
-    }
-
-    // Generar un nuevo JWT con el contexto actualizado si es necesario (opcional)
-    const jwt = await thirdwebAuth.generateJWT({
-      payload: verifiedPayload.payload,
-      context: {
-        isAdmin: isAdmin,
-        nick: user.nick
-      }
-    });
-
-    // Establecer la cookie JWT con el nuevo token (opcional)
-    cookies().set('jwt', jwt);
-
-    return { message: `Estado de isAdmin actualizado exitosamente para ${user.nick}`, success: true };
-  } catch (error) {
-    console.error('Error al actualizar isAdmin:', error);
-    return { message: 'Error interno del servidor', success: false };
-  }
-};

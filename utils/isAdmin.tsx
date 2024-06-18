@@ -1,28 +1,25 @@
-import { admins } from '@/data/data';
+import { IAdmins } from '@/models/user-schema';
 import { useActiveAccount } from 'thirdweb/react';
 
-const ADMIN_ADDRESS = "0x490bb233c707A0841cA52979Be4D88B6621d1988";
-
-
-export const includesAdminDir = () =>{
-  const account = useActiveAccount();
-
-  const isAdmin = admins.includes(account?.address || '');
-  console.log("isAdmin includes funct: ", isAdmin)
-
-  return { isAdmin, account };
-};
 export const useIsAdmin = () => {
   const account = useActiveAccount();
 
   
-  const isAdmin = account?.address === ADMIN_ADDRESS;
+  const isAdmin = account?.address === process.env.ADMIN_USER;
 
 
-
-  
-  // // Verificar si la dirección de la cuenta activa está en la lista de direcciones de administradores
-  // const isAdmin = adminAddresses.includes(account?.address);
-  console.log("admins: ", admins)
   return { isAdmin, account };
+};
+
+
+export interface FlattenedAdmin {
+  userId: string;
+  address: string;
+}
+
+export const flattenAdmin = (admins: IAdmins[]): FlattenedAdmin[] => {
+  return admins.map(admin => ({
+      userId: admin.userId.toString(),  // Convertir ObjectId a string
+      address: admin.address.toString(),
+  }));
 };

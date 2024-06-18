@@ -73,3 +73,4 @@ export interface IUserBdd{
   isAdmin: boolean;
   solicitudAdmin: boolean;
 }
+

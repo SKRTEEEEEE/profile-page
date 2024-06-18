@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 
 // Definición del esquema de usuario
 const userSchema = new mongoose.Schema({
@@ -16,6 +16,13 @@ const userSchema = new mongoose.Schema({
         required: true,
     }
 }, { timestamps: true });
+
+export interface IAdmins extends Document {
+    userId: Types.ObjectId;
+    address: String;
+    createdAt?: Date;
+    updatedAt?: Date;
+}
 
 // Definición del esquema de administrador
 const adminSchema = new mongoose.Schema({
