@@ -23,7 +23,7 @@ interface DeleteTechButtonProps {
   //Aunque se podría pasar solo un argumento(account), ya que esta creado isAdmin nos ahorramos eso
 }
 
-const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({  name, onError }) => {
+const DeleteTechButton: React.FC<DeleteTechButtonProps> = async ({  name, onError }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // const account = useActiveAccount();
@@ -37,7 +37,7 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({  name, onError }) =
 
 
 
-    const { isAdmin, account } = useIsAdmin();
+    const { isAdmin, account } = await useIsAdmin();
     // const isAdmin = true;
     // const account = {address: "0x490bb233c707A0841cA52979Be4D88B6621d1988"}
   const handleClick = async () => {

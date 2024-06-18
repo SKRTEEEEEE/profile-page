@@ -19,10 +19,23 @@ interface DeleteTechButtonProps {
   //Aunque se podría pasar solo un argumento(account), ya que esta creado isAdmin nos ahorramos eso
 }
 
-const GiveAdminButton: React.FC<DeleteTechButtonProps> = ({  address }) => {
+const GiveAdminButton: React.FC<DeleteTechButtonProps> = async ({  address }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isAdmin, account } = useIsAdmin();
 
+  // const account = useActiveAccount();
+//   const [isAdmin, setIsAdmin] = useState(false);
+//   useEffect(() => {
+//     setIsAdmin(account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988");
+//   }, [account]);
+    
+    // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
+    // console.log("isAdmin (ButtonTable): ",isAdmin)
+
+
+
+    // const isAdmin = true;
+    // const account = {address: "0x490bb233c707A0841cA52979Be4D88B6621d1988"}
   const handleClick = async () => {
     setIsLoading(true);
     try {

@@ -18,5 +18,11 @@ export const useIsAdmin = () => {
   
   const isAdmin = account?.address === ADMIN_ADDRESS;
 
+
+
+  
+  // // Verificar si la dirección de la cuenta activa está en la lista de direcciones de administradores
+  // const isAdmin = adminAddresses.includes(account?.address);
+  console.log("admins: ", admins)
   return { isAdmin, account };
 };
