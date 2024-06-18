@@ -27,7 +27,7 @@ interface AdminTechTableProps {
 
 
 // El revalidate del delete se hace en su funcion del servidor, pero el revalidate del update y del create se llama desde el componente del cliente
-const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
+const AdminTechTable: React.FC<AdminTechTableProps> = async ({ lenguajes }) => {
   const [page, setPage] = useState<number>(1);
 
   const [error, setError] = useState<string | null>(null);
@@ -44,7 +44,7 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
   // }, [account]);
   // const account = useActiveAccount();
   // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
-  const { isAdmin, account } = useIsAdmin();
+  const { isAdmin, account } = await useIsAdmin();
   console.log("isAdmin (TechTable): ",isAdmin)
   console.log("address: ",account?.address)
 

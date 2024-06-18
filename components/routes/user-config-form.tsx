@@ -10,12 +10,12 @@ import CConnectButton from "../main/custom-connect-button";
 // import { ConnectButton } from "thirdweb/react";
 
 //Falta hacer el isUpdate
-const UserConfigForm: React.FC = ()=>{
+const UserConfigForm: React.FC = async ()=>{
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [solicitarIsAdmin, setSolicitarIsAdmin] = React.useState<boolean>(false);
     const [noIsAdmin, setNoIsAdmin] = React.useState<boolean>(false);
 
-    const { isAdmin, account } = useIsAdmin();
+    const { isAdmin, account } = await useIsAdmin();
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
         setIsLoading(true);

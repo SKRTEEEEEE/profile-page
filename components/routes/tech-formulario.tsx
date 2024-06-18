@@ -8,8 +8,6 @@ import { Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slide
 import { useState } from "react";
 import { useAsyncList } from "@react-stately/data";
 import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
-import { ConnectButton, useActiveAccount } from "thirdweb/react";
-import { client } from "@/app/client";
 import { useIsAdmin } from "@/utils/isAdmin";
 import CConnectButton from "../main/custom-connect-button";
 // import { CalculateIsAdmin, useIsAdmin } from "./admin-tech-table";
@@ -31,7 +29,7 @@ export type TechBadge = {
 
 El caso create de librerias esta funcionando
 */
-const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, tech }) => {
+const TechFormulario: React.FC<FormularioTechsProps> = async ({ dispoLeng, dispoFw, tech }) => {
     const initialCatTech = tech ? (tech.isLib ? "libreria" : (tech.isFw ? "framework" : "lenguaje")) : "lenguaje";
     const [selectedCat, setSelectedCat] = useState<string>(initialCatTech);
     const [inputValue, setInputValue] = useState<string>(tech?.name||'');
@@ -45,7 +43,7 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
     */
     // const account = useActiveAccount();
     // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
-    const { isAdmin, account } = useIsAdmin();
+    const { isAdmin, account } = await useIsAdmin();
     console.log("isAdmin: ",isAdmin )
     // const isAdmin = CalculateIsAdmin();
     // const isAdmin = useIsAdmin()
