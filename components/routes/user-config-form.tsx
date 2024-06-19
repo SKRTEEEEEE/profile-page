@@ -9,6 +9,9 @@ import useIsAdmin from "@/hooks/useIsAdmin";
 import { IFlattenUsers } from "@/utils/users";
 import { FlattenedAdmin } from "@/utils/auth";
 import Link from "next/link";
+import { updateUserAdminStatus } from "@/actions/admin";
+import { generatePayload } from "@/actions/auth";
+import { signLoginPayload } from "thirdweb/auth";
 
 interface UserConfigFormProps {
   users?: IFlattenUsers[];
@@ -58,6 +61,13 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, admins }) => {
           response = await publicarUser(transData);
       } else {
         response = await updateUser(transData)
+        if(response.success && account){
+          const payload = await generatePayload({ address: account.address });
+          const signatureResult = await signLoginPayload({ account, payload });
+          response = await updateUserAdminStatus(signatureResult, !noIsAdmin, account?.address)
+        } else {
+          response = {success: false , message: "Error al actualizar el usuario en el servidor"}
+        }
       }
       
       if (response.success) {
