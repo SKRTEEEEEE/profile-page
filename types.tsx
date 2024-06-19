@@ -74,3 +74,11 @@ export interface IUserBdd{
   solicitudAdmin: boolean;
 }
 
+
+// isFw isLeng
+export interface ILenguajeDispo {
+  name: string;
+}
+export interface IFrameworkDispo {
+  name: string;
+}
