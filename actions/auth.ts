@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {  UserModel } from "@/models/user-schema";
+import { connectToDB } from "@/utils/db-connect";
 
 
   interface ActionAdminResponse {
@@ -59,6 +60,7 @@ export const generatePayload = thirdwebAuth.generatePayload;
 
 //Funciona pero no con el switch Account
 export async function login(payload: VerifyLoginPayloadParams): Promise<string | null> {
+  await connectToDB();
   const verifiedPayload = await thirdwebAuth.verifyPayload(payload);
   if (verifiedPayload.valid) {
     const user = await UserModel.findOne({ address: verifiedPayload.payload.address });
