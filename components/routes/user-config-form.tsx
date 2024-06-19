@@ -1,93 +1,120 @@
 "use client"
 
-import { publicarUser } from "@/actions/user";
-// import { client } from "@/app/client";
+import { publicarUser, updateUser } from "@/actions/user";
 import { IUserBdd } from "@/types";
-// import { useIsAdmin } from "@/utils/auth";
 import { Button, Input, Spinner, Switch } from "@nextui-org/react";
-import React, { useState } from "react";
-import CConnectButton from "../main/custom-connect-button";
-import { FlattenedAdmin } from "@/utils/auth";
+import React, { useState, useEffect } from "react";
+// import CConnectButton from "../main/custom-connect-button";
 import useIsAdmin from "@/hooks/useIsAdmin";
+import { IFlattenUsers } from "@/utils/users";
+import { FlattenedAdmin } from "@/utils/auth";
+import Link from "next/link";
 
 interface UserConfigFormProps {
+  users?: IFlattenUsers[];
   admins: FlattenedAdmin[];
 }
 
-// - [ ] Falta hacer el isUpdate
-const UserConfigForm: React.FC<UserConfigFormProps> =  ({admins})=>{
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [solicitarIsAdmin, setSolicitarIsAdmin] = React.useState<boolean>(false);
-    const [noIsAdmin, setNoIsAdmin] = React.useState<boolean>(false);
+const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, admins }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false)
+  const [solicitarIsAdmin, setSolicitarIsAdmin] = useState<boolean>(false);
+  const [noIsAdmin, setNoIsAdmin] = useState<boolean>(false);
 
-    // //SOLO PUEDE ACEPTAR NUEVOS ADMINS EL SUPER-ADMIN :)
-    // const { isAdmin, account } = useIsSuperAdmin();
-    const {isAdmin, account } = useIsAdmin(admins)
+  const { isAdmin, account } = useIsAdmin(admins);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
-        e.preventDefault()
-        setIsLoading(true);
+  const [user, setUser] = useState<IFlattenUsers | undefined>(undefined);
 
-
-        try {
-        const formData = new FormData(e.currentTarget);
-        const data: any = Object.fromEntries(formData.entries());
-        console.log("data: ", data)
-        const isAdminParsed = isAdmin ? !data.noIsAdmin : false
-        console.log("data SolIsAdmin: ", solicitarIsAdmin);
-        console.log("comprobación:", !isAdmin ? solicitarIsAdmin : false  )
-        const transData:IUserBdd = {
-            nick: data.nick,
-            address: account?.address || "",
-            isAdmin: isAdminParsed,
-            //isAdmin?true:false, //Llamar a la función isAdmin, por si el usuario que hace el Edit es ya admin, sino por default false.
-            solicitudAdmin: !isAdmin ? solicitarIsAdmin : false ,
-        }
-        console.log("transData userConfig: ", transData)
-        //Llamar a la función para guardar en la bdd -> await .....
-        const response = await publicarUser(transData)
-        if (response.success) {
-            alert(`¡Felicidades! ${response.message}`);
-            
-
-        } else {
-            alert(`Oops! ${response.message}`);
-        }
-        } catch (error) {
-            console.error("Error al guardar el usuario :", error)
-            alert("Ha habido un error. Intente-lo de nuevo")
-        }
-        setIsLoading(false)
+  useEffect(() => {
+    if (account?.address && users) {
+      setIsLoading(true);
+      const foundUser = users.find(user => user.address === account.address);
+      console.log("foundUser user-config: ", foundUser)
+      setUser(foundUser);
+      setIsLoading(false);
     }
-    return(
+  }, [account, users]);
 
-        <form onSubmit={handleSubmit}>
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoadingButton(true);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const data: any = Object.fromEntries(formData.entries());
+      console.log("noIsAdmin: ", noIsAdmin)
+      console.log("!data.noIsAdmin: ", !noIsAdmin)
+      
+      const isAdminParsed = isAdmin ? !noIsAdmin : false;
+      console.log("isAdminParsed: ", isAdminParsed)
+      const transData: IUserBdd = {
+        nick: data.nick,
+        address: account?.address || "",
+        isAdmin: isAdminParsed,
+        solicitudAdmin: !isAdmin ? solicitarIsAdmin : false,
+      };
+      let response;
+      if(user===undefined){
+          response = await publicarUser(transData);
+      } else {
+        response = await updateUser(transData)
+      }
+      
+      if (response.success) {
+        alert(`¡Felicidades! ${response.message}`);
+      } else {
+        alert(`Oops! ${response.message}`);
+      }
+    } catch (error) {
+      console.error("Error al guardar el usuario:", error);
+      alert("Ha habido un error. Intente-lo de nuevo");
+    }
+
+    setIsLoadingButton(false);
+  };
+
+  if (isLoading) {
+    return<p><Spinner size="sm" /> Cargando...</p>;
+  }
+
+  // if (!user) {
+  //   return null;
+  // }
+
+  return (
+      <form onSubmit={handleSubmit}>
         <p>Address: {account?.address}</p>
-        <Input name="nick" type="string" label="Nick" description="Introduce tu nombre de usuario" size="sm" className="max-w-[120px]"/>
-        {/* Feat-> Cuando el usuario es admin preguntar si quiere dejar de serlo y no mostrar la solicitud */}
-        {isAdmin?
-        <Switch isSelected={noIsAdmin} onValueChange={setNoIsAdmin}>
-        Dejar de ser "Admin"
-      </Switch>:<Switch isSelected={solicitarIsAdmin} onValueChange={setSolicitarIsAdmin}>
-        Solicitar permisos de "Admin"
-      </Switch>
-        }
+        <Input
+          name="nick"
+          type="string"
+          label="Nick"
+          defaultValue={user?.nick}
+          description="Introduce tu nombre de usuario"
+          size="sm"
+          className="max-w-[120px]"
+        />
+        {isAdmin ? (
+          <Switch isSelected={noIsAdmin} onValueChange={setNoIsAdmin}>
+            Dejar de ser "Admin"
+          </Switch>
+        ) : (
+          <Switch isSelected={solicitarIsAdmin} onValueChange={setSolicitarIsAdmin}>
+            Solicitar permisos de "Admin"
+          </Switch>
+        )}
         <br />
-        {
-            account ? (
-                isLoading ? (
-                  <p><Spinner size="sm" /> Cargando...</p>
-                ) : (
-                    
-                  <Button type="submit">Actualizar</Button>
-                )
-              ) : null
-            
-            }
-            <br />
-            <CConnectButton/>
-        </form>
-    )
-}
+        {account && (
+          isLoadingButton ? (
+            <p><Spinner size="sm" /> Cargando...</p>
+          ) : (
+            <Button type="submit">Actualizar</Button>
+          )
+        )}
+        <br />
+        <Link href="/dashboard">Volver al dashboard</Link>
+        
+      </form>
+      );
+};
 
-export default UserConfigForm;
+      export default UserConfigForm;
