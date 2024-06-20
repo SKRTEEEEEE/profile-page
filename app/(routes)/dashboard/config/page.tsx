@@ -43,8 +43,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const UserConfigPage = async () => {
-    // Ruta protegida para logeados solo
-
+    /* Ruta protegida para logeados solo
+    - Hay un error al entrar al llamar a la url, no a la ir directamente con Link
+    - Solo pasa cuando el usuario esta logeado, cuando no se activa esta función
+    - Se podría usar/test el useActiveAccount() y comprobar si hay account, sino hacer el redirect()
+    */
     if (!(await isLoggedIn())) {
         redirect("/dashboard");
         

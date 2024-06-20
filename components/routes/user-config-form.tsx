@@ -30,13 +30,14 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, admins }) => {
 
   useEffect(() => {
     if (account?.address && users) {
-      setIsLoading(true);
+      // setIsLoading(true);
       const foundUser = users.find(user => user.address === account.address);
       console.log("foundUser user-config: ", foundUser)
       setUser(foundUser);
+      if(foundUser)setSolicitarIsAdmin(foundUser.solicitudAdmin)
       setIsLoading(false);
     }
-  }, [account, users]);
+  }, [account]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,12 +60,21 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, admins }) => {
       let response;
       if(user===undefined){
           response = await publicarUser(transData);
+          console.log("publicar user")
       } else {
+        console.log("updateUser, data: ", transData)
         response = await updateUser(transData)
         if(response.success && account){
-          const payload = await generatePayload({ address: account.address });
-          const signatureResult = await signLoginPayload({ account, payload });
-          response = await updateUserAdminStatus(signatureResult, !noIsAdmin, account?.address)
+
+          //Solo para eliminar de admin(Hay que modificar)
+          if(noIsAdmin){
+            const payload = await generatePayload({ address: account.address });
+            const signatureResult = await signLoginPayload({ account, payload });
+            response = await updateUserAdminStatus(signatureResult, !noIsAdmin, account?.address)
+          } else {
+            response = {success: true, message: "Usuario update en la base de datos"}
+          }
+          
         } else {
           response = {success: false , message: "Error al actualizar el usuario en el servidor"}
         }
