@@ -1,9 +1,8 @@
 "use client"
 
 import { updateTech } from "@/actions/badges";
-import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
 import techBadges from "@/data/slugs";
-import { IFrameworkForm, IJsonTech, ILenguajeForm, ILibreriaForm } from "@/types";
+import { IFrameworkDispo, IFrameworkForm, IJsonTech, ILenguajeDispo, ILenguajeForm, ILibreriaForm } from "@/types";
 import {  Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slider } from "@nextui-org/react";
 import { useState } from "react";
 import { useAsyncList } from "@react-stately/data";

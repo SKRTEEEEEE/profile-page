@@ -1,23 +1,25 @@
 "use client"
-// import { useRouter } from 'next/navigation'
+
 import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, revalidateLenguajes, updateTech } from "@/actions/badges";
-import { IFrameworkDispo, ILenguajeDispo } from "@/app/(routes)/test/form/page";
+
 import techBadges from "@/data/slugs";
-import { IFrameworkForm, IJsonTech, ILenguajeForm, ILibreriaForm } from "@/types";
+import { IFrameworkDispo, IFrameworkForm, IJsonTech, ILenguajeDispo, ILenguajeForm, ILibreriaForm } from "@/types";
 import { Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slider, Spinner, Tooltip } from "@nextui-org/react";
 import { useState } from "react";
 import { useAsyncList } from "@react-stately/data";
 import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
-import { ConnectButton, useActiveAccount } from "thirdweb/react";
-import { client } from "@/app/client";
-// import { CalculateIsAdmin, useIsAdmin } from "./admin-tech-table";
-// import { smartWallet } from 'thirdweb/wallets';
+import CConnectButton from "../main/custom-connect-button";
+import { FlattenedAdmin } from "@/utils/auth";
+import useIsAdmin from "@/hooks/useIsAdmin";
+import { revrd } from "@/actions/revrd";
+
 
 interface FormularioTechsProps {
     dispoLeng: ILenguajeDispo[];
     dispoFw: IFrameworkDispo[];
     // techBadges: {name: string}[];
     tech?: IJsonTech;
+    admins: FlattenedAdmin[];
 }
 export type TechBadge = {
     name: string;
@@ -29,7 +31,7 @@ export type TechBadge = {
 
 El caso create de librerias esta funcionando
 */
-const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, tech }) => {
+const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, tech, admins }) => {
     const initialCatTech = tech ? (tech.isLib ? "libreria" : (tech.isFw ? "framework" : "lenguaje")) : "lenguaje";
     const [selectedCat, setSelectedCat] = useState<string>(initialCatTech);
     const [inputValue, setInputValue] = useState<string>(tech?.name||'');
@@ -41,11 +43,9 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
     Al hacer el isAdmin en el server, utilizando la función creada en auth.ts `actionAdmin()`, lo que hacemos es comprobar desde el servidor, y con la blockchain, que el usuario es "admin".
     Al hacer esto, a diferencia de que no, nos pedirá firmar la comprobación con nuestra wallet (para así demostrar que somos dicho usuario), pero no nos costara gas.
     */
-    const account = useActiveAccount();
-    const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
+    const { isAdmin, account } =  useIsAdmin(admins);
     console.log("isAdmin: ",isAdmin )
-    // const isAdmin = CalculateIsAdmin();
-    // const isAdmin = useIsAdmin()
+
 
 
     let list = useAsyncList<TechBadge>({
@@ -132,7 +132,8 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
             console.log("response: ", response);
             if (response.success) {
                 alert(`¡Felicidades! ${response.message}`);
-                await revalidateLenguajes();
+                // await revalidateLenguajes();
+                await revrd('/admin/techs');
 
             } else {
                 alert(`Oops! ${response.message}`);
@@ -266,7 +267,7 @@ const TechFormulario: React.FC<FormularioTechsProps> = ({ dispoLeng, dispoFw, te
                     <Tooltip  color={isAdmin?"default":"danger"} content={isUpdating?(isAdmin?"Update Tech":"Only Admin"):(isAdmin?"Create Tech":"Only Admin")}>
                   <Button style={{cursor: !isAdmin?"not-allowed":"pointer"}}  disabled={!isAdmin} type="submit">Enviar</Button></Tooltip>
                 )
-              ) : <ConnectButton client={client}/>
+              ) : <CConnectButton/>
             
             }
         </form>

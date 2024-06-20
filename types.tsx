@@ -63,3 +63,22 @@ export interface ILibreriaForm {
 export interface IJsonTech {
   name: string; afinidad: number; value: string; experiencia: number; valueexp: string; color: string;badge: string; isFw: boolean|string; isLib: boolean|string; usogithub?: number; preferencia: number;
 }
+
+
+// User
+
+export interface IUserBdd{
+  nick: string;
+  address: string;
+  isAdmin: boolean;
+  solicitudAdmin: boolean;
+}
+
+
+// isFw isLeng
+export interface ILenguajeDispo {
+  name: string;
+}
+export interface IFrameworkDispo {
+  name: string;
+}

@@ -9,40 +9,57 @@ import { lenguajesResources } from "@/data/data";
 import UserDescAdminTechTable from "./user-desc-admin-tech-table";
 import TopContentAdminTechTable from "./top-content-admin-tech-table";
 import DeleteTechButton from "./delete-admin-tech-button";
+import { FlattenedAdmin } from "@/utils/auth";
+import useIsAdmin from "@/hooks/useIsAdmin";
 import { useActiveAccount } from "thirdweb/react";
+// import { useActiveAccount } from "thirdweb/react";
 
 
 interface AdminTechTableProps {
   lenguajes: IJsonTech[];
+  admins: FlattenedAdmin[];
 }
-// export const useIsAdmin = (account:any) => {
-//   // const account = useActiveAccount();
-  
-
-  
-
-//   return isAdmin;
-// };
 
 
 // El revalidate del delete se hace en su funcion del servidor, pero el revalidate del update y del create se llama desde el componente del cliente
-const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
+const AdminTechTable: React.FC<AdminTechTableProps> = ({lenguajes, admins}) => {
   const [page, setPage] = useState<number>(1);
 
   const [error, setError] = useState<string | null>(null);
-  // const [showSpinner, setShowSpinner] = useState<boolean>(false);
 
   const rowsPerPage = 4;
 
+  // is Admin - [ ] Ver si funciona sin el useEffect -> NO ES NECESARIO(Solo hay que llamar siempre a la re-asignación)
+  // const account = useActiveAccount();
+  //   const [isAdmin, setIsAdmin] = useState(false);
+
+  //   useEffect(() => {
+  //     console.log("admins admin techTable: ", admins)
+  //       const checkIsAdmin = async () => {
+  //           try {
+  //               // const admins = await fetchAdmins(); // Obtener la lista de administradores
+  //               if (account?.address) {
+  //                   // Verificar si alguna dirección de admin coincide con la dirección de la cuenta activa
+  //                   const isAdminUser = admins.some(admin => admin.address === account.address);
+  //                   setIsAdmin(isAdminUser);
+  //                   console.log("isAdmin (TechTable): ", isAdminUser);
+  //                   console.log("address: ", account.address);
+  //               }
+  //           } catch (error) {
+  //               console.error('Error al obtener la lista de administradores', error);
+  //               // Manejar el error según sea necesario
+  //           }
+  //       };
+
+  //       checkIsAdmin(); // Llamar a la función para verificar si la cuenta es administrador
+
+  //   }, [account]);
   const account = useActiveAccount();
-
-  const [isAdmin, setIsAdmin] = useState(false);
-  useEffect(() => {
-    setIsAdmin(account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988");
-  }, [account]);
-
-  // const isAdmin = useIsAdmin(account);
-  console.log("isAdmin (TechTable): ",isAdmin)
+  
+  
+  // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
+  // const { isAdmin, account } = useIsAdmin(admins);
+  
 
   // Prepare pagination
   const pages = Math.ceil(lenguajes.length / rowsPerPage);
@@ -78,7 +95,7 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({ lenguajes }) => {
             </Tooltip>
             
               <span className="text-lg text-danger active:opacity-50">
-                <DeleteTechButton  name={item.name} onError={(error) => setError(error)}/>
+                <DeleteTechButton admins={admins} name={item.name} onError={(error) => setError(error)}/>
               </span>
             
           </TableCell>

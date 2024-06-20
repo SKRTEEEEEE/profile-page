@@ -1,37 +1,28 @@
-// "use client"
-
-
-
-
 "use client"
 
-import { actionAdmin, generatePayload } from "@/actions/auth";
+import { adminOnlyAction} from "@/actions/auth";
 import { deleteTech } from "@/actions/badges";
+import useIsAdmin from "@/hooks/useIsAdmin";
+import { FlattenedAdmin } from "@/utils/auth";
 import { Spinner, Tooltip } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { LuDelete } from "react-icons/lu";
-import { signLoginPayload } from "thirdweb/auth";
-import { useActiveAccount } from "thirdweb/react";
+
+// import { useActiveAccount } from "thirdweb/react";
 
 interface DeleteTechButtonProps {
+  // isAdmin: boolean;
+  admins: FlattenedAdmin[];
   name: string;
-  onError: (error: string) => void; // Función de callback para pasar el error
-  
-//   isAdmin: boolean;
+  onError: (error: string) => void; // Función de callback para pasar el error  
+//   
 //   account: ReturnType<typeof useActiveAccount> | null;
-  //Aunque se podría pasar solo un argumento(account), ya que esta creado isAdmin nos ahorramos eso
 }
 
-const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({  name, onError }) => {
+const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ admins ,name, onError }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const account = useActiveAccount();
-  const [isAdmin, setIsAdmin] = useState(false);
-  useEffect(() => {
-    setIsAdmin(account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988");
-  }, [account]);
-
-
+  const {account, isAdmin} = useIsAdmin(admins)
+  console.log("isAdmin delete admin tech: ", isAdmin)
   const handleClick = async () => {
     setIsLoading(true);
     try {
@@ -40,9 +31,11 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({  name, onError }) =
             return alert("Only admin can do")
         }
         if(account){
-            const payload = await generatePayload({ address: account.address });
-            const signatureResult = await signLoginPayload({ account, payload });
-            const response = await actionAdmin(signatureResult, false) //Le decimos que no haga el revalidatePath ya que se haca en el deleteTech()
+          // Esto esta como deshabilitado
+            // const payload = await generatePayload({ address: account.address });
+            // const signatureResult = await signLoginPayload({ account, payload });
+            const response = await adminOnlyAction() //Le decimos que no haga el revalidatePath ya que se haca en el deleteTech()
+            // const response = await adminOnlyAction(false);
             if(response.success){
                 const res = await deleteTech(name);
                 console.log("Deleted:", res);

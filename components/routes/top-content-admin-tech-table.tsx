@@ -1,10 +1,11 @@
-import { client } from "@/app/client";
+import { client } from "@/app/client"
 import { Button } from "@nextui-org/react"
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import { FaPlus } from "react-icons/fa"
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
+import CConnectButton from "../main/custom-connect-button";
 
 interface TopContentAdminTechTableProps {
   account: ReturnType<typeof useActiveAccount> | null; // Ajusta el tipo según lo que devuelve useActiveAccount
@@ -15,9 +16,10 @@ const TopContentAdminTechTable: React.FC<TopContentAdminTechTableProps> = ({acco
     return(
       <>
       <div className="flex gap-3">
-        <ConnectButton client={client} 
+        {/* <ConnectButton client={client} 
         // onConnect={()=>{revalidatePath("/admin/techs");redirect('/admin/techs')}} onDisconnect={()=>{revalidatePath("/admin/techs"); redirect('/admin/techs')}}
-        />
+        /> */}
+        <CConnectButton/>
       <Button className="absolute right-4 bg-foreground text-background" endContent={<FaPlus  />} size="sm">
       <Link href={`techs/new`}>Añadir nueva tecnología</Link>
     </Button>
