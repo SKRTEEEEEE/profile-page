@@ -2,6 +2,7 @@
 
 import { updateUserAdminStatus } from "@/actions/admin";
 import { adminOnlyAction, generatePayload} from "@/actions/auth";
+import { revrd } from "@/actions/revrd";
 import useIsAdmin from "@/hooks/useIsAdmin";
 import { FlattenedAdmin } from "@/utils/auth";
 // import { deleteTech } from "@/actions/badges";
@@ -50,7 +51,7 @@ const GiveAdminButton: React.FC<DeleteTechButtonProps> = ({  address, admins }) 
           // Esto esta como deshabilitado
             // const payload = await generatePayload({ address: account.address });
             // const signatureResult = await signLoginPayload({ account, payload });
-            const response = await adminOnlyAction(false) //Le decimos que no haga el revalidatePath ya que se haca en el deleteTech()
+            const response = await adminOnlyAction() //Le decimos que no haga el revalidatePath ya que se haca en el deleteTech()
             // const response = await adminOnlyAction(false);
             if(response.success){
                 const payload = await generatePayload({ address: account.address });
@@ -59,6 +60,8 @@ const GiveAdminButton: React.FC<DeleteTechButtonProps> = ({  address, admins }) 
                 console.log("Asigned:", res);
                 if (res) {
                     // onError(`Asignación de ${name} completada.`);
+                    await revrd("/admin/users");
+
                 } else {
                     // onError(`No se pudo asignar a ${name}`);
                 }

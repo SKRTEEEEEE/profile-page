@@ -34,7 +34,7 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ admins ,name, onErr
           // Esto esta como deshabilitado
             // const payload = await generatePayload({ address: account.address });
             // const signatureResult = await signLoginPayload({ account, payload });
-            const response = await adminOnlyAction( false) //Le decimos que no haga el revalidatePath ya que se haca en el deleteTech()
+            const response = await adminOnlyAction() //Le decimos que no haga el revalidatePath ya que se haca en el deleteTech()
             // const response = await adminOnlyAction(false);
             if(response.success){
                 const res = await deleteTech(name);

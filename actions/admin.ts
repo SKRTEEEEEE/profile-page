@@ -3,6 +3,7 @@
 /*
 Función para hacer a un usuario Admin
 =====================================
+NO HAY RV NI RD
 */
 
 import { AdminModel, UserModel } from "@/models/user-schema";

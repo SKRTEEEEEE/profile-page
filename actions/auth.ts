@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {  UserModel } from "@/models/user-schema";
 import { connectToDB } from "@/utils/db-connect";
+import { revrd } from "./revrd";
 
 
   interface ActionAdminResponse {
@@ -124,15 +125,15 @@ export async function protectedAction(path: string | false): Promise<ActionAdmin
 /*  
 Función de comprobación de acciones solo para administradores
 =============================================================
+
 - Esta función tiene un pequeño error o bug?, el cual al hacer uso de Switch Account, del ConnectButton, este no refresca el token y por lo tanto, aquí puedes forzar un error(confirmado) salta error.
 Lo bueno es que esta limitado en el cliente y ahi si que salta error/se deshabilita la acción 
 También es verdad que al final al hacer switch account se esta utilizando la misma propietaria de la "wallet"...
- 
 */
-export async function adminOnlyAction(path: string | false): Promise<ActionAdminResponse> {
+export async function adminOnlyAction(): Promise<ActionAdminResponse> {
   const jwt = cookies().get("jwt");
   if (!jwt?.value) {
-    path && redirect(path);
+    // path && redirect(path);
     return { message: "Debes iniciar sesión para realizar esta acción", success: false };
   }
   console.log("jwt value: ", jwt.value)
@@ -152,14 +153,14 @@ export async function adminOnlyAction(path: string | false): Promise<ActionAdmin
     return { message: "No tienes permisos de administrador para realizar esta acción", success: false };
   }
 
-  path && revalidatePath(path);
-  return { message: `Una acción de administrador ha sido realizada en ${path}`, success: true };
+  
+  return { message: `Una acción de administrador ha sido realizada`, success: true };
 }
 
 
 
 // Para -> protected route "only admin"
-// Falta comprobar que funcione ¿y adaptarla para admin, ahora generica/user logeado"
+// Falta comprobar que funcione ¿y adaptarla para admin, ahora genérica/user con session iniciada"
 export async function authedOnlyAdmin() {
   const jwt = cookies().get("jwt");
   if (!jwt?.value) {

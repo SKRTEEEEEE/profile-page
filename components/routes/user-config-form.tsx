@@ -12,6 +12,7 @@ import Link from "next/link";
 import { updateUserAdminStatus } from "@/actions/admin";
 import { generatePayload } from "@/actions/auth";
 import { signLoginPayload } from "thirdweb/auth";
+import { revrd } from "@/actions/revrd";
 
 interface UserConfigFormProps {
   users?: IFlattenUsers[];
@@ -66,7 +67,7 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, admins }) => {
         response = await updateUser(transData)
         if(response.success && account){
 
-          //Solo para eliminar de admin(Hay que modificar)
+          //Solo para eliminar de admin
           if(noIsAdmin){
             const payload = await generatePayload({ address: account.address });
             const signatureResult = await signLoginPayload({ account, payload });
@@ -82,6 +83,7 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, admins }) => {
       
       if (response.success) {
         alert(`¡Felicidades! ${response.message}`);
+        await revrd("/dashboard");
       } else {
         alert(`Oops! ${response.message}`);
       }
@@ -96,10 +98,6 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, admins }) => {
   if (isLoading) {
     return<p><Spinner size="sm" /> Cargando...</p>;
   }
-
-  // if (!user) {
-  //   return null;
-  // }
 
   return (
       <form onSubmit={handleSubmit}>
