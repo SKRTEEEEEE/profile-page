@@ -1,6 +1,6 @@
 "use client"
 
-import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, updateTech } from "@/actions/badges";
+import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, updateTech } from "@/actions/techs/utils";
 
 import techBadges from "@/data/slugs";
 import { IFrameworkDispo, IFrameworkForm, IJsonTech, ILenguajeDispo, ILenguajeForm, ILibreriaForm } from "@/types";

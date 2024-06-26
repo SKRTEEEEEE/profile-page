@@ -1,7 +1,7 @@
 "use client"
 
 import { adminOnlyAction} from "@/actions/auth";
-import { deleteTech } from "@/actions/badges";
+import { deleteTech } from "@/actions/techs/utils";
 import useIsAdmin from "@/hooks/useIsAdmin";
 import { FlattenedAdmin } from "@/utils/auth";
 import { Spinner, Tooltip } from "@nextui-org/react";
