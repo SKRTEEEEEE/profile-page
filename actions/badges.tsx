@@ -37,7 +37,81 @@ function createBadgeTech(tech: ILenguaje | IFramework | ILibreria) {
     )
 }
 // const prefijo = { proyecto: "\n\n>- ## ", framework: "\n\n> ### ", lenguaje: "\n> - #### "}
+async function peticionRepos() {
+    const { data: repos } = await octokit.repos.listForUser({
+        username: owner,
+        per_page: 100,
+    })
+    // console.log("repositorios: ",repos)
+    // Falta tipar reposDetails
+    const reposDetails: RepoDetails[] = await Promise.all(repos.map(async (repo) => {
+        const { data: repoDetails } = await octokit.repos.get({
+            owner,
+            repo: repo.name
+        });
 
+        const { data: languages } = await octokit.repos.listLanguages({
+            owner,
+            repo: repo.name
+        });
+
+        return {
+            name: repo.name,
+            size: repoDetails.size, // El tamaño está en KB
+            languages: Object.keys(languages),
+            topics: repoDetails.topics || [],
+            html_url: repoDetails.html_url, // URL del repositorio
+            description: repoDetails.description // Descripción del repositorio
+        };
+    }));
+    const reposDetailsLength = reposDetails.length;
+    // Filtrar los repositorios que no tienen topics
+    const filteredReposDetails = reposDetails.filter(repo => repo.topics.length > 0);
+    const filteredReposLength = filteredReposDetails.length
+    // Paso 2: Calcular el peso total de todos los repositorios
+    const totalSize = filteredReposDetails.reduce((acc, repo) => acc + repo.size, 0);
+
+    // Paso 3: Calcular el peso de cada lenguaje en función del tamaño del repositorio y el número de lenguajes en él
+    const languageWeights: { [key: string]: number } = {};
+    filteredReposDetails.forEach(repo => {
+        const weightPerLanguage = repo.size / repo.topics.length;
+        repo.topics.forEach(topic => {
+            if (languageWeights[topic]) {
+                languageWeights[topic] += weightPerLanguage;
+            } else {
+                languageWeights[topic] = weightPerLanguage;
+            }
+        });
+    });
+
+    // Paso 4: Calcular el porcentaje de uso de cada lenguaje
+    const languagePercentages: { [key: string]: number } = {};
+    for (const [language, weight] of Object.entries(languageWeights)) {
+        languagePercentages[language] = (weight / totalSize) * 100;
+    }
+    function convertToLanguagePercentageArray(languageWeights: { [key: string]: number }): LanguagePercentage[] {
+        const resultArray: LanguagePercentage[] = [];
+
+        for (const [language, weight] of Object.entries(languageWeights)) {
+            const languagePercentage: LanguagePercentage = {
+                name: language,
+                percentage: weight
+            };
+            resultArray.push(languagePercentage);
+        }
+
+        return resultArray;
+    }
+    // console.log("reposDetails: ", reposDetails);
+    // console.log("filteredReposDetails: ", filteredReposDetails);
+    // console.log("totalSize: ", totalSize);
+    // console.log("languageWeights: ", languageWeights);
+    // console.log("languagePercentages: ", convertToLanguagePercentageArray(languagePercentages));
+    // console.log("languagePercentages: ", languagePercentages);
+    // console.log("filteredTechsLength/reposDetailsLength: ", filteredReposLength, "/", reposDetailsLength)
+    return convertToLanguagePercentageArray(languagePercentages)
+
+}
 export async function actualizarJson() {
     await connectToDB()
     // Obtener todos los proyectos de la base de datos
@@ -114,6 +188,8 @@ export async function actualizarJson() {
     });
     console.log("Archivo Json actualizado")
 }
+
+
 export async function actualizarMd(name: string, badge: String, color: String) {
     await connectToDB();
     try {
@@ -192,151 +268,9 @@ export async function actualizarMd(name: string, badge: String, color: String) {
     }
 }
 
-async function updateMd() {
-    await connectToDB();
-    try {
-        const proyectosDB: ILenguaje[] = await LenguajesModel.find();
-        const mdResponse = await octokit.repos.getContent({
-            owner,
-            repo,
-            path: path.md,
-            ref,
-        });
-
-        let mdSha;
-        if (Array.isArray(mdResponse.data)) {
-            const mdFile = mdResponse.data.find((item) => item.name === "techs-test.md");
-            if (mdFile) {
-                mdSha = mdFile.sha;
-                // try {
-                //     revalidatePath("/admin/techs", "page");
-                // } catch (error) {
-                //     console.error("Error al revalidar la ruta:", error);
-                // }
-            } else {
-                throw new Error("El archivo .md no se encuentra en el repositorio");
-            }
-        } else {
-            mdSha = mdResponse.data.sha;
-        }
-
-        let newMdContent = `# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
-<p align="center">
-<a href="#">
-    <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
-</a>
-</p>\n\n\n***\n<br>\n\n`;
-
-        proyectosDB.sort((a, b) => a.preferencia - b.preferencia).forEach((proyecto) => {
-            newMdContent += `\n\n>- ## ${createBadgeTech(proyecto)}`
-            if (proyecto.frameworks) {
-                proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);
-                proyecto.frameworks.forEach((framework) => {
-                    newMdContent += `\n\n> ### ${createBadgeTech(framework)}`;
-
-                    if (framework.librerias) {
-                        framework.librerias.sort((a, b) => a.preferencia - b.preferencia).forEach((libreria) => {
-                            newMdContent += `\n> - #### ${createBadgeTech(libreria)}`;
-                        });
-                    }
-                })
-            }
-        });
-
-        const encodedMdContent = Buffer.from(newMdContent).toString("base64");
-        await octokit.repos.createOrUpdateFileContents({
-            owner,
-            repo,
-            path: path.md,
-            message: "Actualizar archivo .md",
-            content: encodedMdContent,
-            sha: mdSha,
-            branch: ref,
-        });
-
-        console.log("Archivo .md actualizado correctamente");
-    } catch (error) {
-        console.error('Error actualizando el archivo .md:', error);
-        throw new Error('Error actualizando el archivo .md');
-    }
-}
 
 
-async function peticionRepos() {
-    const { data: repos } = await octokit.repos.listForUser({
-        username: owner,
-        per_page: 100,
-    })
-    // console.log("repositorios: ",repos)
-    // Falta tipar reposDetails
-    const reposDetails: RepoDetails[] = await Promise.all(repos.map(async (repo) => {
-        const { data: repoDetails } = await octokit.repos.get({
-            owner,
-            repo: repo.name
-        });
 
-        const { data: languages } = await octokit.repos.listLanguages({
-            owner,
-            repo: repo.name
-        });
-
-        return {
-            name: repo.name,
-            size: repoDetails.size, // El tamaño está en KB
-            languages: Object.keys(languages),
-            topics: repoDetails.topics || [],
-            html_url: repoDetails.html_url, // URL del repositorio
-            description: repoDetails.description // Descripción del repositorio
-        };
-    }));
-    const reposDetailsLength = reposDetails.length;
-    // Filtrar los repositorios que no tienen topics
-    const filteredReposDetails = reposDetails.filter(repo => repo.topics.length > 0);
-    const filteredReposLength = filteredReposDetails.length
-    // Paso 2: Calcular el peso total de todos los repositorios
-    const totalSize = filteredReposDetails.reduce((acc, repo) => acc + repo.size, 0);
-
-    // Paso 3: Calcular el peso de cada lenguaje en función del tamaño del repositorio y el número de lenguajes en él
-    const languageWeights: { [key: string]: number } = {};
-    filteredReposDetails.forEach(repo => {
-        const weightPerLanguage = repo.size / repo.topics.length;
-        repo.topics.forEach(topic => {
-            if (languageWeights[topic]) {
-                languageWeights[topic] += weightPerLanguage;
-            } else {
-                languageWeights[topic] = weightPerLanguage;
-            }
-        });
-    });
-
-    // Paso 4: Calcular el porcentaje de uso de cada lenguaje
-    const languagePercentages: { [key: string]: number } = {};
-    for (const [language, weight] of Object.entries(languageWeights)) {
-        languagePercentages[language] = (weight / totalSize) * 100;
-    }
-    function convertToLanguagePercentageArray(languageWeights: { [key: string]: number }): LanguagePercentage[] {
-        const resultArray: LanguagePercentage[] = [];
-
-        for (const [language, weight] of Object.entries(languageWeights)) {
-            const languagePercentage: LanguagePercentage = {
-                name: language,
-                percentage: weight
-            };
-            resultArray.push(languagePercentage);
-        }
-
-        return resultArray;
-    }
-    // console.log("reposDetails: ", reposDetails);
-    // console.log("filteredReposDetails: ", filteredReposDetails);
-    // console.log("totalSize: ", totalSize);
-    // console.log("languageWeights: ", languageWeights);
-    // console.log("languagePercentages: ", convertToLanguagePercentageArray(languagePercentages));
-    // console.log("languagePercentages: ", languagePercentages);
-    // console.log("filteredTechsLength/reposDetailsLength: ", filteredReposLength, "/", reposDetailsLength)
-    return convertToLanguagePercentageArray(languagePercentages)
-
-}
 
 
 // CREATE (se usa la funcion revalidateLenguajes en el "client")
@@ -506,9 +440,77 @@ export async function updateTech(updateData: UpdateData) {
         return { success: false, message: 'Error: Ocurrió un problema al intentar actualizar el proyecto. Por favor, intente de nuevo más tarde.' };
     }
 }
-type TechName = string;
+
 // DELETE(se usa el revalidatePath aquí dentro, ya que no hay redirect())
-export async function deleteTech(name: TechName) {
+async function updateMd() {
+    await connectToDB();
+    try {
+        const proyectosDB: ILenguaje[] = await LenguajesModel.find();
+        const mdResponse = await octokit.repos.getContent({
+            owner,
+            repo,
+            path: path.md,
+            ref,
+        });
+
+        let mdSha;
+        if (Array.isArray(mdResponse.data)) {
+            const mdFile = mdResponse.data.find((item) => item.name === "techs-test.md");
+            if (mdFile) {
+                mdSha = mdFile.sha;
+                // try {
+                //     revalidatePath("/admin/techs", "page");
+                // } catch (error) {
+                //     console.error("Error al revalidar la ruta:", error);
+                // }
+            } else {
+                throw new Error("El archivo .md no se encuentra en el repositorio");
+            }
+        } else {
+            mdSha = mdResponse.data.sha;
+        }
+
+        let newMdContent = `# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
+<p align="center">
+<a href="#">
+    <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
+</a>
+</p>\n\n\n***\n<br>\n\n`;
+
+        proyectosDB.sort((a, b) => a.preferencia - b.preferencia).forEach((proyecto) => {
+            newMdContent += `\n\n>- ## ${createBadgeTech(proyecto)}`
+            if (proyecto.frameworks) {
+                proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);
+                proyecto.frameworks.forEach((framework) => {
+                    newMdContent += `\n\n> ### ${createBadgeTech(framework)}`;
+
+                    if (framework.librerias) {
+                        framework.librerias.sort((a, b) => a.preferencia - b.preferencia).forEach((libreria) => {
+                            newMdContent += `\n> - #### ${createBadgeTech(libreria)}`;
+                        });
+                    }
+                })
+            }
+        });
+
+        const encodedMdContent = Buffer.from(newMdContent).toString("base64");
+        await octokit.repos.createOrUpdateFileContents({
+            owner,
+            repo,
+            path: path.md,
+            message: "Actualizar archivo .md",
+            content: encodedMdContent,
+            sha: mdSha,
+            branch: ref,
+        });
+
+        console.log("Archivo .md actualizado correctamente");
+    } catch (error) {
+        console.error('Error actualizando el archivo .md:', error);
+        throw new Error('Error actualizando el archivo .md');
+    }
+}
+export async function deleteTech(name: string) {
     await connectToDB();
     try {
         let proyectoActualizado = null;
