@@ -2,28 +2,25 @@ import { LenguajesModel } from "@/models/lenguajes-schema";
 import { AdminModel, UserModel } from "@/models/user-schema";
 import { Web3ProjectModel } from "@/models/web3_project-schema";
 import { connectToDB } from "@/utils/db-connect";
+import { revalidatePath } from "next/cache";
 
 
 export const fetchWeb3Projects = async () => {
-  connectToDB();
+  await connectToDB();
   const web3projects = await Web3ProjectModel.find();
   return web3projects;
 }
 export const fetchLenguajes = async () => {
-  connectToDB();
+  await connectToDB();
   const lenguajes = await LenguajesModel.find();
   return lenguajes;
 }
 
-// export const fetchAdmins = async () =>{
-//   connectToDB()
-//   const admins = await AdminModel.find();
-//   return admins;
-// }
+
 
 export const fetchUsers = async () => {
   try {
-    await connectToDB(); // Asegúrate de llamar a la función para conectar a la DB
+    await connectToDB(); 
     const users = await UserModel.find();
     return users;
   } catch (error) {

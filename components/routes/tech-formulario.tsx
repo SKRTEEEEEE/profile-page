@@ -132,8 +132,9 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
             console.log("response: ", response);
             if (response.success) {
                 alert(`¡Felicidades! ${response.message}`);
-                await revrd('/admin/techs');
                 await serverRev("/test/mongodb");
+                await revrd('/admin/techs');
+                
 
             } else {
                 alert(`Oops! ${response.message}`);

@@ -12,7 +12,7 @@ import Link from "next/link";
 import { updateUserAdminStatus } from "@/actions/admin";
 import { generatePayload } from "@/actions/auth";
 import { signLoginPayload } from "thirdweb/auth";
-import { revrd } from "@/actions/revrd";
+import { revrd, serverRev } from "@/actions/revrd";
 
 interface UserConfigFormProps {
   users?: IFlattenUsers[];
@@ -83,6 +83,8 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, admins }) => {
       
       if (response.success) {
         alert(`¡Felicidades! ${response.message}`);
+        // await serverRev("/admin/users")
+        await serverRev("/admin")
         await revrd("/dashboard");
       } else {
         alert(`Oops! ${response.message}`);

@@ -2,7 +2,7 @@
 
 import { updateUserAdminStatus } from "@/actions/admin";
 import { adminOnlyAction, generatePayload} from "@/actions/auth";
-import { revrd } from "@/actions/revrd";
+import { revrd, serverRev } from "@/actions/revrd";
 import useIsAdmin from "@/hooks/useIsAdmin";
 import { FlattenedAdmin } from "@/utils/auth";
 // import { deleteTech } from "@/actions/badges";
@@ -46,7 +46,8 @@ const GiveAdminButton: React.FC<DeleteTechButtonProps> = ({  address, admins }) 
                 console.log("Asigned:", res);
                 if (res) {
                     // onError(`Asignación de ${name} completada.`);
-                    await revrd("/admin/users");
+                    await serverRev("/dashboard/config") //Para actualizar tambien las rutas del dashboard
+                    await revrd("/admin");
 
                 } else {
                     // onError(`No se pudo asignar a ${name}`);
