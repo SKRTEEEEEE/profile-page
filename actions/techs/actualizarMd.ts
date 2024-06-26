@@ -1,8 +1,8 @@
 "use server"
 
-import { ILenguaje } from "@/types";
+import { IFramework, ILenguaje, ILibreria } from "@/types";
 import { connectToDB } from "@/utils/db-connect";
-import { createBadgeTech, fetchFileSha, updateFileContent } from "./utils";
+import {  fetchFileSha, updateFileContent } from "./utils";
 import { LenguajesModel } from "@/models/lenguajes-schema";
 
 const owner = "SKRTEEEEEE";
@@ -12,6 +12,12 @@ const repo = "markdowns";
 const path = { md: "sys/techs-test.md", json: "sys/techs-test.json" };
 //Trabajaremos con la rama main(AL FINAL) para no tener que estar haciendo "git pulls al main"
 const ref = "profile-page";
+
+function createBadgeTech(tech: ILenguaje | IFramework | ILibreria) {
+    return (
+        `${tech.badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${tech.name}')].value&label=%F0%9F%92%97%20Afinidad&color=${tech.color}&style=flat&logo=${tech.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${tech.name}')].afinidad&color=${tech.color}&style=flat&label=%20&suffix=%25)\n![Experiencia](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${tech.name}')].valueexp&label=%F0%9F%8F%85%20Experiencia&color=${tech.color}&style=flat&logo=${tech.name})![Experiencia %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${tech.name}')].experiencia&color=${tech.color}&style=flat&label=%20&suffix=%25)\n![Uso En Github](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${tech.name}')].valueuso&label=%F0%9F%98%BB%20Uso%20en%20github&color=${tech.color}&style=flat&logo=${tech.name})![Uso en Github %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${tech.name}')].usogithub&color=${tech.color}&style=flat&label=%20&suffix=%25)`
+    )
+}
 
 export async function actualizarMd(name: string, badge: string, color: string) {
     await connectToDB();
