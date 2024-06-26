@@ -2,7 +2,8 @@
 ## Remembers
 ### Remember 06.2024 (Actual)
 
-
+#### Test
+##### - [ ] Test de los revalidatePath() y redirect()
 #### Other
 ##### - [ ] Hacer CLEAN CODE CARPETAS
 ##### - [x] Averiguar porque no hace el Create desde el móvil
@@ -12,6 +13,11 @@
     - En muchas funciones no se utilizaba y ¿en las que si se utilizaba mal?
     - [x] Test que la función updateMd() y updateJson() no sea necesario el uso de redirect(), ya que esta en medio de las ejecuciones y no al final.
 ##### - [ ] Configurar el analytics de Vercel!!!
+#### Backend
+##### - [ ] Unificar lógica techs (Data y BDD)
+- [ ] Hay que actualizar la bdd de los techs para incluir la información de la data (hard-cdd)
+- [ ] También unificar la lógica de las imágenes/logos
+- [ ] Actualizar el formulario de las techs para recoger la nueva información
 #### Frontend 
 ##### - [ ] Actualizar Admin Page 
 - [x] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
@@ -20,13 +26,7 @@
 - [ ] Actualizar config page
 ##### - [ ] Empezar Frontend techs (about-me page)
 Empezar el Read del CRUD de las techs en la pagina web.
-#### Backend
-##### - [ ] Unificar lógica techs (Data y BDD)
-- [ ] Hay que actualizar la bdd de los techs para incluir la información de la data (hard-cdd)
-- [ ] También unificar la lógica de las imágenes/logos
-- [ ] Actualizar el formulario de las techs para recoger la nueva información
-#### Test
-##### - [ ] Test de los revalidatePath() y redirect()
+
 #### Documentación
 - [x] Actualizar documentación v01.02
 

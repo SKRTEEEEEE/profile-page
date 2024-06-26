@@ -7,8 +7,9 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {  UserModel } from "@/models/user-schema";
 import { connectToDB } from "@/utils/db-connect";
-import { revrd } from "./revrd";
-
+/* import { revrd } from "./revrd";
+No hay revrd *A excepción de protectedAction(), que hay que modificar
+*/
 
   interface ActionAdminResponse {
     message: string;

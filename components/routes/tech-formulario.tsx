@@ -1,6 +1,6 @@
 "use client"
 
-import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, revalidateLenguajes, updateTech } from "@/actions/badges";
+import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, updateTech } from "@/actions/badges";
 
 import techBadges from "@/data/slugs";
 import { IFrameworkDispo, IFrameworkForm, IJsonTech, ILenguajeDispo, ILenguajeForm, ILibreriaForm } from "@/types";
@@ -132,7 +132,6 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
             console.log("response: ", response);
             if (response.success) {
                 alert(`¡Felicidades! ${response.message}`);
-                // await revalidateLenguajes();
                 await revrd('/admin/techs');
 
             } else {

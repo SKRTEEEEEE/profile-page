@@ -1,13 +1,11 @@
 "use server"
 
-import fs from "fs";
 import { LenguajesModel } from "../models/lenguajes-schema";
 import { Octokit } from "@octokit/rest";
-import { IFramework, IFrameworkForm, IJsonTech, ILenguaje, ILenguajeForm, ILibreria, ILibreriaForm } from "../types";
-import { flattenProyectos, getColorByRange, getGithubUsoByRange } from "../utils/badges";
+import { IFramework, IFrameworkForm, ILenguaje, ILenguajeForm, ILibreria, ILibreriaForm } from "../types";
+import { flattenProyectos, getGithubUsoByRange } from "../utils/badges";
 import { connectToDB } from "@/utils/db-connect";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 interface RepoDetails {
     name: string;
@@ -39,7 +37,7 @@ function createBadgeTech(tech: ILenguaje | IFramework | ILibreria) {
     )
 }
 // const prefijo = { proyecto: "\n\n>- ## ", framework: "\n\n> ### ", lenguaje: "\n> - #### "}
-//Aqui revalidate(TESTEAR)
+
 export async function actualizarJson() {
     await connectToDB()
     // Obtener todos los proyectos de la base de datos
@@ -68,7 +66,7 @@ export async function actualizarJson() {
 
     // Actualizar el archivo .json en el repositorio de GitHub (Solo para los badges)
     // Generar el nuevo contenido del archivo .json
-    const lenguajePorcentaje = await testPeticionRepos();
+    const lenguajePorcentaje = await peticionRepos();
 
     const getGithubPercentage = (name: String) => {
 
@@ -114,11 +112,6 @@ export async function actualizarJson() {
         sha: jsonSha,
         branch: ref,
     });
-    // try {
-    //     revalidatePath("/admin/techs", "page");
-    // } catch (error) {
-    //     console.error("Error al revalidar la ruta:", error);
-    // }
     console.log("Archivo Json actualizado")
 }
 export async function actualizarMd(name: string, badge: String, color: String) {
@@ -198,7 +191,7 @@ export async function actualizarMd(name: string, badge: String, color: String) {
         }
     }
 }
-//Aqui revalidate(TESTEAR)
+
 async function updateMd() {
     await connectToDB();
     try {
@@ -269,7 +262,7 @@ async function updateMd() {
 }
 
 
-async function testPeticionRepos() {
+async function peticionRepos() {
     const { data: repos } = await octokit.repos.listForUser({
         username: owner,
         per_page: 100,
@@ -514,7 +507,7 @@ export async function updateTech(updateData: UpdateData) {
     }
 }
 type TechName = string;
-// DELETE(se usa el revalidatePath aquí dentro)
+// DELETE(se usa el revalidatePath aquí dentro, ya que no hay redirect())
 export async function deleteTech(name: TechName) {
     await connectToDB();
     try {
@@ -582,131 +575,3 @@ export async function deleteTech(name: TechName) {
         throw new Error('Error eliminando la tecnología');
     }
 }
-
-
-
-
-
-
-
-export async function actualizarJsonServerTest() {
-    const name = "Markdown";
-    const afinidad = 100;
-    const experiencia = 90;
-    try {
-        // Obtener todos los proyectos de la base de datos
-        const proyectosDB = await LenguajesModel.find();
-
-        // Ruta al archivo .json en el servidor
-        const filePath = 'data/techs.json';
-
-        // Generar el nuevo contenido del archivo .json
-        const lenguajePorcentaje = await testPeticionRepos();
-
-        const getGithubPercentage = (name: String) => {
-
-            const replaceDashWithDot = (str: string) => str.replace(/-/g, '.');
-            const usogithubString = lenguajePorcentaje.find(lenguaje => {
-                const normalizedName = name.toLowerCase();
-                const modifiedName = replaceDashWithDot(normalizedName);
-                const searchedName = replaceDashWithDot(lenguaje.name.toLowerCase());
-                return modifiedName === searchedName;
-            })?.percentage.toFixed(2);
-            const usogithub = usogithubString !== undefined ? parseFloat(usogithubString) : 0;
-
-            return usogithub;
-        }; const usogithub = getGithubPercentage(name)
-        const newJsonData = [
-            ...flattenProyectos(proyectosDB).map(proyecto => {
-
-                const porcentajeGithub = getGithubPercentage(proyecto.name);
-                return { ...proyecto, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value, iconsuso: getGithubUsoByRange(porcentajeGithub).badge };
-            }),
-            {
-                name,
-                afinidad,
-                value: getColorByRange(afinidad).value,
-                experiencia,
-                valueexp: getColorByRange(experiencia).value,
-                usogithub,
-                valueuso: getGithubUsoByRange(usogithub).value,
-                iconsuso: getGithubUsoByRange(usogithub).badge
-            }
-        ];
-
-
-        // Escribir el nuevo contenido en el archivo .json
-        fs.writeFileSync(filePath, JSON.stringify(newJsonData, null, 2), 'utf-8');
-        console.log('Archivo .json actualizado correctamente');
-    } catch (error) {
-        console.error('Error actualizando el archivo .json:', error);
-    }
-}
-export async function actualizarMdServerTest() {
-    const name = "Next.js";
-    const badge = "[![Next.js](https://img.shields.io/badge/Next.js-%23111111.svg?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/docs)";
-    const color = "blue";
-
-    try {
-        // Obtener todos los proyectos de la base de datos
-        const proyectosDB: ILenguaje[] = await LenguajesModel.find();
-
-        // Ruta al archivo .md en el servidor
-        const filePath = 'data/techs.md';
-
-        // Generar el nuevo contenido del archivo .md
-        let newMdContent =
-            `# Tecnologías y Lenguajes de Programación
-_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._
-
-<p align="center">
-<a href="#">
-    <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
-</a>
-</p>
-
-***
-
-<br>
-
-`;
-
-        // Nuevo lenguaje
-        newMdContent += `>- ## ${badge}
->![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].value&label=Afinidad&color=${color}&style=flat&logo=${name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].afinidad&color=${color}&style=flat&label=%20&suffix=%25)
-![Experiencia](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].valueexp&label=Experiencia&color=${color}&style=flat&logo=${name})![Experiencia %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].experiencia&color=${color}&style=flat&label=%20&suffix=%25)
-![Uso En Github](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].valueuso&label=%F0%9F%98%BB%20Uso%20en%20github&color=${color}&style=flat&logo=${name})![Uso en Github %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$[?(@.name=='${name}')].usogithub&color=${color}&style=flat&label=%20&suffix=%25)
->
->![New Badge](https://img.shields.io/badge/%C2%A1_novedad_%F0%9F%91%8D_!-NEW_%F0%9F%93%A5_%F0%9F%97%92%EF%B8%8F-blue?style=social)
-
-`;
-
-        proyectosDB.sort((a, b) => a.preferencia - b.preferencia).forEach((proyecto) => {
-            newMdContent += `\n\n>- ## ${createBadgeTech(proyecto)}`;
-            if (proyecto.frameworks) {
-                proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);
-                proyecto.frameworks.forEach((framework) => {
-                    newMdContent += `\n\n> ### ${createBadgeTech(framework)}`;
-                    if (framework.librerias) {
-                        framework.librerias.sort((a, b) => a.preferencia - b.preferencia).forEach((libreria) => {
-                            newMdContent += `\n> - #### ${createBadgeTech(libreria)}`;
-                        });
-                    }
-                });
-            }
-        });
-
-        // Escribir el nuevo contenido en el archivo .md
-        fs.writeFileSync(filePath, newMdContent, 'utf-8');
-        console.log('Archivo .md actualizado correctamente');
-    } catch (error) {
-        console.error('Error actualizando el archivo .md:', error);
-    }
-}
-export async function revalidateLenguajes() {
-    revalidatePath('/admin/techs')
-    redirect('/admin/techs')
-  }
-// export async function revalidateLeng(){
-//     revalidatePath("/admin/techs")
-// }
