@@ -1,5 +1,5 @@
 
-import { actualizarJson } from '@/actions/techs/utils';
+import { actualizarJson } from '@/actions/techs/actualizarJson';
 import type { NextRequest } from 'next/server';
  
 export async function GET(request: NextRequest) {

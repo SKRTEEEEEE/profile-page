@@ -1,6 +1,5 @@
 "use client"
 
-import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, updateTech } from "@/actions/techs/utils";
 
 import techBadges from "@/data/slugs";
 import { IFrameworkDispo, IFrameworkForm, IJsonTech, ILenguajeDispo, ILenguajeForm, ILibreriaForm } from "@/types";
@@ -12,6 +11,10 @@ import CConnectButton from "../main/custom-connect-button";
 import { FlattenedAdmin } from "@/utils/auth";
 import useIsAdmin from "@/hooks/useIsAdmin";
 import { revrd, serverRev } from "@/actions/revrd";
+import { updateTech } from "@/actions/techs/update";
+import { actualizarMd } from "@/actions/techs/actualizarMd";
+import { publicarFwALeng, publicarLeng, publicarLibAFw } from "@/actions/techs/create";
+import { actualizarJson } from "@/actions/techs/actualizarJson";
 
 
 interface FormularioTechsProps {
