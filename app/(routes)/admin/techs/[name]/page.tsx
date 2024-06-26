@@ -1,5 +1,5 @@
 
-import TechFormulario from "@/components/routes/tech-formulario"
+import TechFormulario from "@/components/routes/tech-form"
 import { fetchAdmins, fetchLenguajes } from "@/data/fetch"
 import { flattenProyectos } from "@/utils/badges"
 import { flattenAdmin } from "@/utils/auth"

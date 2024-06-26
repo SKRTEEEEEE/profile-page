@@ -8,7 +8,18 @@
     - [x] Es necesario✅ hacer uso de revalidatePath() en los "fetch data":   _/?Creo que ya esta_
     - [x] Falta comprobar las funciones de auth: _?Creo, no es necesario ya que estas manejan el jwt y no 'acciones'?_ 
 #### Other
-- [ ] **Hacer CLEAN CODE CARPETAS**
+- [ ] **CLEAN CODE**
+    - [ ] **Actions**
+    - [ ] Unificar lógica 'Github sha' en la parte del deleteTech() + extraer doDelete()    _FALTA TEST_
+    - [ ] **Components**
+    - [ ] Unificar lógica de los nombres y documentarlo: 
+        - [ ] MAIN: Hay que terminar el componente autoplay-slider-techs y eliminar el de prueba si es necesario
+        - [ ] ROUTES
+
+    - [ ] **Utils** 
+    - [ ] Rename badges file
+    - [ ] **Types**
+    - [ ] Search a logical structure for the project, use it and document it in Readme files
 - [x] **Averiguar porque no hace el Create desde el móvil**
     - El create, y el Delete no funcionan en VERCEL
     - Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
