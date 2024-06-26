@@ -6,6 +6,7 @@
 - [ ] **Test de los revalidatePath() y redirect()**
     - [x] Revisar uso en el cliente, en las funciones (NO-BADGES): _"En todas las funciones (MENOS LAS CREATE) se hace uso de revrd() functions"_
     - [ ] Es necesario hacer uso de revalidatePath() en los "fetch data"
+    - [ ] Falta comprobar las funciones de auth
 #### Other
 - [ ] **Hacer CLEAN CODE CARPETAS**
 - [x] **Averiguar porque no hace el Create desde el móvil**

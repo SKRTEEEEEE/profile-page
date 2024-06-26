@@ -15,6 +15,7 @@ const NewTechAdminPage: React.FC = async() => {
 
     const lenguajes = await fetchLenguajes()
     const admins = await fetchAdmins();
+    //Pasamos un array con los lenguajes que ya han sido publicados(dispo) y los frameworks (para el orden)
     const dispoLeng = lenguajes.map((lenguaje: ILenguajeDispo) => ({ name: lenguaje.name }));
     const dispoFw = lenguajes.flatMap((lenguaje) => {
         if (Array.isArray(lenguaje.frameworks) && lenguaje.frameworks.length > 0) {
@@ -22,7 +23,6 @@ const NewTechAdminPage: React.FC = async() => {
         }
         return [];
       });
-    // console.log(techBadges);
     
     const allAdmins = flattenAdmin(admins)
     

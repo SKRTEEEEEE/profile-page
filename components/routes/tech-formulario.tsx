@@ -11,7 +11,7 @@ import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
 import CConnectButton from "../main/custom-connect-button";
 import { FlattenedAdmin } from "@/utils/auth";
 import useIsAdmin from "@/hooks/useIsAdmin";
-import { revrd } from "@/actions/revrd";
+import { revrd, serverRev } from "@/actions/revrd";
 
 
 interface FormularioTechsProps {
@@ -133,6 +133,7 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
             if (response.success) {
                 alert(`¡Felicidades! ${response.message}`);
                 await revrd('/admin/techs');
+                await serverRev("/test/mongodb");
 
             } else {
                 alert(`Oops! ${response.message}`);
