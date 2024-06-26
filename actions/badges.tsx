@@ -529,6 +529,7 @@ export async function deleteTech(name: TechName) {
                 console.log("fw eliminado del json");
                 await updateMd();
                 revalidatePath("/admin/techs")
+                revalidatePath("/test/mongodb")
                 return true;
             }
         }
@@ -548,6 +549,7 @@ export async function deleteTech(name: TechName) {
                 console.log("fw eliminado del json");
                 await updateMd();
                 revalidatePath("/admin/techs")
+                revalidatePath("/test/mongodb")
                 return true;
             }
         }
@@ -560,6 +562,7 @@ export async function deleteTech(name: TechName) {
             console.log("fw eliminado del json");
             await updateMd();
             revalidatePath("/admin/techs")
+            revalidatePath("/test/mongodb")
             return true;
         }
 
