@@ -28,6 +28,7 @@ interface ActionAdminResponse {
     message: string;
     success: boolean;
   }
+  //Aquí no se usan funciones revrd(), pero ya esta comprobado que en las dos acciones que se usa en el cliente luego se hace revrd()
   
   export const updateUserAdminStatus = async (
     payload: VerifyLoginPayloadParams,

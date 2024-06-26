@@ -3,29 +3,31 @@
 ### Remember 06.2024 (Actual)
 
 #### Test
-##### - [ ] Test de los revalidatePath() y redirect()
+- [ ] **Test de los revalidatePath() y redirect()**
+    - [x] Revisar uso en el cliente, en las funciones (NO-BADGES): _"En todas las funciones (MENOS LAS CREATE) se hace uso de revrd() functions"_
+    - [ ] Es necesario hacer uso de revalidatePath() en los "fetch data"
 #### Other
-##### - [ ] Hacer CLEAN CODE CARPETAS
-##### - [x] Averiguar porque no hace el Create desde el móvil
-- El create, y el Delete no funcionan en VERCEL
-- Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
-- No se actualizaba automáticamente por el uso del `revalidatePath()` y del `redirect()`:
-    - En muchas funciones no se utilizaba y ¿en las que si se utilizaba mal?
-    - [x] Test que la función updateMd() y updateJson() no sea necesario el uso de redirect(), ya que esta en medio de las ejecuciones y no al final.
-##### - [ ] Configurar el analytics de Vercel!!!
+- [ ] **Hacer CLEAN CODE CARPETAS**
+- [x] **Averiguar porque no hace el Create desde el móvil**
+    - El create, y el Delete no funcionan en VERCEL
+    - Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
+    - No se actualizaba automáticamente por el uso del `revalidatePath()` y del `redirect()`:
+        - En muchas funciones no se utilizaba y ¿en las que si se utilizaba mal?
+        - [x] Test que la función updateMd() y updateJson() no sea necesario el uso de redirect(), ya que esta en medio de las ejecuciones y no al final.
+- [ ] **Configurar el analytics de Vercel!!!**
 #### Backend
-##### - [ ] Unificar lógica techs (Data y BDD)
-- [ ] Hay que actualizar la bdd de los techs para incluir la información de la data (hard-cdd)
-- [ ] También unificar la lógica de las imágenes/logos
-- [ ] Actualizar el formulario de las techs para recoger la nueva información
+- [ ] **Unificar lógica techs (Data y BDD)**
+    - [ ] Hay que actualizar la bdd de los techs para incluir la información de la data (hard-cdd)
+    - [ ] También unificar la lógica de las imágenes/logos
+    - [ ] Actualizar el formulario de las techs para recoger la nueva información
 #### Frontend 
-##### - [ ] Actualizar Admin Page 
-- [x] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
-- [ ] Actualizar Users Admin Page 
-##### - [ ] Actualizar Dashboard Page
-- [ ] Actualizar config page
-##### - [ ] Empezar Frontend techs (about-me page)
-Empezar el Read del CRUD de las techs en la pagina web.
+- [ ] **Actualizar Admin Page**
+    - [x] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
+    - [ ] Actualizar Users Admin Page 
+- [ ] **Actualizar Dashboard Page**
+    - [ ] Actualizar config page
+- [ ] **Empezar Frontend techs (about-me page)**
+    - [ ]Empezar el Read del CRUD de las techs en la pagina web.
 
 #### Documentación
 - [x] Actualizar documentación v01.02

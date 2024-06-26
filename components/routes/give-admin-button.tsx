@@ -27,19 +27,6 @@ const GiveAdminButton: React.FC<DeleteTechButtonProps> = ({  address, admins }) 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isAdmin, account } = useIsAdmin(admins);
 
-  // const account = useActiveAccount();
-//   const [isAdmin, setIsAdmin] = useState(false);
-//   useEffect(() => {
-//     setIsAdmin(account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988");
-//   }, [account]);
-    
-    // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
-    // console.log("isAdmin (ButtonTable): ",isAdmin)
-
-
-
-    // const isAdmin = true;
-    // const account = {address: "0x490bb233c707A0841cA52979Be4D88B6621d1988"}
   const handleClick = async () => {
     setIsLoading(true);
     try {
@@ -52,7 +39,6 @@ const GiveAdminButton: React.FC<DeleteTechButtonProps> = ({  address, admins }) 
             // const payload = await generatePayload({ address: account.address });
             // const signatureResult = await signLoginPayload({ account, payload });
             const response = await adminOnlyAction() //Le decimos que no haga el revalidatePath ya que se haca en el deleteTech()
-            // const response = await adminOnlyAction(false);
             if(response.success){
                 const payload = await generatePayload({ address: account.address });
                 const signatureResult = await signLoginPayload({ account, payload });
