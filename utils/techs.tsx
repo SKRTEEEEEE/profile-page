@@ -87,7 +87,7 @@ export function getGithubUsoByRange(numValue:number):BadgeAndValue{
     return { badge, value };
 }
 
-export const flattenProyectos = (proyectos: ILenguaje[]) => {
+export const flattenTechs = (proyectos: ILenguaje[]) => {
     let flattenedArray: IJsonTech[] = [];
 
     proyectos.forEach((proyecto) => {

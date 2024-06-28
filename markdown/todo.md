@@ -14,7 +14,7 @@
     - [ ] **Components**
     - [ ] Unificar lógica de los nombres y documentarlo: 
         - [ ] MAIN: Hay que terminar el componente autoplay-slider-techs y eliminar el de prueba si es necesario
-        - [ ] ROUTES
+        - [x] ROUTES
 
     - [ ] **Utils** 
     - [ ] Rename badges file

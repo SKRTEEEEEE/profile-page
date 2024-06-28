@@ -5,7 +5,7 @@ import { Octokit } from "@octokit/rest";
 import { connectToDB } from "@/utils/db-connect";
 import { ILenguaje } from "@/types";
 import { LenguajesModel } from "@/models/lenguajes-schema";
-import { flattenProyectos, getGithubUsoByRange } from "@/utils/badges";
+import { flattenTechs, getGithubUsoByRange } from "@/utils/techs";
 import { fetchFileSha, updateFileContent } from "./utils";
 
 
@@ -27,12 +27,8 @@ const octokit = new Octokit({
 });
 const owner = "SKRTEEEEEE";
 
-const repo = "markdowns";
 
 const path = { md: "sys/techs-test.md", json: "sys/techs-test.json" };
-//Trabajaremos con la rama main(AL FINAL) para no tener que estar haciendo "git pulls al main"
-const ref = "profile-page";
-
 
 async function getRepoDetails() {
     const { data: repos } = await octokit.repos.listForUser({
@@ -81,20 +77,6 @@ function calculateLanguagePercentages(reposDetails: RepoDetails[]): LanguagePerc
     return languagePercentages;
 }
 
-
-// async function updateFileContent(filePath: string, message: string, content: string, sha: string) {
-//     const encodedContent = Buffer.from(content).toString("base64");
-//     await octokit.repos.createOrUpdateFileContents({
-//         owner,
-//         repo,
-//         path: filePath,
-//         message,
-//         content: encodedContent,
-//         sha,
-//         branch: ref,
-//     });
-// }
-
 async function peticionRepos() {
     const reposDetails = await getRepoDetails();
     return calculateLanguagePercentages(reposDetails);
@@ -119,7 +101,7 @@ export async function actualizarJson() {
         })?.percentage.toFixed(2);
         return usogithubString !== undefined ? parseFloat(usogithubString) : 0;
     };
-    const newJsonData = flattenProyectos(proyectosDB).map(proyecto => {
+    const newJsonData = flattenTechs(proyectosDB).map(proyecto => {
         const { badge, color, isFw, isLib, preferencia, ...remainingProps } = proyecto;
         const porcentajeGithub = getGithubPercentage(proyecto.name);
         return { ...remainingProps, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value };
