@@ -3,7 +3,8 @@
 ### Remember 06.2024 (Actual)
 
 #### Test
-- [ ] **Test de los revalidatePath() y redirect()**
+- [x] **Test de los revalidatePath() y redirect()**
+    - [ ] En la accion de hacer Admin a un usuario, no hace falta redirigir a la ruta principal solo refrescar
     - [x] Revisar uso en el cliente, en las funciones (NO-BADGES): _"En todas las funciones (MENOS LAS CREATE) se hace uso de revrd() functions"_
     - [x] Es necesario✅ hacer uso de revalidatePath() en los "fetch data":   _/?Creo que ya esta_
     - [x] Falta comprobar las funciones de auth: _?Creo, no es necesario ya que estas manejan el jwt y no 'acciones'?_ 
