@@ -17,9 +17,9 @@
         - [x] ROUTES
 
     - [ ] **Utils** 
-    - [ ] Rename badges file
-    - [ ] **Types**
-    - [ ] Search a logical structure for the project, use it and document it in Readme files
+    - [x] Rename badges file
+    - [x] **Types**
+    - [x] Search a logical structure for the project, use it and document it in Readme files
 - [x] **Averiguar porque no hace el Create desde el móvil**
     - El create, y el Delete no funcionan en VERCEL
     - Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
