@@ -2,8 +2,8 @@
 
 
 
-import { IFramework, ILenguaje, LenguajesModel } from "@/models/lenguajes-schema";
-import { CommonTechData } from "@/types/global";
+import { IFramework, LenguajesModel } from "@/models/lenguajes-schema";
+import { CommonTechData } from "@/types/ui";
 import { FrameworkData, LibreriaData } from "@/types/ui";
 
 import { connectToDB } from "@/utils/db-connect";

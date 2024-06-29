@@ -1,5 +1,14 @@
-import { CommonTechData } from "./global";
 
+// TECH DATA
+
+export type CommonTechData = {
+    name: string,
+    preferencia: number;
+    afinidad: number;
+    badge: string;
+    color: string;
+    experiencia: number;
+}
 //tech-formulario.tsx useAsyncList autocomplete
 export type TechBadge = {
     name: string;
@@ -30,7 +39,6 @@ export interface FullTechData extends CommonTechData {
     usogithub?: number; 
     
   }
-
 // Other tech data
 export type TechLenguajeItem = {
     title: string;
@@ -38,10 +46,7 @@ export type TechLenguajeItem = {
     version: string;
     desc: string;
   }
-  
-
-// User 
-
+// USER DATA
 export type UserData = {
     nick: string;
     address: string;

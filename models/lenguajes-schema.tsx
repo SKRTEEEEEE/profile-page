@@ -1,6 +1,6 @@
 
 // import { ILenguaje} from "@/types";
-import { CommonTechData } from "@/types/global";
+import { CommonTechData } from "@/types/ui";
 import mongoose, { Schema } from "mongoose";
 
 export interface ILenguaje extends Document, CommonTechData {
