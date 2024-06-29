@@ -15,10 +15,9 @@
     - [ ] Unificar lógica de los nombres y documentarlo: 
         - [ ] MAIN: Hay que terminar el componente autoplay-slider-techs y eliminar el de prueba si es necesario
         - [x] ROUTES
-
-    - [ ] **Utils** 
+    - [x] **Utils** 
     - [x] Rename badges file
-    - [x] **Types**
+    - [x] **Types** v.01.04.1
     - [x] Search a logical structure for the project, use it and document it in Readme files
 - [x] **Averiguar porque no hace el Create desde el móvil**
     - El create, y el Delete no funcionan en VERCEL

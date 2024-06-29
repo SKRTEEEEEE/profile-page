@@ -1,5 +1,4 @@
 
-// import { ILenguaje} from "@/types";
 import { CommonTechData } from "@/types/ui";
 import mongoose, { Schema } from "mongoose";
 

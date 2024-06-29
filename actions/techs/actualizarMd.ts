@@ -1,9 +1,8 @@
 "use server"
 
-import { IFramework, ILenguaje, ILibreria } from "@/types";
 import { connectToDB } from "@/utils/db-connect";
 import {  fetchFileSha, updateFileContent } from "./utils";
-import { LenguajesModel } from "@/models/lenguajes-schema";
+import { IFramework, ILenguaje, ILibreria, LenguajesModel } from "@/models/lenguajes-schema";
 
 const owner = "SKRTEEEEEE";
 
