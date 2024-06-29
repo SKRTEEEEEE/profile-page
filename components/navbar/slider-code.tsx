@@ -4,7 +4,7 @@ import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
 
-interface Project {
+type Project = {
     id: number;
     name: string;
     description: string;
@@ -13,7 +13,7 @@ interface Project {
     usos: string[];
 }
 
-interface SliderCodeProps {
+type SliderCodeProps = {
     data: Project[];
 }
 

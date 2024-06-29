@@ -1,12 +1,13 @@
 "use server"
 
-import { LenguajesModel } from "@/models/lenguajes-schema";
-import { IFramework, IFrameworkForm, ILenguajeForm, ILibreria, ILibreriaForm } from "@/types";
+import { IFramework, ILenguaje, ILibreria, LenguajesModel } from "@/models/lenguajes-schema";
+
 import { connectToDB } from "@/utils/db-connect";
 import { actualizarJson } from "./actualizarJson";
+import { FrameworkData, LibreriaData } from "@/types/ui";
 
 // UPDATE(se usa la funcion revalidateLenguajes en el "client")
-type UpdateData = ILenguajeForm | IFrameworkForm | ILibreriaForm;
+type UpdateData = ILenguaje | FrameworkData | LibreriaData;
 export async function updateTech(updateData: UpdateData) {
     await connectToDB();
     try {

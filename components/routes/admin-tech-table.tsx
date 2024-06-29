@@ -2,21 +2,21 @@
 
 import React, {  useState } from "react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Chip, Tooltip, User } from "@nextui-org/react";
-import { IJsonTech } from "@/types";
 import { CiEdit } from "react-icons/ci";
 import Link from "next/link";
 import { lenguajesResources } from "@/data/data";
 import UserDescAdminTechTable from "./userDesc-admin-tech-table";
 import TopContentAdminTechTable from "./topContent-admin-tech-table";
 import DeleteTechButton from "./delete-tech-button";
-import { FlattenedAdmin } from "@/utils/auth";
 import { useActiveAccount } from "thirdweb/react";
+import { FlattenAdmin } from "@/utils/utils.types";
+import { FullTechData } from "@/types/ui";
 // import { useActiveAccount } from "thirdweb/react";
 
 
-interface AdminTechTableProps {
-  lenguajes: IJsonTech[];
-  admins: FlattenedAdmin[];
+type AdminTechTableProps = {
+  lenguajes: FullTechData[];
+  admins: FlattenAdmin[];
 }
 
 
@@ -34,7 +34,7 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({lenguajes, admins}) => {
   const items = lenguajes.slice(start, end);
 
   // Celdas de cada fila "estilos"
-  const renderCell = (item: IJsonTech, columnKey: string) => {
+  const renderCell = (item: FullTechData, columnKey: string) => {
     switch (columnKey) {
       case "name":
         const language = lenguajesResources.find(lang => lang.title === item.name);

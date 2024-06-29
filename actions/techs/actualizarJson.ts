@@ -3,13 +3,12 @@
 import { Octokit } from "@octokit/rest";
 
 import { connectToDB } from "@/utils/db-connect";
-import { ILenguaje } from "@/types";
-import { LenguajesModel } from "@/models/lenguajes-schema";
+import { ILenguaje, LenguajesModel } from "@/models/lenguajes-schema";
 import { flattenTechs, getGithubUsoByRange } from "@/utils/techs";
 import { fetchFileSha, updateFileContent } from "./utils";
 
 
-interface RepoDetails {
+type RepoDetails = {
     name: string;
     size: number;
     topics: string[];
@@ -17,7 +16,7 @@ interface RepoDetails {
     html_url: string;
     description: string | null;
 }
-interface LanguagePercentage {
+type LanguagePercentage = {
     name: string;
     percentage: number;
 }

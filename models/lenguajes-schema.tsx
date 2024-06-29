@@ -1,7 +1,15 @@
 
-import { ILenguaje} from "@/types";
+// import { ILenguaje} from "@/types";
+import { CommonTechData } from "@/types/global";
 import mongoose, { Schema } from "mongoose";
 
+export interface ILenguaje extends Document, CommonTechData {
+  frameworks?: IFramework[];
+}
+export interface IFramework extends CommonTechData {
+  librerias?: ILibreria[];
+}
+export interface ILibreria extends CommonTechData{}
 
 const LibreriaSchema: Schema = new Schema({
     name: { type: String, required: true },

@@ -2,13 +2,14 @@
 
 
 
-import { LenguajesModel } from "@/models/lenguajes-schema";
-import { IFramework, IFrameworkForm, ILenguajeForm, ILibreriaForm } from "@/types";
+import { IFramework, ILenguaje, LenguajesModel } from "@/models/lenguajes-schema";
+import { CommonTechData } from "@/types/global";
+import { FrameworkData, LibreriaData } from "@/types/ui";
 
 import { connectToDB } from "@/utils/db-connect";
 // CREATE (se usa la funcion revalidateLenguajes en el "client")
 // Actualizar base de datos sin operaciones de archivo
-export async function publicarLeng({ name, afinidad, badge, preferencia, color, experiencia }: ILenguajeForm) {
+export async function publicarLeng({ name, afinidad, badge, preferencia, color, experiencia }: CommonTechData) {
     await connectToDB();
     const nuevoProyecto = new LenguajesModel({
         name,
@@ -29,7 +30,7 @@ export async function publicarLeng({ name, afinidad, badge, preferencia, color, 
     }
 }
 
-export async function publicarFwALeng({ name, afinidad, badge, preferencia, color, experiencia, lenguajeTo }: IFrameworkForm) {
+export async function publicarFwALeng({ name, afinidad, badge, preferencia, color, experiencia, lenguajeTo }: FrameworkData) {
     await connectToDB();
     const nuevoFramework = {
         name,
@@ -56,7 +57,7 @@ export async function publicarFwALeng({ name, afinidad, badge, preferencia, colo
     }
 }
 
-export async function publicarLibAFw({ name, afinidad, badge, preferencia, color, experiencia, lenguajeTo, frameworkTo }: ILibreriaForm) {
+export async function publicarLibAFw({ name, afinidad, badge, preferencia, color, experiencia, lenguajeTo, frameworkTo }: LibreriaData) {
     await connectToDB();
     try {
         const nuevaLibreria = {

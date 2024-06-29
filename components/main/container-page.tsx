@@ -1,4 +1,4 @@
-interface ContainerPageProps {
+type ContainerPageProps = {
     children: React.ReactNode
 }
 

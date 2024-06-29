@@ -1,6 +1,7 @@
-import { IJsonTech, ILenguaje } from "@/types";
+import { ILenguaje } from "@/models/lenguajes-schema";
+import { FullTechData } from "@/types/ui";
 
-interface BadgeAndValue {
+type BadgeAndValue = {
     badge: string;
     value: string;
 }
@@ -88,7 +89,7 @@ export function getGithubUsoByRange(numValue:number):BadgeAndValue{
 }
 
 export const flattenTechs = (proyectos: ILenguaje[]) => {
-    let flattenedArray: IJsonTech[] = [];
+    let flattenedArray: FullTechData[] = [];
 
     proyectos.forEach((proyecto) => {
         flattenedArray.push({

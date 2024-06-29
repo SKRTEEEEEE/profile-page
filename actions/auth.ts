@@ -7,14 +7,12 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {  UserModel } from "@/models/user-schema";
 import { connectToDB } from "@/utils/db-connect";
+import { ActionAdminResponse } from "@/types/global";
 /* import { revrd } from "./revrd";
 No hay revrd *A excepción de protectedAction(), que hay que modificar
 */
 
-  interface ActionAdminResponse {
-    message: string;
-    success: boolean;
-  }
+
  
 
 const privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY || "";

@@ -6,7 +6,7 @@ import { FaPlus } from "react-icons/fa"
 import { useActiveAccount } from "thirdweb/react";
 import CConnectButton from "../main/custom-connect-button";
 
-interface TopContentAdminTechTableProps {
+type TopContentAdminTechTableProps = {
   account: ReturnType<typeof useActiveAccount> | null; // Ajusta el tipo según lo que devuelve useActiveAccount
 }
 

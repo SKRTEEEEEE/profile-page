@@ -1,11 +1,11 @@
 "use client"
 
+import { TechBadge } from "@/types/ui";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
-import { TechBadge } from "./tech-form";
-// import { TechBadge } from "@/types";
 
-interface CustomAsyncAutocompleteProps {
+
+type CustomAsyncAutocompleteProps = {
     items: TechBadge[]; // Puedes ajustar el tipo según sea necesario
     label: string;
     placeholder: string;
