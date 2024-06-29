@@ -1,29 +1,30 @@
 "use client"
 
-import { actualizarJson, actualizarMd, publicarFwALeng, publicarLeng, publicarLibAFw, revalidateLenguajes, updateTech } from "@/actions/badges";
 
 import techBadges from "@/data/slugs";
-import { IFrameworkDispo, IFrameworkForm, IJsonTech, ILenguajeDispo, ILenguajeForm, ILibreriaForm } from "@/types";
 import { Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slider, Spinner, Tooltip } from "@nextui-org/react";
 import { useState } from "react";
 import { useAsyncList } from "@react-stately/data";
 import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
 import CConnectButton from "../main/custom-connect-button";
-import { FlattenedAdmin } from "@/utils/auth";
 import useIsAdmin from "@/hooks/useIsAdmin";
-import { revrd } from "@/actions/revrd";
+import { revrd, serverRev } from "@/actions/revrd";
+import { updateTech } from "@/actions/techs/update";
+import { actualizarMd } from "@/actions/techs/actualizarMd";
+import { publicarFwALeng, publicarLeng, publicarLibAFw } from "@/actions/techs/create";
+import { actualizarJson } from "@/actions/techs/actualizarJson";
+import { FlattenAdmin } from "@/utils/utils.types";
+import { FrameworkData, FrameworksDispo, FullTechData, LenguajesDispo, LibreriaData, TechBadge } from "@/types/ui";
+import { ILenguaje } from "@/models/lenguajes-schema";
 
 
-interface FormularioTechsProps {
-    dispoLeng: ILenguajeDispo[];
-    dispoFw: IFrameworkDispo[];
-    // techBadges: {name: string}[];
-    tech?: IJsonTech;
-    admins: FlattenedAdmin[];
+type FormularioTechsProps = {
+    dispoLeng: LenguajesDispo[];
+    dispoFw: FrameworksDispo[];
+    tech?: FullTechData;
+    admins: FlattenAdmin[];
 }
-export type TechBadge = {
-    name: string;
-};
+
 
 /* 
 - [x] Falta manejar los casos en el que el usuario cambie de fwTo, o libTo en el form
@@ -109,18 +110,18 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
             let response;
             if(isAdmin){
                 if (isUpdating) {
-                    response = await updateTech(transformedData as ILenguajeForm | IFrameworkForm | ILibreriaForm);
+                    response = await updateTech(transformedData as ILenguaje | FrameworkData | LibreriaData);
                 } else {
                     await actualizarMd(data.name, data.badge, data.color);
                     switch (selectedCat) {
                         case "lenguaje":
-                            response = await publicarLeng(transformedData as ILenguajeForm);
+                            response = await publicarLeng(transformedData as ILenguaje);
                             break;
                         case "framework":
-                            response = await publicarFwALeng(transformedData as IFrameworkForm);
+                            response = await publicarFwALeng(transformedData as FrameworkData);
                             break;
                         case "libreria":
-                            response = await publicarLibAFw(transformedData as ILibreriaForm);
+                            response = await publicarLibAFw(transformedData as LibreriaData);
                             break;
                         default:
                             response = {success:false, message: "Categoría no reconocida"}
@@ -132,8 +133,9 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
             console.log("response: ", response);
             if (response.success) {
                 alert(`¡Felicidades! ${response.message}`);
-                // await revalidateLenguajes();
+                await serverRev("/test/mongodb");
                 await revrd('/admin/techs');
+                
 
             } else {
                 alert(`Oops! ${response.message}`);

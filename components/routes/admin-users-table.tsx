@@ -1,13 +1,12 @@
 "use client"
 
-import { IFlattenUsers } from "@/utils/users";
+import { FlattenAdmin, FlattenUsers } from "@/utils/utils.types";
 import CConnectButton from "../main/custom-connect-button";
 import GiveAdminButton from "./give-admin-button";
-import { FlattenedAdmin } from "@/utils/auth";
 
-interface AdminUsersTableProps {
-    users: IFlattenUsers[],
-    admins: FlattenedAdmin[];
+type AdminUsersTableProps = {
+    users: FlattenUsers[],
+    admins: FlattenAdmin[];
 
   }
 

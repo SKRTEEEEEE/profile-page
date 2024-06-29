@@ -1,12 +1,12 @@
 "use server"
 
 import { UserModel } from "@/models/user-schema";
-import { IUserBdd } from "@/types";
+import { UserData } from "@/types/ui";
 import { connectToDB } from "@/utils/db-connect"
 
 // NO HAY REVALIDATE NI REDIRECT
 
-export async function publicarUser(data: IUserBdd): Promise<{ success: boolean; message: string }>{
+export async function publicarUser(data: UserData): Promise<{ success: boolean; message: string }>{
     await connectToDB();
     const nuevoUser = new UserModel(data)
     try {
@@ -19,7 +19,7 @@ export async function publicarUser(data: IUserBdd): Promise<{ success: boolean; 
     }
 }
 
-export async function updateUser(data:IUserBdd): Promise<{ success: boolean; message: string }>{
+export async function updateUser(data:UserData): Promise<{ success: boolean; message: string }>{
     try {
     await connectToDB();
     const userActualizado = await UserModel.findOneAndUpdate({address: data.address}, data)

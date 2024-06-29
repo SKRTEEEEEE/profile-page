@@ -8,6 +8,7 @@ import { SiThirdweb } from "react-icons/si";
 import { RiJavascriptLine } from "react-icons/ri";
 
 
+
 export const socialNetworks = [
     {
         id: 1,

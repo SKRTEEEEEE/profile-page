@@ -11,6 +11,7 @@ import { VerifyLoginPayloadParams, createAuth } from "thirdweb/auth";
 import { cookies } from "next/headers";
 import { privateKeyToAccount } from "thirdweb/wallets";
 import { client } from "@/app/client";
+import { ActionAdminResponse } from "@/types/global";
 
 
 const privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY || "";
@@ -24,10 +25,8 @@ const thirdwebAuth = createAuth({
     adminAccount: privateKeyToAccount({ client, privateKey }),
   });
 
-interface ActionAdminResponse {
-    message: string;
-    success: boolean;
-  }
+
+  //Aquí no se usan funciones revrd(), pero ya esta comprobado que en las dos acciones que se usa en el cliente luego se hace revrd()
   
   export const updateUserAdminStatus = async (
     payload: VerifyLoginPayloadParams,

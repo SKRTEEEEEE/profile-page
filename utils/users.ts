@@ -1,13 +1,9 @@
 import { IUser } from "@/models/user-schema";
+import { FlattenUsers } from "./utils.types";
 
-export interface IFlattenUsers {
-    nick?:string,
-    address: string,
-    isAdmin: boolean,
-    solicitudAdmin: boolean,
-}
 
-export const flattenUsers = (users: IUser[]): IFlattenUsers[] =>{
+
+export const flattenUsers = (users: IUser[]): FlattenUsers[] =>{
     return users.map(user=>({
         nick: user.nick?.toString(),
         address: user.address.toString(),

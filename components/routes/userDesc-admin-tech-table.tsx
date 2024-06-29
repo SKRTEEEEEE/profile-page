@@ -1,9 +1,9 @@
-import React from "react";
-import { IJsonTech } from "@/types";
+
+import { FullTechData } from "@/types/ui";
 import { BreadcrumbItem, Breadcrumbs, Chip } from "@nextui-org/react";
 
-interface UserDescAdminTechTableProps {
-  item: IJsonTech;
+type UserDescAdminTechTableProps = {
+  item: FullTechData;
 }
 
 const UserDescAdminTechTable: React.FC<UserDescAdminTechTableProps> = ({ item }) => {

@@ -16,7 +16,7 @@ import  { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 // SwiperCore.use([Autoplay, Pagination, Navigation]);
 
-interface AutoplaySliderProps {
+type AutoplaySliderProps = {
     delay?: number;
     disableOnInteraction?: boolean;
   }

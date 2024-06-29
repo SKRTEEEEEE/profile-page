@@ -7,3 +7,7 @@ export async function revrd (path:string) {
     revalidatePath(path)
     redirect(path)
 }
+
+export async function serverRev (path:string) {
+    revalidatePath(path)
+}
