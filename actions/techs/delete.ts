@@ -157,7 +157,8 @@ export async function deleteTech(name: string) {
 
             proyectoActualizado = await lenguaje.save();
             if (proyectoActualizado) {
-                await doDelete("Librería", name);
+                const res = await doDelete("Librería", name);
+                return res;
             }
         }
 
@@ -171,38 +172,20 @@ export async function deleteTech(name: string) {
 
             proyectoActualizado = await lenguaje.save();
             if (proyectoActualizado) {
-                // console.log(`Framework ${name} eliminado correctamente`);
-                // await actualizarJson();
-                // console.log("fw eliminado del json");
-                // await updateMd();
-                // revalidatePath("/admin/techs")
-                // revalidatePath("/test/mongodb")
-                // return true;
-                await doDelete("Framework", name);
+                const res = await doDelete("Framework", name);
+                return res;
             }
         }
 
         // Buscar en lenguajes
         const lenguajeEliminado = await LenguajesModel.findOneAndDelete({ name: name });
         if (lenguajeEliminado) {
-            // console.log(`Lenguaje ${name} eliminado correctamente`);
-            // await actualizarJson();
-            // console.log("leng eliminado del json");
-            // await updateMd();
-            // revalidatePath("/admin/techs")
-            // revalidatePath("/test/mongodb")
-            // return true;
-            await doDelete("Lenguaje", name);
+            const res = await doDelete("Lenguaje", name);
+            return res;
         }
-
         console.log(`No se encontró una tecnología con el nombre especificado: ${name}`);
         return false;
     } catch (error) {
-        // if (error instanceof Error) {
-        //     console.error('Error eliminando la tecnología:', error.message);
-        // } else {
-        //     console.error('Error eliminando la tecnología:', error);
-        // }
         console.error('Error eliminando la tecnología:', error);
         throw new Error('Error eliminando la tecnología');
     }
