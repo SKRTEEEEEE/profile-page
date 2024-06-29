@@ -54,10 +54,10 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ admins ,name, onErr
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error al eliminar tech', error.message);
-        // onError(error.message); // Llamar a la función de callback con el mensaje de error
+        onError(error.message); // Llamar a la función de callback con el mensaje de error
       } else {
         console.error('Error al eliminar tech', error);
-        // onError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
+        onError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
       }
     } finally {
       setIsLoading(false);

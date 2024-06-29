@@ -26,7 +26,7 @@
     - No se actualizaba automáticamente por el uso del `revalidatePath()` y del `redirect()`:
         - En muchas funciones no se utilizaba y ¿en las que si se utilizaba mal?
         - [x] Test que la función updateMd() y updateJson() no sea necesario el uso de redirect(), ya que esta en medio de las ejecuciones y no al final.
-- [ ] **Configurar el analytics de Vercel!!!**
+- [ ] **Configurar el analytics de Vercel!!!**    _FALTA TEST_
 #### Backend
 - [ ] **Unificar lógica techs (Data y BDD)**
     - [ ] Hay que actualizar la bdd de los techs para incluir la información de la data (hard-cdd)
