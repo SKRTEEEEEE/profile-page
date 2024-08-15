@@ -4,16 +4,15 @@
 
 #### Test
 - [x] **Test de los revalidatePath() y redirect()**
-    - [ ] En la accion de hacer Admin a un usuario, no hace falta redirigir a la ruta principal solo refrescar
     - [x] Revisar uso en el cliente, en las funciones (NO-BADGES): _"En todas las funciones (MENOS LAS CREATE) se hace uso de revrd() functions"_
     - [x] Es necesario✅ hacer uso de revalidatePath() en los "fetch data":   _/?Creo que ya esta_
     - [x] Falta comprobar las funciones de auth: _?Creo, no es necesario ya que estas manejan el jwt y no 'acciones'?_ 
 #### Other
 - [ ] **CLEAN CODE**
-    - [ ] **Actions**
-    - [ ] Unificar lógica 'Github sha' en la parte del deleteTech() + extraer doDelete()    _FALTA TEST_
-    - [ ] **Components**
-    - [ ] Unificar lógica de los nombres y documentarlo: 
+    - [x] **Actions**
+    - [x] Unificar lógica 'Github sha' en la parte del deleteTech() + extraer doDelete() 
+    - [x] **Components**
+    - [x] Unificar lógica de los nombres y documentarlo: 
         - [ ] MAIN: Hay que terminar el componente autoplay-slider-techs y eliminar el de prueba si es necesario
         - [x] ROUTES
     - [x] **Utils** 
@@ -26,7 +25,7 @@
     - No se actualizaba automáticamente por el uso del `revalidatePath()` y del `redirect()`:
         - En muchas funciones no se utilizaba y ¿en las que si se utilizaba mal?
         - [x] Test que la función updateMd() y updateJson() no sea necesario el uso de redirect(), ya que esta en medio de las ejecuciones y no al final.
-- [ ] **Configurar el analytics de Vercel!!!**    _FALTA TEST_
+- [x] **Configurar el analytics de Vercel!!!**  - [ ] _FALTA TEST_
 #### Backend
 - [ ] **Unificar lógica techs (Data y BDD)**
     - [ ] Hay que actualizar la bdd de los techs para incluir la información de la data (hard-cdd)

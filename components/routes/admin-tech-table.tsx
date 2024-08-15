@@ -1,7 +1,7 @@
 "use client"
 
 import React, {  useState } from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Chip, Tooltip, User } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Chip, Tooltip, User, Avatar } from "@nextui-org/react";
 import { CiEdit } from "react-icons/ci";
 import Link from "next/link";
 import { lenguajesResources } from "@/data/data";
@@ -39,14 +39,16 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({lenguajes, admins}) => {
       case "name":
         const language = lenguajesResources.find(lang => lang.title === item.name);
         return (
-          <TableCell>
+          <TableCell >
+            
             <User
               avatarProps={{ radius: "lg", src: language?.img, icon: language?.icon }}
               description={<UserDescAdminTechTable item={item} />}
               name={item.name}
             >
-              {item.name}
-            </User>
+            {item.name}
+             {/* {language?.icon}  */}
+            </User> 
           </TableCell>
         );
       case "color":
