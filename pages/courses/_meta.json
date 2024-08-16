@@ -1,0 +1,12 @@
+{
+    "solidity": {
+      "title": "solidity",
+      "type": "page",
+      "display": "hidden"
+    },
+    "nextjs": {
+      "title": "nextjs",
+      "type": "page",
+      "display": "hidden"
+    }
+}
