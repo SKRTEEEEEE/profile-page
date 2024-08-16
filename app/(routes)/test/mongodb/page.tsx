@@ -1,16 +1,12 @@
-
-import { getUser } from "@/actions/auth";
+import { getCookies } from "@/actions/auth";
 import CConnectButton from "@/components/main/custom-connect-button";
 import { fetchLenguajes } from "@/data/fetch"
-// import { ConnectButton } from "thirdweb/react";
-// import { LenguajesModel } from "@/models/lenguajes-schema";
 
 
 const TestMongoPage = async( ) =>{
     const lenguajes = await fetchLenguajes()
-    const user = await getUser()
+    const user = await getCookies()
     console.log("user: ", user)
-    // // console.log("session: ", session)
 
 
     return (

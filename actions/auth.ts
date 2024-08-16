@@ -31,7 +31,8 @@ export const generatePayload = thirdwebAuth.generatePayload;
 
 
 // Funciones de inicio de sesión
-type AuthContext = {
+
+export type AuthContext = {
   isAdmin: boolean;
   nick: string;
 };
@@ -140,6 +141,7 @@ export async function protectedAction(path: string | false): Promise<ActionAdmin
 // Devuelve -> el token(jwt) completo, incluido el ctx: {nick:...,isAdmin:...}
 // Falta comprobar que devuelva tambien el address
 //🆘⬇️⚠️Tambien en isAdmin
+export type JWTPayload = Awaited<ReturnType<typeof authedOnly>>
 export async function authedOnly(rd:string) {
   const jwt = cookies().get("jwt");
   if (!jwt?.value) {
@@ -152,12 +154,12 @@ export async function authedOnly(rd:string) {
   }
   return authResult.parsedJWT;
 }
-export async function getUser() {
+export type RGetCookies = Awaited<ReturnType<typeof getCookies>>
+export async function getCookies() {
   const jwt = cookies().get("jwt");
   if (!jwt?.value) {
     return false
   }
-
   const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
   if (!authResult.valid) {
     return false

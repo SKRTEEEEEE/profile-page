@@ -9,19 +9,18 @@ import UserDescAdminTechTable from "./userDesc-admin-tech-table";
 import TopContentAdminTechTable from "./topContent-admin-tech-table";
 import DeleteTechButton from "./delete-tech-button";
 import { useActiveAccount } from "thirdweb/react";
-import { FlattenAdmin } from "@/utils/utils.types";
 import { FullTechData } from "@/types/ui";
-// import { useActiveAccount } from "thirdweb/react";
+import { RGetCookies } from "@/actions/auth";
 
 
 type AdminTechTableProps = {
   lenguajes: FullTechData[];
-  admins: FlattenAdmin[];
+  session: RGetCookies;  
 }
 
 
 // El revalidate del delete se hace en su funcion del servidor, pero el revalidate del update y del create se llama desde el componente del cliente
-const AdminTechTable: React.FC<AdminTechTableProps> = ({lenguajes, admins}) => {
+const AdminTechTable: React.FC<AdminTechTableProps> = ({lenguajes, session}) => {
   const [page, setPage] = useState<number>(1);
   const [error, setError] = useState<string | null>(null);
   const rowsPerPage = 4;
@@ -61,7 +60,7 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({lenguajes, admins}) => {
             </Tooltip>
             
               <span className="text-lg text-danger active:opacity-50">
-                <DeleteTechButton admins={admins} name={item.name} onError={(error) => setError(error)}/>
+                <DeleteTechButton session={session} name={item.name} onError={(error) => setError(error)}/>
               </span>
             
           </TableCell>
