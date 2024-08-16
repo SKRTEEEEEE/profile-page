@@ -31,7 +31,10 @@ export const generatePayload = thirdwebAuth.generatePayload;
 
 
 // Funciones de inicio de sesión
-
+type AuthContext = {
+  isAdmin: boolean;
+  nick: string;
+};
 //Funciona pero no con el switch Account
 export async function login(payload: VerifyLoginPayloadParams): Promise<string | null> {
   await connectToDB();
@@ -134,19 +137,42 @@ export async function protectedAction(path: string | false): Promise<ActionAdmin
 }
 
 
-// Para -> protected route "only admin"
-// Falta comprobar que funcione ¿y adaptarla para admin, ahora genérica/user con session iniciada"
-export async function authedOnlyAdmin() {
+// Devuelve -> el token(jwt) completo, incluido el ctx: {nick:...,isAdmin:...}
+// Falta comprobar que devuelva tambien el address
+//🆘⬇️⚠️Tambien en isAdmin
+export async function authedOnly(rd:string) {
   const jwt = cookies().get("jwt");
   if (!jwt?.value) {
-    redirect("/jwt-cookie");//Redirigir a tal pagina, esto estaria bien pasarlo como argumento
+    redirect(rd);
   }
 
   const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
   if (!authResult.valid) {
-    redirect("/jwt-cookie");
+    redirect(rd);
   }
   return authResult.parsedJWT;
 }
+export async function getUser() {
+  const jwt = cookies().get("jwt");
+  if (!jwt?.value) {
+    return false
+  }
 
+  const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
+  if (!authResult.valid) {
+    return false
+  }
+  return authResult.parsedJWT;
+}
+export async function isAdmin() {
+  const jwt = cookies().get("jwt")
+  if(!jwt?.value)return false
+  const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
+  if(!authResult.valid)return false
+  const session = authResult.parsedJWT
+  console.log("session: ",session)
+  if (!session.ctx || typeof session.ctx !== 'object') return false;
+  const ctx: AuthContext = session.ctx as AuthContext;
+  return ctx.isAdmin
 
+}
