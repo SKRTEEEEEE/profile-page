@@ -59,6 +59,10 @@ export const generatePayload = thirdwebAuth.generatePayload;
 // }
 
 // Funciones de inicio de sesión
+type AuthContext = {
+  isAdmin: boolean;
+  nick: string;
+};
 
 //Funciona pero no con el switch Account
 export async function login(payload: VerifyLoginPayloadParams): Promise<string | null> {
@@ -162,19 +166,30 @@ export async function adminOnlyAction(): Promise<ActionAdminResponse> {
 
 // Para -> protected route "only admin"
 // Falta comprobar que funcione ¿y adaptarla para admin, ahora genérica/user con session iniciada"
-export async function authedOnlyAdmin() {
+export async function authedOnly() {
   const jwt = cookies().get("jwt");
   if (!jwt?.value) {
-    redirect("/jwt-cookie");//Redirigir a tal pagina, esto estaria bien pasarlo como argumento
+    redirect("/");//Redirigir a tal pagina, ?esto estaria bien pasarlo como argumento?
   }
 
   const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
   if (!authResult.valid) {
-    redirect("/jwt-cookie");
+    redirect("/");
   }
   return authResult.parsedJWT;
 }
+export async function isAdmin() {
+  const jwt = cookies().get("jwt")
+  if(!jwt?.value)return false
+  const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
+  if(!authResult.valid)return false
+  const session = authResult.parsedJWT
+  console.log("session: ",session)
+  if (!session.ctx || typeof session.ctx !== 'object') return false;
+  const ctx: AuthContext = session.ctx as AuthContext;
+  return ctx.isAdmin
 
+}
 
 export async function logout() {
   cookies().delete("jwt");

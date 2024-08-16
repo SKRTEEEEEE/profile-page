@@ -15,7 +15,7 @@
     - No se actualizaba automáticamente por el uso del `revalidatePath()` y del `redirect()`:
         - En muchas funciones no se utilizaba y ¿en las que si se utilizaba mal?
         - [x] Test que la función updateMd() y updateJson() no sea necesario el uso de redirect(), ya que esta en medio de las ejecuciones y no al final.
-- [ ] **Configurar el analytics de Vercel!!!**
+- [x] **Configurar el analytics de Vercel!!!**
 #### Backend
 - [ ] **Unificar lógica techs (Data y BDD)**
     - [ ] Hay que actualizar la bdd de los techs para incluir la información de la data (hard-cdd)
@@ -35,7 +35,7 @@
 
 ### Dudas/buggs
 #### Switch Account button -> "revalidate" JWT
-Al utilizar la acción del botón Switch Account del botón de Login, no se actualiza correctamente el JWT
+Al utilizar la acción del botón Switch Account del botón de Login, no se actualiza correctamente el JWT(admin)
 #### Aceptación usuario nuevo admin, -> "revalidate" info and JWT
 Creo, ? al aceptar un nuevo usuario como admin, y este iniciarse, nose si recoje correctamente la info de que ahora es Admin(revalidatePath?)???
 
