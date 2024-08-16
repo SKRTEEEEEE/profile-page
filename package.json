@@ -10,6 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "nextra": "^2.13.2",
+    "nextra-theme-docs": "^2.13.2",
     "@nextui-org/react": "^2.3.6",
     "@octokit/rest": "^20.1.1",
     "@react-stately/data": "^3.11.3",
