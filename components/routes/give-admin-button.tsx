@@ -4,8 +4,7 @@ import { updateUserAdminStatus } from "@/actions/admin";
 import { adminOnlyAction, generatePayload} from "@/actions/auth";
 import { revrd, serverRev } from "@/actions/revrd";
 import useIsAdmin from "@/hooks/useIsAdmin";
-import { FlattenedAdmin } from "@/utils/auth";
-// import { deleteTech } from "@/actions/badges";
+import { FlattenAdmin } from "@/utils/utils.types";
 import { Spinner, Tooltip } from "@nextui-org/react";
 import {  useState } from "react";
 import { LuDelete } from "react-icons/lu";
@@ -13,9 +12,9 @@ import { signLoginPayload } from "thirdweb/auth";
 
 // import { useActiveAccount } from "thirdweb/react";
 
-interface DeleteTechButtonProps {
+type DeleteTechButtonProps = {
   address: string;
-  admins: FlattenedAdmin[];
+  admins: FlattenAdmin[];
 //   onError: (error: string) => void; // Función de callback para pasar el error
   
 //   isAdmin: boolean;

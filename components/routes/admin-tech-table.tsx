@@ -1,65 +1,31 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Chip, Tooltip, User } from "@nextui-org/react";
-import { IJsonTech } from "@/types";
+import React, {  useState } from "react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue, Chip, Tooltip, User, Avatar } from "@nextui-org/react";
 import { CiEdit } from "react-icons/ci";
 import Link from "next/link";
 import { lenguajesResources } from "@/data/data";
-import UserDescAdminTechTable from "./user-desc-admin-tech-table";
-import TopContentAdminTechTable from "./top-content-admin-tech-table";
-import DeleteTechButton from "./delete-admin-tech-button";
-import { FlattenedAdmin } from "@/utils/auth";
-import useIsAdmin from "@/hooks/useIsAdmin";
+import UserDescAdminTechTable from "./userDesc-admin-tech-table";
+import TopContentAdminTechTable from "./topContent-admin-tech-table";
+import DeleteTechButton from "./delete-tech-button";
 import { useActiveAccount } from "thirdweb/react";
+import { FlattenAdmin } from "@/utils/utils.types";
+import { FullTechData } from "@/types/ui";
 // import { useActiveAccount } from "thirdweb/react";
 
 
-interface AdminTechTableProps {
-  lenguajes: IJsonTech[];
-  admins: FlattenedAdmin[];
+type AdminTechTableProps = {
+  lenguajes: FullTechData[];
+  admins: FlattenAdmin[];
 }
 
 
 // El revalidate del delete se hace en su funcion del servidor, pero el revalidate del update y del create se llama desde el componente del cliente
 const AdminTechTable: React.FC<AdminTechTableProps> = ({lenguajes, admins}) => {
   const [page, setPage] = useState<number>(1);
-
   const [error, setError] = useState<string | null>(null);
-
   const rowsPerPage = 4;
-
-  // is Admin - [ ] Ver si funciona sin el useEffect -> NO ES NECESARIO(Solo hay que llamar siempre a la re-asignación)
-  // const account = useActiveAccount();
-  //   const [isAdmin, setIsAdmin] = useState(false);
-
-  //   useEffect(() => {
-  //     console.log("admins admin techTable: ", admins)
-  //       const checkIsAdmin = async () => {
-  //           try {
-  //               // const admins = await fetchAdmins(); // Obtener la lista de administradores
-  //               if (account?.address) {
-  //                   // Verificar si alguna dirección de admin coincide con la dirección de la cuenta activa
-  //                   const isAdminUser = admins.some(admin => admin.address === account.address);
-  //                   setIsAdmin(isAdminUser);
-  //                   console.log("isAdmin (TechTable): ", isAdminUser);
-  //                   console.log("address: ", account.address);
-  //               }
-  //           } catch (error) {
-  //               console.error('Error al obtener la lista de administradores', error);
-  //               // Manejar el error según sea necesario
-  //           }
-  //       };
-
-  //       checkIsAdmin(); // Llamar a la función para verificar si la cuenta es administrador
-
-  //   }, [account]);
   const account = useActiveAccount();
-  
-  
-  // const isAdmin = account?.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988";
-  // const { isAdmin, account } = useIsAdmin(admins);
-  
 
   // Prepare pagination
   const pages = Math.ceil(lenguajes.length / rowsPerPage);
@@ -68,19 +34,21 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({lenguajes, admins}) => {
   const items = lenguajes.slice(start, end);
 
   // Celdas de cada fila "estilos"
-  const renderCell = (item: IJsonTech, columnKey: string) => {
+  const renderCell = (item: FullTechData, columnKey: string) => {
     switch (columnKey) {
       case "name":
         const language = lenguajesResources.find(lang => lang.title === item.name);
         return (
-          <TableCell>
+          <TableCell >
+            
             <User
               avatarProps={{ radius: "lg", src: language?.img, icon: language?.icon }}
               description={<UserDescAdminTechTable item={item} />}
               name={item.name}
             >
-              {item.name}
-            </User>
+            {item.name}
+             {/* {language?.icon}  */}
+            </User> 
           </TableCell>
         );
       case "color":

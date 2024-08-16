@@ -7,14 +7,12 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {  UserModel } from "@/models/user-schema";
 import { connectToDB } from "@/utils/db-connect";
+import { ActionAdminResponse } from "@/types/global";
 /* import { revrd } from "./revrd";
 No hay revrd *A excepción de protectedAction(), que hay que modificar
 */
 
-  interface ActionAdminResponse {
-    message: string;
-    success: boolean;
-  }
+
  
 
 const privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY || "";
@@ -30,33 +28,7 @@ const thirdwebAuth = createAuth({
 
 export const generatePayload = thirdwebAuth.generatePayload;
 
-//"login" that can only be handled by a "admin" user
-// export async function actionAdmin(payload: VerifyLoginPayloadParams, path: string | false): Promise<ActionAdminResponse> {
-//   const verifiedPayload = await thirdwebAuth.verifyPayload(payload);
-//   console.log("verifiedPayload :", verifiedPayload)
-//   if (verifiedPayload.valid ) {
-//     if(verifiedPayload.payload.address === "0x490bb233c707A0841cA52979Be4D88B6621d1988"){
-//       const jwt = await thirdwebAuth.generateJWT({
-//         payload: verifiedPayload.payload,
-//         context: {
-//           isAdmin: true,
-//           nick: "Pepe"
-//         }
-//       });
-//       cookies().set("jwt", jwt);
-//     //   // redirect to the secure page
-//     //   return redirect("/jwt-admin-action");
-//     path && revalidatePath(path);
-//     return {message: `Una acción ha sido realizada en ${path}`, success: true}
-//     }
-//     else{
-//       return {message: "Usuario no reconocido como administrador", success: false}
-//     }
-    
-//   }
-// //   return {message: "Error con el verifiedPayload", success: false}
-//     return {message: "Error. Enviar un correo si persiste", success: false}
-// }
+
 
 // Funciones de inicio de sesión
 type AuthContext = {
@@ -95,38 +67,6 @@ export async function login(payload: VerifyLoginPayloadParams): Promise<string |
   return null;
 }
 
-
-// Función de para rutas protegidas de usuarios logeados -> Falta test
-export async function isLoggedIn() {
-  const jwt = cookies().get("jwt");
-  if (!jwt?.value) {
-    return false;
-  }
- 
-  const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
-  if (!authResult.valid) {
-    return false;
-  }
-  return true;
-}
-
-// Función de comprobación de acciones protegidas -> Falta terminar y hacer test
-export async function protectedAction(path: string | false): Promise<ActionAdminResponse> {
-  const jwt = cookies().get("jwt");
-  if (!jwt?.value) {
-    path && redirect(path);
-    return { message: "Debes iniciar sesión para realizar esta acción", success: false };
-  }
-
-  const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
-  if (!authResult.valid) {
-    return { message: "Token de autenticación no válido", success: false };
-  }
-
-  path && revalidatePath(path);
-  return { message: `Una acción protegida ha sido realizada en ${path}`, success: true };
-}
-
 /*  
 Función de comprobación de acciones solo para administradores
 =============================================================
@@ -162,6 +102,40 @@ export async function adminOnlyAction(): Promise<ActionAdminResponse> {
   return { message: `Una acción de administrador ha sido realizada`, success: true };
 }
 
+export async function logout() {
+  cookies().delete("jwt");
+}
+
+// Función de para rutas protegidas de usuarios logeados -> Falta test
+export async function isLoggedIn() {
+  const jwt = cookies().get("jwt");
+  if (!jwt?.value) {
+    return false;
+  }
+ 
+  const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
+  if (!authResult.valid) {
+    return false;
+  }
+  return true;
+}
+
+// Función de comprobación de acciones protegidas -> Falta terminar y hacer test
+export async function protectedAction(path: string | false): Promise<ActionAdminResponse> {
+  const jwt = cookies().get("jwt");
+  if (!jwt?.value) {
+    path && redirect(path);
+    return { message: "Debes iniciar sesión para realizar esta acción", success: false };
+  }
+
+  const authResult = await thirdwebAuth.verifyJWT({ jwt: jwt.value });
+  if (!authResult.valid) {
+    return { message: "Token de autenticación no válido", success: false };
+  }
+
+  path && revalidatePath(path);
+  return { message: `Una acción protegida ha sido realizada en ${path}`, success: true };
+}
 
 
 // Para -> protected route "only admin"
@@ -191,6 +165,3 @@ export async function isAdmin() {
 
 }
 
-export async function logout() {
-  cookies().delete("jwt");
-}

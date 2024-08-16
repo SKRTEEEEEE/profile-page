@@ -1,22 +1,22 @@
 "use client"
 
 import { publicarUser, updateUser } from "@/actions/user";
-import { IUserBdd } from "@/types";
 import { Button, Input, Spinner, Switch } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 // import CConnectButton from "../main/custom-connect-button";
 import useIsAdmin from "@/hooks/useIsAdmin";
-import { IFlattenUsers } from "@/utils/users";
-import { FlattenedAdmin } from "@/utils/auth";
+
 import Link from "next/link";
 import { updateUserAdminStatus } from "@/actions/admin";
 import { generatePayload } from "@/actions/auth";
 import { signLoginPayload } from "thirdweb/auth";
 import { revrd, serverRev } from "@/actions/revrd";
+import { UserData } from "@/types/ui";
+import { FlattenAdmin, FlattenUsers } from "@/utils/utils.types";
 
-interface UserConfigFormProps {
-  users?: IFlattenUsers[];
-  admins: FlattenedAdmin[];
+type UserConfigFormProps = {
+  users?: FlattenUsers[];
+  admins: FlattenAdmin[];
 }
 
 const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, admins }) => {
@@ -27,7 +27,7 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, admins }) => {
 
   const { isAdmin, account } = useIsAdmin(admins);
 
-  const [user, setUser] = useState<IFlattenUsers | undefined>(undefined);
+  const [user, setUser] = useState<FlattenUsers | undefined>(undefined);
 
   useEffect(() => {
     if (account?.address && users) {
@@ -52,7 +52,7 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, admins }) => {
       
       const isAdminParsed = isAdmin ? !noIsAdmin : false;
       console.log("isAdminParsed: ", isAdminParsed)
-      const transData: IUserBdd = {
+      const transData: UserData = {
         nick: data.nick,
         address: account?.address || "",
         isAdmin: isAdminParsed,

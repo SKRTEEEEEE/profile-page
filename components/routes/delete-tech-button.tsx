@@ -1,18 +1,18 @@
 "use client"
 
 import { adminOnlyAction} from "@/actions/auth";
-import { deleteTech } from "@/actions/badges";
+import { deleteTech } from "@/actions/techs/delete";
 import useIsAdmin from "@/hooks/useIsAdmin";
-import { FlattenedAdmin } from "@/utils/auth";
+import { FlattenAdmin } from "@/utils/utils.types";
 import { Spinner, Tooltip } from "@nextui-org/react";
 import {  useState } from "react";
 import { LuDelete } from "react-icons/lu";
 
 // import { useActiveAccount } from "thirdweb/react";
 
-interface DeleteTechButtonProps {
+type DeleteTechButtonProps = {
   // isAdmin: boolean;
-  admins: FlattenedAdmin[];
+  admins: FlattenAdmin[];
   name: string;
   onError: (error: string) => void; // Función de callback para pasar el error  
 //   
@@ -54,10 +54,10 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ admins ,name, onErr
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error al eliminar tech', error.message);
-        // onError(error.message); // Llamar a la función de callback con el mensaje de error
+        onError(error.message); // Llamar a la función de callback con el mensaje de error
       } else {
         console.error('Error al eliminar tech', error);
-        // onError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
+        onError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
       }
     } finally {
       setIsLoading(false);

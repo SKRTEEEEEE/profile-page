@@ -3,19 +3,31 @@
 ### Remember 06.2024 (Actual)
 
 #### Test
-- [ ] **Test de los revalidatePath() y redirect()**
+- [x] **Test de los revalidatePath() y redirect()**
     - [x] Revisar uso en el cliente, en las funciones (NO-BADGES): _"En todas las funciones (MENOS LAS CREATE) se hace uso de revrd() functions"_
-    - [ ] Es necesario ✅hacer uso de revalidatePath() en los "fetch data"   /Creo que ya esta
-    - [ ] Falta comprobar las funciones de auth
+    - [x] Es necesario✅ hacer uso de revalidatePath() en los "fetch data":   _/?Creo que ya esta_
+    - [x] Falta comprobar las funciones de auth: _?Creo, no es necesario ya que estas manejan el jwt y no 'acciones'?_ 
 #### Other
-- [ ] **Hacer CLEAN CODE CARPETAS**
+- [ ] **CLEAN CODE**
+    - [x] **Actions**
+    - [x] Unificar lógica 'Github sha' en la parte del deleteTech() + extraer doDelete() 
+    - [x] **Components**
+    - [x] Unificar lógica de los nombres y documentarlo: 
+        - [ ] MAIN: Hay que terminar el componente autoplay-slider-techs y eliminar el de prueba si es necesario
+        - [x] ROUTES
+    - [x] **Utils** 
+    - [x] Rename badges file
+    - [x] **Types** v.01.04.1
+    - [x] Search a logical structure for the project, use it and document it in Readme files
 - [x] **Averiguar porque no hace el Create desde el móvil**
     - El create, y el Delete no funcionan en VERCEL
     - Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
     - No se actualizaba automáticamente por el uso del `revalidatePath()` y del `redirect()`:
         - En muchas funciones no se utilizaba y ¿en las que si se utilizaba mal?
         - [x] Test que la función updateMd() y updateJson() no sea necesario el uso de redirect(), ya que esta en medio de las ejecuciones y no al final.
-- [x] **Configurar el analytics de Vercel!!!**
+
+- [x] **Configurar el analytics de Vercel!!!**  - [ ] _FALTA TEST_
+
 #### Backend
 - [ ] **Unificar lógica techs (Data y BDD)**
     - [ ] Hay que actualizar la bdd de los techs para incluir la información de la data (hard-cdd)

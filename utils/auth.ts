@@ -1,5 +1,6 @@
 import { IAdmins } from '@/models/user-schema';
 import { useActiveAccount } from 'thirdweb/react';
+import { FlattenAdmin } from './utils.types';
 
 export const useIsSuperAdmin = () => {
   const account = useActiveAccount();
@@ -12,12 +13,9 @@ export const useIsSuperAdmin = () => {
 };
 
 
-export interface FlattenedAdmin {
-  userId: string;
-  address: string;
-}
 
-export const flattenAdmin = (admins: IAdmins[]): FlattenedAdmin[] => {
+
+export const flattenAdmin = (admins: IAdmins[]): FlattenAdmin[] => {
   return admins.map(admin => ({
       userId: admin.userId.toString(),  // Convertir ObjectId a string
       address: admin.address.toString(),

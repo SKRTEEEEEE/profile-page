@@ -9,7 +9,7 @@ import 'swiper/css/scrollbar';
 import Navbar from "@/components/main/navbar";
 import Header from "@/components/main/header";
 import { ThirdwebProvider } from "thirdweb/react";
-// import { Providers } from "@/providers";
+import { Analytics } from "@vercel/analytics/react";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
@@ -32,6 +32,7 @@ export default function RootLayout({
         <Navbar />
         <Header />
         {children}
+        <Analytics />
       </ThirdwebProvider>
       </body>
     </html>
