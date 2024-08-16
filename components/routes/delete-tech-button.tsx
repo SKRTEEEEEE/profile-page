@@ -2,6 +2,7 @@
 
 import { adminOnlyAction, RGetCookies } from "@/actions/auth";
 import { deleteTech } from "@/actions/techs/delete";
+import { useCookies } from "@/utils/auth";
 
 import { Spinner, Tooltip } from "@nextui-org/react";
 import { useState } from "react";
@@ -19,18 +20,11 @@ type DeleteTechButtonProps = {
 
 // };
 
-const useSession = (session: RGetCookies) => {
-  if (session !== false) {
-    const ctx: {} = session.ctx || {};
-    return { ...ctx, address: session.sub };
-  } else {
-    return { isAdmin: false, address: false };
-  }
-};
+
 
 const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ session, name, onError }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { isAdmin, address } = useSession(session);
+  const { isAdmin, address } = useCookies(session);
 
   console.log("isAdmin delete admin tech: ", isAdmin)
   const handleClick = async () => {
