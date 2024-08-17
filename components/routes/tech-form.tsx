@@ -207,7 +207,10 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
                     isRequired 
                 />
             }
-            {(!imageUploaded&&isAdmin)?(
+            
+            {//Actualmente no permite editar la imagen, también hay que mostrarle al usuario la imagen que ha subido y permitirle cambiarla antes de enviarla al Storage 
+            !isUpdating&&(!imageUploaded&&isAdmin)?(
+
                 <UploadButton
                 className="mt-4 ut-button:bg-red-500 ut-button:ut-readying:bg-red-500/50"
                 endpoint="imageUploader"
@@ -220,8 +223,12 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
                 onUploadError={(error: Error) => {
                 alert(`ERROR! ${error.message}`);
                 }}
-                disabled={imageUploaded?true:false} />
-            ):null}
+                disabled={imageUploaded?true:false}
+                config={{mode: "manual"}}
+                 />
+            ):<p style={{ color: "green" }}>Image set correctly.</p>
+            
+            }
             <Input isRequired name="preferencia" type="number" label="Preferencia" description="Orden en categoría" size="sm" className="max-w-[120px]" defaultValue={tech?.preferencia.toString()}/>
             <Input isRequired name="badge" type="string" label="Badge MD" description="Badge para usar en markdown" size="md"  defaultValue={tech?.badge}/>
             <Input isRequired name="color" type="color-hex" label="Color" description="Color que se pueda usar como logo en los badges de shields.io" size="sm" variant="underlined" labelPlacement="outside-left" defaultValue={tech?.color} />
