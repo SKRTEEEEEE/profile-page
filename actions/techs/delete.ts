@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { actualizarJson } from "./actualizarJson";
 import { connectToDB } from "@/utils/db-connect";
 import { fetchFileSha, updateFileContent } from "./utils";
+import { utapi } from "@/app/api/uploadthing/core";
 
 
 
@@ -131,8 +132,13 @@ async function updateMd() {
 }
 
 
-async function doDelete (tipo:string, name:string) {
+async function doDelete (tipo:string, name:string, img: string) {
     console.log(`${tipo} ${name} eliminada correctamente`);
+    const fileName = img.split('/').pop();
+    if (fileName) {
+        const { success, deletedCount } = await utapi.deleteFiles(fileName);
+        console.log(`Eliminada: ${success} \n ${deletedCount} Imagen ${fileName} perteneciente a: ${tipo} ${name}`);
+    }
     await actualizarJson();
     console.log(`${tipo} ${name} eliminada correctamente del json`);
     await updateMd();
@@ -151,13 +157,14 @@ export async function deleteTech(name: string) {
         if (lenguaje) {
             const frameworkIndex = lenguaje.frameworks.findIndex((fw:IFramework) => fw.librerias?.some((lib:ILibreria) => lib.name === name));
             const libreriaIndex = lenguaje.frameworks[frameworkIndex].librerias.findIndex((lib:ILibreria) => lib.name === name);
+            const libreria = lenguaje.frameworks[frameworkIndex].librerias.find((lib:ILibreria) => lib.name === name);
 
             // Eliminar la librería
             lenguaje.frameworks[frameworkIndex].librerias.splice(libreriaIndex, 1);
-
+            console.log("libreria: ",libreria)
             proyectoActualizado = await lenguaje.save();
             if (proyectoActualizado) {
-                const res = await doDelete("Librería", name);
+                const res = await doDelete("Librería", name, libreria.img);
                 return res;
             }
         }
@@ -166,21 +173,24 @@ export async function deleteTech(name: string) {
         lenguaje = await LenguajesModel.findOne({ "frameworks.name": name });
         if (lenguaje) {
             const frameworkIndex = lenguaje.frameworks.findIndex((fw:IFramework) => fw.name === name);
+            const framework = lenguaje.frameworks.find((fw:IFramework) => fw.name === name);
+
 
             // Eliminar el framework
             lenguaje.frameworks.splice(frameworkIndex, 1);
 
             proyectoActualizado = await lenguaje.save();
             if (proyectoActualizado) {
-                const res = await doDelete("Framework", name);
+                const res = await doDelete("Framework", name, framework.img);
                 return res;
             }
         }
 
         // Buscar en lenguajes
         const lenguajeEliminado = await LenguajesModel.findOneAndDelete({ name: name });
+        console.log("lenguaje eliminado: ", lenguajeEliminado)
         if (lenguajeEliminado) {
-            const res = await doDelete("Lenguaje", name);
+            const res = await doDelete("Lenguaje", name, lenguajeEliminado.img);
             return res;
         }
         console.log(`No se encontró una tecnología con el nombre especificado: ${name}`);
