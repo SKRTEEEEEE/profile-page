@@ -130,15 +130,19 @@ async function updateMd() {
         throw new Error('Error actualizando el archivo .md');
     }
 }
-
-
-async function doDelete (tipo:string, name:string, img: string) {
-    console.log(`${tipo} ${name} eliminada correctamente`);
+export async function deleteImage (img: string) {
     const fileName = img.split('/').pop();
     if (fileName) {
         const { success, deletedCount } = await utapi.deleteFiles(fileName);
-        console.log(`Eliminada: ${success} \n ${deletedCount} Imagen ${fileName} perteneciente a: ${tipo} ${name}`);
+        console.log(`Eliminada: ${success} \n ${deletedCount} Imagen ${fileName}`);
+        return success
     }
+    return false
+}
+
+async function doDelete (tipo:string, name:string, img: string) {
+    console.log(`${tipo} ${name} eliminada correctamente`);
+    await deleteImage(img)
     await actualizarJson();
     console.log(`${tipo} ${name} eliminada correctamente del json`);
     await updateMd();

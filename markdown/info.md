@@ -43,6 +43,9 @@ Creación de la lógica de autentificación usando JWT, blockchain y bdd. Princi
 ##### JWT with Thirdweb auth
 ##### CRUD "admins" 
 ##### CRUD "users"
+#### v01.04 -> images and order info
+##### add nextra for docs
+##### add uploadthing for images
 
 
 ## [Esquemas](resum.md)

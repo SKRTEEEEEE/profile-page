@@ -1,6 +1,6 @@
 "use client"
 
-import { publicarUser, updateUser, uploadFile } from "@/actions/user";
+import { publicarUser, updateFile, updateUser, uploadFile } from "@/actions/user";
 import { Button, Input, Spinner, Switch } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 // import CConnectButton from "../main/custom-connect-button";
@@ -76,33 +76,46 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, cookies }) => {
       //     console.log(key, value);
       //   }
       // });
-      let imageUrl:any = '';
-      try {
-        imageUrl = await uploadFile(formData);
-      } catch (error) {
-        throw new Error("Error al subir la imagen:" + error);
-      }
-      const data: any = Object.fromEntries(formData.entries());
-      // console.log("noIsAdmin: ", noIsAdmin)
-      // console.log("!data.noIsAdmin: ", !noIsAdmin)
-
-      const isAdminParsed = isAdmin ? !noIsAdmin : false;
-      // console.log("isAdminParsed: ", isAdminParsed)
-      const transData: UserData = {
-        nick: data.nick,
-        address: address,
-        isAdmin: isAdminParsed,
-        solicitudAdmin: !isAdmin ? solicitarIsAdmin : false,
-        img: imageUrl
-
+      const setData = async (
+        formData: FormData,
+        fn: (formData: FormData, url?: string) => Promise<string>,
+        url?: string,
+      ): Promise<UserData> => {
+        let imageUrl: string;
+        try {
+          if(url){
+            imageUrl = await fn(formData, url)
+          }else{
+            imageUrl = await fn(formData);
+          }
+          
+        } catch (error) {
+          throw new Error("Error al subir la imagen:" + error);
+        }
+      
+        const data: Record<string, any> = Object.fromEntries(formData.entries());
+      
+        const isAdminParsed = isAdmin ? !noIsAdmin : false;
+      
+        const transData: UserData = {
+          nick: data.nick,
+          address: address,
+          isAdmin: isAdminParsed,
+          solicitudAdmin: !isAdmin ? solicitarIsAdmin : false,
+          img: imageUrl,
+        };
+      
+        console.log("transData: ", transData);
+        return transData;
       };
-      console.log("transData: ",transData)
+      
       let response;
       if (user === undefined) {
+        const transData = await setData(formData, uploadFile)
         response = await publicarUser(transData);
-        console.log("publicar user")
       } else {
         // console.log("updateUser, data: ", transData)
+        const transData = await setData(formData, updateFile, user.img)
         response = await updateUser(transData)
         if (response.success && address) {
 
@@ -162,7 +175,7 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, cookies }) => {
       )}
       {//Si foundUser === undefined -> no se ha registrado -> Si, mostrar input
       
-      !previewImage && !user?.img && (
+      !previewImage && (
         
       <input
         name="img"

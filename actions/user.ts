@@ -4,6 +4,7 @@ import { utapi } from "@/app/api/uploadthing/core";
 import { UserModel } from "@/models/user-schema";
 import { UserData } from "@/types/ui";
 import { connectToDB } from "@/utils/db-connect"
+import { deleteImage } from "./techs/delete";
 
 // NO HAY REVALIDATE NI REDIRECT
 
@@ -56,3 +57,11 @@ export async function uploadFile(formData: FormData) {
     if(!firstResult.data)throw new Error("No result: "+firstResult)
     return firstResult.data.url
   }
+
+export async function updateFile(formData: FormData, url?: string){
+    if(!url)throw new Error("Error al eliminar la imagen, se necesita url actual")
+    const deleted = await deleteImage(url)
+    if(!deleted)throw new Error("Error al eliminar la imagen")
+    const newUrl = await uploadFile(formData)
+    return newUrl
+}
