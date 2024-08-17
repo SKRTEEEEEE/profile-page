@@ -19,12 +19,18 @@
     - [ ] Hay que actualizar la bdd de los techs para incluir la información de la data (hard-cdd)
     - [ ] También unificar la lógica de las imágenes/logos
     - [ ] Actualizar el formulario de las techs para recoger la nueva información
-- [ ] **uploadthing** terminar crud imagenes techs
+- [x] **uploadthing** terminar crud imagenes techs
     - [x] Hacer el create image
+    _de momento se queda asi_
     - [ ] Falta adaptar a upload
         - [ ] Falta mostrar la imagen o algo cuando se ha subido?
-    - [ ] Hacer el delete image
+    - [x] Hacer el delete image
     - [x] Hacer el read
+- [ ] **uploadthing** terminar crud imagenes user
+    - [x] create
+    - [ ] update, ⚠️ FALTA hacer la logica de borrar imagen y subir la nueva
+- [ ] Borrar user
+    - [ ] delete, imagen user!!
 #### Frontend 
 - [ ] **Actualizar Admin Page**
     - [x] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD

@@ -9,4 +9,5 @@ export type FlattenUsers = {
     address: string,
     isAdmin: boolean,
     solicitudAdmin: boolean,
+    img?: string,
 }

@@ -40,7 +40,7 @@ export interface FullTechData extends CommonTechData {
     usogithub?: number; 
     
   }
-// Other tech data
+// Other tech data 
 export type TechLenguajeItem = {
     title: string;
     icon: React.ReactElement;
@@ -53,7 +53,15 @@ export type UserData = {
     address: string;
     isAdmin: boolean;
     solicitudAdmin: boolean;
+    img?: string;
   }
+// ADMIN DATA
+export type AdminData = {
+  userId: Types.ObjectId;
+  address: String;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
   
   
   

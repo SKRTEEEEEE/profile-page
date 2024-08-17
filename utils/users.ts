@@ -8,6 +8,7 @@ export const flattenUsers = (users: IUser[]): FlattenUsers[] =>{
         nick: user.nick?.toString(),
         address: user.address.toString(),
         isAdmin: user.isAdmin,
-        solicitudAdmin: user.solicitudAdmin
+        solicitudAdmin: user.solicitudAdmin,
+        ...(user.img && { img: user.img })
     }))
 }

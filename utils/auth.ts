@@ -1,7 +1,7 @@
 import { IAdmins } from '@/models/user-schema';
 import { useActiveAccount } from 'thirdweb/react';
 import { FlattenAdmin } from './utils.types';
-import { RGetCookies } from '@/actions/auth';
+import { JWTPayload, RGetCookies } from '@/actions/auth';
 
 export const useIsSuperAdmin = () => {
   const account = useActiveAccount();
@@ -23,7 +23,7 @@ export const flattenAdmin = (admins: IAdmins[]): FlattenAdmin[] => {
   }));
 };
 
-export const useCookies = (session: RGetCookies) => {
+export const useCookies = (session: RGetCookies | JWTPayload) => {
   if (session !== false) {
     const ctx: {} = session.ctx || {};
     return { ...ctx, address: session.sub };

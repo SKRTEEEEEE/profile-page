@@ -1,5 +1,6 @@
 "use server"
 
+import { utapi } from "@/app/api/uploadthing/core";
 import { UserModel } from "@/models/user-schema";
 import { UserData } from "@/types/ui";
 import { connectToDB } from "@/utils/db-connect"
@@ -34,3 +35,24 @@ export async function updateUser(data:UserData): Promise<{ success: boolean; mes
         return {success:false, message: `Error ${error}`}
     }
 }
+
+// User image
+
+export async function uploadFile(formData: FormData) {
+    console.log("formData: ",formData)
+    const fileEntries = formData.getAll("img");
+    if (fileEntries.length === 0) {
+      throw new Error("No se encontró ningún archivo de imagen");
+    }
+  
+    const file = fileEntries[0];
+    if (!(file instanceof File)) {
+      throw new Error("El elemento no es un archivo válido");
+    }
+  
+    const results = await utapi.uploadFiles([file]);
+    
+    const firstResult = results[0];
+    if(!firstResult.data)throw new Error("No result: "+firstResult)
+    return firstResult.data.url
+  }

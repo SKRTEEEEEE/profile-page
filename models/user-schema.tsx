@@ -1,12 +1,8 @@
-import mongoose, { Types } from 'mongoose';
+import { AdminData, UserData } from '@/types/ui';
+import mongoose from 'mongoose';
 
 // Definición del esquema de usuario
-export interface IUser extends Document {
-    nick?: string,
-    address: string,
-    isAdmin: boolean,
-    solicitudAdmin: boolean,
-}
+export interface IUser extends Document, UserData {}
 
 const userSchema = new mongoose.Schema({
     nick: String,
@@ -21,17 +17,13 @@ const userSchema = new mongoose.Schema({
     solicitudAdmin: {
         type: Boolean,
         required: true,
-    }
+    },
+    img: String
 }, { timestamps: true });
 
 
 // Definición del esquema de administrador
-export interface IAdmins extends Document {
-    userId: Types.ObjectId;
-    address: String;
-    createdAt?: Date;
-    updatedAt?: Date;
-}
+export interface IAdmins extends Document, AdminData {}
 
 const adminSchema = new mongoose.Schema({
     userId: {
