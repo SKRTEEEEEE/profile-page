@@ -17,6 +17,7 @@ const LibreriaSchema: Schema = new Schema({
     preferencia: { type: Number, required: true },
     color: { type: String, required: true },
     experiencia: { type: Number, required: true },
+    img: {type: String, required: true}
   }, { timestamps: true });
   
   const FrameworkSchema: Schema = new Schema({
@@ -26,6 +27,7 @@ const LibreriaSchema: Schema = new Schema({
     preferencia: { type: Number, required: true },
     color: { type: String, required: true },
     experiencia: { type: Number, required: true },
+    img: {type: String, required: true},
     librerias: [LibreriaSchema],
   }, { timestamps: true });
   
@@ -36,6 +38,7 @@ const LibreriaSchema: Schema = new Schema({
     preferencia: { type: Number, required: true },
     color: { type: String, required: true },
     experiencia: { type: Number, required: true },
+    img: {type: String, required: true},
     frameworks: [FrameworkSchema],
   }, { timestamps: true });
   

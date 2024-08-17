@@ -103,6 +103,7 @@ export const flattenTechs = (proyectos: ILenguaje[]) => {
             isFw: false,
             isLib: false,
             preferencia: proyecto.preferencia,
+            img: proyecto.img
         });
 
         proyecto.frameworks?.forEach((framework) => {
@@ -117,6 +118,7 @@ export const flattenTechs = (proyectos: ILenguaje[]) => {
             isFw: proyecto.name,
             isLib: false,
             preferencia: framework.preferencia,
+            img: proyecto.img
             });
 
             framework.librerias?.forEach((libreria) => {
@@ -131,6 +133,7 @@ export const flattenTechs = (proyectos: ILenguaje[]) => {
                     isFw: proyecto.name,
                     isLib: framework.name,
                     preferencia: libreria.preferencia,
+                    img: proyecto.img
                 });
             });
         });

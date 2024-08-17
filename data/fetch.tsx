@@ -2,7 +2,6 @@ import { LenguajesModel } from "@/models/lenguajes-schema";
 import { AdminModel, UserModel } from "@/models/user-schema";
 import { Web3ProjectModel } from "@/models/web3_project-schema";
 import { connectToDB } from "@/utils/db-connect";
-import { revalidatePath } from "next/cache";
 
 
 export const fetchWeb3Projects = async () => {

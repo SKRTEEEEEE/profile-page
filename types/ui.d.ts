@@ -8,6 +8,7 @@ export type CommonTechData = {
     badge: string;
     color: string;
     experiencia: number;
+    img: string;
 }
 //tech-formulario.tsx useAsyncList autocomplete
 export type TechBadge = {

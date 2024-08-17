@@ -16,6 +16,7 @@ import { actualizarJson } from "@/actions/techs/actualizarJson";
 import { FlattenAdmin } from "@/utils/utils.types";
 import { FrameworkData, FrameworksDispo, FullTechData, LenguajesDispo, LibreriaData, TechBadge } from "@/types/ui";
 import { ILenguaje } from "@/models/lenguajes-schema";
+import { UploadButton } from "@/utils/uploadthing";
 
 
 type FormularioTechsProps = {
@@ -37,6 +38,7 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
     const [selectedCat, setSelectedCat] = useState<string>(initialCatTech);
     const [inputValue, setInputValue] = useState<string>(tech?.name||'');
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [imageUploaded, setImageUploaded] = useState<string|false>(false);
 
     const isUpdating = !!tech;
 
@@ -82,6 +84,7 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
                 preferencia: parseInt(data.preferencia, 10),
                 color: data.color,
                 experiencia: parseFloat(data.experiencia),
+                img: imageUploaded
             };
     
             let transformedData;
@@ -204,6 +207,21 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
                     isRequired 
                 />
             }
+            {(!imageUploaded&&isAdmin)?(
+                <UploadButton
+                className="mt-4 ut-button:bg-red-500 ut-button:ut-readying:bg-red-500/50"
+                endpoint="imageUploader"
+                onClientUploadComplete={(res) => {
+                console.log("Files: ", res);
+                console.log("Url: ",res[0].url)
+                alert("Upload Completed");
+                setImageUploaded(res[0].url); // Deshabilita el dropzone después de la subida
+                }}
+                onUploadError={(error: Error) => {
+                alert(`ERROR! ${error.message}`);
+                }}
+                disabled={imageUploaded?true:false} />
+            ):null}
             <Input isRequired name="preferencia" type="number" label="Preferencia" description="Orden en categoría" size="sm" className="max-w-[120px]" defaultValue={tech?.preferencia.toString()}/>
             <Input isRequired name="badge" type="string" label="Badge MD" description="Badge para usar en markdown" size="md"  defaultValue={tech?.badge}/>
             <Input isRequired name="color" type="color-hex" label="Color" description="Color que se pueda usar como logo en los badges de shields.io" size="sm" variant="underlined" labelPlacement="outside-left" defaultValue={tech?.color} />

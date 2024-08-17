@@ -1,13 +1,6 @@
 # ToDo
 ## Remembers
-### Remember 06.2024 (Actual)
-
-#### Test
-- [x] **Test de los revalidatePath() y redirect()**
-    - [ ] En la accion de hacer Admin a un usuario, no hace falta redirigir a la ruta principal solo refrescar
-    - [x] Revisar uso en el cliente, en las funciones (NO-BADGES): _"En todas las funciones (MENOS LAS CREATE) se hace uso de revrd() functions"_
-    - [x] Es necesario✅ hacer uso de revalidatePath() en los "fetch data":   _/?Creo que ya esta_
-    - [x] Falta comprobar las funciones de auth: _?Creo, no es necesario ya que estas manejan el jwt y no 'acciones'?_ 
+### Remember 07.2024 (Actual)
 #### Other
 - [ ] **CLEAN CODE**
     - [ ] **Actions**
@@ -20,18 +13,18 @@
     - [x] Rename badges file
     - [x] **Types** v.01.04.1
     - [x] Search a logical structure for the project, use it and document it in Readme files
-- [x] **Averiguar porque no hace el Create desde el móvil**
-    - El create, y el Delete no funcionan en VERCEL
-    - Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
-    - No se actualizaba automáticamente por el uso del `revalidatePath()` y del `redirect()`:
-        - En muchas funciones no se utilizaba y ¿en las que si se utilizaba mal?
-        - [x] Test que la función updateMd() y updateJson() no sea necesario el uso de redirect(), ya que esta en medio de las ejecuciones y no al final.
-- [ ] **Configurar el analytics de Vercel!!!**    _FALTA TEST_
+
 #### Backend
 - [ ] **Unificar lógica techs (Data y BDD)**
     - [ ] Hay que actualizar la bdd de los techs para incluir la información de la data (hard-cdd)
     - [ ] También unificar la lógica de las imágenes/logos
     - [ ] Actualizar el formulario de las techs para recoger la nueva información
+- [ ] **uploadthing** terminar crud imagenes techs
+    - [x] Hacer el create image
+    - [ ] Falta adaptar a upload
+        - [ ] Falta mostrar la imagen o algo cuando se ha subido?
+    - [ ] Hacer el delete image
+    - [x] Hacer el read
 #### Frontend 
 - [ ] **Actualizar Admin Page**
     - [x] Hacer Techs Admin Page (para el update, delete) TERMINAR CRUD
@@ -40,9 +33,8 @@
     - [ ] Actualizar config page
 - [ ] **Empezar Frontend techs (about-me page)**
     - [ ]Empezar el Read del CRUD de las techs en la pagina web.
-
 #### Documentación
-- [x] Actualizar documentación v01.02
+#### Test
 
 ### Dudas/buggs
 #### Switch Account button -> "revalidate" JWT
@@ -107,6 +99,23 @@ Creo, ? al aceptar un nuevo usuario como admin, y este iniciarse, nose si recoje
 - [x] Create ->Librería, Framework y Lenguaje
 - [x] Delete cascada ->Lenguaje y Framework 
 - [x] Delete ->Librería, Framework y Lenguaje
+### Remember 06.2024
+#### Test
+- [x] **Test de los revalidatePath() y redirect()**
+    - [ ] En la accion de hacer Admin a un usuario, no hace falta redirigir a la ruta principal solo refrescar
+    - [x] Revisar uso en el cliente, en las funciones (NO-BADGES): _"En todas las funciones (MENOS LAS CREATE) se hace uso de revrd() functions"_
+    - [x] Es necesario✅ hacer uso de revalidatePath() en los "fetch data":   _/?Creo que ya esta_
+    - [x] Falta comprobar las funciones de auth: _?Creo, no es necesario ya que estas manejan el jwt y no 'acciones'?_ 
+#### Documentación
+- [x] Actualizar documentación v01.02
+#### Other
+- [x] **Averiguar porque no hace el Create desde el móvil**
+    - El create, y el Delete no funcionan en VERCEL
+    - Esta fallando por tiempo de ejecución superior a 10sec (Limite para funciones SINCRÓNICAS)
+    - No se actualizaba automáticamente por el uso del `revalidatePath()` y del `redirect()`:
+        - En muchas funciones no se utilizaba y ¿en las que si se utilizaba mal?
+        - [x] Test que la función updateMd() y updateJson() no sea necesario el uso de redirect(), ya que esta en medio de las ejecuciones y no al final.
+- [x] **Configurar el analytics de Vercel!!!**    _FALTA TEST_
 
 
 *** 

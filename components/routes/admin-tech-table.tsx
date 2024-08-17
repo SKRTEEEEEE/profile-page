@@ -36,11 +36,11 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({lenguajes, session}) => 
   const renderCell = (item: FullTechData, columnKey: string) => {
     switch (columnKey) {
       case "name":
-        const language = lenguajesResources.find(lang => lang.title === item.name);
+        const langHardcdd = lenguajesResources.find(lang => lang.title === item.name);
         return (
           <TableCell>
             <User
-              avatarProps={{ radius: "lg", src: language?.img, icon: language?.icon }}
+              avatarProps={{ radius: "lg", src: item.img, icon: langHardcdd?.icon }}
               description={<UserDescAdminTechTable item={item} />}
               name={item.name}
             >

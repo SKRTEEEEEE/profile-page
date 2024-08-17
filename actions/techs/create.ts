@@ -9,17 +9,19 @@ import { FrameworkData, LibreriaData } from "@/types/ui";
 import { connectToDB } from "@/utils/db-connect";
 // CREATE (se usa la funcion revalidateLenguajes en el "client")
 // Actualizar base de datos sin operaciones de archivo
-export async function publicarLeng({ name, afinidad, badge, preferencia, color, experiencia }: CommonTechData) {
+export async function publicarLeng({ name, afinidad, badge, preferencia, color, experiencia, img }: CommonTechData) {
     await connectToDB();
+    console.log("img: ",img)
     const nuevoProyecto = new LenguajesModel({
         name,
         afinidad,
         badge,
         preferencia,
         color,
-        experiencia
+        experiencia,
+        img
     });
-
+    console.log("nuevo proyecto: ",nuevoProyecto)
     try {
         const proyectoGuardado = await nuevoProyecto.save();
         console.log("Proyecto guardado correctamente:", proyectoGuardado);
@@ -30,7 +32,7 @@ export async function publicarLeng({ name, afinidad, badge, preferencia, color, 
     }
 }
 
-export async function publicarFwALeng({ name, afinidad, badge, preferencia, color, experiencia, lenguajeTo }: FrameworkData) {
+export async function publicarFwALeng({ name, afinidad, badge, preferencia, color, experiencia,img, lenguajeTo }: FrameworkData) {
     await connectToDB();
     const nuevoFramework = {
         name,
@@ -38,7 +40,8 @@ export async function publicarFwALeng({ name, afinidad, badge, preferencia, colo
         badge,
         preferencia,
         color,
-        experiencia
+        experiencia, 
+        img
     };
     
     try {
@@ -57,7 +60,7 @@ export async function publicarFwALeng({ name, afinidad, badge, preferencia, colo
     }
 }
 
-export async function publicarLibAFw({ name, afinidad, badge, preferencia, color, experiencia, lenguajeTo, frameworkTo }: LibreriaData) {
+export async function publicarLibAFw({ name, afinidad, badge, preferencia, color, experiencia,img, lenguajeTo, frameworkTo }: LibreriaData) {
     await connectToDB();
     try {
         const nuevaLibreria = {
@@ -66,7 +69,8 @@ export async function publicarLibAFw({ name, afinidad, badge, preferencia, color
             badge,
             preferencia,
             color,
-            experiencia
+            experiencia,
+            img
         };
 
         const lenguaje = await LenguajesModel.findOne({ name: lenguajeTo });
