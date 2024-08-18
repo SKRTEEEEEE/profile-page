@@ -1,0 +1,9 @@
+export class User {
+    constructor(
+        public id: string,
+        public name: string,
+        public roleId: string|null,
+        public createdAt: string,
+        public updatedAt: string
+    ){}
+}
