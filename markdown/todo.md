@@ -18,6 +18,7 @@
 - [ ] **Unificar lógica techs (Data y BDD)**
     - [ ] Hay que actualizar la bdd de los techs para incluir la información de la data (hard-cdd)
     - [ ] También unificar la lógica de las imágenes/logos
+- [ ] **Formulario varios pasos/paginas**
     - [ ] Actualizar el formulario de las techs para recoger la nueva información
 - [x] **uploadthing** terminar crud imagenes techs
     - [x] Hacer el create image
@@ -28,7 +29,7 @@
     - [x] Hacer el read
 - [ ] **uploadthing** terminar crud imagenes user
     - [x] create
-    - [ ] update, ⚠️ FALTA hacer la logica de borrar imagen y subir la nueva
+    - [x] update, ⚠️ FALTA hacer la logica de borrar imagen y subir la nueva
 - [ ] Borrar user
     - [ ] delete, imagen user!!
 #### Frontend 

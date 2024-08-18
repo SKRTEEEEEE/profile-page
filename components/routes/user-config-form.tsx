@@ -3,8 +3,6 @@
 import { publicarUser, updateFile, updateUser, uploadFile } from "@/actions/user";
 import { Button, Input, Spinner, Switch } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
-// import CConnectButton from "../main/custom-connect-button";
-
 import Link from "next/link";
 import { updateUserAdminStatus } from "@/actions/admin";
 import { generatePayload, JWTPayload } from "@/actions/auth";
@@ -27,11 +25,7 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, cookies }) => {
   const [noIsAdmin, setNoIsAdmin] = useState<boolean>(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-
-  // const { isAdmin, account } = useIsAdmin(admins);
   const {isAdmin, address} = useCookies(cookies)
-
   const [user, setUser] = useState<FlattenUsers | undefined>(undefined);
 
   useEffect(() => {
@@ -54,8 +48,6 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, cookies }) => {
 
     const imageUrl = URL.createObjectURL(file);
     setPreviewImage(imageUrl);
-
-
   }
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -118,7 +110,6 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, cookies }) => {
         const transData = await setData(formData, updateFile, user.img)
         response = await updateUser(transData)
         if (response.success && address) {
-
           //Solo para eliminar de admin
           if (noIsAdmin) {
             const account = useActiveAccount()
@@ -137,7 +128,6 @@ const UserConfigForm: React.FC<UserConfigFormProps> = ({ users, cookies }) => {
 
       if (response.success) {
         alert(`¡Felicidades! ${response.message}`);
-        // await serverRev("/admin/users")
         await serverRev("/admin")
         await revrd("/dashboard");
       } else {
