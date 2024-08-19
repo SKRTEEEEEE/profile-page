@@ -75,3 +75,6 @@ export async function assignRole(id:string,formData:FormData){
     await userRole.assignRoleToUser(id,rolePermission)
     }
 }
+export async function updateRole(id:string, formData:FormData){
+    
+}
