@@ -3,7 +3,7 @@ import { UserRepository } from "@/core/domain/repositories/UserResository";
 
 export class UpdateUser {
     constructor(private userRepository:UserRepository){}
-    async execute(user:User): Promise<User> {
-        return await this.userRepository.update(user)
+    async execute(id:string, name:string): Promise<User> {
+        return await this.userRepository.update(id,name)
     }
 }

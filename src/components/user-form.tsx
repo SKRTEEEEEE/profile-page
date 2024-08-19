@@ -4,18 +4,21 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 
-import { createUser } from "@/actions/user-actions";
+import { createUser, updateUser } from "@/actions/user-actions";
 
 
 
-export default function UserForm() {
+export default function UserForm({id}: {id?:string}) {
+    let updateUserWithId
+    if(typeof id==="string"){
+    updateUserWithId = updateUser.bind(null, id)}
 
   return (
   
       
         <div>
           <h2 className="text-2xl font-bold mb-4">Create User</h2>
-          <form action={createUser} className="space-y-4">
+          <form action={id?updateUserWithId:createUser} className="space-y-4">
             <div>
               <label htmlFor="name" className="block font-medium text-gray-700">
                 Name

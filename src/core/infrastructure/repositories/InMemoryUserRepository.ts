@@ -15,13 +15,23 @@ export class InMemoryUserRepository implements UserRepository{
         const user = this.users.find(user => user.id === id);
         return user || null;
     }
-    async update(_user: User): Promise<User> {
-        const index = this.users.findIndex(user => user.id === _user.id);
-        if (index !== -1) {
-            this.users[index] = _user;
-            return _user;
+    async update(id: string, name:string ): Promise<User> {
+        if(!this.users)throw new Error("No users in memory")
+        const user: User | undefined = this.users.find(u=>u.id === id)
+        if(!user) throw new Error("Error at find user")
+        const index = this.users.findIndex(user => user.id === id);
+        const newUser = {
+            id,
+            name,
+            roleId: user.roleId || null,
+            createdAt: user.createdAt,
+            updatedAt: Date.now().toString()
         }
-        throw new Error(`User with id ${_user.id} not found`);
+        if (index !== -1) {
+            this.users[index] = newUser;
+            return newUser;
+        }
+        throw new Error(`User with id ${id} not found`);
     }
     async delete(id: string): Promise<void> {
         const index = this.users.findIndex(user => user.id === id);
