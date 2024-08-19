@@ -24,3 +24,27 @@ export class CreateUser {
     return createdUser;
   }
 }
+export class DeleteUser {
+    constructor(private userRepository:UserRepository){}
+    async execute(id:string): Promise<void> {
+        return await this.userRepository.delete(id)
+    }
+}
+export class ListUser {
+    constructor(private userRepository:UserRepository){}
+    async execute(id: string): Promise<User|null> {
+        return await this.userRepository.findById(id)
+    }
+}
+export class ListUsers {
+    constructor(private userRepository:UserRepository){}
+    async execute(): Promise<User[]|null> {
+        return await this.userRepository.findAll()
+    }
+}
+export class UpdateUser {
+    constructor(private userRepository:UserRepository){}
+    async execute(id:string, name:string): Promise<User> {
+        return await this.userRepository.update(id,name)
+    }
+}

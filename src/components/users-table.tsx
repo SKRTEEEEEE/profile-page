@@ -1,5 +1,6 @@
 import { listUsers } from "@/actions/user-actions";
 import Link from "next/link";
+import DeleteUserButton from "./delete-user-button";
 
 export default async function UsersTable () {
     const users = await listUsers()
@@ -30,9 +31,6 @@ export default async function UsersTable () {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">{user.name}</div>
                   </td>
-                  {/* <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{user.email}</div>
-                  </td> */}
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <Link
@@ -41,9 +39,7 @@ export default async function UsersTable () {
                       >
                         Edit
                       </Link>
-                      <button className="text-red-500 hover:text-red-700">
-                        Delete
-                      </button>
+                      <DeleteUserButton id={user.id} />
                     </div>
                   </td>
                 </tr>

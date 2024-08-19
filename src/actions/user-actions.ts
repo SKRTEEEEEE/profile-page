@@ -1,21 +1,17 @@
 "use server"
 
-import { CreateUser } from "@/core/application/usecases/CreateUser";
-import { ListUsers } from "@/core/application/usecases/ListUsers";
-import { UpdateUser } from "@/core/application/usecases/UpdateUser";
-import { RoleType } from "@/core/domain/entities/Role";
+
+import { CreateUser, DeleteUser, ListUsers, UpdateUser } from "@/core/application/usecases/user";
 import { InMemoryUserRepository } from "@/core/infrastructure/repositories/InMemoryUserRepository";
+import { validateStringField } from "@/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 const userRepository = new InMemoryUserRepository()
 
 export async function createUser(formData:FormData) {
-    const name = formData.get("name")
-    if (typeof name !== 'string' || !name) {
-        throw new Error("Error with name");
-    }    
-    console.log("name: ",name)
+    const formName = formData.get("name")
+    const name = validateStringField(formName, "name")
     const create = new CreateUser(userRepository)
     const newUser = await create.execute({  // Usa el nuevo nombre aquí
         id: Date.now().toString() + name,
@@ -32,18 +28,23 @@ export async function createUser(formData:FormData) {
 export async function listUsers(){
     const users = new ListUsers(userRepository);
     const listUsers = await users.execute()
-    console.log("listUsers: ", listUsers);
     return listUsers
 }
 
 export async function updateUser(id:string ,formData:FormData){
     const nameEntry = formData.get("name");
-    if (typeof nameEntry !== 'string' || !nameEntry) throw new Error("Error with name");
-    const name: string = nameEntry
+    const name = validateStringField(nameEntry, "name")
     const update = new UpdateUser(userRepository)
     await update.execute(
         id,
         name)
     revalidatePath("/")
     redirect("/")
+}
+export async function deleteUser(formData:FormData){
+    const idEntry = formData.get("id")
+    const id = validateStringField(idEntry, "id")
+    const d = new DeleteUser(userRepository)
+    await d.execute(id)
+    revalidatePath("/")
 }

@@ -17,7 +17,9 @@ export class InMemoryUserRepository implements UserRepository{
     }
     async update(id: string, name:string ): Promise<User> {
         if(!this.users)throw new Error("No users in memory")
-        const user: User | undefined = this.users.find(u=>u.id === id)
+        const user: User | undefined = this.users.find(u=>{
+            return u.id === id
+        })
         if(!user) throw new Error("Error at find user")
         const index = this.users.findIndex(user => user.id === id);
         const newUser = {
