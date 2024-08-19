@@ -1,15 +1,17 @@
 import { Role } from "@/core/domain/entities/Role";
 import { RoleRepository } from "@/core/domain/repositories/RoleRepository";
 
+//⬇️⛔🆘 No sera necesario usar CreateRole, o otros usecases parecidos ya que eso seran services, al utilizar User y Role
+//🙋‍♂️⚠️➡️ Aquí solo pondremos usecases como ListRole, ListRolesByPermission, etc...: Solo utilizan el Role
 
-export class CreateRole {
-  constructor(private roleRepository: RoleRepository) {}
+// export class CreateRole {
+//   constructor(private roleRepository: RoleRepository) {}
 
-  async execute(rol: Role): Promise<Role> {
-    const createdRole = await this.roleRepository.create(rol)
-    return createdRole;
-  }
-}
+//   async execute(rol: Role): Promise<Role> {
+//     const createdRole = await this.roleRepository.create(rol)
+//     return createdRole;
+//   }
+// }
 export class DeleteRole {
     constructor(private roleRepository: RoleRepository) {}
   
@@ -26,11 +28,3 @@ async execute(id: string): Promise<Role|null> {
     return findedRole;
 }
 }
-export class UpdateRole {
-    constructor(private roleRepository: RoleRepository) {}
-  
-    async execute(role: Role): Promise<Role> {
-      const updatedRole = await this.roleRepository.update(role)
-      return updatedRole;
-    }
-  }

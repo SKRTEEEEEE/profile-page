@@ -15,8 +15,9 @@ export class InMemoryUserRepository implements UserRepository{
         const user = this.users.find(user => user.id === id);
         return user || null;
     }
-    async update(id: string, name:string ): Promise<User> {
-        if(!this.users)throw new Error("No users in memory")
+    async update(id: string, name:string,roleId?:string ): Promise<User> {
+        if(!this.users)throw new Error("No users in memory");
+        
         const user: User | undefined = this.users.find(u=>{
             return u.id === id
         })
@@ -25,10 +26,11 @@ export class InMemoryUserRepository implements UserRepository{
         const newUser = {
             id,
             name,
-            roleId: user.roleId || null,
+            roleId: roleId?roleId:user.roleId || null,
             createdAt: user.createdAt,
             updatedAt: Date.now().toString()
         }
+        console.log("newUser: ",newUser)
         if (index !== -1) {
             this.users[index] = newUser;
             return newUser;

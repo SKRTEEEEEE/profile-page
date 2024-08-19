@@ -1,6 +1,7 @@
 import { listUsers } from "@/actions/user-actions";
 import Link from "next/link";
 import DeleteUserButton from "./delete-user-button";
+import EditRoleSelect from "./edit-role-select";
 
 export default async function UsersTable () {
     const users = await listUsers()
@@ -40,6 +41,7 @@ export default async function UsersTable () {
                         Edit
                       </Link>
                       <DeleteUserButton id={user.id} />
+                      <EditRoleSelect id={user.id}/>
                     </div>
                   </td>
                 </tr>

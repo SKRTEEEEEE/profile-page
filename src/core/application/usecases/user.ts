@@ -16,6 +16,13 @@ import { UserRepository } from "@/core/domain/repositories/UserResository";
 
 //     }
 // }
+export class ListUserById{
+    constructor(private userRepository:UserRepository){}
+    async execute(id:string){
+        const user = await this.userRepository.findById(id)
+        return user
+    }
+}
 export class CreateUser {
   constructor(private userRepository: UserRepository) {}
 

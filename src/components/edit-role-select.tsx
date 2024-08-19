@@ -1,0 +1,35 @@
+/**
+ * v0 by Vercel.
+ * @see https://v0.dev/t/G5HGXlOOEm4
+ * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+ */
+
+import { assignRole, listUserById } from "@/actions/user-actions";
+
+
+
+export default async function EditRoleSelect({id}: {id:string}) {
+const user = await listUserById(id)
+//<form action={user?.roleId ? "" :assingRoleWithId}>
+ const assingRoleWithId = assignRole.bind(null,id)
+  return(
+        <form action={assingRoleWithId}>
+        <div>
+            <label htmlFor="rolePermission" className="block font-medium text-gray-700">Role Permission</label>
+            <select id="role" name="rolePermission">
+                <option value="null">User</option>
+                <option value="ADMIN">Admin</option>
+                <option value="STUDENT">Student</option>
+                <option value="STUDENT_PRO">Student pro</option>
+            </select>
+        </div>
+        <button type="submit">Save type</button>
+        
+        </form>)
+        
+        
+    
+
+}
+
+
