@@ -31,7 +31,7 @@ export class LocalStorageUserRepository implements UserRepository {
       localStorage.setItem(this.storageKey, JSON.stringify(updatedUsers));
     }
   
-    private async findAll(): Promise<User[]> {
+    async findAll(): Promise<User[]> {
       const usersJson = localStorage.getItem(this.storageKey);
       return usersJson ? JSON.parse(usersJson) : [];
     }
