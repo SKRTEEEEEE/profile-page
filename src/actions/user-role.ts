@@ -6,12 +6,13 @@ import { UpdateRole } from "@/core/application/usecases/role";
 import { CreateUser, ListUserById, ListUsers, UpdateUser } from "@/core/application/usecases/user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { InMemoryRoleRepository } from "@/core/infrastructure/repositories/InMemoryRoleRepository";
-import { InMemoryUserRepository } from "@/core/infrastructure/repositories/InMemoryUserRepository";
+import { MongooseUserRepository } from "@/core/infrastructure/repositories/MongooseUserRepository";
 import { validateStringField } from "@/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-const userRepository = new InMemoryUserRepository()
+// const userRepository = new InMemoryUserRepository()
+const userRepository = new MongooseUserRepository()
 const roleRepository = new InMemoryRoleRepository()
 
 export async function createUser(formData:FormData) {

@@ -11,7 +11,7 @@ Test de arquitectura hexagonal con NextJs 14
 
 ## Proceso
 
-### Inicio
+### 1. Estructura user + "in memory repos"
 #### `npx create-next-app@latest`
 - Iniciar la aplicación usando el comando de NextJs, usando la carpeta "src".
 #### Estructura hexagonal
@@ -120,8 +120,15 @@ Test de arquitectura hexagonal con NextJs 14
             Delete
   </button>
 ```
+#### Estructura rol
+- Para este punto deberías tener hecho ya la estructura hexagonal de los rol. Incluido el repositorio `InMemoryRoleRepository`. Si hay alguna parte que aun no has hecho deberías terminarla en esta parte.
+- 💡🧠 ➡️ En este punto, piensa que use-cases serán necesarios y usarán solo el repositorio `InMemoryRoleRepository`.
 #### "Create" rol
 - Creamos la funcionalidad de crear un rol, al necesitar modificar el user para asignarle el id del su rol, recomendamos crear un "service", al utilizar ambos repositorios.
+#### "Update" rol
+- Creamos a la funcionalidad de modificar un rol, recomendamos en "services" también.
+- 🧠⚠️⏫ Recuerda que en el caso de que es usuario se modifique para ser de nuevo un usuario corriente, habrá que marcar como null su roleId.
+
 
 
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)
