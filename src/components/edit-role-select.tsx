@@ -4,7 +4,7 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 
-import { assignRole, listUserById, updateRole } from "@/actions/user-actions";
+import { assignRole, listUserById, updateRole } from "@/actions/user-role";
 
 
 

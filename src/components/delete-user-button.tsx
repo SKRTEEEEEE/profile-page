@@ -1,4 +1,4 @@
-import { deleteUser } from "@/actions/user-actions";
+import { deleteUser } from "@/actions/user-role";
 
 
 export default async function DeleteUserButton({id}:{id:string}) {

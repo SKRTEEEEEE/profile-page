@@ -4,7 +4,7 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 
-import { createUser, updateUser } from "@/actions/user-actions";
+import { createUser, updateUser } from "@/actions/user-role";
 
 
 

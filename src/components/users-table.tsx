@@ -1,4 +1,4 @@
-import { listUsers } from "@/actions/user-actions";
+import { listUsers } from "@/actions/user-role";
 import Link from "next/link";
 import DeleteUserButton from "./delete-user-button";
 import EditRoleSelect from "./edit-role-select";
