@@ -1,47 +1,11 @@
 import { User } from '@/core/domain/entities/User';
 import { UserRepository } from '@/core/domain/repositories/UserResository';
-import { UserDocument, UserModel } from '@/models/UserSchema';
-import mongoose, { Connection } from 'mongoose';
+import { UserDocument, UserModel } from '@/models/user-role-schema';
+import { MongoDbConnection } from '../adapters/mongo-db-connection';
 
-type DBConnection = {
-    isConnected: boolean;
-    //connection?: Connection;-es necesario?-   Para almacenar la conexión una vez establecida
-  }
 
-export const connectToDB = async ():Promise<Connection> => {
-  const connection: DBConnection = {isConnected: false};
-  try {
-    if (connection.isConnected) return mongoose.connection;
-    const db = await mongoose.connect(process.env.MONGODB_URI || "");
-    connection.isConnected = db.connections[0].readyState === 1;
-    console.log("Connected!");
-    return db.connection;
-    
-  } catch (error: any) {
-    throw new Error(error);
-  }
-};
-export class MongooseUserRepository implements UserRepository {
-    private connection: Connection | null = null;
-    private async connect(): Promise<void> {
-        if (!this.connection) {
-            try {
-                this.connection = await connectToDB();
-            } catch (error) {
-                console.error("Failed to connect to the database:", error);
-                throw new Error("Unable to establish database connection");
-            }
-        }
-    }
-    public async getConnection(): Promise<Connection> {
-        if (!this.connection) {
-            await this.connect();
-        }
-        if (!this.connection) {
-            throw new Error("Database connection not established.");
-        }
-        return this.connection;
-    }
+export class MongooseUserRepository extends MongoDbConnection implements UserRepository {
+
     async create(user: User): Promise<User> {
         await this.connect();
         const newUser = new UserModel(user)
@@ -69,6 +33,7 @@ export class MongooseUserRepository implements UserRepository {
     
         // Guarda los cambios en la base de datos
         const updatedUser = await user.save();
+        console.log("updated user: ",updatedUser)
         return this.documentToUser(updatedUser); // Convierte el documento actualizado a la entidad User
     }
     async delete(id:string):Promise<void> {

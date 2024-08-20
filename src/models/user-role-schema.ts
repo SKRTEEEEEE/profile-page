@@ -24,7 +24,7 @@ const userSchema = new Schema({
 })
 const roleSchema = new Schema({
     name: { type: String, required: true },
-    permissions: { type: String, required: true }
+    permissions: { type: String, required: true, enum: ['ADMIN', 'STUDENT', 'STUDENT_PRO'], }
 }, {
     timestamps: true // Esto habilita los campos createdAt y updatedAt automáticamente
 }
