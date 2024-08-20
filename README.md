@@ -120,6 +120,8 @@ Test de arquitectura hexagonal con NextJs 14
             Delete
   </button>
 ```
+#### "Create" rol
+- Creamos la funcionalidad de crear un rol, al necesitar modificar el user para asignarle el id del su rol, recomendamos crear un "service", al utilizar ambos repositorios.
 
 
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)

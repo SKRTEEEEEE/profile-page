@@ -2,7 +2,8 @@
 
 
 import { UserRoleService } from "@/core/application/services/user-role";
-import { CreateUser, DeleteUser, ListUserById, ListUsers, UpdateUser } from "@/core/application/usecases/user";
+import { UpdateRole } from "@/core/application/usecases/role";
+import { CreateUser, ListUserById, ListUsers, UpdateUser } from "@/core/application/usecases/user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { InMemoryRoleRepository } from "@/core/infrastructure/repositories/InMemoryRoleRepository";
 import { InMemoryUserRepository } from "@/core/infrastructure/repositories/InMemoryUserRepository";
@@ -48,11 +49,12 @@ export async function updateUser(id:string ,formData:FormData){
     revalidatePath("/")
     redirect("/")
 }
+//⚠️hay que modificar para eliminar el role si existe
 export async function deleteUser(formData:FormData){
     const idEntry = formData.get("id")
     const id = validateStringField(idEntry, "id")
-    const d = new DeleteUser(userRepository)
-    await d.execute(id)
+    const s = new UserRoleService(userRepository, roleRepository)
+    await s.deleteUser(id)
     revalidatePath("/")
 }
 export async function assignRole(id:string,formData:FormData){
@@ -75,6 +77,26 @@ export async function assignRole(id:string,formData:FormData){
     await userRole.assignRoleToUser(id,rolePermission)
     }
 }
+
+//hay que modificar el update para que cuando haga delete se borre tmb de user, para eso modificaremos/eliminaremos deleteRole, y lo pasaremos a service
 export async function updateRole(id:string, formData:FormData){
-    
+    const roleEntry = formData.get("rolePermission")
+    const listUserById = new ListUserById(userRepository)
+    const user = await listUserById.execute(id)
+    if (typeof roleEntry !== 'string') {
+        throw new Error("Role permission must be a string");
+    }
+    if(!user?.roleId)throw new Error("No se ha encontrado roleId en el usuario")
+    if(roleEntry==="null"){
+        const service = new UserRoleService( userRepository, roleRepository)
+        service.deleteRole(user.roleId,id)
+    }else{
+    if (!Object.values(RoleType).includes(roleEntry as RoleType)) {
+            throw new Error("Invalid role permission");
+    }
+    const rolePermission = roleEntry as RoleType;
+
+    const edit = new UpdateRole(roleRepository)
+    edit.execute(user.roleId, rolePermission)
+    }
 }

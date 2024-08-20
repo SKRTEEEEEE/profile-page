@@ -12,14 +12,14 @@ import { RoleRepository } from "@/core/domain/repositories/RoleRepository";
 //     return createdRole;
 //   }
 // }
-export class DeleteRole {
-    constructor(private roleRepository: RoleRepository) {}
+// export class DeleteRole {
+//     constructor(private roleRepository: RoleRepository) {}
   
-    async execute(id: string): Promise<void> {
-      await this.roleRepository.delete(id)
+//     async execute(id: string): Promise<void> {
+//       await this.roleRepository.delete(id)
       
-    }
-  }
+//     }
+//   }
 export class ListRole {
 constructor(private roleRepository: RoleRepository) {}
 

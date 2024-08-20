@@ -6,7 +6,7 @@ export class InMemoryRoleRepository implements RoleRepository {
 
   async create(role: Role): Promise<Role> {
     this.roles.push(role);
-    console.log("role: ", role)
+    console.log("create role: ", role)
     return role;
   }
   async findById(id:string) {
@@ -27,6 +27,7 @@ export class InMemoryRoleRepository implements RoleRepository {
     const index = this.roles.findIndex(user=>user.id===id)
     if(index!==-1){
         this.roles[index] = newRole;
+        console.log("update role:",newRole)
         return newRole;
     }
     throw new Error(`Role with id ${id} not found`)
@@ -35,6 +36,7 @@ export class InMemoryRoleRepository implements RoleRepository {
     const index = this.roles.findIndex(role=>role.id===id)
     if (index !== -1) {
         this.roles.splice(index, 1);
+        console.log("delete role index: ",index)
     } else {
         throw new Error(`Role with id ${id} not found`);
     }

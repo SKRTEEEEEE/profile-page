@@ -4,16 +4,17 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 
-import { assignRole, listUserById } from "@/actions/user-actions";
+import { assignRole, listUserById, updateRole } from "@/actions/user-actions";
 
 
 
 export default async function EditRoleSelect({id}: {id:string}) {
 const user = await listUserById(id)
-//<form action={user?.roleId ? "" :assingRoleWithId}>
+//
  const assingRoleWithId = assignRole.bind(null,id)
+ const updateRoleWithId = updateRole.bind(null,id)
   return(
-        <form action={assingRoleWithId}>
+        <form action={user?.roleId ? updateRoleWithId : assingRoleWithId}>
         <div>
             <label htmlFor="rolePermission" className="block font-medium text-gray-700">Role Permission</label>
             <select id="role" name="rolePermission">

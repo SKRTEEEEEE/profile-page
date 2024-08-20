@@ -12,4 +12,19 @@ export class UserRoleService {
         console.log("createdRole: ", createdRole)
         await this.userRepository.update(userId,user.name,createdRole.id)
     }
+    async deleteRole(idRole: string, idUser: string): Promise<void> {
+        await this.roleRepository.delete(idRole)
+        await this.userRepository.deleteRoleId(idUser)
+        
+    }
+    async deleteUser(id:string): Promise<void> {
+        const user = await this.userRepository.findById(id)
+        if(!user)throw new Error("User not found")
+        if (user.roleId!==null){
+            await this.roleRepository.delete(user.roleId)
+        }
+        return await this.userRepository.delete(id)
+        
+    }
+
 }

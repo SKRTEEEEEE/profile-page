@@ -49,4 +49,9 @@ export class InMemoryUserRepository implements UserRepository{
     async findAll(): Promise<User[] | null> {
         return this.users.length > 0 ? this.users : null;
     }
+    async deleteRoleId(id: string){
+        const user = await this.findById(id)
+        if(!user)throw new Error("User not found")
+        user.roleId = null;
+    }
 }
