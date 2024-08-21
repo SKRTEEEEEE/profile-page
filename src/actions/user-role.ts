@@ -15,6 +15,7 @@ import { redirect } from "next/navigation";
 // const roleRepository = new InMemoryRoleRepository()
 const userRepository = new MongooseUserRepository()
 const roleRepository = new MongooseRoleRepository()
+
 const validateUserForm = (formData: FormData) => {
     const fAddress = formData.get("address")
     const address = validateStringField(fAddress, "address")
@@ -35,13 +36,10 @@ export async function createUser(formData: FormData) {
     const now = Date.now().toString()
     const newUser = await create.execute(  // Usa el nuevo nombre aquí
         {
-            id: now,
             address,
             isAdmin,
             solicitudAdmin,
-            createdAt: now,
-            updatedAt: now
-
+            roleId: null
         }
     );
     revalidatePath("/")

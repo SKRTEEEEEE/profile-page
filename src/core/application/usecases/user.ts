@@ -1,4 +1,4 @@
-import { User } from "@/core/domain/entities/User";
+import { User, UserBase } from "@/core/domain/entities/User";
 import { UserRepository } from "@/core/domain/repositories/user-repository";
 
 export class ListUserById{
@@ -11,7 +11,7 @@ export class ListUserById{
 export class CreateUser {
   constructor(private userRepository: UserRepository) {}
 
-  async execute(user: User): Promise<User> {
+  async execute(user: UserBase): Promise<User> {
     const createdUser = await this.userRepository.create(user);
     return createdUser;
   }

@@ -5,7 +5,7 @@ export interface UserDocument extends Document {
     _id: mongoose.Types.ObjectId;
     address: string;
     nick?: string;
-    roleId?: string;
+    roleId: string | null;
     isAdmin: boolean;
     solicitudAdmin: boolean;
     createdAt: Date;
@@ -24,7 +24,7 @@ const userSchema = new Schema({
     isAdmin: { default: false, type: Boolean, required: true },
     solicitudAdmin: { default: false, type: Boolean, required: true },
     nick: { type: String },
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    roleId: {default: null, type: mongoose.Schema.Types.ObjectId, ref: "Role" },
 }, {
     timestamps: true // Esto habilita los campos createdAt y updatedAt automáticamente
 })

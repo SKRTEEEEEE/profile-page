@@ -21,7 +21,8 @@ export class MongooseUserRepository extends MongoDbConnection implements UserRep
     }
     async update(id: string, address: string,isAdmin:boolean, solicitudAdmin:boolean, nick?: string, roleId?:string): Promise<User> {
         await this.connect(); // Asegúrate de que la conexión esté establecida
-    
+        console.log("update nick: ", nick)
+        console.log("update roleId: ", roleId)
         // Busca el usuario por su ID
         const user = await UserModel.findById(id);
         if (!user) throw new Error("Error al encontrar el usuario");
@@ -31,9 +32,9 @@ export class MongooseUserRepository extends MongoDbConnection implements UserRep
         user.isAdmin = isAdmin;
         user.solicitudAdmin = solicitudAdmin;
         user.nick = nick !== undefined ? nick : user.nick
-        user.roleId = roleId !== undefined ? roleId : user.roleId; // Mantiene el valor actual si roleId no se proporciona
+        user.roleId = roleId !== null ? roleId : user.roleId; // Mantiene el valor actual si roleId no se proporciona
         user.updatedAt = Date.now(); // Actualiza la fecha de modificación como timestamp
-    
+        console.log("update user: ", user)
         // Guarda los cambios en la base de datos
         const updatedUser = await user.save();
         console.log("updated user: ",updatedUser)
