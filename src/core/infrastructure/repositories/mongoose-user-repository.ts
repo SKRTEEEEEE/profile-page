@@ -1,5 +1,5 @@
 import { User } from '@/core/domain/entities/User';
-import { UserRepository } from '@/core/domain/repositories/UserResository';
+import { UserRepository } from '@/core/domain/repositories/user-repository';
 import { UserDocument, UserModel } from '@/models/user-role-schema';
 import { MongoDbConnection } from '../adapters/mongo-db-connection';
 

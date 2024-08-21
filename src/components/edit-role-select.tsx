@@ -16,7 +16,7 @@ const user = await listUserById(id)
   return(
         <form action={user?.roleId ? updateRoleWithId : assingRoleWithId}>
         <div>
-            <label htmlFor="rolePermission" className="block font-medium text-gray-700">Role Permission</label>
+            <label htmlFor="rolePermission" className="sr-only">Role Permission</label>
             <select id="role" name="rolePermission">
                 <option value="null">User</option>
                 <option value="ADMIN">Admin</option>

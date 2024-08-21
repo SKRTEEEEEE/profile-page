@@ -1,6 +1,6 @@
 // src/core/application/services/userService.ts
 
-import { UserRepository } from "@/core/domain/repositories/UserResository";
+import { UserRepository } from "@/core/domain/repositories/user-repository";
 import { CreateUser, DeleteUser, ListUsers, UpdateUser } from "../usecases/user";
 
 export class UserService {

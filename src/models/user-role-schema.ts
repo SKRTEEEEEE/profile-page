@@ -27,7 +27,6 @@ const roleSchema = new Schema({
     permissions: { type: String, required: true, enum: ['ADMIN', 'STUDENT', 'STUDENT_PRO'], }
 }, {
     timestamps: true // Esto habilita los campos createdAt y updatedAt automáticamente
-}
-)
+})
 export const UserModel = mongoose.models.User || mongoose.model('User', userSchema);
 export const RoleModel = mongoose.models.Role || mongoose.model("Role", roleSchema)

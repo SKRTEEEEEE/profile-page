@@ -1,5 +1,5 @@
 import { Role, RoleType } from "@/core/domain/entities/Role";
-import { RoleRepository } from "@/core/domain/repositories/RoleRepository";
+import { RoleRepository } from "@/core/domain/repositories/role-repository";
 
 export class InMemoryRoleRepository implements RoleRepository {
   private roles: Role[] = [];

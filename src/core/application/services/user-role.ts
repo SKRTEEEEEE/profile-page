@@ -1,6 +1,6 @@
 import { Role, RoleType } from "@/core/domain/entities/Role";
-import { RoleRepository } from "@/core/domain/repositories/RoleRepository";
-import { UserRepository } from "@/core/domain/repositories/UserResository";
+import { RoleRepository } from "@/core/domain/repositories/role-repository";
+import { UserRepository } from "@/core/domain/repositories/user-repository";
 
 export class UserRoleService {
     constructor(private userRepository: UserRepository,private roleRepository: RoleRepository){}

@@ -1,5 +1,5 @@
 import { Role, RoleType } from "@/core/domain/entities/Role";
-import { RoleRepository } from "@/core/domain/repositories/RoleRepository";
+import { RoleRepository } from "@/core/domain/repositories/role-repository";
 
 //⬇️⛔🆘 No sera necesario usar CreateRole, o otros usecases parecidos ya que eso seran services, al utilizar User y Role
 //🙋‍♂️⚠️➡️ Aquí solo pondremos usecases como ListRole, ListRolesByPermission, etc...: Solo utilizan el Role
