@@ -26,7 +26,7 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ session, name, onEr
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isAdmin, address } = useCookies(session);
 
-  console.log("isAdmin delete admin tech: ", isAdmin)
+  // console.log("isAdmin delete admin tech: ", isAdmin)
   const handleClick = async () => {
     setIsLoading(true);
     try {

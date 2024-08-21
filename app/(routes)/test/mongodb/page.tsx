@@ -1,5 +1,6 @@
 import { getCookies } from "@/actions/auth";
 import CConnectButton from "@/components/main/custom-connect-button";
+import OnlyAdminView from "@/components/main/only-admin";
 import { UploadthingButton } from "@/components/routes/uploadthing-button";
 import { fetchLenguajes } from "@/data/fetch"
 
@@ -12,6 +13,7 @@ const TestMongoPage = async( ) =>{
 
     return (
         <>
+        <OnlyAdminView>
         <p className="mt-36">Hola mundo!</p>
         {user&&<UploadthingButton/>}
         {user ? lenguajes.map(article => (
@@ -23,7 +25,7 @@ const TestMongoPage = async( ) =>{
             </>
         )):null}
         <CConnectButton/>
-
+        </OnlyAdminView>
         </>
     )
 }
