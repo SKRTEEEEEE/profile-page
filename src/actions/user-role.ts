@@ -76,6 +76,8 @@ export async function deleteUser(formData: FormData) {
     await s.deleteUser(id)
     revalidatePath("/")
 }
+
+//Este seria el CREATE
 export async function assignRole(id: string, formData: FormData) {
     const roleEntry = formData.get("rolePermission")
     // Primero, verifica que roleEntry no sea null y sea un string
@@ -97,7 +99,6 @@ export async function assignRole(id: string, formData: FormData) {
     }
 }
 
-//hay que modificar el update para que cuando haga delete se borre tmb de user, para eso modificaremos/eliminaremos deleteRole, y lo pasaremos a service
 export async function updateRole(id: string, formData: FormData) {
     const roleEntry = formData.get("rolePermission")
     const listUserById = new ListUserById(userRepository)

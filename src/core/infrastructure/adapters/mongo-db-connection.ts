@@ -2,10 +2,9 @@ import mongoose, { Connection } from 'mongoose';
 
 type DBConnection = {
     isConnected: boolean;
-    //connection?: Connection;-es necesario?-   Para almacenar la conexión una vez establecida
   }
 
-export const connectToDB = async ():Promise<Connection> => {
+const connectToDB = async ():Promise<Connection> => {
   const connection: DBConnection = {isConnected: false};
   try {
     if (connection.isConnected) return mongoose.connection;
