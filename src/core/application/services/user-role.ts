@@ -7,10 +7,10 @@ export class UserRoleService {
     async assignRoleToUser(userId:string,rolePermission:RoleType){
         const user = await this.userRepository.findById(userId)
         if(!user)throw new Error("User not found")
-        const newRole = new Role(Date.now().toString()+user.name, user.name,rolePermission,Date.now().toString(),Date.now().toString())
+        const newRole = new Role(Date.now().toString()+user.address, user.address,rolePermission,Date.now().toString(),Date.now().toString())
         const createdRole = await this.roleRepository.create(newRole)
         console.log("createdRole: ", createdRole)
-        await this.userRepository.update(userId,user.name,createdRole.id)
+        await this.userRepository.update(userId,user.address,user.isAdmin,user.solicitudAdmin,undefined,createdRole.id)
     }
     async deleteRole(idRole: string, idUser: string): Promise<void> {
         await this.roleRepository.delete(idRole)
@@ -20,7 +20,7 @@ export class UserRoleService {
     async deleteUser(id:string): Promise<void> {
         const user = await this.userRepository.findById(id)
         if(!user)throw new Error("User not found")
-        if (user.roleId!==null){
+        if (user.roleId!==undefined){
             await this.roleRepository.delete(user.roleId)
         }
         return await this.userRepository.delete(id)

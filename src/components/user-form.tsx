@@ -22,15 +22,17 @@ export default function UserForm({ id }: { id?: string }) {
       <form action={id ? updateUserWithId : createUser} className="flex h-20 items-center space-x-4">
         <div className="flex space-x-10 h-20 items-center">
           <label htmlFor="name" className="block font-medium text-gray-700">
-            Name
+            Address
           </label>
           <input
             type="text"
-            id="name"
-            name="name"
+            id="address"
+            name="address"
 
             className="mt-1 block w-full p-4 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
           />
+          <input type="text" id="isAdmin" name="isAdmin" value="false" className="hidden" />
+          <input type="text" id="solici" name="solicitudAdmin" value="false" className="hidden" />
         </div>
         <button
           type="submit"

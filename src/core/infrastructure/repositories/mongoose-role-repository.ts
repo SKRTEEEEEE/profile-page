@@ -31,7 +31,7 @@ export class MongooseRoleRepository extends MongoDbConnection implements RoleRep
     private documentToRole(doc: RoleDocument): Role {
         return {
             id: doc._id.toString(),
-            name: doc.name,
+            address: doc.address,
             permissions: doc.permissions as RoleType,
             createdAt: doc.createdAt.toISOString(),
             updatedAt: doc.updatedAt.toISOString()

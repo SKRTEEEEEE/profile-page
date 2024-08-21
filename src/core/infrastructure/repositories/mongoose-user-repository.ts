@@ -19,7 +19,7 @@ export class MongooseUserRepository extends MongoDbConnection implements UserRep
         const user = await UserModel.findById(id)
         return user ? this.documentToUser(user) : null
     }
-    async update(id: string, name: string, roleId?: string): Promise<User> {
+    async update(id: string, address: string,isAdmin:boolean, solicitudAdmin:boolean, nick?: string, roleId?:string): Promise<User> {
         await this.connect(); // Asegúrate de que la conexión esté establecida
     
         // Busca el usuario por su ID
@@ -27,7 +27,10 @@ export class MongooseUserRepository extends MongoDbConnection implements UserRep
         if (!user) throw new Error("Error al encontrar el usuario");
     
         // Actualiza los campos necesarios
-        user.name = name;
+        user.address = address;
+        user.isAdmin = isAdmin;
+        user.solicitudAdmin = solicitudAdmin;
+        user.nick = nick !== undefined ? nick : user.nick
         user.roleId = roleId !== undefined ? roleId : user.roleId; // Mantiene el valor actual si roleId no se proporciona
         user.updatedAt = Date.now(); // Actualiza la fecha de modificación como timestamp
     
@@ -54,8 +57,11 @@ export class MongooseUserRepository extends MongoDbConnection implements UserRep
     private documentToUser(doc: UserDocument): User {
         return {
           id: doc._id.toString(),
-          name: doc.name,
-          roleId: doc.roleId ? doc.roleId.toHexString() : null,
+          address: doc.address,
+          nick: doc.nick,
+          roleId: doc.roleId,
+          isAdmin: doc.isAdmin,
+          solicitudAdmin: doc.solicitudAdmin,
           createdAt: doc.createdAt.toISOString(),
           updatedAt: doc.updatedAt.toISOString()
         };

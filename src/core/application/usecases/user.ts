@@ -25,8 +25,9 @@ export class ListUsers {
 }
 export class UpdateUser {
     constructor(private userRepository:UserRepository){}
-    async execute(id:string, name:string): Promise<User> {
-        return await this.userRepository.update(id,name)
+    async execute(id:string, address:string, isAdmin: boolean, solicitudAdmin: boolean, nick?:string): Promise<User> {
+        if(!nick){return await this.userRepository.update(id,address, isAdmin, solicitudAdmin)}else{return await this.userRepository.update(id,address, isAdmin, solicitudAdmin, nick)}
+        
     }
 }
 export class DeleteUserRoleId {

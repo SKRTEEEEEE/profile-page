@@ -7,6 +7,12 @@
        alt="snake" />
 </div>
 </a>
+
+<dialog open>
+  <p>Greetings, one and all!</p>
+</dialog>
+
+
 Test de arquitectura hexagonal con NextJs 14
 
 ## Proceso

@@ -43,7 +43,7 @@ export default async function UsersTable() {
             {users?.map((user) => (
               <tr key={user.id} className="hover:bg-gray-50">
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {user.name}
+                  {user.address}
                 </td>
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
                   <Link

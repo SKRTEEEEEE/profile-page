@@ -7,7 +7,7 @@ export enum RoleType {
 export class Role {
     constructor(
       public id: string,
-      public name: string,
+      public address: string,
       public permissions: RoleType,
       public createdAt: string,
       public updatedAt: string
