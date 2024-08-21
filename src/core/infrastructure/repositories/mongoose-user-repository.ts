@@ -1,4 +1,4 @@
-import { User } from '@/core/domain/entities/User';
+import { User, UserBase } from '@/core/domain/entities/User';
 import { UserRepository } from '@/core/domain/repositories/user-repository';
 import { UserDocument, UserModel } from '@/models/user-role-schema';
 import { MongoDbConnection } from '../adapters/mongo-db-connection';
@@ -19,24 +19,20 @@ export class MongooseUserRepository extends MongoDbConnection implements UserRep
         const user = await UserModel.findById(id)
         return user ? this.documentToUser(user) : null
     }
-    async update(id: string, address: string,isAdmin:boolean, solicitudAdmin:boolean, nick?: string, roleId?:string): Promise<User> {
+    async update(user: UserBase): Promise<User> {
         await this.connect(); // Asegúrate de que la conexión esté establecida
-        console.log("update nick: ", nick)
-        console.log("update roleId: ", roleId)
-        // Busca el usuario por su ID
-        const user = await UserModel.findById(id);
-        if (!user) throw new Error("Error al encontrar el usuario");
+        const userF = await UserModel.findById(user.id);
+        if (!userF) throw new Error("Error al encontrar el usuario");
     
         // Actualiza los campos necesarios
-        user.address = address;
-        user.isAdmin = isAdmin;
-        user.solicitudAdmin = solicitudAdmin;
-        user.nick = nick !== undefined ? nick : user.nick
-        user.roleId = roleId !== null ? roleId : user.roleId; // Mantiene el valor actual si roleId no se proporciona
-        user.updatedAt = Date.now(); // Actualiza la fecha de modificación como timestamp
+        userF.address = user.address;
+        userF.isAdmin = user.isAdmin;
+        userF.solicitudAdmin = user.solicitudAdmin;
+        userF.nick = user.nick !== undefined ? user.nick : userF.nick
+        userF.roleId = user.roleId !== null ? user.roleId : userF.roleId; // Mantiene el valor actual si roleId no se proporciona
         console.log("update user: ", user)
         // Guarda los cambios en la base de datos
-        const updatedUser = await user.save();
+        const updatedUser = await userF.save();
         console.log("updated user: ",updatedUser)
         return this.documentToUser(updatedUser); // Convierte el documento actualizado a la entidad User
     }

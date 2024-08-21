@@ -12,10 +12,11 @@ export class User implements UserBase {
     ){}
 }
 export type UserBase = {
+    id: string,
     address: string,
+    roleId: string | null,
     isAdmin: boolean,
     solicitudAdmin: boolean,
-    roleId: string | null,
     nick?: string,
 }
 export type TUser = InstanceType<typeof User>

@@ -11,7 +11,7 @@ export class ListUserById{
 export class CreateUser {
   constructor(private userRepository: UserRepository) {}
 
-  async execute(user: UserBase): Promise<User> {
+  async execute(user: Omit<UserBase, 'id'>): Promise<User> {
     const createdUser = await this.userRepository.create(user);
     return createdUser;
   }
@@ -25,9 +25,10 @@ export class ListUsers {
 }
 export class UpdateUser {
     constructor(private userRepository:UserRepository){}
-    async execute(id:string, address:string, isAdmin: boolean, solicitudAdmin: boolean, nick?:string): Promise<User> {
-        if(!nick){return await this.userRepository.update(id,address, isAdmin, solicitudAdmin)}else{return await this.userRepository.update(id,address, isAdmin, solicitudAdmin, nick)}
-        
+    async execute(user:Omit<UserBase, "roleId">): Promise<User> {
+        const fUser = await this.userRepository.findById(user.id)
+        if(!fUser)throw new Error("User not found at Update User use-case")
+        return this.userRepository.update({...user, roleId:fUser.roleId}) 
     }
 }
 export class DeleteUserRoleId {

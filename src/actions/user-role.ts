@@ -33,7 +33,6 @@ const validateUserForm = (formData: FormData) => {
 export async function createUser(formData: FormData) {
     const{ address, isAdmin, solicitudAdmin} = validateUserForm(formData)
     const create = new CreateUser(userRepository)
-    const now = Date.now().toString()
     const newUser = await create.execute(  // Usa el nuevo nombre aquí
         {
             address,
@@ -60,11 +59,11 @@ export async function updateUser(id: string, formData: FormData) {
     const{ address, isAdmin, solicitudAdmin} = validateUserForm(formData)
     const update = new UpdateUser(userRepository)
     await update.execute(
-        id,
+      {  id,
          address,
          isAdmin,
          solicitudAdmin   
-        
+        }
         )
     revalidatePath("/")
     redirect("/")

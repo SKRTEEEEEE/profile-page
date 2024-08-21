@@ -24,7 +24,6 @@ import { RoleRepository } from "@/core/domain/repositories/role-repository";
 // 🧠⚠️➡️ Podemos crear los "use-cases" agrupados, como hemos hecho en services. Esto nos ahorrara tener que inicializar siempre en mismo constructor.
 export class ListRole {
 constructor(private roleRepository: RoleRepository) {}
-
 async execute(id: string): Promise<Role|null> {
     const findedRole = await this.roleRepository.findById(id)
     return findedRole;
@@ -37,13 +36,3 @@ export class UpdateRole{
   }
 }
 
-// export class RoleUse {
-//   constructor(private roleRepository: RoleRepository){}
-//   async listRole(id: string): Promise<Role|null> {
-//     const findedRole = await this.roleRepository.findById(id)
-//     return findedRole;
-// }
-//   async updateRole(id:string, permissions: RoleType){
-//     return await this.roleRepository.update(id, permissions)
-//   }
-// }
