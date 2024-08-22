@@ -1,45 +1,10 @@
 import { createAuth, GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, VerifyLoginPayloadResult } from "thirdweb/auth";
 import { privateKeyToAccount } from "thirdweb/wallets";
 import { createThirdwebClient, ThirdwebClient } from "thirdweb";
-import { JWTPayload } from "thirdweb/utils";
+import { GenerateJWTParams, GenerateJWTReturnType, VerifyJWTParamsType, VerifyJWTReturnType } from "@/types/auth";
+import { AuthAdapterRepository } from "@/core/domain/repositories/auth-repository";
 
-
-// Define el tipo completo de ThirdwebAuth
-type ThirdwebAuthType = ReturnType<typeof createAuth>;
-
-// Extraer los tipos de las funciones individuales dentro de ThirdwebAuthType
-// type GeneratePayloadType = ThirdwebAuthType['generatePayload'];
-// type VerifyPayloadType = ThirdwebAuthType['verifyPayload'];
-type GenerateJWTType = ThirdwebAuthType['generateJWT'];
-type VerifyJWTType = ThirdwebAuthType['verifyJWT'];
-
-// Ejemplos de uso de los tipos extraídos
-// type GeneratePayloadParams = Parameters<GeneratePayloadType>[0];
-// type VerifyPayloadParamsType = Parameters<VerifyPayloadType>[0];
-type GenerateJWTParams = Parameters<GenerateJWTType>[0];
-type VerifyJWTParamsType = Parameters<VerifyJWTType>[0];
-
-type ValidVerifyLoginPayload = Extract<VerifyLoginPayloadResult, {valid: true}>
-export type VerifiedLoginPayload = ValidVerifyLoginPayload["payload"]
-
-// type GeneratePayloadReturnType = ReturnType<GeneratePayloadType>;
-// type VerifyPayloadReturnType = ReturnType<VerifyPayloadType>;
-type GenerateJWTReturnType = Awaited<ReturnType<GenerateJWTType>>;
-export type VerifyJWTReturnType = Awaited<ReturnType<VerifyJWTType>>;
-
-// type ValidJWTReturnType = Extract<VerifyJWTReturnType, { valid: true }>;
-// export type JWTPayload = ValidJWTReturnType['parsedJWT'];
-
-export type JWTContext = {
-    isAdmin: boolean;
-    [key: string]: any;
-  }
-export interface ExtendedJWTPayload extends JWTPayload{
-    ctx: JWTContext
-}
-
-
-class ThirdwebClientConfig {
+export class ThirdwebClientConfig {
     private clientId = process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID;
     protected _client: ThirdwebClient;
     constructor(){
@@ -50,11 +15,12 @@ class ThirdwebClientConfig {
         return createThirdwebClient({clientId: this.clientId})
     }
     public get client (): ThirdwebClient {
+        console.log("get client ThirdwebClientConfig: ", this._client)
         return this._client
     }
 }
 
-export abstract class ThirdwebAuthAdapter extends ThirdwebClientConfig {
+export abstract class ThirdwebAuthAdapter extends ThirdwebClientConfig implements AuthAdapterRepository{
     private privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY;
     private _thirdwebAuth: ReturnType<typeof createAuth> | null = null;
     private domain = process.env.NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN 
@@ -90,6 +56,7 @@ export abstract class ThirdwebAuthAdapter extends ThirdwebClientConfig {
     }
 
     // Métodos implementados para manejar la autenticación
+    // ??En el futuro estaría bien intentar implementar-los como protected y que otra capa mas "exterior los maneje"??
     public async generatePayload(params: GenerateLoginPayloadParams): Promise<LoginPayload> {
         return this.thirdwebAuth.generatePayload(params);
     }

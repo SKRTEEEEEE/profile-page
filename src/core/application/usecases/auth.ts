@@ -1,8 +1,9 @@
-import { AuthRepository } from "@/core/domain/repositories/auth-repository";
-import { ExtendedJWTPayload } from "@/core/infrastructure/adapters/thirdweb-auth-adapter";
+import { AuthAdapterRepository, AuthRepository } from "@/core/domain/repositories/auth-repository";
+import { ExtendedJWTPayload } from "@/types/auth";
+import { GenerateLoginPayloadParams, LoginPayload } from "thirdweb/auth";
 
 export class UseAuth {
-    constructor(private authRepository: AuthRepository){}
+    constructor(private authRepository: AuthRepository&AuthAdapterRepository){}
     async logout(): Promise<void> {
         this.authRepository.logout()
     }
@@ -15,7 +16,7 @@ export class UseAuth {
     async isAdmin(): Promise<boolean>{
         return this.authRepository.isAdmin()
     }
-    async protAdmAct(): Promise<boolean>{
+    async protAdmAct(): Promise<true>{
         return this.authRepository.protAdmAct()
     }
     async protLogRou(path:string): Promise<ExtendedJWTPayload>{
@@ -23,5 +24,8 @@ export class UseAuth {
     }
     async protAdmRou(path:string): Promise<ExtendedJWTPayload>{
         return this.authRepository.protAdmRou(path)
+    }
+    async generatePayload(address:GenerateLoginPayloadParams): Promise<LoginPayload> {
+        return this.authRepository.generatePayload(address)
     }
 }

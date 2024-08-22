@@ -1,11 +1,12 @@
 // infrastructure/repositories/thirdweb-auth-repository.ts
 
 
-import { VerifyLoginPayloadParams } from "thirdweb/auth";
+import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { ExtendedJWTPayload,  ThirdwebAuthAdapter } from "../adapters/thirdweb-auth-adapter";
+import { ThirdwebAuthAdapter } from "../adapters/thirdweb-auth-adapter";
 import { AuthRepository } from "@/core/domain/repositories/auth-repository";
+import { ExtendedJWTPayload } from "@/types/auth";
 
 export class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthRepository {
   async logout(): Promise<void> {
@@ -42,8 +43,11 @@ export class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthR
     return cookies !== false && cookies.ctx?.isAdmin === true;
   }
   //Hay que revisar estas funciones!!⚠️⚠️
-  async protAdmAct(): Promise<boolean> {
-    return await this.isAdmin();
+  async protAdmAct(): Promise<true> {
+    const isAdmin = await this.isAdmin();
+    if (!isAdmin) throw new Error("Must be admin")
+    return isAdmin
+    
   }
 
   async protLogRou(path: string): Promise<ExtendedJWTPayload> {
@@ -56,5 +60,8 @@ export class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthR
     const cookies = await this.getCookies();
     if (cookies === false || cookies.ctx?.isAdmin !== true) redirect(path);
     return cookies;
+  }
+  async generatePayload(params: GenerateLoginPayloadParams): Promise<LoginPayload>  {
+    return this.thirdwebAuth.generatePayload(params)
   }
 }
