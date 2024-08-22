@@ -3,11 +3,11 @@
 
 import { UserRoleService } from "@/core/application/services/user-role";
 import { UpdateRole } from "@/core/application/usecases/role";
-import { CreateUser, ListUserById, ListUsers, UpdateUser } from "@/core/application/usecases/user";
+import { ListUserById, ListUsers, UpdateUser } from "@/core/application/usecases/user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { MongooseRoleRepository } from "@/core/infrastructure/repositories/mongoose-role-repository";
 import { MongooseUserRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
-import { validateStringField } from "@/utils";
+import { validateStringField } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -30,21 +30,21 @@ const validateUserForm = (formData: FormData) => {
     return {address, isAdmin, solicitudAdmin}
 }
 
-export async function createUser(formData: FormData) {
-    const{ address, isAdmin, solicitudAdmin} = validateUserForm(formData)
-    const create = new CreateUser(userRepository)
-    const newUser = await create.execute(  // Usa el nuevo nombre aquí
-        {
-            address,
-            isAdmin,
-            solicitudAdmin,
-            roleId: null
-        }
-    );
-    revalidatePath("/")
-    return newUser;
+// export async function createUser(formData: FormData) {
+//     const{ address, isAdmin, solicitudAdmin} = validateUserForm(formData)
+//     const create = new CreateUser(userRepository)
+//     const newUser = await create.execute(  // Usa el nuevo nombre aquí
+//         {
+//             address,
+//             isAdmin,
+//             solicitudAdmin,
+//             roleId: null
+//         }
+//     );
+//     revalidatePath("/")
+//     return newUser;
 
-}
+// }
 
 export async function listUsers() {
     const users = new ListUsers(userRepository);
@@ -56,12 +56,11 @@ export async function listUserById(id: string) {
     return await list.execute(id)
 }
 export async function updateUser(id: string, formData: FormData) {
-    const{ address, isAdmin, solicitudAdmin} = validateUserForm(formData)
+    const{ address, solicitudAdmin} = validateUserForm(formData)
     const update = new UpdateUser(userRepository)
     await update.execute(
       {  id,
          address,
-         isAdmin,
          solicitudAdmin   
         }
         )
