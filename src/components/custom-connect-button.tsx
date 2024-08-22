@@ -2,10 +2,10 @@
 
 import { generatePayload, isLoggedIn, login, logout } from "@/actions/auth"
 import { client } from "@/lib/utils"
-import { ConnectButton } from "thirdweb/react"
+import { ConnectButton, useActiveWallet } from "thirdweb/react"
 
 export const CConectButton =  () =>{
-    
+      
     return(
         <ConnectButton
         client={client}

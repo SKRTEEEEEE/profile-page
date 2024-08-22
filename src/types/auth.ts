@@ -30,6 +30,8 @@ export type VerifyJWTReturnType = Awaited<ReturnType<VerifyJWTType>>;
 
 export type JWTContext = {
     isAdmin: boolean;
+    nick?: string;
+    id: string;
     [key: string]: any;
   }
 export interface ExtendedJWTPayload extends JWTPayload{

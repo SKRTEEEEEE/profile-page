@@ -1,34 +1,24 @@
 "use server"
 
 
+import { UpdateUser } from "@/core/application/services/user-auth";
 import { UserRoleService } from "@/core/application/services/user-role";
 import { UpdateRole } from "@/core/application/usecases/role";
-import { ListUserById, ListUsers, UpdateUser } from "@/core/application/usecases/user";
+import { ListUserById, ListUsers } from "@/core/application/usecases/user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { MongooseRoleRepository } from "@/core/infrastructure/repositories/mongoose-role-repository";
 import { MongooseUserRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
 import { validateStringField } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { LoginPayload } from "thirdweb/auth";
 
 // const userRepository = new InMemoryUserRepository()
 // const roleRepository = new InMemoryRoleRepository()
 const userRepository = new MongooseUserRepository()
 const roleRepository = new MongooseRoleRepository()
+// const authRepository = new ThirdwebAuthRepository()
 
-const validateUserForm = (formData: FormData) => {
-    const fAddress = formData.get("address")
-    const address = validateStringField(fAddress, "address")
-    const fIsAdmin = formData.get("isAdmin")
-    let isAdmin = false
-    if (fIsAdmin === "true") isAdmin = true
-    if (fIsAdmin === "false") isAdmin = false
-    const fSolicitudAdmin = formData.get("solicitudAdmin")
-    let solicitudAdmin = false
-    if (fSolicitudAdmin === "true") solicitudAdmin = true
-    if (fSolicitudAdmin === "false") solicitudAdmin = false
-    return {address, isAdmin, solicitudAdmin}
-}
 
 // export async function createUser(formData: FormData) {
 //     const{ address, isAdmin, solicitudAdmin} = validateUserForm(formData)
@@ -55,13 +45,23 @@ export async function listUserById(id: string) {
     const list = new ListUserById(userRepository)
     return await list.execute(id)
 }
-export async function updateUser(id: string, formData: FormData) {
-    const{ address, solicitudAdmin} = validateUserForm(formData)
+export async function updateUser(id: string, payload: {
+    signature: `0x${string}`;
+    payload: LoginPayload;
+}, formData: FormData) {
+    const isSolicitudAdmin = formData.get("solicitudAdmin")
+    const solicitudAdmin = isSolicitudAdmin === 'on';
+    console.log("Solicitud Admin update user action: ", solicitudAdmin)
+    if (typeof solicitudAdmin !== 'boolean') {
+    throw new Error("Error with solicitudAdmin data");
+    }
+    const nickE = formData.get("nick")
+    const nick = validateStringField(nickE, "nick")
     const update = new UpdateUser(userRepository)
-    await update.execute(
+    await update.execute(payload,
       {  id,
-         address,
-         solicitudAdmin   
+         solicitudAdmin,
+         nick 
         }
         )
     revalidatePath("/")

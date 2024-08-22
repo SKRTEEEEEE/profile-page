@@ -17,26 +17,26 @@ export default async function UsersTable() {
                 scope="col"
                 className="px-2 xl:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
-                Name
+                Address
               </th>
-              <th
+              {/* <th
                 scope="col"
                 className="px-2 xl:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
                 Edit
-              </th>
+              </th> */}
               <th
                 scope="col"
                 className="px-2 xl:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
                 Delete
               </th>
-              <th
+              {/* <th
                 scope="col"
                 className="px-2 xl:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
-                Edit Role
-              </th>
+                Solicita Admin
+              </th> */}
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -46,19 +46,19 @@ export default async function UsersTable() {
                   {user.address}
                 </td>
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
-                  <Link
+                  {/* <Link
                     href={`/${user.id}`}
                     className="text-blue-600 hover:text-blue-800 font-medium"
                   >
                     Edit
-                  </Link>
+                  </Link> */}
                 </td>
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
                   <DeleteUserButton id={user.id} />
                 </td>
-                <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
+                {/* <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
                   <EditRoleSelect id={user.id} />
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

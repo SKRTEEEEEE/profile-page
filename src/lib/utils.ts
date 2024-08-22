@@ -14,3 +14,5 @@ export function validateStringField(value: unknown, fieldName: string): string {
 
 const getClient = new ThirdwebClientConfig()
 export const client = getClient.client
+
+
