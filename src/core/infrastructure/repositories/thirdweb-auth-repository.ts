@@ -14,9 +14,9 @@ export class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthR
   }
 
   async login(payload: VerifyLoginPayloadParams, context: { isAdmin: boolean, [key: string]: any }): Promise<string | null> {
-    const verifiedPayload = await this.verifyPayload(payload);
+    const verifiedPayload = await this.thirdwebAuth.verifyPayload(payload);
     if (verifiedPayload.valid) {
-        const jwt = await this.generateJWT({
+        const jwt = await this.thirdwebAuth.generateJWT({
             payload: verifiedPayload.payload,
             context
           });
@@ -29,7 +29,7 @@ export class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthR
   async getCookies(): Promise<ExtendedJWTPayload | false> {
     const jwt = cookies().get("jwt");
     if (!jwt?.value) return false;
-    const result = await this.verifyJWT({ jwt: jwt.value });
+    const result = await this.thirdwebAuth.verifyJWT({ jwt: jwt.value });
     return result.valid ? result.parsedJWT as ExtendedJWTPayload : false;
   }
 

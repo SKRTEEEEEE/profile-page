@@ -13,7 +13,7 @@ export class LoginUser extends ThirdwebAuthAdapter {
   ) {super()}
 
   async execute(payload: VerifyLoginPayloadParams): Promise<ExtendedJWTPayload | null> {
-    const verifiedPayload = await this.verifyPayload(payload);
+    const verifiedPayload = await this.thirdwebAuth.verifyPayload(payload);
     if (verifiedPayload.valid) {
       let user = await this.userRepository.findByAddress(verifiedPayload.payload.address);
       if (!user) {
@@ -24,12 +24,13 @@ export class LoginUser extends ThirdwebAuthAdapter {
         payload,
         {
           isAdmin: user.isAdmin,
+          nick: user.nick
           // Puedes agregar más datos al contexto si es necesario
         }
       );
 
       if (jwt) {
-        const authRes = await this.verifyJWT({jwt});
+        const authRes = await this.thirdwebAuth.verifyJWT({jwt});
         if(!authRes.valid)throw new Error("Error at verify Token")
         return authRes.parsedJWT as ExtendedJWTPayload
       }

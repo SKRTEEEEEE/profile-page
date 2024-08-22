@@ -1,12 +1,11 @@
-import { createAuth, GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, VerifyLoginPayloadResult } from "thirdweb/auth";
+import { createAuth } from "thirdweb/auth";
 import { privateKeyToAccount } from "thirdweb/wallets";
 import { createThirdwebClient, ThirdwebClient } from "thirdweb";
-import { GenerateJWTParams, GenerateJWTReturnType, VerifyJWTParamsType, VerifyJWTReturnType } from "@/types/auth";
-import { AuthAdapterRepository } from "@/core/domain/repositories/auth-repository";
+
 
 export class ThirdwebClientConfig {
     private clientId = process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID;
-    protected _client: ThirdwebClient;
+    private _client: ThirdwebClient;
     constructor(){
         this._client = this.initialize()
     }
@@ -15,12 +14,11 @@ export class ThirdwebClientConfig {
         return createThirdwebClient({clientId: this.clientId})
     }
     public get client (): ThirdwebClient {
-        console.log("get client ThirdwebClientConfig: ", this._client)
         return this._client
     }
 }
 
-export abstract class ThirdwebAuthAdapter extends ThirdwebClientConfig implements AuthAdapterRepository{
+export abstract class ThirdwebAuthAdapter extends ThirdwebClientConfig{
     private privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY;
     private _thirdwebAuth: ReturnType<typeof createAuth> | null = null;
     private domain = process.env.NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN 
@@ -56,20 +54,21 @@ export abstract class ThirdwebAuthAdapter extends ThirdwebClientConfig implement
     }
 
     // Métodos implementados para manejar la autenticación
+    // No son necesarios ya que thirdwebAuth nos los proviene, y esta es accesible desde las classes extendidas
     // ??En el futuro estaría bien intentar implementar-los como protected y que otra capa mas "exterior los maneje"??
-    public async generatePayload(params: GenerateLoginPayloadParams): Promise<LoginPayload> {
-        return this.thirdwebAuth.generatePayload(params);
-    }
+    // public async generatePayload(params: GenerateLoginPayloadParams): Promise<LoginPayload> {
+    //     return this.thirdwebAuth.generatePayload(params);
+    // }
 
-    public async verifyPayload(params: VerifyLoginPayloadParams): Promise<VerifyLoginPayloadResult> {
-        return this.thirdwebAuth.verifyPayload(params);
-    }
+    // public async verifyPayload(params: VerifyLoginPayloadParams): Promise<VerifyLoginPayloadResult> {
+    //     return this.thirdwebAuth.verifyPayload(params);
+    // }
 
-    public async generateJWT(payload: GenerateJWTParams): Promise<GenerateJWTReturnType> {
-        return this.thirdwebAuth.generateJWT(payload);
-    }
+    // public async generateJWT(payload: GenerateJWTParams): Promise<GenerateJWTReturnType> {
+    //     return this.thirdwebAuth.generateJWT(payload);
+    // }
 
-    public async verifyJWT(token: VerifyJWTParamsType): Promise<VerifyJWTReturnType> {
-        return this.thirdwebAuth.verifyJWT(token);
-    }
+    // public async verifyJWT(token: VerifyJWTParamsType): Promise<VerifyJWTReturnType> {
+    //     return this.thirdwebAuth.verifyJWT(token);
+    // }
 }

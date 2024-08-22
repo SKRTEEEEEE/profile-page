@@ -1,9 +1,9 @@
-import { AuthAdapterRepository, AuthRepository } from "@/core/domain/repositories/auth-repository";
+import { AuthRepository } from "@/core/domain/repositories/auth-repository";
 import { ExtendedJWTPayload } from "@/types/auth";
 import { GenerateLoginPayloadParams, LoginPayload } from "thirdweb/auth";
 
 export class UseAuth {
-    constructor(private authRepository: AuthRepository&AuthAdapterRepository){}
+    constructor(private authRepository: AuthRepository){}
     async logout(): Promise<void> {
         this.authRepository.logout()
     }

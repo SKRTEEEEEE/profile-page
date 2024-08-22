@@ -1,5 +1,5 @@
-import { ExtendedJWTPayload, GenerateJWTParams, GenerateJWTReturnType, VerifyJWTParamsType, VerifyJWTReturnType } from "@/types/auth";
-import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, VerifyLoginPayloadResult } from "thirdweb/auth";
+import { ExtendedJWTPayload } from "@/types/auth";
+import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
 
 
 
@@ -19,16 +19,18 @@ export type AuthRepository = {
     //->Protected routes
     protLogRou(path:string): Promise<ExtendedJWTPayload>;
     protAdmRou(path:string): Promise<ExtendedJWTPayload>;
-    
-}
-export type AuthAdapterRepository = {
     generatePayload(params: GenerateLoginPayloadParams): Promise<LoginPayload> 
 
-    verifyPayload(params: VerifyLoginPayloadParams): Promise<VerifyLoginPayloadResult> 
-        
-
-    generateJWT(payload: GenerateJWTParams): Promise<GenerateJWTReturnType> 
-        
-
-    verifyJWT(token: VerifyJWTParamsType): Promise<VerifyJWTReturnType> 
+    
 }
+// export type AuthAdapterRepository = {
+//     generatePayload(params: GenerateLoginPayloadParams): Promise<LoginPayload> 
+
+//     // verifyPayload(params: VerifyLoginPayloadParams): Promise<VerifyLoginPayloadResult> 
+        
+
+//     // generateJWT(payload: GenerateJWTParams): Promise<GenerateJWTReturnType> 
+        
+
+//     // verifyJWT(token: VerifyJWTParamsType): Promise<VerifyJWTReturnType> 
+// }
