@@ -37,3 +37,9 @@ export class DeleteUserRoleId {
         return await this.userRepository.deleteRoleId(id)
     }
 }
+export class FindUserByAddress {
+    constructor(private userRepository:UserRepository){}
+    async execute(address:string){
+        return await this.userRepository.findByAddress(address)
+    }
+}

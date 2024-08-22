@@ -2,7 +2,7 @@
 
 import { Role, RoleBase, RoleType} from '../entities/Role';
 
-export interface RoleRepository {
+export type RoleRepository = {
   create(role: Omit<RoleBase, 'id'>): Promise<Role>;
   findById(id: string): Promise<Role | null>;
   update(id:string, permissions: RoleType): Promise<Role>;

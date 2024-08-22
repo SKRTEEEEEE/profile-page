@@ -16,8 +16,13 @@ export class MongooseUserRepository extends MongoDbConnection implements UserRep
     }
     async findById(id: string): Promise<User | null> {
         await this.connect()
-        const user = await UserModel.findById(id)
+        const user: UserDocument | null = await UserModel.findById(id)
         return user ? this.documentToUser(user) : null
+    }
+    async findByAddress(address: string): Promise<User | null> {
+        await this.connect()
+        const user = await UserModel.findOne({address})
+        return user ? this.documentToUser(user) : null        
     }
     async update(user: UserBase): Promise<User> {
         await this.connect(); // Asegúrate de que la conexión esté establecida
