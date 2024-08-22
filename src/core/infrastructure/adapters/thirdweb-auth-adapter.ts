@@ -54,24 +54,21 @@ class ThirdwebClientConfig {
     }
 }
 
-export abstract class ThirdwebAuth extends ThirdwebClientConfig {
+export abstract class ThirdwebAuthAdapter extends ThirdwebClientConfig {
     private privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY;
     private _thirdwebAuth: ReturnType<typeof createAuth> | null = null;
     private domain = process.env.NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN 
 
     constructor(){
         super()
-        if (!this.privateKey) {
-            throw new Error("Missing THIRDWEB_ADMIN_PRIVATE_KEY in environment variables.");
-        }
-
+        if (!this.privateKey) throw new Error("Missing THIRDWEB_ADMIN_PRIVATE_KEY in environment variables.");
+        if(!this.domain) throw new Error("Missing NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN in env variables.")
         this.initializeAuth();
         
     }
+    
     private initializeAuth(): void {
-        if (!this.privateKey) {
-            throw new Error("Missing THIRDWEB_ADMIN_PRIVATE_KEY in environment variables.");
-        }
+        if (!this.privateKey) throw new Error("Missing THIRDWEB_ADMIN_PRIVATE_KEY in environment variables.");
         if(!this.domain) throw new Error("Missing NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN in env variables.")
         try {
             this._thirdwebAuth = createAuth({

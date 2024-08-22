@@ -4,10 +4,10 @@
 import { VerifyLoginPayloadParams } from "thirdweb/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { ExtendedJWTPayload, ThirdwebAuth } from "../adapters/thirdweb-auth";
+import { ExtendedJWTPayload,  ThirdwebAuthAdapter } from "../adapters/thirdweb-auth-adapter";
 import { AuthRepository } from "@/core/domain/repositories/auth-repository";
 
-export class ThirdwebAuthRepository extends ThirdwebAuth implements AuthRepository {
+export class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthRepository {
   async logout(): Promise<void> {
     cookies().delete("jwt");
   }

@@ -2,10 +2,10 @@
 
 import { AuthRepository } from "@/core/domain/repositories/auth-repository";
 import { UserRepository } from "@/core/domain/repositories/user-repository";
-import { ExtendedJWTPayload, ThirdwebAuth } from "@/core/infrastructure/adapters/thirdweb-auth";
+import { ExtendedJWTPayload, ThirdwebAuthAdapter } from "@/core/infrastructure/adapters/thirdweb-auth-adapter";
 import { VerifyLoginPayloadParams } from "thirdweb/auth";
 
-export class LoginUser extends ThirdwebAuth {
+export class LoginUser extends ThirdwebAuthAdapter {
   constructor(
     private authRepository: AuthRepository,
     private userRepository: UserRepository

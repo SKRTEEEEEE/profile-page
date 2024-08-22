@@ -1,4 +1,4 @@
-import { ExtendedJWTPayload} from "@/core/infrastructure/adapters/thirdweb-auth";
+import { ExtendedJWTPayload} from "@/core/infrastructure/adapters/thirdweb-auth-adapter";
 import { VerifyLoginPayloadParams } from "thirdweb/auth";
 
 
