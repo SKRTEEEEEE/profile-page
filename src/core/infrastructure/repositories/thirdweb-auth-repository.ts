@@ -41,7 +41,7 @@ export class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthR
     const cookies = await this.getCookies();
     return cookies !== false && cookies.ctx?.isAdmin === true;
   }
-
+  //Hay que revisar estas funciones!!⚠️⚠️
   async protAdmAct(): Promise<boolean> {
     return await this.isAdmin();
   }

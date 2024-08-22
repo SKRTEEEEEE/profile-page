@@ -35,6 +35,9 @@ Test de arquitectura hexagonal con NextJs 14
 #### Instalación dependencias
 #### Creación _infrastructure/domains_
 #### Adaptación a mejor app (bdd/backend)
+### 5. Thirdweb
+#### Creación arquitectura hexagonal
+- [ ] Hay que revisar las funciones limitadas en  [`thirdweb-auth-repository`](/src/core/infrastructure/repositories/thirdweb-auth-repository.ts)
 
 
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)
