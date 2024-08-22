@@ -1,7 +1,7 @@
 "use client"
 
 import { generatePayload, isLoggedIn, login, logout } from "@/actions/auth"
-import { client } from "@/utils"
+import { client } from "@/lib/utils"
 import { ConnectButton } from "thirdweb/react"
 
 export const CConectButton =  () =>{
