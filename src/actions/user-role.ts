@@ -6,18 +6,15 @@ import { UserRoleService } from "@/core/application/services/user-role";
 import { UpdateRole } from "@/core/application/usecases/role";
 import { ListUserById, ListUsers } from "@/core/application/usecases/user";
 import { RoleType } from "@/core/domain/entities/Role";
-import { MongooseRoleRepository } from "@/core/infrastructure/repositories/mongoose-role-repository";
-import { MongooseUserRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
+import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role-repository";
+import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
+import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
 import { validateStringField } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { LoginPayload } from "thirdweb/auth";
 
-// const userRepository = new InMemoryUserRepository()
-// const roleRepository = new InMemoryRoleRepository()
-const userRepository = new MongooseUserRepository()
-const roleRepository = new MongooseRoleRepository()
-// const authRepository = new ThirdwebAuthRepository()
+
 
 
 // export async function createUser(formData: FormData) {
@@ -57,7 +54,7 @@ export async function updateUser(id: string, payload: {
     }
     const nickE = formData.get("nick")
     const nick = validateStringField(nickE, "nick")
-    const update = new UpdateUser(userRepository)
+    const update = new UpdateUser(userRepository, authRepository)
     await update.execute(payload,
       {  id,
          solicitudAdmin,
@@ -76,6 +73,8 @@ export async function deleteUser(formData: FormData) {
     revalidatePath("/")
 }
 
+
+//Falta de aquí para abajo
 //Este seria el CREATE
 export async function assignRole(id: string, formData: FormData) {
     const roleEntry = formData.get("rolePermission")

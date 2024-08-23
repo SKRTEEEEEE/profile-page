@@ -16,10 +16,9 @@
 // }
 import UserForm from "@/components/user-form";
 import { ProtLogRou } from "@/core/application/usecases/auth";
-import { ThirdwebAuthRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
+import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
 
 export default async function EditUserPage() {
-  const authRepository = new ThirdwebAuthRepository()
   const getAddress = new ProtLogRou(authRepository)
   const jwt = await getAddress.execute("/")
   console.log("jwt: ", jwt)

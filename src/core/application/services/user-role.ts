@@ -16,7 +16,6 @@ export class UserRoleService {
     async deleteRole(idRole: string, idUser: string): Promise<void> {
         await this.roleRepository.delete(idRole)
         await this.userRepository.deleteRoleId(idUser)
-
     }
     async deleteUser(id: string): Promise<void> {
         const user = await this.userRepository.findById(id)

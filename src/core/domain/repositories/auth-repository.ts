@@ -1,12 +1,12 @@
 import { ExtendedJWTPayload } from "@/types/auth";
-import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
+import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, VerifyLoginPayloadResult } from "thirdweb/auth";
 
 
 
 export type AuthRepository = {
     
     logout(): Promise<void>;
-    login(payload: VerifyLoginPayloadParams, context: { isAdmin: boolean, [key: string]: any }): Promise<string | null>;
+    setJwt(payload: VerifyLoginPayloadParams, context: { isAdmin: boolean, [key: string]: any }): Promise<ExtendedJWTPayload>;
     getCookies(): Promise<ExtendedJWTPayload|false>;
     //->Comprobaciones
     isLoggedIn(): Promise<boolean>;
@@ -20,7 +20,7 @@ export type AuthRepository = {
     protLogRou(path:string): Promise<ExtendedJWTPayload>;
     protAdmRou(path:string): Promise<ExtendedJWTPayload>;
     generatePayload(params: GenerateLoginPayloadParams): Promise<LoginPayload> 
-
+    verifyPayload(params: VerifyLoginPayloadParams): Promise<VerifyLoginPayloadResult> 
     
 }
 // export type AuthAdapterRepository = {

@@ -1,6 +1,6 @@
 import { User } from "@/core/domain/entities/User";
 import { UserRepository } from "@/core/domain/repositories/user-repository";
-export abstract class UseUser {
+abstract class UseUser {
     constructor(protected userRepository:UserRepository){}
 }
 export class ListUserById extends UseUser{

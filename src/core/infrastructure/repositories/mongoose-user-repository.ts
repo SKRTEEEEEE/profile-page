@@ -4,7 +4,7 @@ import { UserDocument, UserModel } from '@/models/user-role-schema';
 import { MongoDbConnection } from '../adapters/mongo-db-connection';
 
 
-export class MongooseUserRepository extends MongoDbConnection implements UserRepository {
+class MongooseUserRepository extends MongoDbConnection implements UserRepository {
 
     async create(user: User): Promise<User> {
         await this.connect();
@@ -70,3 +70,4 @@ export class MongooseUserRepository extends MongoDbConnection implements UserRep
       }
 
 }
+export const userRepository = new MongooseUserRepository()

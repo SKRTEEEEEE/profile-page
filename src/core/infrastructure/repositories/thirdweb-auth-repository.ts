@@ -1,29 +1,30 @@
 // infrastructure/repositories/thirdweb-auth-repository.ts
 
 
-import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
+import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, VerifyLoginPayloadResult } from "thirdweb/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ThirdwebAuthAdapter } from "../adapters/thirdweb-auth-adapter";
 import { AuthRepository } from "@/core/domain/repositories/auth-repository";
 import { ExtendedJWTPayload } from "@/types/auth";
 
-export class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthRepository {
+class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthRepository {
   async logout(): Promise<void> {
     cookies().delete("jwt");
   }
 
-  async login(payload: VerifyLoginPayloadParams, context: { isAdmin: boolean, [key: string]: any }): Promise<string | null> {
+  async setJwt(payload: VerifyLoginPayloadParams, context: { isAdmin: boolean, [key: string]: any }): Promise<ExtendedJWTPayload> {
     const verifiedPayload = await this.thirdwebAuth.verifyPayload(payload);
-    if (verifiedPayload.valid) {
+    if (!verifiedPayload.valid)throw new Error("Error at sign") 
         const jwt = await this.thirdwebAuth.generateJWT({
             payload: verifiedPayload.payload,
             context
           });
           cookies().set("jwt", jwt);
-          return jwt;
-    }
-    return null;
+          const authRes = await this.thirdwebAuth.verifyJWT({jwt});
+        if(!authRes.valid)throw new Error("Error at verify Token")
+        return authRes.parsedJWT as ExtendedJWTPayload
+    
   }
 
   async getCookies(): Promise<ExtendedJWTPayload | false> {
@@ -64,4 +65,8 @@ export class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthR
   async generatePayload(params: GenerateLoginPayloadParams): Promise<LoginPayload>  {
     return this.thirdwebAuth.generatePayload(params)
   }
+  async verifyPayload(params: VerifyLoginPayloadParams): Promise<VerifyLoginPayloadResult> {
+    return this.thirdwebAuth.verifyPayload(params)
+  }
 }
+export const authRepository = new ThirdwebAuthRepository()

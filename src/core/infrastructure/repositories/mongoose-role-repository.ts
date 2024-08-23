@@ -3,7 +3,7 @@ import { MongoDbConnection } from "../adapters/mongo-db-connection";
 import { Role, RoleType } from "@/core/domain/entities/Role";
 import { RoleDocument, RoleModel } from "@/models/user-role-schema";
 
-export class MongooseRoleRepository extends MongoDbConnection implements RoleRepository{
+class MongooseRoleRepository extends MongoDbConnection implements RoleRepository{
     async create(role: Role): Promise<Role> {
         await this.connect()
         const newRole = new RoleModel(role)
@@ -38,3 +38,4 @@ export class MongooseRoleRepository extends MongoDbConnection implements RoleRep
         }
     }
 }
+export const roleRepository = new MongooseRoleRepository()
