@@ -45,20 +45,20 @@ export async function listUserById(id: string) {
 export async function updateUser(id: string, payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
-}, formData: FormData) {
-    const isSolicitudAdmin = formData.get("solicitudAdmin")
-    const solicitudAdmin = isSolicitudAdmin === 'on';
-    console.log("Solicitud Admin update user action: ", solicitudAdmin)
-    if (typeof solicitudAdmin !== 'boolean') {
-    throw new Error("Error with solicitudAdmin data");
-    }
-    const nickE = formData.get("nick")
-    const nick = validateStringField(nickE, "nick")
+}, formData: {solicitudAdmin:boolean,nick:string}) {
+    // const isSolicitudAdmin = formData.get("solicitudAdmin")
+    // const solicitudAdmin = isSolicitudAdmin === 'on';
+    // console.log("Solicitud Admin update user action: ", solicitudAdmin)
+    // if (typeof solicitudAdmin !== 'boolean') {
+    // throw new Error("Error with solicitudAdmin data");
+    // }
+    // const nickE = formData.get("nick")
+    // const nick = validateStringField(nickE, "nick")
     const update = new UpdateUser(userRepository, authRepository)
     await update.execute(payload,
       {  id,
-         solicitudAdmin,
-         nick 
+         solicitudAdmin:formData.solicitudAdmin,
+         nick: formData.nick
         }
         )
     revalidatePath("/")

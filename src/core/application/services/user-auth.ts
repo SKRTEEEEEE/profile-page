@@ -4,7 +4,7 @@ import { AuthRepository } from "@/core/domain/repositories/auth-repository";
 import { UserRepository } from "@/core/domain/repositories/user-repository";
 import { ExtendedJWTPayload } from "@/types/auth";
 import { VerifyLoginPayloadParams } from "thirdweb/auth";
-import { UserBase } from "@/core/domain/entities/User";
+import { User, UserBase } from "@/core/domain/entities/User";
 
 
 
@@ -62,5 +62,15 @@ export class UpdateUser {
 
     return newJWT;
 
+  }
+}
+export class UserInCookies {
+  constructor(private userRepository: UserRepository, private authRepository: AuthRepository){}
+  async execute(): Promise<User|false>{
+    const cooki = await this.authRepository.getCookies()
+    if(!cooki) return false
+    const user = await this.userRepository.findByAddress(cooki.sub)
+    if(!user) return false
+    return user
   }
 }
