@@ -1,6 +1,6 @@
 import { AuthRepository } from "@/core/domain/repositories/auth-repository";
 import { ExtendedJWTPayload } from "@/types/auth";
-import { GenerateLoginPayloadParams, LoginPayload } from "thirdweb/auth";
+import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, VerifyLoginPayloadResult } from "thirdweb/auth";
 
 abstract class UseAuth {
     constructor(protected authRepository: AuthRepository){}
@@ -30,6 +30,11 @@ export class ProtAdmAct extends UseAuth {
         return this.authRepository.protAdmAct()
     }
 }
+export class ProtLogAct extends UseAuth {
+    async execute(): Promise<ExtendedJWTPayload> {
+        return this.authRepository.protLogAct()
+    }
+}
 export class ProtLogRou extends UseAuth {
     async execute(path:string): Promise<ExtendedJWTPayload>{
         return this.authRepository.protLogRou(path)
@@ -43,5 +48,10 @@ export class ProtAdmRou extends UseAuth {
 export class GeneratePayload extends UseAuth {
     async execute(address:GenerateLoginPayloadParams): Promise<LoginPayload> {
         return this.authRepository.generatePayload(address)
+    }
+}
+export class VerifyPayload extends UseAuth {
+    async execute(params: VerifyLoginPayloadParams): Promise<VerifyLoginPayloadResult>{
+        return this.authRepository.verifyPayload(params)
     }
 }

@@ -16,6 +16,7 @@ export type AuthRepository = {
     // protLogAct(path:string|false): Promise<void>
     //Protected "admin" action, wo. redirect
     protAdmAct(): Promise<true>;
+    protLogAct(): Promise<ExtendedJWTPayload>;
     //->Protected routes
     protLogRou(path:string): Promise<ExtendedJWTPayload>;
     protAdmRou(path:string): Promise<ExtendedJWTPayload>;

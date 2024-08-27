@@ -50,6 +50,12 @@ class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthReposito
     return isAdmin
     
   }
+  //Esta función limitara a que el usuario sea el mismo que el que ha iniciado sesión
+  async protLogAct(): Promise<ExtendedJWTPayload> {
+    const cookies = await this.getCookies()
+    if (!cookies) throw new Error("Must log in")
+    return cookies
+  }
 
   async protLogRou(path: string): Promise<ExtendedJWTPayload> {
     const cookies = await this.getCookies();

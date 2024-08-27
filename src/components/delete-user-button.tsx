@@ -1,13 +1,41 @@
+"use client"
+
 import { deleteUser } from "@/actions/user-role";
+import { useActiveAccount, useActiveWallet } from "thirdweb/react";
+import { Button } from "./ui/button";
+import { generatePayload } from "@/actions/auth";
+import { signLoginPayload } from "thirdweb/auth";
+import { UserX } from "lucide-react"
 
 
-export default async function DeleteUserButton({id}:{id:string}) {
+
+export default function DeleteUserButton({id, address}:{id:string, address: string}) {
+    const account =  useActiveAccount()
+    const wallet = useActiveWallet()
+    async function handleSubmit(event: React.FormEvent) {
+        event.preventDefault()
+        if(!account){
+          throw new Error("Please connect your wallet")
+        }
+        
+    
+        try {
+            const payload = await generatePayload({address: account.address})
+            const signatureRes = await signLoginPayload({account, payload})
+            await deleteUser(signatureRes, id,address)
+            if(wallet!==undefined){
+                wallet.disconnect()
+            }
+        } catch (error) {
+            console.error("Error at delete user: "+error)
+        }
+      }
     return (
-        <form action={deleteUser}>
-        <input type="text" id="idInput" name="id" className="hidden" value={id} />
-        <button type="submit" className="text-red-500 hover:text-red-700">
-            Delete
-        </button>
+        <form onSubmit={handleSubmit}>
+        <Button variant="destructive" disabled={!account}  type="submit">
+        <UserX />
+            Delete Account
+        </Button>
         </form>
     )
 } 

@@ -45,16 +45,16 @@ export default async function UsersTable() {
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {user.address}
                 </td>
-                <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
-                  {/* <Link
+                {/*<td className="px-2 xl:px-6 py-4 whitespace-nowrap">
+                   <Link
                     href={`/${user.id}`}
                     className="text-blue-600 hover:text-blue-800 font-medium"
                   >
                     Edit
-                  </Link> */}
-                </td>
+                  </Link> 
+                </td>*/}
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
-                  <DeleteUserButton id={user.id} />
+                  <DeleteUserButton id={user.id} address={user.address}/>
                 </td>
                 {/* <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
                   <EditRoleSelect id={user.id} />

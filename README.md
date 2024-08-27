@@ -38,6 +38,16 @@ Test de arquitectura hexagonal con NextJs 14
 ### 5. Thirdweb
 #### Creación arquitectura hexagonal
 - [ ] Hay que revisar las funciones limitadas en  [`thirdweb-auth-repository`](/src/core/infrastructure/repositories/thirdweb-auth-repository.ts)
+#### Modificar "jwt" cuando el user modifica su info
+#### El Usuario puede eliminar su perfil
+**ACTUALIDAD**
+- [ ] Se crea un componente re-utilizable para las acciones con payload with signature
+- [ ] Se traspasa la lógica de deleteUserAccount de actions a application
+#### El Administrador puede eliminar un usuario
+- Directamente se optara por la opción de vetar ya que no tiene lógica que elimine sin notificar ni nada.
+- [ ] El Administrador puede vetar de la app ciertas carteras
+#### El Administrador puede conceder la Administración a otros usuarios, que lo solicitan previamente.
+
 
 
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)

@@ -36,6 +36,7 @@ export class LoginUser {
 
   }
 }
+//Aqui haremos el update de las cosas que puede hacer el usuario corriente, para dar admin a un usuario que loha solicitado se creara una nueva funcion limitada a los admin
 export class UpdateUser {
   constructor(
     private userRepository: UserRepository, private authRepository: AuthRepository

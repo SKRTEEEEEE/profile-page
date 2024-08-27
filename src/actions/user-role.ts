@@ -3,13 +3,13 @@
 
 import { UpdateUser } from "@/core/application/services/user-auth";
 import { UserRoleService } from "@/core/application/services/user-role";
+import { Logout, VerifyPayload } from "@/core/application/usecases/auth";
 import { UpdateRole } from "@/core/application/usecases/role";
 import { ListUserById, ListUsers } from "@/core/application/usecases/user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role-repository";
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
 import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
-import { validateStringField } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { LoginPayload } from "thirdweb/auth";
@@ -46,14 +46,7 @@ export async function updateUser(id: string, payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
 }, formData: {solicitudAdmin:boolean,nick:string}) {
-    // const isSolicitudAdmin = formData.get("solicitudAdmin")
-    // const solicitudAdmin = isSolicitudAdmin === 'on';
-    // console.log("Solicitud Admin update user action: ", solicitudAdmin)
-    // if (typeof solicitudAdmin !== 'boolean') {
-    // throw new Error("Error with solicitudAdmin data");
-    // }
-    // const nickE = formData.get("nick")
-    // const nick = validateStringField(nickE, "nick")
+
     const update = new UpdateUser(userRepository, authRepository)
     await update.execute(payload,
       {  id,
@@ -64,13 +57,20 @@ export async function updateUser(id: string, payload: {
     revalidatePath("/")
     redirect("/")
 }
-//⚠️hay que modificar para eliminar el role si existe
-export async function deleteUser(formData: FormData) {
-    const idEntry = formData.get("id")
-    const id = validateStringField(idEntry, "id")
+export async function deleteUser(payload: {
+    signature: `0x${string}`;
+    payload: LoginPayload;
+},id:string, address: string) {
+    const v = new VerifyPayload(authRepository)
+    const res = await v.execute(payload)
+    if(!res.valid)throw new Error("Error at login payload")
+    // Comprobar que el res.payload.address, el id de dicho address es el mismo que el que se pretende eliminar.
+    if(res.payload.address !== address )throw new Error("User only can delete her address")
     const s = new UserRoleService(userRepository, roleRepository)
     await s.deleteUser(id)
-    revalidatePath("/")
+    const a = new Logout(authRepository)
+    await a.execute()
+    revalidatePath("/dashboard/config")
 }
 
 
