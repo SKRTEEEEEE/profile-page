@@ -1,9 +1,7 @@
 "use server"
 
 
-import { UpdateUser } from "@/core/application/services/user-auth";
-import { UserRoleService } from "@/core/application/services/user-role";
-import { Logout, VerifyPayload } from "@/core/application/usecases/auth";
+import { UpdateUser, UserRoleAuthService, UserRoleService } from "@/core/application/services/user";
 import { UpdateRole } from "@/core/application/usecases/role";
 import { ListUserById, ListUsers } from "@/core/application/usecases/user";
 import { RoleType } from "@/core/domain/entities/Role";
@@ -16,7 +14,7 @@ import { LoginPayload } from "thirdweb/auth";
 
 
 
-
+// ⬇️🧠 Traspasado a login() en auth
 // export async function createUser(formData: FormData) {
 //     const{ address, isAdmin, solicitudAdmin} = validateUserForm(formData)
 //     const create = new CreateUser(userRepository)
@@ -61,15 +59,8 @@ export async function deleteUser(payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
 },id:string, address: string) {
-    const v = new VerifyPayload(authRepository)
-    const res = await v.execute(payload)
-    if(!res.valid)throw new Error("Error at login payload")
-    // Comprobar que el res.payload.address, el id de dicho address es el mismo que el que se pretende eliminar.
-    if(res.payload.address !== address )throw new Error("User only can delete her address")
-    const s = new UserRoleService(userRepository, roleRepository)
-    await s.deleteUser(id)
-    const a = new Logout(authRepository)
-    await a.execute()
+    const u = new UserRoleAuthService(userRepository,roleRepository,authRepository)
+    u.deleteUserAccount(payload,id,address)
     revalidatePath("/dashboard/config")
 }
 
@@ -97,6 +88,8 @@ export async function assignRole(id: string, formData: FormData) {
     }
 }
 
+
+// Hay que mirar que funcione
 export async function updateRole(id: string, formData: FormData) {
     const roleEntry = formData.get("rolePermission")
     const listUserById = new ListUserById(userRepository)

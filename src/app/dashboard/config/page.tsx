@@ -17,7 +17,7 @@
 import { CConectButton } from "@/components/custom-connect-button";
 import DeleteUserButton from "@/components/delete-user-button";
 import UserForm from "@/components/user-form";
-import { UserInCookies } from "@/core/application/services/user-auth";
+import { UserInCookies } from "@/core/application/services/user";
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
 import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
 

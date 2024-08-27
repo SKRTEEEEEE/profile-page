@@ -1,6 +1,6 @@
 "use server"
 
-import { LoginUser } from "@/core/application/services/user-auth"
+import { LoginUser } from "@/core/application/services/user"
 import { GeneratePayload, IsLoggedIn, Logout } from "@/core/application/usecases/auth"
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository"
 import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository"
@@ -20,6 +20,6 @@ export async function logout(){
     await useAuth.execute()
 }
 export async function login(payload: VerifyLoginPayloadParams){
-    const doLogin = new LoginUser(authRepository,userRepository)
+    const doLogin = new LoginUser(userRepository,authRepository)
     return await doLogin.execute(payload)
 }
