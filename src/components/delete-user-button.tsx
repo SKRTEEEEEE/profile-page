@@ -17,8 +17,6 @@ export default function DeleteUserButton({id, address}:{id:string, address: stri
         if(!account){
           throw new Error("Please connect your wallet")
         }
-        
-    
         try {
             const payload = await generatePayload({address: account.address})
             const signatureRes = await signLoginPayload({account, payload})

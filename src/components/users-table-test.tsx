@@ -4,8 +4,9 @@ import { CConectButton } from "./custom-connect-button";
 import { UserInCookies } from "@/core/application/services/user";
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
 import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
+import EditRoleSelect from "./edit-role-select";
 
-export default async function UsersTable() {
+export default async function UsersTableTest() {
   const getActiveUser = new UserInCookies(userRepository,authRepository)
   const activeUser = await getActiveUser.execute()
   const users = await listUsers();
@@ -36,12 +37,12 @@ export default async function UsersTable() {
               >
                 Solicita Administrador
               </th>
-              {/* <th
+              <th
                 scope="col"
                 className="px-2 xl:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
                 Solicita Admin
-              </th> */}
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -61,9 +62,9 @@ export default async function UsersTable() {
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
                   <MakeAdminButton solicitudAdmin={user.solicitudAdmin} id={user.id} userIsAdmin={activeUser?activeUser.isAdmin:false}/>
                 </td>
-                {/* <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
+                <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
                   <EditRoleSelect id={user.id} />
-                </td> */}
+                </td>
               </tr>
             ))}
           </tbody>

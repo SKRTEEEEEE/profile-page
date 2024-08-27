@@ -73,9 +73,23 @@ export class UserInCookies extends UseUserAuthService {
 }
 
 // user-role services
+abstract class UseUserRoleService {
+  constructor(protected userRepository: UserRepository, protected roleRepository: RoleRepository) { }
+}
 
-export class UserRoleService {
-  constructor(private userRepository: UserRepository, private roleRepository: RoleRepository) { }
+class AssignRoleToUser extends UseUserRoleService{
+  async execute(userId: string, rolePermission: RoleType) {
+    const user = await this.userRepository.findById(userId)
+    if (!user) throw new Error("User not found")
+    const newRole = { address: user.address, permissions: rolePermission }
+    const createdRole = await this.roleRepository.create(newRole)
+    console.log("createdRole: ", createdRole)
+    await this.userRepository.update({ id:userId,address: user.address, roleId: createdRole.id, 
+        isAdmin: user.isAdmin, solicitudAdmin: user.solicitudAdmin })
+}
+}
+export class UserRoleService extends UseUserRoleService {
+  
   async assignRoleToUser(userId: string, rolePermission: RoleType) {
       const user = await this.userRepository.findById(userId)
       if (!user) throw new Error("User not found")
@@ -100,9 +114,13 @@ export class UserRoleService {
   // }
 }
 
-export class UserRoleAuthService{
-  constructor(private userRepository: UserRepository, private roleRepository: RoleRepository, private authRepository: AuthRepository){}
-  async deleteUserAccount(payload: {
+
+abstract class UseUserRoleAuthService{
+  constructor(protected userRepository: UserRepository, protected roleRepository: RoleRepository, protected authRepository: AuthRepository){}
+}
+export class DeleteUserAccount extends UseUserRoleAuthService{
+  
+  async execute(payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
 },id:string, address: string){
@@ -118,5 +136,25 @@ export class UserRoleAuthService{
   }
   await this.userRepository.delete(id)
   await this.authRepository.logout()
+}
+  
+}
+
+
+// Remember update user isAdmin, and solicitudAdmin in bdd!!!!
+export class MakeAdmin extends UseUserRoleAuthService {
+  async execute(payload: {
+    signature: `0x${string}`;
+    payload: LoginPayload;
+},id:string){
+  const v = await this.authRepository.verifyPayload(payload)
+  if(!v.valid) throw new Error("Error with payload auth")
+  const signUser = await this.userRepository.findByAddress(v.payload.address)
+  if(!signUser)throw new Error("Error at find signer user")
+  if(!signUser.isAdmin)throw new Error("Only admins can do this action")
+  const a = new AssignRoleToUser(this.userRepository,this.roleRepository)
+  a.execute(id, "ADMIN" as RoleType)
+  
+  
 }
 }

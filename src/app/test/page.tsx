@@ -1,12 +1,11 @@
-import { CConectButton } from "@/components/custom-connect-button"
-import { Button } from "@/components/ui/button"
+
+import UsersTableTest from "@/components/users-table-test"
 
 
 export default function TestPage () {
     return(
         <>
-        <CConectButton/>
-        <Button>This is a shadcn button</Button>
+        <UsersTableTest/>
         </>
     )
 }

@@ -1,7 +1,7 @@
 "use server"
 
 
-import { UpdateUser, UserRoleAuthService, UserRoleService } from "@/core/application/services/user";
+import { DeleteUserAccount, MakeAdmin, UpdateUser, UserRoleService } from "@/core/application/services/user";
 import { UpdateRole } from "@/core/application/usecases/role";
 import { ListUserById, ListUsers } from "@/core/application/usecases/user";
 import { RoleType } from "@/core/domain/entities/Role";
@@ -59,11 +59,18 @@ export async function deleteUser(payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
 },id:string, address: string) {
-    const u = new UserRoleAuthService(userRepository,roleRepository,authRepository)
-    u.deleteUserAccount(payload,id,address)
+    const u = new DeleteUserAccount(userRepository,roleRepository,authRepository)
+    await u.execute(payload,id,address)
     revalidatePath("/dashboard/config")
 }
+export async function makeAdmin(payload: {
+    signature: `0x${string}`;
+    payload: LoginPayload;
+},id:string){
+    const m = new MakeAdmin(userRepository,roleRepository,authRepository)
+    await m.execute(payload,id)
 
+}
 
 //Falta de aquí para abajo
 //Este seria el CREATE
