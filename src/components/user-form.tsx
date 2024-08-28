@@ -53,16 +53,18 @@ export default function UserForm({ user }: { user: User }) {
     formData.append('img', selectedFile);
 
     // Si el usuario ya tiene una imagen, usa la función de actualización
-    if (user.img && previewImage !== null) {
+    if (user.img && selectedFile !== null) {
       // Actualizar imagen existente
       // console.log("updateImg: ",formData)
       imageUrl = await updateImg(formData, user.img);
-  } else {
+      form.setValue("img", imageUrl)
+  } else if(selectedFile !==null) {
       // Subir una nueva imagen
       // console.log("uploadImg: ", formData)
       imageUrl = await uploadImg(formData);
-  }
       form.setValue("img", imageUrl)
+  }
+      
     } catch (error) {
       throw new Error("Error al subir la imagen:" + error);
     }

@@ -6,7 +6,9 @@ abstract class UseImage {
 
 export class DeleteImage extends UseImage {
     async execute(img:string): Promise<boolean> {
-        return this.imgRepository.deleteImage(img)  
+        const fileName = img.split('/').pop();
+        if(fileName===undefined)throw new Error("Error at obtain url path")
+        return this.imgRepository.deleteImage(fileName)  
     }
 }
 export class UploadImage extends UseImage {

@@ -42,8 +42,11 @@ Test de arquitectura hexagonal con NextJs 14
 #### El Usuario puede eliminar su perfil
 - [x] Se traspasa la lógica de deleteUserAccount de actions a application
 #### El Administrador puede conceder la Administración a otros usuarios, que lo solicitan previamente.
-**ACTUALIDAD**
 ### 6. Uploadthing
+#### Funciones con arq hexagonal para update and upload image y integración para user.img
+#### Usuario puede no subir imagen y modificar sus datos
+**ACTUALIDAD**
+#### Rename name files and document it
 **FUTURO**
 #### El Administrador puede eliminar un usuario
 - Directamente se optara por la opción de vetar ya que no tiene lógica que elimine sin notificar ni nada.
