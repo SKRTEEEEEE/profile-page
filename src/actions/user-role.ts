@@ -1,10 +1,8 @@
 "use server"
 
 
-import { DeleteUserAccount, MakeAdmin, UpdateUser, UserRoleService } from "@/core/application/services/user";
-import { UpdateRole } from "@/core/application/usecases/role";
+import { DeleteUserAccount, MakeAdmin, UpdateUser, UserInCookies } from "@/core/application/services/user";
 import { ListUserById, ListUsers } from "@/core/application/usecases/user";
-import { RoleType } from "@/core/domain/entities/Role";
 import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role-repository";
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
 import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
@@ -63,58 +61,65 @@ export async function deleteUser(payload: {
     await u.execute(payload,id,address)
     revalidatePath("/dashboard/config")
 }
+
 export async function makeAdmin(payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
 },id:string){
     const m = new MakeAdmin(userRepository,roleRepository,authRepository)
     await m.execute(payload,id)
-
+    revalidatePath("/admin/users")
 }
-
-//Falta de aquí para abajo
+export async function userInCookies(){
+    const u = new UserInCookies(userRepository,authRepository)
+    return await u.execute()
+}
+//⚠️⬇️💡 Falta de aquí para abajo ⬇️⚠️
 //Este seria el CREATE
-export async function assignRole(id: string, formData: FormData) {
-    const roleEntry = formData.get("rolePermission")
-    // Primero, verifica que roleEntry no sea null y sea un string
-    if (typeof roleEntry !== 'string') {
-        throw new Error("Role permission must be a string");
-    }
-    if (roleEntry === "null") {
-        console.log("Assign Role to null")
-    } else {
-        // Luego, verifica que el string sea un valor válido de RoleType
-        if (!Object.values(RoleType).includes(roleEntry as RoleType)) {
-            throw new Error("Invalid role permission");
-        }
 
-        // En este punto, sabemos que roleEntry es un valor válido de RoleType
-        const rolePermission = roleEntry as RoleType;
-        const userRole = new UserRoleService(userRepository, roleRepository)
-        await userRole.assignRoleToUser(id, rolePermission)
-    }
-}
+// De momento se comentan, ya que solo se utilizan en el test con las viejas func
+
+// export async function assignRole(id: string, formData: FormData) {
+//     const roleEntry = formData.get("rolePermission")
+//     // Primero, verifica que roleEntry no sea null y sea un string
+//     if (typeof roleEntry !== 'string') {
+//         throw new Error("Role permission must be a string");
+//     }
+//     if (roleEntry === "null") {
+//         console.log("Assign Role to null")
+//     } else {
+//         // Luego, verifica que el string sea un valor válido de RoleType
+//         if (!Object.values(RoleType).includes(roleEntry as RoleType)) {
+//             throw new Error("Invalid role permission");
+//         }
+
+//         // En este punto, sabemos que roleEntry es un valor válido de RoleType
+//         const rolePermission = roleEntry as RoleType;
+//         const userRole = new UserRoleService(userRepository, roleRepository)
+//         await userRole.assignRoleToUser(id, rolePermission)
+//     }
+// }
 
 
-// Hay que mirar que funcione
-export async function updateRole(id: string, formData: FormData) {
-    const roleEntry = formData.get("rolePermission")
-    const listUserById = new ListUserById(userRepository)
-    const user = await listUserById.execute(id)
-    if (typeof roleEntry !== 'string') {
-        throw new Error("Role permission must be a string");
-    }
-    if (!user?.roleId) throw new Error("No se ha encontrado roleId en el usuario")
-    if (roleEntry === "null") {
-        const service = new UserRoleService(userRepository, roleRepository)
-        service.deleteRole(user.roleId, id)
-    } else {
-        if (!Object.values(RoleType).includes(roleEntry as RoleType)) {
-            throw new Error("Invalid role permission");
-        }
-        const rolePermission = roleEntry as RoleType;
+// // Hay que mirar que funcione
+// export async function updateRole(id: string, formData: FormData) {
+//     const roleEntry = formData.get("rolePermission")
+//     const listUserById = new ListUserById(userRepository)
+//     const user = await listUserById.execute(id)
+//     if (typeof roleEntry !== 'string') {
+//         throw new Error("Role permission must be a string");
+//     }
+//     if (!user?.roleId) throw new Error("No se ha encontrado roleId en el usuario")
+//     if (roleEntry === "null") {
+//         const service = new UserRoleService(userRepository, roleRepository)
+//         service.deleteRole(user.roleId, id)
+//     } else {
+//         if (!Object.values(RoleType).includes(roleEntry as RoleType)) {
+//             throw new Error("Invalid role permission");
+//         }
+//         const rolePermission = roleEntry as RoleType;
 
-        const edit = new UpdateRole(roleRepository)
-        edit.execute(user.roleId, rolePermission)
-    }
-}
+//         const edit = new UpdateRole(roleRepository)
+//         edit.execute(user.roleId, rolePermission)
+//     }
+// }

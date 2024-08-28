@@ -29,13 +29,13 @@ export class ListUsers extends UseUser{
 //         return this.userRepository.update({...user, address: fUser.address, isAdmin: fUser.isAdmin, roleId:fUser.roleId}) 
 //     }
 // }
-export class DeleteUserRoleId extends UseUser {
-    async execute(id:string){
-        return await this.userRepository.deleteRoleId(id)
-    }
-}
-export class FindUserByAddress extends UseUser {
-    async execute(address:string){
-        return await this.userRepository.findByAddress(address)
-    }
-}
+// export class DeleteUserRoleId extends UseUser {
+//     async execute(id:string){
+//         return await this.userRepository.deleteRoleId(id)
+//     }
+// }
+// export class FindUserByAddress extends UseUser {
+//     async execute(address:string){
+//         return await this.userRepository.findByAddress(address)
+//     }
+// }

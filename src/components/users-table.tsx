@@ -1,13 +1,9 @@
-import { listUsers } from "@/actions/user-role";
+import { listUsers, userInCookies } from "@/actions/user-role";
 import MakeAdminButton from "./make-admin-button";
 import { CConectButton } from "./custom-connect-button";
-import { UserInCookies } from "@/core/application/services/user";
-import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
-import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
 
 export default async function UsersTable() {
-  const getActiveUser = new UserInCookies(userRepository,authRepository)
-  const activeUser = await getActiveUser.execute()
+  const activeUser = await userInCookies()
   const users = await listUsers();
 
   return (

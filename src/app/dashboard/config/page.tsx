@@ -14,16 +14,14 @@
 //   </main>
 //   );
 // }
+import { userInCookies } from "@/actions/user-role";
 import { CConectButton } from "@/components/custom-connect-button";
 import DeleteUserButton from "@/components/delete-user-button";
 import UserForm from "@/components/user-form";
-import { UserInCookies } from "@/core/application/services/user";
-import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
-import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
+
 
 export default async function EditUserPage() {
-  const getUser = new UserInCookies(userRepository, authRepository)
-  const user = await getUser.execute()
+  const user = await userInCookies()
   return (
   <main  className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
     <CConectButton />
