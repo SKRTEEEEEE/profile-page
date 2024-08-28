@@ -1,4 +1,4 @@
-import { listUsers, userInCookies } from "@/actions/user-role";
+import { listUsers, userInCookies } from "@/actions/user";
 import MakeAdminButton from "./make-admin-button";
 import { CConectButton } from "./custom-connect-button";
 

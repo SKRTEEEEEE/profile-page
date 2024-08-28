@@ -1,5 +1,5 @@
 "use client"
-import { updateUser } from "@/actions/user-role";
+import { updateUser } from "@/actions/user";
 import { Button } from "./ui/button";
 import { useActiveAccount } from "thirdweb/react";
 import { signLoginPayload } from "thirdweb/auth";

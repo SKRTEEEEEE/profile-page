@@ -1,6 +1,6 @@
 "use client"
 
-import { deleteUser } from "@/actions/user-role";
+import { deleteUser } from "@/actions/user";
 import { useActiveAccount, useActiveWallet } from "thirdweb/react";
 import { Button } from "./ui/button";
 import { generatePayload } from "@/actions/auth";

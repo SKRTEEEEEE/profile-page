@@ -4,7 +4,7 @@ import { useActiveAccount } from "thirdweb/react"
 import { Button } from "./ui/button"
 import { generatePayload } from "@/actions/auth"
 import { signLoginPayload } from "thirdweb/auth"
-import { makeAdmin } from "@/actions/user-role"
+import { makeAdmin } from "@/actions/user"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
 
 export default function MakeAdminButton({solicitudAdmin, id, userIsAdmin}:{solicitudAdmin:boolean, id: string, userIsAdmin:boolean}) {

@@ -14,7 +14,7 @@
 //   </main>
 //   );
 // }
-import { userInCookies } from "@/actions/user-role";
+import { userInCookies } from "@/actions/user";
 import { CConectButton } from "@/components/custom-connect-button";
 import DeleteUserButton from "@/components/delete-user-button";
 import UserForm from "@/components/user-form";

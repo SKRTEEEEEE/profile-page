@@ -49,6 +49,7 @@ Test de arquitectura hexagonal con NextJs 14
 - [ ] El Administrador puede vetar de la app ciertas carteras
 
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)
+### [Project rules 🖊️🧑‍💻](/docs/hexa-rulez.md)
 
 ## Contacto
 
