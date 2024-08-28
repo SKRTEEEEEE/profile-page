@@ -35,6 +35,7 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
         userF.solicitudAdmin = user.solicitudAdmin;
         userF.nick = user.nick !== undefined ? user.nick : userF.nick
         userF.roleId = user.roleId !== null ? user.roleId : userF.roleId; // Mantiene el valor actual si roleId no se proporciona
+        userF.img = user.img
         console.log("update user: ", user)
         // Guarda los cambios en la base de datos
         const updatedUser = await userF.save();
@@ -64,6 +65,7 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
           roleId: doc.roleId,
           isAdmin: doc.isAdmin,
           solicitudAdmin: doc.solicitudAdmin,
+          img: doc.img,
           createdAt: doc.createdAt.toISOString(),
           updatedAt: doc.updatedAt.toISOString()
         };

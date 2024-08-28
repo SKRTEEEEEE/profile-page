@@ -11,48 +11,83 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "./ui/input";
 import { Checkbox } from "./ui/checkbox";
 import { User } from "@/core/domain/entities/User";
+import { useState } from "react";
+import Image from "next/image";
+import { Label } from "./ui/label";
+import { updateImg, uploadImg } from "@/actions/img";
 
 const formSchema = z.object({
   nick: z.string().min(5,{message:"⚠️ Debe tener 5 caracteres como mínimo."}).max(25,{message:"⚠️ Debe tener 25 caracteres como máximo."}),
-  solicitudAdmin: z.boolean().default(false)
+  solicitudAdmin: z.boolean().default(false),
+  img: z.string().nullable().default(null)
 })
 
 export default function UserForm({ user }: { user: User }) {
   const account =  useActiveAccount()
-
-
-
+  const [previewImage, setPreviewImage] = useState<string | null>(user.img)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       nick: user.nick,
       solicitudAdmin: user.solicitudAdmin,
+      //Hay que publicar la img previamente y recoger la url
+      img: user.img
     }
   })
-  
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) throw new Error("Error at handle file")
+    setSelectedFile(file);
 
-  
+    const imageUrl = URL.createObjectURL(file);
+    setPreviewImage(imageUrl);
+  }
+  const setData = async (
+  ) => {
+    let imageUrl: string;
+    try {
+      if(!selectedFile)throw new Error("Error at setSelectedFile")
+      // Crear un nuevo objeto FormData
+    const formData = new FormData();
+    formData.append('img', selectedFile);
 
+    // Si el usuario ya tiene una imagen, usa la función de actualización
+    if (user.img && previewImage !== null) {
+      // Actualizar imagen existente
+      // console.log("updateImg: ",formData)
+      imageUrl = await updateImg(formData, user.img);
+  } else {
+      // Subir una nueva imagen
+      // console.log("uploadImg: ", formData)
+      imageUrl = await uploadImg(formData);
+  }
+      form.setValue("img", imageUrl)
+    } catch (error) {
+      throw new Error("Error al subir la imagen:" + error);
+    }
+  }
   
   async function onSubmit(formData: z.infer<typeof formSchema>) {
     if(!account){
       throw new Error("Please connect your wallet")
     }
+    console.log("formData antes.set: ",formData)
+    if(selectedFile!==null) await setData()
+    console.log("formData despues.set: ",formData)
+  console.log("formData después de setData:", form.getValues())
 
     const payload = await generatePayload({address: account.address})
     const signatureRes = await signLoginPayload({account, payload})
-    const res = await updateUser(user.id,signatureRes,formData)
+    const updatedData = {
+      ...formData,
+      img: form.getValues().img // Asegúrate de que img esté actualizado
+  };
+  
+  const res = await updateUser(user.id, signatureRes, updatedData);
+    // const res = await updateUser(user.id,signatureRes,formData)
     console.log("res: ",res)
   }
-  // function handleSubmit(event: FormEvent<HTMLFormElement>) {
-  //   event.preventDefault();
-
-  //   // Crear un objeto FormData a partir del formulario
-  //   const formData = new FormData(event.currentTarget);
-
-  //   // Pasar formData a la función handleClick
-  //   handleClick(formData);
-  // }
 
   return (
     <div>
@@ -72,16 +107,7 @@ export default function UserForm({ user }: { user: User }) {
               <FormMessage />
           </FormItem>
         )}>
-          {/* <label htmlFor="name" className="block font-medium text-gray-700">
-            Nick
-          </label>
-          <input
-            type="text"
-            id="nick"
-            name="nick"
-
-            className="mt-1 block w-full p-4 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-          /> */}
+      
         </FormField>
         <FormField control={form.control} name="solicitudAdmin" render={({field})=>(
           <FormItem>
@@ -93,19 +119,26 @@ export default function UserForm({ user }: { user: User }) {
             <FormMessage/>
           </FormItem>
         )}>
-
+        
         </FormField>
-        {/* <div className="flex space-x-10 h-20 items-center">
-          <label htmlFor="solicitarAdmin" className="block font-medium text-gray-700">
-            Solicitar Admin
-          </label>
-          <Checkbox
-            
-            id="solicitarAdmin"
-            name="solicitudAdmin"
-            className="mt-1 block w-full p-4 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-          />
-        </div> */}
+        {
+          previewImage &&(
+            <div>
+              <Image src={previewImage} alt="Imagen de perfil" width={200} height={200} style={{ maxWidth: '200px', maxHeight: '200px' }}/>
+              <Button onClick={() => setPreviewImage(null)}>Modificar imagen</Button>
+            </div>
+          )
+        }
+        {
+          !previewImage && (
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+      <Label htmlFor="picture">Picture</Label>
+      <Input id="picture" type="file" onChange={handleFileChange}/>
+    </div>
+
+          )
+        }
+
         <Button
         disabled={!account}
           type="submit"

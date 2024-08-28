@@ -5,6 +5,7 @@ export class User implements UserBase {
         public roleId: string | null,
         public isAdmin: boolean,
         public solicitudAdmin: boolean,
+        public img: string | null,
         public createdAt: string,
         public updatedAt: string,
         public nick?: string,
@@ -17,6 +18,7 @@ export type UserBase = {
     roleId: string | null,
     isAdmin: boolean,
     solicitudAdmin: boolean,
+    img: string | null,
     nick?: string,
 }
 export type TUser = InstanceType<typeof User>

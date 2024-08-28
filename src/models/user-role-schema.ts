@@ -19,6 +19,7 @@ const userSchema = new Schema({
     roleId: {default: null, type: mongoose.Schema.Types.ObjectId, ref: "Role" },
     isAdmin: { default: false, type: Boolean, required: true },
     solicitudAdmin: { default: false, type: Boolean, required: true },
+    img: {default: null, type: String, required: true},
     nick: { type: String },
 }, {
     timestamps: true 

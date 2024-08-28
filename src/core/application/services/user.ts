@@ -19,7 +19,7 @@ export class LoginUser extends UseUserAuthService{
     if (!verifiedPayload.valid) throw new Error("Payload not valid")
     let user = await this.userRepository.findByAddress(verifiedPayload.payload.address);
     if (!user) {
-      user = await this.userRepository.create({ address: verifiedPayload.payload.address, roleId: null, isAdmin: false, solicitudAdmin: false })
+      user = await this.userRepository.create({ address: verifiedPayload.payload.address, roleId: null, isAdmin: false, solicitudAdmin: false , img: null})
     }
 
     const jwt = await this.authRepository.setJwt(
@@ -160,7 +160,7 @@ export class MakeAdmin extends UseUserRoleAuthService {
   const createdRole = await this.roleRepository.create(newRole)
   console.log("createdRole: ", createdRole)
   await this.userRepository.update({ id,address: user.address, roleId: createdRole.id, 
-      isAdmin: true, solicitudAdmin: false })
+      isAdmin: true, solicitudAdmin: false, img: user.img })
   
   
 }

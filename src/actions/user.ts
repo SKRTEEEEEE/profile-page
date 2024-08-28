@@ -41,13 +41,14 @@ export async function listUserById(id: string) {
 export async function updateUser(id: string, payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
-}, formData: {solicitudAdmin:boolean,nick:string}) {
+}, formData: {solicitudAdmin:boolean,nick:string,img:string|null}) {
 
     const update = new UpdateUser(userRepository, authRepository)
     await update.execute(payload,
       {  id,
          solicitudAdmin:formData.solicitudAdmin,
-         nick: formData.nick
+         nick: formData.nick,
+         img: formData.img
         }
         )
     revalidatePath("/")
