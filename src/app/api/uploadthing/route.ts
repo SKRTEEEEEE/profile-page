@@ -1,4 +1,4 @@
-import { ourFileRouter } from "@/core/infrastructure/adapters/uploadthing-img-connection";
+import { ourFileRouter } from "@/core/infrastructure/adapters/uploadthing-st-connection";
 import { createRouteHandler } from "uploadthing/next";
  
 

@@ -13,13 +13,13 @@ import { RoleRepository } from "@/core/domain/repositories/role-repository";
 abstract class UseUserAuthService {
   constructor(protected userRepository: UserRepository, protected authRepository: AuthRepository) { }
 }
-export class LoginUser extends UseUserAuthService{
+export class LoginUser extends UseUserAuthService {
   async execute(payload: VerifyLoginPayloadParams): Promise<ExtendedJWTPayload> {
     const verifiedPayload = await this.authRepository.verifyPayload(payload);
     if (!verifiedPayload.valid) throw new Error("Payload not valid")
     let user = await this.userRepository.findByAddress(verifiedPayload.payload.address);
     if (!user) {
-      user = await this.userRepository.create({ address: verifiedPayload.payload.address, roleId: null, isAdmin: false, solicitudAdmin: false , img: null})
+      user = await this.userRepository.create({ address: verifiedPayload.payload.address, roleId: null, isAdmin: false, solicitudAdmin: false, img: null })
     }
 
     const jwt = await this.authRepository.setJwt(
@@ -36,6 +36,10 @@ export class LoginUser extends UseUserAuthService{
 
   }
 }
+
+
+
+
 //Aqui haremos el update de las cosas que puede hacer el usuario corriente, para dar admin a un usuario que loha solicitado se creara una nueva funcion limitada a los admin
 export class UpdateUser extends UseUserAuthService {
   async execute(payload: VerifyLoginPayloadParams, user: Omit<UserBase, "roleId" | "isAdmin" | "address">): Promise<ExtendedJWTPayload | null> {
@@ -63,11 +67,11 @@ export class UpdateUser extends UseUserAuthService {
   }
 }
 export class UserInCookies extends UseUserAuthService {
-  async execute(): Promise<User|false>{
+  async execute(): Promise<User | false> {
     const cooki = await this.authRepository.getCookies()
-    if(!cooki) return false
+    if (!cooki) return false
     const user = await this.userRepository.findByAddress(cooki.sub)
-    if(!user) return false
+    if (!user) return false
     return user
   }
 }
@@ -89,7 +93,7 @@ export class UserInCookies extends UseUserAuthService {
 // }
 // }
 // export class UserRoleService extends UseUserRoleService {
-  
+
 //   async assignRoleToUser(userId: string, rolePermission: RoleType) {
 //       const user = await this.userRepository.findById(userId)
 //       if (!user) throw new Error("User not found")
@@ -115,29 +119,29 @@ export class UserInCookies extends UseUserAuthService {
 // }
 
 
-abstract class UseUserRoleAuthService{
-  constructor(protected userRepository: UserRepository, protected roleRepository: RoleRepository, protected authRepository: AuthRepository){}
+abstract class UseUserRoleAuthService {
+  constructor(protected userRepository: UserRepository, protected roleRepository: RoleRepository, protected authRepository: AuthRepository) { }
 }
-export class DeleteUserAccount extends UseUserRoleAuthService{
-  
+export class DeleteUserAccount extends UseUserRoleAuthService {
+
   async execute(payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
-},id:string, address: string){
-  const v = await this.authRepository.verifyPayload(payload)
-  if(!v.valid) throw new Error("Error with payload auth")
-  if(v.payload.address!==address) throw new Error("User only can delete her address")
+  }, id: string, address: string) {
+    const v = await this.authRepository.verifyPayload(payload)
+    if (!v.valid) throw new Error("Error with payload auth")
+    if (v.payload.address !== address) throw new Error("User only can delete her address")
 
-  //deleteUser(id)
-  const user = await this.userRepository.findById(id)
-  if (!user) throw new Error("User not found")
-  if (user.roleId !== null) {
+    //deleteUser(id)
+    const user = await this.userRepository.findById(id)
+    if (!user) throw new Error("User not found")
+    if (user.roleId !== null) {
       await this.roleRepository.delete(user.roleId)
+    }
+    await this.userRepository.delete(id)
+    await this.authRepository.logout()
   }
-  await this.userRepository.delete(id)
-  await this.authRepository.logout()
-}
-  
+
 }
 
 
@@ -146,22 +150,24 @@ export class MakeAdmin extends UseUserRoleAuthService {
   async execute(payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
-},id:string){
-  const v = await this.authRepository.verifyPayload(payload)
-  if(!v.valid) throw new Error("Error with payload auth")
-  const signUser = await this.userRepository.findByAddress(v.payload.address)
-  if(!signUser)throw new Error("Error at find signer user")
-  if(!signUser.isAdmin)throw new Error("Only admins can do this action")
-  // const a = new AssignRoleToUser(this.userRepository,this.roleRepository)
-  // a.execute(id, "ADMIN" as RoleType)
-  const user = await this.userRepository.findById(id)
-  if (!user) throw new Error("User not found")
-  const newRole = { address: user.address, permissions: "ADMIN" as RoleType }
-  const createdRole = await this.roleRepository.create(newRole)
-  console.log("createdRole: ", createdRole)
-  await this.userRepository.update({ id,address: user.address, roleId: createdRole.id, 
-      isAdmin: true, solicitudAdmin: false, img: user.img })
-  
-  
-}
+  }, id: string) {
+    const v = await this.authRepository.verifyPayload(payload)
+    if (!v.valid) throw new Error("Error with payload auth")
+    const signUser = await this.userRepository.findByAddress(v.payload.address)
+    if (!signUser) throw new Error("Error at find signer user")
+    if (!signUser.isAdmin) throw new Error("Only admins can do this action")
+    // const a = new AssignRoleToUser(this.userRepository,this.roleRepository)
+    // a.execute(id, "ADMIN" as RoleType)
+    const user = await this.userRepository.findById(id)
+    if (!user) throw new Error("User not found")
+    const newRole = { address: user.address, permissions: "ADMIN" as RoleType }
+    const createdRole = await this.roleRepository.create(newRole)
+    console.log("createdRole: ", createdRole)
+    await this.userRepository.update({
+      id, address: user.address, roleId: createdRole.id,
+      isAdmin: true, solicitudAdmin: false, img: user.img
+    })
+
+
+  }
 }
