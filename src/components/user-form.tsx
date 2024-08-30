@@ -101,7 +101,7 @@ export default function UserForm({ user }: { user: User }) {
           <FormItem>
             <FormLabel>Nick</FormLabel>
               <FormControl>
-                <Input defaultValue={field.value} placeholder={`👾 De 5 a 25 caracteres`} {...field} />
+                <Input defaultValue={field.value} placeholder={`👾 De 5 a 25 caracteres`} />
               </FormControl>
               <FormDescription>
                 Este es tu nombre publico disponible.

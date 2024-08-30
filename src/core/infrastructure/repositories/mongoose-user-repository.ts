@@ -62,7 +62,7 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
           id: doc._id.toString(),
           address: doc.address,
           nick: doc.nick,
-          roleId: doc.roleId,
+          roleId: doc.roleId?.toString() || null,
           isAdmin: doc.isAdmin,
           solicitudAdmin: doc.solicitudAdmin,
           img: doc.img,
