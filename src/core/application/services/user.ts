@@ -19,13 +19,13 @@ export class LoginUser extends UseUserAuthService {
     if (!verifiedPayload.valid) throw new Error("Payload not valid")
     let user = await this.userRepository.findByAddress(verifiedPayload.payload.address);
     if (!user) {
-      user = await this.userRepository.create({ address: verifiedPayload.payload.address, roleId: null, isAdmin: false, solicitudAdmin: false, img: null })
+      user = await this.userRepository.create({ address: verifiedPayload.payload.address, roleId: null, role: null, solicitud: null, img: null, email: null })
     }
 
     const jwt = await this.authRepository.setJwt(
       payload,
       {
-        isAdmin: user.isAdmin,
+        role: user.role,
         nick: user.nick,
         id: user.id
         // Puedes agregar más datos al contexto si es necesario
@@ -42,19 +42,19 @@ export class LoginUser extends UseUserAuthService {
 
 //Aqui haremos el update de las cosas que puede hacer el usuario corriente, para dar admin a un usuario que loha solicitado se creara una nueva funcion limitada a los admin
 export class UpdateUser extends UseUserAuthService {
-  async execute(payload: VerifyLoginPayloadParams, user: Omit<UserBase, "roleId" | "isAdmin" | "address">): Promise<ExtendedJWTPayload | null> {
+  async execute(payload: VerifyLoginPayloadParams, user: Omit<UserBase, "roleId" | "role" | "address">): Promise<ExtendedJWTPayload | null> {
 
     const userB = await this.userRepository.findById(user.id)
     if (!userB) throw new Error("No user in bdd")
 
     // Actualiza el usuario
-    const updatedUser = await this.userRepository.update({ ...user, address: userB.address, isAdmin: userB.isAdmin, roleId: userB.roleId })
+    const updatedUser = await this.userRepository.update({ ...user, address: userB.address, role: userB.role, roleId: userB.roleId })
     if (!updatedUser) throw new Error("Error at update user")
 
 
     const newJWT = await this.authRepository.setJwt(payload,
       {
-        isAdmin: userB.isAdmin,
+        role: userB.role,
         nick: user.nick,
         id: user.id
         // Puedes agregar más datos al contexto si es necesario
@@ -155,7 +155,7 @@ export class MakeAdmin extends UseUserRoleAuthService {
     if (!v.valid) throw new Error("Error with payload auth")
     const signUser = await this.userRepository.findByAddress(v.payload.address)
     if (!signUser) throw new Error("Error at find signer user")
-    if (!signUser.isAdmin) throw new Error("Only admins can do this action")
+    if (signUser.role!=="ADMIN") throw new Error("Only admins can do this action")
     // const a = new AssignRoleToUser(this.userRepository,this.roleRepository)
     // a.execute(id, "ADMIN" as RoleType)
     const user = await this.userRepository.findById(id)
@@ -165,7 +165,7 @@ export class MakeAdmin extends UseUserRoleAuthService {
     console.log("createdRole: ", createdRole)
     await this.userRepository.update({
       id, address: user.address, roleId: createdRole.id,
-      isAdmin: true, solicitudAdmin: false, img: user.img
+      role: RoleType["ADMIN"], solicitud: null, img: user.img, email: user.email
     })
 
 

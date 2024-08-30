@@ -26,22 +26,30 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
     }
     async update(user: UserBase): Promise<User> {
         await this.connect(); // Asegúrate de que la conexión esté establecida
+    
         const userF = await UserModel.findById(user.id);
         if (!userF) throw new Error("Error al encontrar el usuario");
     
-        // Actualiza los campos necesarios
-        userF.address = user.address;
-        userF.isAdmin = user.isAdmin;
-        userF.solicitudAdmin = user.solicitudAdmin;
-        userF.nick = user.nick !== undefined ? user.nick : userF.nick
-        userF.roleId = user.roleId !== null ? user.roleId : userF.roleId; // Mantiene el valor actual si roleId no se proporciona
-        userF.img = user.img
-        console.log("update user: ", user)
+        // Actualiza los campos necesarios usando el operador de propagación
+        Object.assign(userF, {
+            address: user.address,
+            role: user.role,
+            solicitud: user.solicitud,
+            nick: user.nick !== undefined ? user.nick : userF.nick,
+            roleId: user.roleId !== null ? user.roleId : userF.roleId, // Mantiene el valor actual si roleId no se proporciona
+            img: user.img,
+            email: user.email
+        });
+    
+        console.log("update user: ", user);
+    
         // Guarda los cambios en la base de datos
         const updatedUser = await userF.save();
-        console.log("updated user: ",updatedUser)
+        console.log("updated user: ", updatedUser);
+    
         return this.documentToUser(updatedUser); // Convierte el documento actualizado a la entidad User
     }
+    
     async delete(id:string):Promise<void> {
         await this.connect()
         const result = await UserModel.deleteOne({_id:id})
@@ -63,9 +71,10 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
           address: doc.address,
           nick: doc.nick,
           roleId: doc.roleId?.toString() || null,
-          isAdmin: doc.isAdmin,
-          solicitudAdmin: doc.solicitudAdmin,
+          role: doc.role,
+          solicitud: doc.solicitud,
           img: doc.img,
+          email: doc.email,
           createdAt: doc.createdAt.toISOString(),
           updatedAt: doc.updatedAt.toISOString()
         };

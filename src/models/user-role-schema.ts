@@ -2,6 +2,7 @@
 import { RoleBase } from "@/core/domain/entities/Role";
 import { UserBase } from "@/core/domain/entities/User";
 import mongoose, { Schema } from "mongoose";
+export const roleEnum = ['ADMIN', 'STUDENT', 'STUDENT_PRO']
 
 export interface UserDocument extends Document, UserBase { 
     _id: mongoose.Types.ObjectId;
@@ -17,16 +18,17 @@ export interface RoleDocument extends Document, RoleBase {
 const userSchema = new Schema({
     address: { type: String, required: true },
     roleId: {default: null, type: mongoose.Schema.Types.ObjectId, ref: "Role" },
-    isAdmin: { default: false, type: Boolean, required: true },
-    solicitudAdmin: { default: false, type: Boolean, required: true },
+    role: { default: null, type: String, enum: roleEnum },
+    solicitud: { default: null, type: String, enum: roleEnum },
     img: {default: null, type: String},
+    email: {default: null, type: String},
     nick: { type: String },
 }, {
     timestamps: true 
 })
 const roleSchema = new Schema({
     address: { type: String, required: true },
-    permissions: { type: String, required: true, enum: ['ADMIN', 'STUDENT', 'STUDENT_PRO'], }
+    permissions: { type: String, required: true, enum: roleEnum, }
 }, {
     timestamps: true 
 })

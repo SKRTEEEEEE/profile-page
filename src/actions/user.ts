@@ -3,6 +3,7 @@
 
 import { DeleteUserAccount, MakeAdmin, UpdateUser, UserInCookies } from "@/core/application/services/user";
 import { ListUserById, ListUsers } from "@/core/application/usecases/user";
+import { RoleType } from "@/core/domain/entities/Role";
 import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role-repository";
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
 import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
@@ -41,14 +42,16 @@ export async function listUserById(id: string) {
 export async function updateUser(id: string, payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
-}, formData: {solicitudAdmin:boolean,nick:string,img:string|null}) {
+}, formData: {solicitud:RoleType|null, email:string|null,nick?:string,img:string|null}) {
 
     const update = new UpdateUser(userRepository, authRepository)
     await update.execute(payload,
       {  id,
-         solicitudAdmin:formData.solicitudAdmin,
+         solicitud:formData.solicitud,
          nick: formData.nick,
-         img: formData.img
+         img: formData.img,
+         email: formData.email,
+
         }
         )
     revalidatePath("/")

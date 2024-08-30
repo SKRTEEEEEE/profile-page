@@ -7,13 +7,14 @@ import { redirect } from "next/navigation";
 import { ThirdwebAuthAdapter } from "../adapters/thirdweb-auth-adapter";
 import { AuthRepository } from "@/core/domain/repositories/auth-repository";
 import { ExtendedJWTPayload } from "@/types/auth";
+import { RoleType } from "@/core/domain/entities/Role";
 
 class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthRepository {
   async logout(): Promise<void> {
     cookies().delete("jwt");
   }
 
-  async setJwt(payload: VerifyLoginPayloadParams, context: { isAdmin: boolean, [key: string]: any }): Promise<ExtendedJWTPayload> {
+  async setJwt(payload: VerifyLoginPayloadParams, context: { role: RoleType|null, [key: string]: any }): Promise<ExtendedJWTPayload> {
     const verifiedPayload = await this.thirdwebAuth.verifyPayload(payload);
     if (!verifiedPayload.valid)throw new Error("Error at sign") 
         const jwt = await this.thirdwebAuth.generateJWT({

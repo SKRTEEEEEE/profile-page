@@ -55,7 +55,7 @@ export default async function UsersTable() {
                   </Link> 
                 </td>*/}
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
-                  <MakeAdminButton solicitudAdmin={user.solicitudAdmin} id={user.id} userIsAdmin={activeUser?activeUser.isAdmin:false}/>
+                  <MakeAdminButton solicitudAdmin={user.solicitud === "ADMIN"} id={user.id} userIsAdmin={activeUser&&(activeUser.role==="ADMIN")?true:false}/>
                 </td>
                 {/* <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
                   <EditRoleSelect id={user.id} />
