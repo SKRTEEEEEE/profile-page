@@ -16,7 +16,7 @@ export function EjercicioItem({slug, title, description, date,tags}: PostItemPro
     return <article className="flex flex-col gap-2 border-border border-b py-3">
         <div>
             <h2 className="text-2xl font-bold">
-                <Link href={"/"+slug}>{title}
+                <Link href={"/academia/"+slug}>{title}
                 </Link>
             </h2>
         </div>
