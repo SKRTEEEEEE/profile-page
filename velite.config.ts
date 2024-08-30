@@ -1,6 +1,6 @@
-// import rehypeSlug from "rehype-slug";
-// import rehypePrettyCode from "rehype-pretty-code"
-// import rehypeAutolinkHeadings from "rehype-autolink-headings"
+import rehypeSlug from "rehype-slug";
+import rehypePrettyCode from "rehype-pretty-code"
+import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import {defineConfig, defineCollection, s}from "velite";
 
 
@@ -36,11 +36,11 @@ export default defineConfig({
     },
     collections: {ejercicios},
     mdx: {
-        rehypePlugins: [],
-        // rehypePlugins: [rehypeSlug,[rehypePrettyCode, {theme: "github-dark"}],[rehypeAutolinkHeadings, { behavior: "wrap",properties: {
-        //     className: ["subheading-anchor"],
-        //     ariaLabel: "Link to section",
-        // }}]],
+        
+        rehypePlugins: [rehypeSlug,[rehypePrettyCode, {theme: "github-dark"}],[rehypeAutolinkHeadings, { behavior: "wrap",properties: {
+            className: ["subheading-anchor"],
+            ariaLabel: "Link to section",
+        }}]],
         remarkPlugins: []
     }
 })
