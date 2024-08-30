@@ -2,7 +2,7 @@
 
 import { generatePayload, isLoggedIn, login, logout } from "@/actions/auth"
 import { client } from "@/lib/utils"
-import { ConnectButton } from "thirdweb/react"
+import { ConnectButton, darkTheme } from "thirdweb/react"
 import { createWallet, inAppWallet } from "thirdweb/wallets";
 const wallets = [
     inAppWallet({
@@ -76,6 +76,18 @@ export const CConectButton =  () =>{
       
     return(
         <ConnectButton
+        theme={darkTheme({
+          colors: {
+            connectedButtonBg: "#6b6b6b",
+            connectedButtonBgHover: "#a6a6a6",
+            accentButtonText: "#ffffff",
+            secondaryButtonText: "#ffffff",
+            primaryText: "#ffffff",
+            selectedTextColor: "#000000",
+            secondaryText: "#000000",
+            modalBg: "#2d2a2a",
+          },
+        })}
         client={client}
         wallets={wallets}
         connectModal={{
@@ -86,6 +98,7 @@ export const CConectButton =  () =>{
         detailsModal={{
             footer: () => <p>SKRT👾</p>,
         }}
+        connectButton={{ label: "Iniciar sesión" }}
         
         auth={{
             isLoggedIn: async (address:string )=> {

@@ -1,10 +1,15 @@
 import { ejercicios } from "#site/content";
 import { EjercicioItem } from "@/components/ejercicio-item";
 import { buttonVariants } from "@/components/ui/button";
+import { routesConfig } from "@/config/routes";
 import { siteConfig } from "@/config/site";
 import { cn, sortPosts } from "@/lib/utils";
+import { Metadata } from "next";
 import Link from "next/link";
-
+export const metadata: Metadata = {
+  title: routesConfig.academia.title,
+  description: routesConfig.academia.description
+}
 export default function AprenderPage() {
   const latestPosts = sortPosts(ejercicios).slice(0,5)
 

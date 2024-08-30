@@ -7,6 +7,7 @@ import { ThirdwebProvider } from "thirdweb/react";
 export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
+  authors: {name:siteConfig.author},
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL??siteConfig.url)
 };
 export const viewport: Viewport = {

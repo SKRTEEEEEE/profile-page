@@ -36,7 +36,7 @@ const themes: ThemeType = {
 };
 
 export default function ModeToggle() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [mode, setMode] = useState(() => {
     if (typeof window !== "undefined") {
@@ -69,8 +69,8 @@ export default function ModeToggle() {
 
   return (
     <DropdownProvider>
-      <DropdownTrigger>
-        <Paintbrush className="text-accent" />
+      <DropdownTrigger className="border-border border-2 hover:border-4 px-2 py-3 hover:rounded-sm hover:bg-accent-foreground ">
+        <Paintbrush className="text-accent " />
       </DropdownTrigger>
       <DropdownContent side="right" align="top">
         <DropdownHeader>Customize Theme</DropdownHeader>

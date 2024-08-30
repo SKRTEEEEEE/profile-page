@@ -8,6 +8,7 @@ import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 import { Icons } from "./icons";
 import { siteConfig } from "@/config/site";
+import { CConectButton } from "./custom-connect-button";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -30,12 +31,13 @@ export function MobileNav() {
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
         <div className="flex flex-col gap-3 mt-3">
-          <MobileLink onOpenChange={setOpen} href="/blog">
-            Blog
+          <CConectButton/>
+          <MobileLink onOpenChange={setOpen} href="/academia">
+            Academia
           </MobileLink>
-          <MobileLink onOpenChange={setOpen} href="/about">
+          {/* <MobileLink onOpenChange={setOpen} href="/about">
             About
-          </MobileLink>
+          </MobileLink> */}
           <Link target="_blank" rel="noreferrer" href={siteConfig.links.github}>
             GitHub
           </Link>

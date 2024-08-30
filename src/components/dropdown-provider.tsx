@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { buttonVariants } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 interface DropdownContextType {
   isOpen: boolean;
@@ -61,7 +63,8 @@ export const DropdownProvider = ({
 
   return (
     <DropdownContext.Provider value={contextValue}>
-      <div ref={dropdownRef} className="pt-2 pr-2">
+      <div ref={dropdownRef} className=" mx-2 px-2">
+       
         {children}
       </div>
     </DropdownContext.Provider>

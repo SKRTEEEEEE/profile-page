@@ -14,7 +14,7 @@ const DropdownTrigger = forwardRef<
       ref={ref}
       onClick={isOpen ? closeDropdown : openDropdown}
       className={cn(
-        "bg-transparent border-none ring-0 rounded-md text-primary",
+        "bg-transparent ring-0 rounded-md text-primary",
         className
       )}
       {...props}
