@@ -1,23 +1,51 @@
 // "ejemplo de componente personalizado"
 
+import { userInCookies } from "@/actions/user";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
 interface CalloutProps {
     children?: ReactNode;
     type?: "default"|"warning"|"danger";
+    role?: "default"|"verificado"|"student";
 }
 
-export function Callout({
+function CalloutWarning ({type}:{type: "subscrito"|"verificado"})  {
+    return <div className="py-6 my-2 items-start rounded-sm border border-l-2 px-4 w-full border-destructive bg-destructive/10"> ⚠️ Tienes que estar {type} para ver este contenido</div>
+}
+function CalloutContainer({ children, type, ...props }: { children: React.ReactNode; type: string; [key: string]: any }) {
+    return (
+        <div
+            className={cn(
+                "my-2 items-start rounded-sm border border-l-2 px-2 w-full",
+                {
+                    "border-destructive bg-destructive/5": type === "danger",
+                    "border-yellow-900 bg-yellow-50/5": type === "warning",
+                }
+            )}
+            {...props}
+        >
+            <div>{children}</div>
+        </div>
+    );
+}
+
+export async function Callout({
     children,
-    type= "default",
+    type= "warning",
+    role= "student",
     ...props
 }: CalloutProps) {
-    return <div className={cn("my-6 items-start rounded-sm border border-l-2 px-2 w-full dark:max-w-none",{
-        "border-red-900 bg-red-50 dark:prose": type === "danger",
-        "border-yellow-900 bg-yellow-50 dark:prose": type === "warning",
-
-    })}{...props}>
-        <div>{children}</div>
-    </div>
+    const user = await userInCookies()
+    if(role==="student"){ 
+        if(!user || !user.isAdmin){
+            return <CalloutWarning type="subscrito"/>
+        }
+        return <CalloutContainer type={type} {...props}>{children}</CalloutContainer>;
+    }
+    if(role==="verificado"){
+        if(!user) return <CalloutWarning type="verificado"/>
+        return <CalloutContainer type={type} {...props}>{children}</CalloutContainer>;
+    }
+    return <CalloutContainer type={type} {...props}>{children}</CalloutContainer>;  
 }

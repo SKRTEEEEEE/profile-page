@@ -15,6 +15,7 @@ Ejercicio sencillo de arquitecura hexagonal utilizando NextJs +14 con app router
 ## Proceso
 
 ### 1. Estructura app
+<Callout role="verificado" type="warning">
 #### `npx create-next-app@latest`
 - Iniciar la aplicación usando el comando de NextJs, usando la carpeta "src".
 #### Estructura hexagonal
@@ -28,7 +29,9 @@ Ejercicio sencillo de arquitecura hexagonal utilizando NextJs +14 con app router
 - Creación del dominio.
 - Creación de los use-cases necesarios.
 - También puedes realizar la infraestructura, creando así toda la aplicación hexagonal. Sino deberás crear esta parte después.
+</Callout>
 ### 2. Users
+<Callout role="verificado" type="warning">
 #### `InMemoryUserRepository`, "Create" user and "Read" users
 - Crear `InMemoryUserRepository`, si todavía no se ha hecho.
 - En "actions", crearemos funciones para "Create" usuarios, utilizando SSR.
@@ -118,7 +121,6 @@ Ejercicio sencillo de arquitecura hexagonal utilizando NextJs +14 con app router
     </div>
 ```
 </details>
-
 #### "Update" user
 - Crearemos la acción de hacer update en actions, implementando-la en una pagina dinámica, la cual utilizara el componente del formulario del usuario.
 - 🧑‍🎓⚠️➡️ _En este punto:_ Solo tendremos un formulario para el usuario, el cual se utilizara para crear y hacer update.
@@ -130,7 +132,9 @@ Ejercicio sencillo de arquitecura hexagonal utilizando NextJs +14 con app router
             Delete
   </button>
 ```
+</Callout>
 ### 3. Rol
+<Callout role="verificado" type="warning">
 #### "Create" rol
 - Para este punto deberías tener hecho ya la estructura hexagonal de los rol. Incluido el repositorio `InMemoryRoleRepository`. Si hay alguna parte que aun no has hecho deberías terminarla en esta parte.
 - 💡🧠 ➡️ _En este punto:_ Piensa que use-cases serán necesarios y usarán solo el repositorio `InMemoryRoleRepository`.
@@ -155,8 +159,9 @@ Ejercicio sencillo de arquitecura hexagonal utilizando NextJs +14 con app router
 - Utiliza el mismo componente que se usa para el "Create".
 - 🧠⚠️⏫ Recuerda que en el caso de que es usuario se modifique para ser de nuevo un usuario corriente, habrá que marcar como null su roleId.
 - 🧑‍🎓⚠️➡️ _En este punto:_ Has de ser capaces de crear usuarios, y asignar-les un rol, incluso cuando este vuelva a ser "usuario normal". Esto significa que se eliminaran del array de roles y se asignará null en su roleId.
-
+</Callout>
 ### 4. MongoDb
+<Callout role="verificado" type="warning">
 #### Información y dependencias
 - _En este apartado, al no ser un ejercicio centrado en MongoDB y este apartado solo ser un ejemplo del potencial de la arquitectura hexagonal, proporcionare todo el código necesario para la implementación de esta parte sin tener conocimientos de MongoDB._
 - _Obtén aquí mas información sobre como utilizar: [mongoose](https://mongoosejs.com/) o [MongoDb](https://www.mongodb.com/docs/). Herramientas utilizadas para el desarrollo de esta sección._
@@ -334,7 +339,7 @@ export class MongooseRoleRepository extends MongoDbConnection implements RoleRep
 }
 ```
 </details>
-
+</Callout>
 {/* 
 ⚠️ NO SE PUEDEN PONER ENLAÇES EN LOS TITULOS
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)
