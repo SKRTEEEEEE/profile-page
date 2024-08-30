@@ -12,8 +12,20 @@
   <p>Greetings, one and all!</p>
 </dialog>
 
-
+## Información
 Test de arquitectura hexagonal con NextJs 14
+### Tecnologías y herramientas utilizadas
+- [**nextjs**](https://nextjs.org/)
+- [**tailwindcss**](https://tailwindcss.com/)
+- [**shadcn ui**](https://ui.shadcn.com/)
+- [**mongo db**](https://www.mongodb.com/docs/)
+- [mongodb atlas](https://www.mongodb.com/docs/atlas/getting-started/)
+- [mongoose](https://mongoosejs.com/docs/guide.html)
+- [**velite**](https://velite.js.org/)
+- [next-themes](https://github.com/pacocoursey/next-themes)
+- [github-slugger](https://www.npmjs.com/package/github-slugger/v/1.2.1)
+- [tailwindcss typography](https://github.com/tailwindlabs/tailwindcss-typography)
+
 
 ## Proceso
 
@@ -48,8 +60,8 @@ Test de arquitectura hexagonal con NextJs 14
 #### Configurar rutas principales y documentar
 #### Configurar navegador `(main)`
 #### Configurar switch themes
+#### Utilizar velite para mostrar ejercicios
 **ACTUALIDAD**
-#### Mostrar ejercicios
 **FUTURO**
 #### El Administrador puede eliminar un usuario
 - _Directamente se optara por la opción de vetar ya que no tiene lógica que elimine sin notificar ni nada._
