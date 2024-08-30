@@ -1,4 +1,5 @@
 import { SiteHeader } from "@/components/site-header";
+import { CThemeProvider } from "@/components/theme-provider";
 import type { Metadata } from "next";
 import { ThirdwebProvider } from "thirdweb/react";
 
@@ -14,10 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <div className="relative flex min-h-dvh flex-col bg-background">
+      <CThemeProvider disableTransitionOnChange defaultTheme="dark-soft">
         <ThirdwebProvider>
           <SiteHeader/>
           {children}
-          </ThirdwebProvider>
+          </ThirdwebProvider></CThemeProvider>
           </div>
   );
 }

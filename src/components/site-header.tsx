@@ -3,9 +3,9 @@ import { buttonVariants } from "./ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { MobileNav } from "./mobile-nav";
-// import { ModeToggle } from "./mode-toggle";
 import { Icons } from "./icons";
 import { MainNav } from "./main-nav";
+import ModeToggle from "./mode-toggle";
 
 export function SiteHeader(){
     return <header className="z-10 sticky top-0 w-full border-b border-border bg-background/95 background-blur supports-[backdrop-filter]:bg-background/60">
@@ -25,7 +25,7 @@ export function SiteHeader(){
                         <span className="sr-only">Twitter</span>
                     </div>
                     </Link>
-                    {/* <ModeToggle/>*/}
+                    <ModeToggle/>
                     <MobileNav/> 
                 </nav>
 
