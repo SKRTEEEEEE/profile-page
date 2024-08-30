@@ -37,10 +37,10 @@ export default async function BlogPage({searchParams}: BlogPageProps){
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-4">
             <div className="flex-1 space-y-4">
                 <h1 className="inline-block font-black text-4xl lg:text-5xl">
-                    Blog
+                    Ejercicios
                 </h1>
                 <p className="text-xl text-muted-foreground">
-                    My remblings on all things web dev.
+                    Aprendiendo de forma dinámica 👾
                 </p>
             </div>
         </div>
@@ -57,14 +57,14 @@ export default async function BlogPage({searchParams}: BlogPageProps){
                 })}
             </ul>
         ):(
-            <p>Nothing to see here</p>
+            <p>No hay ejercicios, vuelve pronto!</p>
         )
         }
         <QueryPagination totalPages={totalPages} className="justify-end mt-4"/>
         </div>
         <Card className="col-span-12 row-start-3 h-fit sm:col-span-4 sm:col-start-9 sm:row-start-1">
             <CardHeader>
-                <CardTitle>Tags</CardTitle>
+                <CardTitle>Temas</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
                 {sortedTags?.map(tag=><Tag tag={tag} key={tag} count={tags[tag]}/>)}
