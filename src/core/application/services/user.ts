@@ -7,7 +7,9 @@ import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
 import { User, UserBase } from "@/core/domain/entities/User";
 import { RoleType } from "@/core/domain/entities/Role";
 import { RoleRepository } from "@/core/domain/repositories/role-repository";
-
+import crypto from "crypto"
+import { verificationEmailTemplate } from "@/lib/verification-email";
+import { nodemailerEmailRepository } from "@/core/infrastructure/repositories/nodemailer-email-repository";
 // user-auth service
 
 abstract class UseUserAuthService {
@@ -37,20 +39,44 @@ export class LoginUser extends UseUserAuthService {
   }
 }
 
-
+export class TokenGenerator {
+  private generateToken(): string{
+    return crypto.randomBytes(20).toString("hex")
+  }
+  private hashToken(token:string): string{
+    return crypto.createHash("sha256").update(token).digest("hex")
+  }
+  generateVerificationToken(): {hashedToken: string, expireDate: Date}{
+    const verificationToken = this.generateToken();
+    const hashedToken = this.hashToken(verificationToken);
+    const expireDate = new Date(Date.now() + 30 * 60 * 1000); 
+    return{
+      hashedToken, expireDate
+    }
+  }
+}
 
 
 //Aqui haremos el update de las cosas que puede hacer el usuario corriente, para dar admin a un usuario que loha solicitado se creara una nueva funcion limitada a los admin
 export class UpdateUser extends UseUserAuthService {
-  async execute(payload: VerifyLoginPayloadParams, user: Omit<UserBase, "roleId" | "role" | "address">): Promise<ExtendedJWTPayload | null> {
-
+  async execute(payload: VerifyLoginPayloadParams, user: Omit<UserBase, "roleId" | "role" | "address" | "isVerified">): Promise<ExtendedJWTPayload | null> {
+    let verifyToken, verifyTokenExpire;
     const userB = await this.userRepository.findById(user.id)
     if (!userB) throw new Error("No user in bdd")
-
+    if (user.email !==null&&!userB.isVerified){
+      const t = new TokenGenerator()
+      const {hashedToken, expireDate} = t.generateVerificationToken()
+      verifyToken = hashedToken
+      verifyTokenExpire = expireDate.toString()
+      const verificationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/verify-email?verifyToken=${verifyToken}&id=${user.id}`;
+      const html = verificationEmailTemplate(verificationLink);
+      // Send verification email      
+      await nodemailerEmailRepository.sendMail({to: user.email, subject:"Email Verification", html});
+    }
     // Actualiza el usuario
-    const updatedUser = await this.userRepository.update({ ...user, address: userB.address, role: userB.role, roleId: userB.roleId })
+    const updatedUser = await this.userRepository.update({ ...user, address: userB.address, role: userB.role, roleId: userB.roleId, verifyToken, verifyTokenExpire, isVerified: userB.isVerified })
     if (!updatedUser) throw new Error("Error at update user")
-
+      
 
     const newJWT = await this.authRepository.setJwt(payload,
       {
@@ -59,9 +85,6 @@ export class UpdateUser extends UseUserAuthService {
         id: user.id
         // Puedes agregar más datos al contexto si es necesario
       })
-
-
-
     return newJWT;
 
   }
@@ -165,7 +188,7 @@ export class MakeAdmin extends UseUserRoleAuthService {
     console.log("createdRole: ", createdRole)
     await this.userRepository.update({
       id, address: user.address, roleId: createdRole.id,
-      role: RoleType["ADMIN"], solicitud: null, img: user.img, email: user.email
+      role: RoleType["ADMIN"], solicitud: null, img: user.img, email: user.email, isVerified: user.isVerified
     })
 
 

@@ -3,7 +3,7 @@
 import { User, UserBase } from '../entities/User';
 
 export type UserRepository = {
-  create(user: Omit<UserBase, 'id'>): Promise<User>;
+  create(user: Omit<UserBase, 'id'|"isVerified">): Promise<User>;
   findById(id: string): Promise<User | null>;
   findByAddress(address:string): Promise<User|null>;
   update(user: UserBase): Promise<User>;

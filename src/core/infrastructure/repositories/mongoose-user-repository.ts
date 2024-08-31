@@ -38,7 +38,10 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
             nick: user.nick !== undefined ? user.nick : userF.nick,
             roleId: user.roleId !== null ? user.roleId : userF.roleId, // Mantiene el valor actual si roleId no se proporciona
             img: user.img,
-            email: user.email
+            email: user.email,
+            isVerified: user.isVerified,
+            verifyToken: user.verifyToken,
+            verifyTokenExpire: user.verifyTokenExpire
         });
     
         console.log("update user: ", user);
@@ -75,8 +78,11 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
           solicitud: doc.solicitud,
           img: doc.img,
           email: doc.email,
+          isVerified: doc.isVerified,
+          verifyToken: doc.verifyToken,
+          verifyTokenExpire: doc.verifyTokenExpire,
           createdAt: doc.createdAt.toISOString(),
-          updatedAt: doc.updatedAt.toISOString()
+          updatedAt: doc.updatedAt.toISOString(),
         };
       }
 

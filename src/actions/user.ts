@@ -2,7 +2,7 @@
 
 
 import { DeleteUserAccount, MakeAdmin, UpdateUser, UserInCookies } from "@/core/application/services/user";
-import { ListUserById, ListUsers } from "@/core/application/usecases/user";
+import { ListUserById, ListUsers, VerifyEmail } from "@/core/application/usecases/user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role-repository";
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
@@ -73,6 +73,10 @@ export async function makeAdmin(payload: {
     const m = new MakeAdmin(userRepository,roleRepository,authRepository)
     await m.execute(payload,id)
     revalidatePath("/admin/users")
+}
+export async function verifyEmail(id:string, verifyToken:string){
+    const v = new VerifyEmail(userRepository)
+    return await v.execute(id,verifyToken)
 }
 export async function userInCookies(){
     const u = new UserInCookies(userRepository,authRepository)

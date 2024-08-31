@@ -1,5 +1,7 @@
+import { RoleType } from "@/core/domain/entities/Role";
 import { User } from "@/core/domain/entities/User";
 import { UserRepository } from "@/core/domain/repositories/user-repository";
+
 abstract class UseUser {
     constructor(protected userRepository:UserRepository){}
 }
@@ -39,3 +41,32 @@ export class ListUsers extends UseUser{
 //         return await this.userRepository.findByAddress(address)
 //     }
 // }
+
+export class VerifyEmail extends UseUser {
+    async execute(id:string, verifyToken: string): Promise<boolean>{
+        const user = await this.userRepository.findById(id);
+        if (!user) {
+            console.error("Error at find user");
+            return false;
+        } 
+        if (user.verifyToken !== verifyToken) {
+            console.error("Error at validate token");
+            return false;
+        }
+        if (user.verifyTokenExpire && new Date(user.verifyTokenExpire) <= new Date()) {
+            console.error("Error with token time");
+            return false;
+        }
+        user.isVerified = true;
+        user.verifyToken = undefined;
+        user.verifyTokenExpire = undefined;
+        // Falta poner el user.role al student si el ha solicitado user.role
+        // if(user.solicitud===RoleType["STUDENT"]) {
+        //     user.solicitud = null;
+        //     user.role
+        // }
+
+        await this.userRepository.update(user);
+        return true;
+    }
+}

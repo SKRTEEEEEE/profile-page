@@ -23,6 +23,16 @@ const userSchema = new Schema({
     img: {default: null, type: String},
     email: {default: null, type: String},
     nick: { type: String },
+    isVerified: {
+        type: Boolean,
+        default: false,
+      },
+      verifyToken: {
+        type: String,
+      },
+      verifyTokenExpire: {
+        type: Date,
+      },
 }, {
     timestamps: true 
 })

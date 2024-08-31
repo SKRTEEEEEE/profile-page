@@ -9,8 +9,11 @@ export class User implements UserBase {
         public solicitud: RoleType | null,
         public img: string | null,
         public email: string | null,
+        public isVerified: boolean,
         public createdAt: string,
         public updatedAt: string,
+        public verifyToken?: string,
+        public verifyTokenExpire?: string,
         public nick?: string,
         
     ){}
@@ -23,6 +26,9 @@ export type UserBase = {
     solicitud: RoleType | null,
     img: string | null,
     email: string | null,
+    isVerified: boolean,
+    verifyToken?: string,
+    verifyTokenExpire?: string,
     nick?: string,
 
 }

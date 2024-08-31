@@ -30,6 +30,7 @@ Test de arquitectura hexagonal con NextJs 14
 - [rehype-autolink-headings)](https://github.com/rehypejs/rehype-autolink-headings)
 - [rehype-slug](https://github.com/rehypejs/rehype-slug)
 - [**vercel**](https://vercel.com/docs)
+- [nodemailer](https://www.nodemailer.com/)
 ### [Proceso 🏃‍♂️‍➡️🛣️](./docs/process.md)
 
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)
