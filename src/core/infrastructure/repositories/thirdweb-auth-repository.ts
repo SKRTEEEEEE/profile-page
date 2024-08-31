@@ -5,7 +5,7 @@ import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, Ver
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ThirdwebAuthAdapter } from "../connectors/thirdweb-auth";
-import { AuthRepository } from "@/core/application/repositories/auth-repository";
+import { AuthRepository } from "@/core/application/services/auth";
 import { ExtendedJWTPayload, JWTContext } from "@/types/auth";
 import { VerificationOperationError } from "@/core/domain/errors/main";
 import { RoleType } from "@/core/domain/entities/Role";

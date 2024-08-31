@@ -5,9 +5,9 @@ import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
 import { User} from "@/core/domain/entities/User";
 import { RoleType } from "@/core/domain/entities/Role";
 import crypto from "crypto"
-import { UserRepository } from "../../repositories/user-repository";
-import { AuthRepository } from "../../repositories/auth-repository";
-import { RoleRepository } from "../../repositories/role-repository";
+import { UserRepository } from "../../repositories/user";
+import { AuthRepository } from "../../services/auth";
+import { RoleRepository } from "../../repositories/role";
 // user-auth service
 
 abstract class UseUserAuthService {

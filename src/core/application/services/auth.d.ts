@@ -3,7 +3,7 @@ import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, Ver
 
 
 
-export type AuthRepository = {
+type AuthRepository = {
     
     logout(): Promise<void>;
     setJwt(payload: VerifyLoginPayloadParams, context:JWTContext): Promise<ExtendedJWTPayload>;

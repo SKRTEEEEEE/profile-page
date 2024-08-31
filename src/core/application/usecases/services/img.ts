@@ -1,4 +1,3 @@
-import { ImgRepository } from "../../repositories/img-repository";
 
 abstract class UseImage {
     constructor(protected imgRepository:ImgRepository){}
