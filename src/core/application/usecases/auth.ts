@@ -1,6 +1,5 @@
 import { AuthRepository } from "@/core/domain/repositories/auth-repository";
-import { ExtendedJWTPayload } from "@/types/auth";
-import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, VerifyLoginPayloadResult } from "thirdweb/auth";
+import { GenerateLoginPayloadParams, LoginPayload } from "thirdweb/auth";
 
 abstract class UseAuth {
     constructor(protected authRepository: AuthRepository){}

@@ -1,3 +1,4 @@
+import { RoleType } from "@/core/domain/entities/Role";
 import { createAuth, VerifyLoginPayloadResult } from "thirdweb/auth";
 import { JWTPayload } from "thirdweb/utils";
 
@@ -29,7 +30,7 @@ export type VerifyJWTReturnType = Awaited<ReturnType<VerifyJWTType>>;
 // export type JWTPayload = ValidJWTReturnType['parsedJWT'];
 
 export type JWTContext = {
-    isAdmin: boolean;
+    role?: RoleType;
     nick?: string;
     id: string;
     [key: string]: any;

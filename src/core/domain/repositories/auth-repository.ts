@@ -1,13 +1,12 @@
-import { ExtendedJWTPayload } from "@/types/auth";
+import { ExtendedJWTPayload, JWTContext } from "@/types/auth";
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, VerifyLoginPayloadResult } from "thirdweb/auth";
-import { RoleType } from "../entities/Role";
 
 
 
 export type AuthRepository = {
     
     logout(): Promise<void>;
-    setJwt(payload: VerifyLoginPayloadParams, context: { role: RoleType| null, [key: string]: any }): Promise<ExtendedJWTPayload>;
+    setJwt(payload: VerifyLoginPayloadParams, context:JWTContext): Promise<ExtendedJWTPayload>;
     getCookies(): Promise<ExtendedJWTPayload|false>;
     //->Comprobaciones
     isLoggedIn(): Promise<boolean>;

@@ -25,7 +25,7 @@ export class LoginUser extends UseUserAuthService {
     const jwt = await this.authRepository.setJwt(
       payload,
       {
-        role: user.role,
+        role: user.role || undefined,
         nick: user.nick,
         id: user.id
         // Puedes agregar más datos al contexto si es necesario
@@ -54,7 +54,7 @@ export class UpdateUser extends UseUserAuthService {
 
     const newJWT = await this.authRepository.setJwt(payload,
       {
-        role: userB.role,
+        role: userB.role||undefined,
         nick: user.nick,
         id: user.id
         // Puedes agregar más datos al contexto si es necesario
