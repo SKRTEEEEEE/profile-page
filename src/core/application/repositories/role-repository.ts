@@ -1,6 +1,7 @@
 // src/core/domain/repositories/RoleRepository.ts
 
-import { Role, RoleBase, RoleType} from '../entities/Role';
+import { Role, RoleBase, RoleType } from "@/core/domain/entities/Role";
+
 
 export type RoleRepository = {
   create(role: Omit<RoleBase, 'id'>): Promise<Role>;

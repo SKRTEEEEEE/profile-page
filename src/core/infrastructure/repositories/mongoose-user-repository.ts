@@ -1,7 +1,8 @@
 import { User, UserBase } from '@/core/domain/entities/User';
-import { UserRepository } from '@/core/domain/repositories/user-repository';
+import { UserRepository } from '@/core/application/repositories/user-repository';
 import { UserDocument, UserModel } from '@/models/user-role-schema';
 import { MongoDbConnection } from '../connectors/mongo-db';
+import { DatabaseOperationError } from '@/core/domain/errors/main';
 
 
 class MongooseUserRepository extends MongoDbConnection implements UserRepository {
@@ -10,7 +11,6 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
         await this.connect();
         const newUser = new UserModel(user)
         const savedUser = await newUser.save()
-        console.log("savedUser: ",savedUser)
         return this.documentToUser(savedUser)
 
     }
@@ -26,37 +26,20 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
     }
     async update(user: UserBase): Promise<User> {
         await this.connect(); // Asegúrate de que la conexión esté establecida
-    
-        const userF = await UserModel.findById(user.id);
-        if (!userF) throw new Error("Error al encontrar el usuario");
-    
-        // Actualiza los campos necesarios usando el operador de propagación
-        Object.assign(userF, {
-            address: user.address,
-            role: user.role,
-            solicitud: user.solicitud,
-            nick: user.nick !== undefined ? user.nick : userF.nick,
-            roleId: user.roleId !== null ? user.roleId : userF.roleId, // Mantiene el valor actual si roleId no se proporciona
-            img: user.img,
-            email: user.email,
-            isVerified: user.isVerified,
-            verifyToken: user.verifyToken,
-            verifyTokenExpire: user.verifyTokenExpire
-        });
-    
-        console.log("update user: ", user);
-    
-        // Guarda los cambios en la base de datos
-        const updatedUser = await userF.save();
-        console.log("updated user: ", updatedUser);
-    
+        const updatedUser = await UserModel.findByIdAndUpdate(
+            user.id,
+            {
+                $set: user
+            },
+            { new: true }
+        );
         return this.documentToUser(updatedUser); // Convierte el documento actualizado a la entidad User
     }
     
     async delete(id:string):Promise<void> {
         await this.connect()
         const result = await UserModel.deleteOne({_id:id})
-        if (result.deletedCount === 0) throw new Error(`User with id ${id} not found`);
+        if (result.deletedCount === 0) throw new DatabaseOperationError(`User with id ${id} not found`);
     }
     async findAll(): Promise<User[] | null> {
         await this.connect()
@@ -66,7 +49,7 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
     async deleteRoleId(id: string): Promise<void> {
         await this.connect()
         const result = await UserModel.updateOne({ _id: id }, { $set: { roleId: null } });
-        if (result.matchedCount === 0) throw new Error(`User with id ${id} not found`);
+        if (result.matchedCount === 0) throw new DatabaseOperationError(`User with id ${id} not found`);
     }
     private documentToUser(doc: UserDocument): User {
         return {

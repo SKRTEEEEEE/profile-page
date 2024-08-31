@@ -1,15 +1,15 @@
 // application/services/user-auth.ts
 
-import { AuthRepository } from "@/core/domain/repositories/auth-repository";
-import { UserRepository } from "@/core/domain/repositories/user-repository";
 import { ExtendedJWTPayload } from "@/types/auth";
 import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
 import { User, UserBase } from "@/core/domain/entities/User";
 import { RoleType } from "@/core/domain/entities/Role";
-import { RoleRepository } from "@/core/domain/repositories/role-repository";
 import crypto from "crypto"
 import { verificationEmailTemplate } from "@/lib/verification-email";
 import { nodemailerEmailRepository } from "@/core/infrastructure/repositories/nodemailer-email-repository";
+import { UserRepository } from "../repositories/user-repository";
+import { AuthRepository } from "../repositories/auth-repository";
+import { RoleRepository } from "../repositories/role-repository";
 // user-auth service
 
 abstract class UseUserAuthService {

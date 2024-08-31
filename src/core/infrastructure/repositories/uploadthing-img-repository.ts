@@ -1,16 +1,15 @@
-import { ImgRepository } from "@/core/domain/repositories/img-repository";
+import { ImgRepository } from "@/core/application/repositories/img-repository";
 import { UploadThingAdapter } from "../connectors/uploadthing-st";
+import { InputParseError, StorageOperationError } from "@/core/domain/errors/main";
 
 class UploadThingImgRepository extends UploadThingAdapter implements ImgRepository{
     async uploadImage(file: File): Promise<string> {
     
-    if (!(file instanceof File)) {
-      throw new Error("El elemento no es un archivo válido");
-    }
+    if (!(file instanceof File)) throw new InputParseError("El elemento no es un archivo válido");
   
     const results = await this.utapi.uploadFiles([file]);
     const firstResult = results[0];
-    if(!firstResult.data)throw new Error("No result: "+firstResult)
+    if(!firstResult.data)throw new StorageOperationError("No result: "+firstResult)
     return firstResult.data.url
     }
     async deleteImage(img: string): Promise<boolean> {

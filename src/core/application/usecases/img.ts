@@ -1,4 +1,4 @@
-import { ImgRepository } from "@/core/domain/repositories/img-repository";
+import { ImgRepository } from "../repositories/img-repository";
 
 abstract class UseImage {
     constructor(protected imgRepository:ImgRepository){}

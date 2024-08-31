@@ -5,8 +5,10 @@ import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, Ver
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ThirdwebAuthAdapter } from "../connectors/thirdweb-auth";
-import { AuthRepository } from "@/core/domain/repositories/auth-repository";
+import { AuthRepository } from "@/core/application/repositories/auth-repository";
 import { ExtendedJWTPayload, JWTContext } from "@/types/auth";
+import { VerificationOperationError } from "@/core/domain/errors/main";
+import { RoleType } from "@/core/domain/entities/Role";
 
 class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthRepository {
   async logout(): Promise<void> {
@@ -15,14 +17,14 @@ class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthReposito
 
   async setJwt(payload: VerifyLoginPayloadParams, context: JWTContext): Promise<ExtendedJWTPayload> {
     const verifiedPayload = await this.thirdwebAuth.verifyPayload(payload);
-    if (!verifiedPayload.valid)throw new Error("Error at sign") 
+    if (!verifiedPayload.valid)throw new VerificationOperationError("login payload") 
         const jwt = await this.thirdwebAuth.generateJWT({
             payload: verifiedPayload.payload,
             context
           });
           cookies().set("jwt", jwt);
           const authRes = await this.thirdwebAuth.verifyJWT({jwt});
-        if(!authRes.valid)throw new Error("Error at verify Token")
+        if(!authRes.valid)throw new VerificationOperationError("jwt login token")
         return authRes.parsedJWT as ExtendedJWTPayload
     
   }
@@ -41,7 +43,7 @@ class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthReposito
 
   async isAdmin(): Promise<boolean> {
     const cookies = await this.getCookies();
-    return cookies !== false && cookies.ctx?.isAdmin === true;
+    return cookies !== false && cookies.ctx?.role === RoleType["ADMIN"];
   }
   //Hay que revisar estas funciones!!⚠️⚠️
   async protAdmAct(): Promise<true> {

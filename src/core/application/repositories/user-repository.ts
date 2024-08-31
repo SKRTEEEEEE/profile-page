@@ -1,6 +1,7 @@
 // src/core/domain/repositories/UserRepository.ts
 
-import { User, UserBase } from '../entities/User';
+import { User, UserBase } from "@/core/domain/entities/User";
+
 
 export type UserRepository = {
   create(user: Omit<UserBase, 'id'|"isVerified">): Promise<User>;
