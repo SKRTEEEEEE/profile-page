@@ -12,6 +12,7 @@ import { userRepository } from "@/core/infrastructure/repositories/mongoose-user
 import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role";
 import { authRepository } from "@/core/infrastructure/services/thirdweb-auth";
 import { createRoleUC } from "../atomic/role";
+import { DatabaseFindError, VerificationOperationError } from "@/core/domain/errors/main";
 
 
 //No se donde poner esto, luego lo terminare de pensar
@@ -130,15 +131,19 @@ class MakeAdmin extends UseUserRoleAuthService {
     payload: LoginPayload;
   }, id: string) {
     const v = await this.authRepository.verifyPayload(payload)
-    if (!v.valid) throw new Error("Error with payload auth")
+    if (!v.valid) throw new VerificationOperationError("payload auth")
       const signUser = await userRepository.findByAddress(payload.payload.address)
-  if (!signUser) throw new Error("Error at find signer user")
-  if (signUser.role!=="ADMIN") throw new Error("Only admins can do this action")
+    if (!signUser) throw new DatabaseFindError("signer user")
+    if (signUser.role!=="ADMIN") throw new VerificationOperationError("Only admins")
     const createdRole = await createRoleUC(payload.payload.address,"ADMIN" as RoleType)
+    const user = await this.userRepository.findById(id)
+    if(!user)throw new DatabaseFindError("user")
     await this.userRepository.update({
-      id, address: signUser.address, roleId: createdRole.id,
-      role: RoleType["ADMIN"], solicitud: null, img: signUser.img, email: signUser.email, isVerified: signUser.isVerified
+      id, address: user.address, roleId: createdRole.id,
+      role: RoleType["ADMIN"], solicitud: null, img: user.img, email: user.email, isVerified: user.isVerified
     })
+    // No es necesario porque no lo hace el
+    // await this.authRepository.setJwt(payload, {id:user.id, nick: user.nick, role: RoleType["ADMIN"]})
   }
 }
 export const makeAdminUC = async(payload: {

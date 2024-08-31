@@ -47,6 +47,7 @@ export const verifyEmailC = async (id: string, verifyToken: string): Promise<boo
     user.verifyToken = undefined;
     user.verifyTokenExpire = undefined;
     // ⚠️‼️ Falta poner el user.role al student si el ha solicitado user.role
+    console.log("User before update:", user);
 
     if(user.solicitud===RoleType["STUDENT"]) {
         user.solicitud = null;

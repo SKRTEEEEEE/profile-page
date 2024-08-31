@@ -4,7 +4,6 @@ import { RoleType } from "@/core/domain/entities/Role";
 import { DatabaseOperationError } from "@/core/domain/errors/main";
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user";
 import { UserRepository } from "../../repositories/user";
-import { createRoleUC } from "./role";
 
 abstract class UseUser {
     constructor(protected userRepository:UserRepository){}
