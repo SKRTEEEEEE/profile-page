@@ -32,6 +32,14 @@
 ### Configurar switch themes
 ### Utilizar velite para mostrar ejercicios
 ### Dar estilos a los archivos mdx utilizando plugins
+## 8. Mailchamp (back)
+### Configurar mailchamp y sus repositorios
+### Configurar updateUser para que cuando configure su correo se verifique
+### Crear verifyUser para que verifique el token
+- [ ] Comprobar si el hash se debe utilizar así
+- _Estamos usando **mailtrap** de momento_
+- [ ] Configurar correos en un entorno real
+## 9. Reestructurar arquitectura hexagonal
 **ACTUALIDAD**
 **FUTURO**
 #### El Administrador puede eliminar un usuario
