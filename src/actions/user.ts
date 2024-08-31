@@ -4,9 +4,9 @@
 import { DeleteUserAccount, MakeAdmin,  UserInCookies } from "@/core/application/usecases/compound/user";
 import { listUsersByIdUC, listUsersUC, VerifyEmail } from "@/core/application/usecases/atomic/user";
 import { RoleType } from "@/core/domain/entities/Role";
-import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role-repository";
-import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
-import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
+import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role";
+import { userRepository } from "@/core/infrastructure/repositories/mongoose-user";
+import { authRepository } from "@/core/infrastructure/services/thirdweb-auth";
 import { updateUserForm } from "@/core/interface-adapters/controllers/user";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";

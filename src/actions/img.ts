@@ -1,7 +1,7 @@
 "use server"
 
 import { DeleteImage, UploadImage } from "@/core/application/usecases/services/img"
-import { uploadthingImgRepository } from "@/core/infrastructure/repositories/uploadthing-img-repository"
+import { uploadthingImgRepository } from "@/core/infrastructure/services/uploadthing-img"
 
 export async function uploadImg(formData: FormData) {
     const img = formData.get('img') as File

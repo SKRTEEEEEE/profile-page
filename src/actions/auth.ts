@@ -2,8 +2,8 @@
 
 import { LoginUser } from "@/core/application/usecases/compound/user"
 import { GeneratePayload, IsLoggedIn, Logout } from "@/core/application/usecases/services/auth"
-import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository"
-import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository"
+import { userRepository } from "@/core/infrastructure/repositories/mongoose-user"
+import { authRepository } from "@/core/infrastructure/services/thirdweb-auth"
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth"
 
 

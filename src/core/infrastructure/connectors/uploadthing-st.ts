@@ -1,7 +1,7 @@
 import { AuthRepository } from "@/core/application/services/auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError, UTApi } from "uploadthing/server";
-import { authRepository } from "../repositories/thirdweb-auth-repository";
+import { authRepository } from "../services/thirdweb-auth";
 
 export abstract class UploadThingAdapter {
     protected f = createUploadthing();
