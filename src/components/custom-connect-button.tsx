@@ -1,7 +1,7 @@
 "use client"
 
 import { generatePayload, isLoggedIn, login, logout } from "@/actions/auth"
-import { client } from "@/lib/utils"
+import { client } from "@/core/infrastructure/connectors/thirdweb-auth";
 import { ConnectButton, darkTheme } from "thirdweb/react"
 import { createWallet, inAppWallet } from "thirdweb/wallets";
 const wallets = [

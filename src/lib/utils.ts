@@ -1,5 +1,4 @@
 import { Ejercicio } from "#site/content";
-import { ThirdwebClientConfig } from "@/core/infrastructure/adapters/thirdweb-auth-adapter";
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import {slug} from "github-slugger"
@@ -15,8 +14,7 @@ export function cn(...inputs: ClassValue[]) {
 //   return value;
 // }
 
-const getClient = new ThirdwebClientConfig()
-export const client = getClient.client
+
 
 
 

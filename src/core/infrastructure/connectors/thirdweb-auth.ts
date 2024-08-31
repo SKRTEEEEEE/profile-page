@@ -3,7 +3,7 @@ import { privateKeyToAccount } from "thirdweb/wallets";
 import { createThirdwebClient, ThirdwebClient } from "thirdweb";
 
 
-export class ThirdwebClientConfig {
+class ThirdwebClientConfig {
     private clientId = process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID;
     private _client: ThirdwebClient;
     constructor(){
@@ -17,7 +17,8 @@ export class ThirdwebClientConfig {
         return this._client
     }
 }
-
+const getClient = new ThirdwebClientConfig()
+export const client = getClient.client
 export abstract class ThirdwebAuthAdapter extends ThirdwebClientConfig{
     private privateKey = process.env.THIRDWEB_ADMIN_PRIVATE_KEY;
     private _thirdwebAuth: ReturnType<typeof createAuth> | null = null;

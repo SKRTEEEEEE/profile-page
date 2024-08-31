@@ -1,5 +1,5 @@
 import { ImgRepository } from "@/core/domain/repositories/img-repository";
-import { UploadThingAdapter } from "../adapters/uploadthing-st-connection";
+import { UploadThingAdapter } from "../connectors/uploadthing-st";
 
 class UploadThingImgRepository extends UploadThingAdapter implements ImgRepository{
     async uploadImage(file: File): Promise<string> {

@@ -1,6 +1,7 @@
 // "ejemplo de componente personalizado"
 
 import { userInCookies } from "@/actions/user";
+import { RoleType } from "@/core/domain/entities/Role";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
@@ -38,8 +39,9 @@ export async function Callout({
 }: CalloutProps) {
     const user = await userInCookies()
     if(role==="student"){ 
-        if(!user || !user.isAdmin){
-            return <CalloutWarning type="subscrito"/>
+        if (!user || (user.role !== RoleType["ADMIN"] && user.role !== RoleType["STUDENT"])) {
+            
+            return <CalloutWarning type="subscrito" />;
         }
         return <CalloutContainer type={type} {...props}>{children}</CalloutContainer>;
     }

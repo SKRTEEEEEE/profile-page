@@ -41,7 +41,9 @@
 - [ ] Configurar correos en un entorno real
 ## 9. Reestructurar arquitectura hexagonal
 **ACTUALIDAD**
+- [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
 **FUTURO**
+
 #### El Administrador puede eliminar un usuario
 - _Directamente se optara por la opción de vetar ya que no tiene lógica que elimine sin notificar ni nada._
 - [ ] El Administrador puede vetar de la app ciertas carteras/users

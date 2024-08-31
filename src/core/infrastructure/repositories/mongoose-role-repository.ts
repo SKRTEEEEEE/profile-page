@@ -1,5 +1,5 @@
 import { RoleRepository } from "@/core/domain/repositories/role-repository";
-import { MongoDbConnection } from "../adapters/mongo-db-connection";
+import { MongoDbConnection } from "../connectors/mongo-db";
 import { Role, RoleType } from "@/core/domain/entities/Role";
 import { RoleDocument, RoleModel } from "@/models/user-role-schema";
 

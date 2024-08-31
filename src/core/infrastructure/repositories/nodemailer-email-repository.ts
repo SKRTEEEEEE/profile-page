@@ -1,5 +1,5 @@
 import { EmailRepository, SendMailParams } from "@/core/domain/repositories/email-repository";
-import { NodemailerTransportConfig } from "../adapters/nodemailer-conn";
+import { NodemailerTransportConfig } from "../connectors/nodemailer-conn";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 class NodemailerEmailRepositoy extends NodemailerTransportConfig implements EmailRepository{

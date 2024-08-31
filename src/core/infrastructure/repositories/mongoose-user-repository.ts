@@ -1,7 +1,7 @@
 import { User, UserBase } from '@/core/domain/entities/User';
 import { UserRepository } from '@/core/domain/repositories/user-repository';
 import { UserDocument, UserModel } from '@/models/user-role-schema';
-import { MongoDbConnection } from '../adapters/mongo-db-connection';
+import { MongoDbConnection } from '../connectors/mongo-db';
 
 
 class MongooseUserRepository extends MongoDbConnection implements UserRepository {

@@ -4,7 +4,7 @@
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, VerifyLoginPayloadResult } from "thirdweb/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { ThirdwebAuthAdapter } from "../adapters/thirdweb-auth-adapter";
+import { ThirdwebAuthAdapter } from "../connectors/thirdweb-auth";
 import { AuthRepository } from "@/core/domain/repositories/auth-repository";
 import { ExtendedJWTPayload, JWTContext } from "@/types/auth";
 
