@@ -1,17 +1,16 @@
 // import { Role, RoleType } from "@/core/domain/entities/Role";
 // import { RoleRepository } from "@/core/domain/repositories/role-repository";
 
+import { RoleType } from "@/core/domain/entities/Role";
+import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role";
+
 //⬇️⛔🆘 No sera necesario usar CreateRole, o otros usecases parecidos ya que eso seran services, al utilizar User y Role
 //🙋‍♂️⚠️➡️ Aquí solo pondremos usecases como ListRole, ListRolesByPermission, etc...: Solo utilizan el Role
 
-// export class CreateRole {
-//   constructor(private roleRepository: RoleRepository) {}
-
-//   async execute(rol: Role): Promise<Role> {
-//     const createdRole = await this.roleRepository.create(rol)
-//     return createdRole;
-//   }
-// }
+export const createRoleUC = async(address:string, role: RoleType) => {
+    const newRole = { address, permissions: role }
+    return await roleRepository.create(newRole)
+  }
 // export class DeleteRole {
 //     constructor(private roleRepository: RoleRepository) {}
   

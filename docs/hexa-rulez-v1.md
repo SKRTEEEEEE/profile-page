@@ -1,12 +1,12 @@
-# Hexa rulez
+# Hexa rulez v1
 
 # Hexagonal rules
-_Updated 28.08 - branch `thirdweb-usecases`_
+_Updated 31.08 - branch `thirdweb-usecases`_
 
 ## Introducción
 Este repositorio tiene como objetivo definir las mejores prácticas posibles para una aplicación hexagonal realizada con NextJs
 
-Aqui intentare definir:
+Aquí intentare definir:
 
 - Estructura carpetas definida
 - Reglas y objetivos apartados definidos
@@ -18,6 +18,49 @@ Aqui intentare definir:
 
 
 
+## Estructura carpetas definidas ⚠️🖊️
+## `core`
+### Nombres archivos
+#### app/use-cases
+- Nombre del "domain/repo" del cual "infra/repo" se hace uso, ejemplo: `auth-repo -> **auth.ts**`
+- **< **`**entitie**`** .ts >**
+#### app/services
+- Nombre del "domain/repo" del cual "infra/repo" es el principal, ejemplo: `user-repo, rol-repo, auth-repo, etc...-> **user.ts**`
+- ** < "main" **`**entitie**`** .ts >**
+#### domain/entities
+- Nombre de la entidad la cual se utilizara, ejemplo: `para usuarios -> **User.ts**`
+- **< **`**Entitie**`** .ts >**
+#### domain/repos
+- Nombre de la entidad la cual aplicará o base (accion) ppal a la cual servirá, añadiendo "-repository", 
+    - ejemplo entidad: `User -> **user-repository.ts**`
+    - ejemplo base: `**auth-repository.ts** -> auth.ts, thirdweb-auth-repository.ts, etc...`
+- **< **`**entitie/base**`**-repository .ts >**
+#### repos/infra
+- Nombre de el proveedor del servicio, junto con el nombre del "domain/repo", ejemplo: `img-repository.ts -> **uploadthing-img-repository.ts**`
+- **< **`**provider**`** - **`**domain/repo**`** .ts >**
+#### repos/adapters
+- Nombre del tipo de proveedor del servicio, junto con tipo de servicio separado por "-", y al final "-connection", ejemplo: `img-repo -> **uploadthing-st-repository.ts**`
+- **`types`**
+    - `st` -> Storage (used for big files)
+    - `db` -> Databases
+    - `auth` -> Authentication
+    - `comm` -> Communications
+    - Other... 
+- **< **`**provider**`** - **`**type**`** -connection .ts >**
+
+
+
+
+## Versiones
+### Thirdweb
+- A partir de thirdweb version, solo se mantienen los use-cases que se utilizan, el resto se comentan y se guardaran en una branch llamada `thirdweb-usecases`
+
+### Reestructuración arquitectura hexagonal
+- A partir de esta version se dejara de usar este enfoque para utilizar otro un poco mas profesional, donde cada capa solo interactua con capas inferiores, evitando la llamada a infraestructure desde nuestra app
+- Documentaremos las reglas utilizando las partes que mas nos interesen de este documento en el nuevo documento
+
+
+***
 
 ## Dudas/reglas
 - Implementación de adapters. En los casos en los que el adapter ha de proveer funciones que serán utilizadas por la aplicación, debería crear un repositorio para este adapter.
@@ -43,19 +86,22 @@ Sobre estructuración arq hexagonal o clean arq, acerca de los services: Cuando 
 
 Ejemplo practico:
 
-
-
-```tsx
-
-export class DeleteUserAccount extends UseUserRoleAuthService{
-
- async execute(payload: { signature: `0x${string}`; payload: LoginPayload; },id:string, address: string){ const v = await this.authRepository.verifyPayload(payload) if(!v.valid) throw new Error("Error with payload auth") if(v.payload.address!==address) throw new Error("User only can delete her address")
-
- //deleteUser(id) const user = await this.userRepository.findById(id) if (!user) throw new Error("User not found") if (user.roleId !== null) { await this.roleRepository.delete(user.roleId) } await this.userRepository.delete(id) await this.authRepository.logout() }
-
-}
-
 ```
+export class DeleteUserAccount extends UseUserRoleAuthService {
+async execute(payload: { signature: `0x${string}`; payload: LoginPayload; }, 
+id: string, address: string) {
+    const v = await this.authRepository.verifyPayload(payload) 
+    if (!v.valid) throw new Error("Error with payload auth") 
+    if (v.payload.address !== address) throw new Error("User only can delete her address")
+    //deleteUser(id) 
+    const user = await this.userRepository.findById(id) 
+    if (!user) throw new Error("User not found") 
+    if (user.roleId !== null) await this.roleRepository.delete(user.roleId)  
+    await this.userRepository.delete(id) 
+    await this.authRepository.logout() }
+}
+```
+
 
 **Respuesta**
 
@@ -118,23 +164,27 @@ En conclusión, no es obligatorio usar casos de uso para cada operación con rep
 
 
 
-## Versiones
-### Thirdweb
-- A partir de thirdweb version, solo se mantienen los use-cases que se utilizan, el resto se comentan y se guardaran en una branch llamada `thirdweb-usecases`
+## Reglas y objetivos apartados definidos v1
+### Estilos
+1. Foreground (general y aplicado a otros, como primary-foreground, etc.):
+    - Foreground se refiere generalmente al color del texto o de los elementos en primer plano.
+    - Cuando se aplica a otros elementos (como primary-foreground), indica el color del texto o elementos que van sobre ese color base.
+2. Background:
+    - Es el color de fondo principal de tu sitio web o componente.
+3. Primary:
+    - Es el color principal de tu marca o diseño. Se usa para elementos importantes o acciones principales.
+4. Secondary:
+    - Un color complementario al primario, usado para elementos menos prominentes pero aún importantes.
+5. Muted:
+    - Colores suaves o apagados, útiles para fondos secundarios o elementos que no deben llamar mucho la atención.
+6. Accent:
+    - Un color que contrasta con los demás para resaltar elementos específicos o llamar la atención.
+7. Destructive:
+    - Generalmente un tono de rojo, usado para acciones peligrosas o irreversibles, como eliminar algo.
+*** 
 
 
 
-
-***
-
-
-
-
-
-## Estructura carpetas definidas
-
-
-## Reglas y objetivos apartados definidos
 ### Application
 - Funciones que serán utilizadas directamente por la aplicación. 
 - Separado en archivos según su domain/repo y infra/repo
@@ -221,7 +271,33 @@ En conclusión, no es obligatorio usar casos de uso para cada operación con rep
 2. **Application**: La capa de aplicación se encarga de coordinar la lógica de negocio a través de casos de uso y servicios. Aquí es donde se definen las interacciones entre el dominio y la infraestructura.
 3. **Infrastructure**: Esta capa es la más externa y se ocupa de la implementación técnica, como bases de datos, APIs externas, etc. Debe ser lo más independiente posible de las capas superiores.
 #### Graphic structure
-![Figure 1](./figure-1-export-28-8-2024-12_06_17.png)
+[![Figure 1](https://app.eraser.io/workspace/IWxmuP747p51TzWwWeQp/preview?elements=avRzUk_15YVfyvhREHfedQ&type=embed)](https://app.eraser.io/workspace/IWxmuP747p51TzWwWeQp?elements=avRzUk_15YVfyvhREHfedQ)
+
+***
+
+## Page folders
+- (navbar) -> (about-me)
+    - /about-me -> `/especialidades` 
+    - /portfolio -> `/open-source` 
+    - /services -> `/mis-estudios` 
+    - /code -> `/desarrollos-blockchain` 
+- (routes) -> (???)
+    - /dashboard/config, /dashboard, etc.. ✅
+    - /admin/users, /admin, etc... ✅
+    - /projects -> `/proyectos-desplegados` 
+    - .
+    - `/academia` 
+    - pg presentación academia, con ultimos ej
+        - `/ejercicios` 
+        - pg con varios ejercicios y selector por temas
+        - _ejercicios para realizar y aprender sobre temas concretos_
+            - `/[...slug]` 
+            - pg con un ej en concreto
+        - `/temas-ejercicios` 
+        - pg con todos los temas
+            - `/[tema]` 
+            - pg con los ej de un tema en concreto
+
 
 
 

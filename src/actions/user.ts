@@ -1,13 +1,10 @@
 "use server"
 
 
-import { DeleteUserAccount, MakeAdmin,  UserInCookies } from "@/core/application/usecases/compound/user";
-import { listUsersByIdUC, listUsersUC, VerifyEmail } from "@/core/application/usecases/atomic/user";
+import { listUsersByIdUC, listUsersUC } from "@/core/application/usecases/atomic/user";
+import { deleteUserAccountUC, makeAdminUC, userInCookiesUC } from "@/core/application/usecases/compound/user";
 import { RoleType } from "@/core/domain/entities/Role";
-import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role";
-import { userRepository } from "@/core/infrastructure/repositories/mongoose-user";
-import { authRepository } from "@/core/infrastructure/services/thirdweb-auth";
-import { updateUserForm } from "@/core/interface-adapters/controllers/user";
+import { updateUserFormC, verifyEmailC } from "@/core/interface-adapters/controllers/user";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { LoginPayload } from "thirdweb/auth";
@@ -42,7 +39,7 @@ export async function updateUser(id: string, payload: {
     payload: LoginPayload;
 }, formData: {solicitud:RoleType|null, email:string|null,nick?:string,img:string|null}) {
 
-    await updateUserForm(payload,
+    await updateUserFormC(payload,
       {  id,
          solicitud:formData.solicitud as RoleType,
          nick: formData.nick,
@@ -58,8 +55,7 @@ export async function deleteUser(payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
 },id:string, address: string) {
-    const u = new DeleteUserAccount(userRepository,roleRepository,authRepository)
-    await u.execute(payload,id,address)
+    await deleteUserAccountUC(payload, id, address)
     revalidatePath("/dashboard/config")
 }
 
@@ -67,17 +63,14 @@ export async function makeAdmin(payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
 },id:string){
-    const m = new MakeAdmin(userRepository,roleRepository,authRepository)
-    await m.execute(payload,id)
+    await makeAdminUC(payload,id)
     revalidatePath("/admin/users")
 }
 export async function verifyEmail(id:string, verifyToken:string){
-    const v = new VerifyEmail(userRepository)
-    return await v.execute(id,verifyToken)
+    return await verifyEmailC(id, verifyToken)
 }
 export async function userInCookies(){
-    const u = new UserInCookies(userRepository,authRepository)
-    return await u.execute()
+    return await userInCookiesUC()
 }
 //⚠️⬇️💡 Falta de aquí para abajo ⬇️⚠️
 //Este seria el CREATE

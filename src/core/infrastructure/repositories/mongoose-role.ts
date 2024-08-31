@@ -1,14 +1,13 @@
 import { RoleRepository } from "@/core/application/repositories/role";
 import { MongoDbConnection } from "../connectors/mongo-db";
-import { Role, RoleType } from "@/core/domain/entities/Role";
+import { Role, RoleBase, RoleType } from "@/core/domain/entities/Role";
 import { RoleDocument, RoleModel } from "@/models/user-role-schema";
 
 class MongooseRoleRepository extends MongoDbConnection implements RoleRepository{
-    async create(role: Role): Promise<Role> {
+    async create(role: Omit<RoleBase, "id">): Promise<Role> {
         await this.connect()
         const newRole = new RoleModel(role)
         const savedRole = await newRole.save()
-        console.log("saved role: ", savedRole)
         return this.documentToRole(savedRole)
     }
     async findById(id: string): Promise<Role | null> {

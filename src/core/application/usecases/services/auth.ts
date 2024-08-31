@@ -6,21 +6,29 @@ import { authRepository } from "@/core/infrastructure/services/thirdweb-auth";
 abstract class UseAuth {
     constructor(protected authRepository: AuthRepository){}
 }
-export class Logout extends UseAuth {
+class Logout extends UseAuth {
     async execute(): Promise<void> {
         this.authRepository.logout()
     }
+}
+export const logoutUC = async () => {
+    const l = new Logout(authRepository)
+    await l.execute()
 }
 // export class GetCookies extends UseAuth {
 //     async execute(): Promise<ExtendedJWTPayload|false>{
 //         return this.authRepository.getCookies()
 //     }
 // }
-export class IsLoggedIn extends UseAuth {
+class IsLoggedIn extends UseAuth {
     async execute(): Promise<boolean>{
         return this.authRepository.isLoggedIn()
     }
 }
+export const isLoggedInUC = async (): Promise<boolean> => {
+    const i = new IsLoggedIn(authRepository)
+    return await i.execute()
+} 
 // export class IsAdmin extends UseAuth {
 //     async execute(): Promise<boolean>{
 //         return this.authRepository.isAdmin()
@@ -46,10 +54,14 @@ export class IsLoggedIn extends UseAuth {
 //         return this.authRepository.protAdmRou(path)
 //     }
 // }
-export class GeneratePayload extends UseAuth {
+class GeneratePayload extends UseAuth {
     async execute(address:GenerateLoginPayloadParams): Promise<LoginPayload> {
         return this.authRepository.generatePayload(address)
     }
+}
+export const generatePayloadUC = async (payload: GenerateLoginPayloadParams): Promise<LoginPayload> => {
+    const g = new GeneratePayload(authRepository)
+    return await g.execute(payload)
 }
 // export class VerifyPayload extends UseAuth {
 //     async execute(params: VerifyLoginPayloadParams): Promise<VerifyLoginPayloadResult>{
