@@ -1,11 +1,11 @@
-import { tokenGenerator } from "@/core/application/services/user";
-import { setJwtUC } from "@/core/application/usecases/auth";
-import { createVerificationEmailUC, sendMailUC } from "@/core/application/usecases/email";
-import { findUserByIdUC, updateUserFormUC } from "@/core/application/usecases/user";
+import { tokenGenerator } from "@/core/application/usecases/compound/user";
+import { setJwtUC } from "@/core/application/usecases/services/auth";
+import { findUserByIdUC, updateUserFormUC } from "@/core/application/usecases/atomic/user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { DatabaseOperationError, SetEnvError } from "@/core/domain/errors/main";
 import { ExtendedJWTPayload } from "@/types/auth";
 import { VerifyLoginPayloadParams } from "thirdweb/auth";
+import { createVerificationEmailUC, sendMailUC } from "@/core/application/usecases/services/email";
 
 export const updateUserForm = async(payload: VerifyLoginPayloadParams,user:{id:string,solicitud:RoleType|null, email:string|null,nick?:string,img:string|null}): Promise<ExtendedJWTPayload | null> => {
     let verifyToken, verifyTokenExpire;

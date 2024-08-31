@@ -3,7 +3,7 @@ import { User } from "@/core/domain/entities/User";
 import { RoleType } from "@/core/domain/entities/Role";
 import { DatabaseOperationError } from "@/core/domain/errors/main";
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
-import { UserRepository } from "../repositories/user-repository";
+import { UserRepository } from "../../repositories/user-repository";
 
 abstract class UseUser {
     constructor(protected userRepository:UserRepository){}

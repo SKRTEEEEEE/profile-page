@@ -1,7 +1,7 @@
 "use server"
 
-import { LoginUser } from "@/core/application/services/user"
-import { GeneratePayload, IsLoggedIn, Logout } from "@/core/application/usecases/auth"
+import { LoginUser } from "@/core/application/usecases/compound/user"
+import { GeneratePayload, IsLoggedIn, Logout } from "@/core/application/usecases/services/auth"
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository"
 import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository"
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth"

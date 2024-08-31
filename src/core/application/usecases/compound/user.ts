@@ -2,14 +2,12 @@
 
 import { ExtendedJWTPayload } from "@/types/auth";
 import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
-import { User, UserBase } from "@/core/domain/entities/User";
+import { User} from "@/core/domain/entities/User";
 import { RoleType } from "@/core/domain/entities/Role";
 import crypto from "crypto"
-import { verificationEmailTemplate } from "@/lib/verification-email";
-import { nodemailerEmailRepository } from "@/core/infrastructure/repositories/nodemailer-email-repository";
-import { UserRepository } from "../repositories/user-repository";
-import { AuthRepository } from "../repositories/auth-repository";
-import { RoleRepository } from "../repositories/role-repository";
+import { UserRepository } from "../../repositories/user-repository";
+import { AuthRepository } from "../../repositories/auth-repository";
+import { RoleRepository } from "../../repositories/role-repository";
 // user-auth service
 
 abstract class UseUserAuthService {

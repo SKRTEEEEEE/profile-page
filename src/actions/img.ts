@@ -1,6 +1,6 @@
 "use server"
 
-import { DeleteImage, UploadImage } from "@/core/application/usecases/img"
+import { DeleteImage, UploadImage } from "@/core/application/usecases/services/img"
 import { uploadthingImgRepository } from "@/core/infrastructure/repositories/uploadthing-img-repository"
 
 export async function uploadImg(formData: FormData) {
