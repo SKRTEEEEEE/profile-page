@@ -1,6 +1,7 @@
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
 import { AuthRepository } from "../repositories/auth-repository";
 import { ExtendedJWTPayload, JWTContext } from "@/types/auth";
+import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
 
 abstract class UseAuth {
     constructor(protected authRepository: AuthRepository){}
@@ -55,8 +56,12 @@ export class GeneratePayload extends UseAuth {
 //         return this.authRepository.verifyPayload(params)
 //     }
 // }
-export class SetJwt extends UseAuth {
+class SetJwt extends UseAuth {
     async execute(payload: VerifyLoginPayloadParams, context:JWTContext): Promise<ExtendedJWTPayload>{
         return await this.authRepository.setJwt(payload, context)
     }
+}
+export const setJwtUC = async (payload: VerifyLoginPayloadParams, context:JWTContext)=> {
+    const s = new SetJwt(authRepository)
+    return await s.execute(payload,context)
 }

@@ -1,12 +1,13 @@
 "use server"
 
 
-import { DeleteUserAccount, MakeAdmin, UpdateUser, UserInCookies } from "@/core/application/services/user";
-import { ListUserById, ListUsers, VerifyEmail } from "@/core/application/usecases/user";
+import { DeleteUserAccount, MakeAdmin,  UserInCookies } from "@/core/application/services/user";
+import { listUsersByIdUC, listUsersUC, VerifyEmail } from "@/core/application/usecases/user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role-repository";
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
 import { authRepository } from "@/core/infrastructure/repositories/thirdweb-auth-repository";
+import { updateUserForm } from "@/core/interface-adapters/controllers/user";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { LoginPayload } from "thirdweb/auth";
@@ -31,23 +32,19 @@ import { LoginPayload } from "thirdweb/auth";
 // }
 
 export async function listUsers() {
-    const users = new ListUsers(userRepository);
-    const listUsers = await users.execute()
-    return listUsers
+    return await listUsersUC()
 }
 export async function listUserById(id: string) {
-    const list = new ListUserById(userRepository)
-    return await list.execute(id)
+    return await listUsersByIdUC(id)
 }
 export async function updateUser(id: string, payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
 }, formData: {solicitud:RoleType|null, email:string|null,nick?:string,img:string|null}) {
 
-    const update = new UpdateUser(userRepository, authRepository)
-    await update.execute(payload,
+    await updateUserForm(payload,
       {  id,
-         solicitud:formData.solicitud,
+         solicitud:formData.solicitud as RoleType,
          nick: formData.nick,
          img: formData.img,
          email: formData.email,

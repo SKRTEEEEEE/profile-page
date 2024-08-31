@@ -1,17 +1,16 @@
-import { User, UserBase } from "@/core/domain/entities/User";
-import { UserRepository } from "../repositories/user-repository";
-import { ExtendedJWTPayload } from "@/types/auth";
+import { User } from "@/core/domain/entities/User";
+
 import { RoleType } from "@/core/domain/entities/Role";
 import { DatabaseOperationError } from "@/core/domain/errors/main";
+import { userRepository } from "@/core/infrastructure/repositories/mongoose-user-repository";
+import { UserRepository } from "../repositories/user-repository";
 
 abstract class UseUser {
     constructor(protected userRepository:UserRepository){}
 }
-export class ListUserById extends UseUser{
-    async execute(id:string){
-        const user = await this.userRepository.findById(id)
-        return user
-    }
+
+export const listUsersByIdUC = async (id:string) => {
+    return await userRepository.findById(id)
 }
 // export class CreateUser extends UseUser{
 //   async execute(user: Omit<UserBase, 'id'>): Promise<User> {
@@ -20,18 +19,22 @@ export class ListUserById extends UseUser{
 //   }
 // }
 
-export class ListUsers extends UseUser{
-    async execute(): Promise<User[]|null> {
-        return await this.userRepository.findAll()
-    }
+export const listUsersUC = async () => {
+    return await userRepository.findAll()
 }
 export class UpdateUserForm extends UseUser{
-    async execute(user:{id: string,email: string, nick: string, img: string, solicitud: RoleType}): Promise<User> {
+    async execute(user:UpdateUserFormProps): Promise<User> {
         const fUser = await this.userRepository.findById(user.id)
         if(!fUser)throw new DatabaseOperationError("User not found at Update User use-case")
         return this.userRepository.update({...fUser, email: user.email, img: user.img, nick: user.nick, solicitud: user.solicitud}) 
     }
 }
+export const updateUserFormUC = async (user:UpdateUserFormProps) => {
+    const u = new UpdateUserForm(userRepository)
+    return await u.execute(user)
+}
+
+export type UpdateUserFormProps = {id:string, solicitud:RoleType|null, email:string|null,nick?:string,img:string|null}
 // export class DeleteUserRoleId extends UseUser {
 //     async execute(id:string){
 //         return await this.userRepository.deleteRoleId(id)
@@ -42,6 +45,9 @@ export class UpdateUserForm extends UseUser{
 //         return await this.userRepository.findByAddress(address)
 //     }
 // }
+export const findUserByIdUC = async (id:string) => {
+    return await userRepository.findById(id)
+}
 
 export class VerifyEmail extends UseUser {
     async execute(id:string, verifyToken: string): Promise<boolean>{

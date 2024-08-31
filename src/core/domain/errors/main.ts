@@ -3,6 +3,7 @@ export abstract class ErrorBase extends Error {
         super(message, options);
       }
 }
+export class SetEnvError extends ErrorBase {}
 export class VerificationOperationError extends ErrorBase {}
 export class StorageOperationError extends ErrorBase {}
 export class DatabaseOperationError extends ErrorBase {}
