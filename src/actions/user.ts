@@ -4,7 +4,7 @@
 import { listUsersByIdUC, listUsersUC } from "@/core/application/usecases/atomic/user";
 import { deleteUserAccountUC, makeAdminUC, userInCookiesUC } from "@/core/application/usecases/compound/user";
 import { RoleType } from "@/core/domain/entities/Role";
-import { updateUserFormC, verifyEmailC } from "@/core/interface-adapters/controllers/user";
+import { resendVerificationEmailC, updateUserFormC, verifyEmailC } from "@/core/interface-adapters/controllers/user";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { LoginPayload } from "thirdweb/auth";
@@ -37,11 +37,11 @@ export async function listUserById(id: string) {
 export async function updateUser(id: string, payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
-}, formData: {solicitud:RoleType|null, email:string|null,nick?:string,img:string|null}) {
+}, formData: {email:string|null,nick?:string,img:string|null}) {
 
     await updateUserFormC(payload,
       {  id,
-         solicitud:formData.solicitud as RoleType,
+
          nick: formData.nick,
          img: formData.img,
          email: formData.email,
@@ -50,6 +50,9 @@ export async function updateUser(id: string, payload: {
         )
     revalidatePath("/")
     redirect("/")
+}
+export async function resendVerificationEmail(userI:{id:string, email: string}){
+    return await resendVerificationEmailC(userI)
 }
 export async function deleteUser(payload: {
     signature: `0x${string}`;

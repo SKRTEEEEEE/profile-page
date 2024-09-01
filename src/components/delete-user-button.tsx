@@ -8,7 +8,7 @@ import { signLoginPayload } from "thirdweb/auth";
 import { UserX } from "lucide-react";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Input } from "./ui/input";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "./ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { useForm } from "react-hook-form";
 import { z } from "zod"; // Asegúrate de que esto sea 'zod', no 'velite'
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,8 +16,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // Definición del esquema de validación
 const formSchema = z.object({
     address: z.string(),
-    validation: z.string(),
-}).refine((data) => data.validation === data.address, {
+    validation: z.string().trim(),
+}).refine((data) => data.validation.trim() === data.address.trim(), {
     message: "El valor de validación debe coincidir con la dirección.",
     path: ['validation'],
 });
@@ -34,22 +34,22 @@ export default function DeleteUserButton({ id, address }: { id: string; address:
         }
     });
 
-    async function handleSubmit(event: React.FormEvent) {
-        event.preventDefault();
+    const onSubmit = async () => {
         if (!account) {
-            throw new Error("Please connect your wallet");
+            console.error("Please connect your wallet");
+            return;
         }
         try {
             const payload = await generatePayload({ address: account.address });
             const signatureRes = await signLoginPayload({ account, payload });
             await deleteUser(signatureRes, id, address);
-            if (wallet !== undefined) {
+            if (wallet) {
                 wallet.disconnect();
             }
         } catch (error) {
             console.error("Error at delete user: " + error);
         }
-    }
+    };
 
     return (
         <Dialog>
@@ -67,16 +67,18 @@ export default function DeleteUserButton({ id, address }: { id: string; address:
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={form.handleSubmit(onSubmit)}>
                         <FormField control={form.control} name="validation" render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Verificación</FormLabel>
                                 <FormControl>
                                     <Input {...field} placeholder="Introduce aquí tu dirección" />
                                 </FormControl>
+                                <FormMessage/>
                                 <FormDescription>
                                     Una vez realizada esta acción perderás toda tu información como cursos realizados o privilegios.
                                 </FormDescription>
+                                
                             </FormItem>
                         )} />
                         <DialogFooter className="flex">

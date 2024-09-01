@@ -2,6 +2,10 @@ export enum RoleType {
     ADMIN = 'ADMIN',
     STUDENT = 'STUDENT',
     STUDENT_PRO = "STUDENT_PRO",
+    //Ahora en beta
+    PROF_TEST = "PROF_TEST",
+    PROF = "PROF",
+    PROF_PRO = "PROF_PRO"
     // Añade aquí más tipos de roles según sea necesario
   }
 export class Role implements RoleBase {
