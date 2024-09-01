@@ -1,6 +1,7 @@
 "use client"
 
 import { generatePayload, isLoggedIn, login, logout } from "@/actions/auth"
+import { rd } from "@/actions/revrd";
 import { client } from "@/core/infrastructure/connectors/thirdweb-auth";
 import { ConnectButton, darkTheme } from "thirdweb/react"
 import { createWallet, inAppWallet } from "thirdweb/wallets";
@@ -108,11 +109,13 @@ export const CConectButton =  () =>{
             doLogin: async (params) => {
                 console.log("loggin in!")
                 await login(params)
+                rd("/academia")
             },
             getLoginPayload: async ({address}) => generatePayload({address}),
             doLogout: async () => {
                 console.log("logging out!")
                 await logout()
+                rd("/academia")
             }
         }}/>
     )

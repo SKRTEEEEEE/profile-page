@@ -17,7 +17,7 @@
 ### Adaptación a mejor app (bdd/backend)
 ## 5. Thirdweb (back)
 ### Creación arquitectura hexagonal
-- [ ] Revisar las funciones limitadas en [`thirdweb-auth-repository`](/src/core/infrastructure/repositories/thirdweb-auth-repository.ts)
+- [ ] Revisar las funciones limitadas en [`thirdweb-auth-repository`](/src/core/infrastructure/services/thirdweb-auth.ts)
 ### Modificar "jwt" cuando el user modifica su info
 ### El Usuario puede eliminar su perfil
 - [x] Se traspasa la lógica de deleteUserAccount de actions a application
@@ -41,7 +41,7 @@
 - [ ] Configurar correos en un entorno real
 ## 9. Reestructurar arquitectura hexagonal
 ### El usuario se le envía un correo de verificación cuando pone un correo en el formulario
-- [ ] Hay que manejar cuando el usuario se le pasa el tiempo de sesión
+- [ ] Hay que manejar cuando el usuario se le pasa el tiempo de validación
 - [ ] Hay que notificar al usuario que se le ha enviado un correo que ha de verificar en menos de media hora
 - [ ] Hay que notificar al usuario cuando no haya validado su correo aun
 ### El usuario puede solicitar ser Student, "gratis"

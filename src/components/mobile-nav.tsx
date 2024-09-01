@@ -9,8 +9,10 @@ import { useRouter } from "next/navigation";
 import { Icons } from "./icons";
 import { siteConfig } from "@/config/site";
 import { CConectButton } from "./custom-connect-button";
+import { User } from "@/core/domain/entities/User";
+import UserFormDialog from "./user-form-dialog";
 
-export function MobileNav() {
+export function MobileNav({ user }: { user: User | false | null }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -48,6 +50,7 @@ export function MobileNav() {
           >
             Twitter
           </Link>
+          <UserFormDialog user={user}/>
         </div>
       </SheetContent>
     </Sheet>

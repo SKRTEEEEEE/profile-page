@@ -6,11 +6,14 @@ import { MobileNav } from "./mobile-nav";
 import { Icons } from "./icons";
 import { MainNav } from "./main-nav";
 import ModeToggle from "./mode-toggle";
+import { userInCookies } from "@/actions/user";
+import UserFormDialog from "./user-form-dialog";
 
-export function SiteHeader(){
+export async function SiteHeader(){
+    const user = await userInCookies()
     return <header className="z-10 sticky top-0 w-full border-b border-border bg-background/95 background-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 max-w-screen-2xl items-center">
-            <MainNav/>
+            <MainNav />
             <div className="flex flex-1 items-center justify-end space-x-2">
                 <nav className="flex items-center">
                     <Link href={siteConfig.links.github} target="_blank" rel="noreferrer">
@@ -25,8 +28,10 @@ export function SiteHeader(){
                         <span className="sr-only">Twitter</span>
                     </div>
                     </Link>
+                    <UserFormDialog user={user}/>
+
                     <ModeToggle/>
-                    <MobileNav/> 
+                    <MobileNav user={user}/> 
                 </nav>
 
             </div>

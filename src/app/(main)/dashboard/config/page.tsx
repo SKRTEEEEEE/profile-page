@@ -16,8 +16,7 @@
 // }
 import { userInCookies } from "@/actions/user";
 // import { CConectButton } from "@/components/custom-connect-button";
-import DeleteUserButton from "@/components/delete-user-button";
-import UserForm from "@/components/user-form";
+import UserForm from "@/components/user-form-dialog";
 
 
 export default async function EditUserPage() {
@@ -27,7 +26,7 @@ export default async function EditUserPage() {
     
     <>
       <UserForm user={user}/>
-      {user&&<DeleteUserButton id={user.id} address={user.address}/>}
+      
     </>
     
   </main>

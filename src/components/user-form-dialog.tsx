@@ -10,13 +10,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 import { User } from "@/core/domain/entities/User";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Label } from "./ui/label";
 import { updateImg, uploadImg } from "@/actions/img";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import Link from "next/link";
 import { RoleType } from "@/core/domain/entities/Role";
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "./ui/dialog";
+import { UserCog } from "lucide-react";
+import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { Separator } from "./ui/separator";
+import DeleteUserButton from "./delete-user-button";
 const roleEnum = z.enum([RoleType.ADMIN, RoleType.STUDENT, RoleType.STUDENT_PRO]);
 
 const formSchema = z.object({
@@ -36,20 +41,33 @@ const formSchema = z.object({
   path: ["solicitud"], // Indica que el error se refiere al campo 'solicitud'
 });
 
-export default function UserForm({ user }: { user: User | false | null }) {
+export default function UserFormDialog({ user }: { user: User | false | null }) {
   const account = useActiveAccount()
   const [previewImage, setPreviewImage] = useState<string | null>(user ? user.img : null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isUser, setIsUser] = useState<boolean>(false)
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      nick: "",
+      solicitud: null,
+      img: null,
+      email: undefined,
+    },
+  });
+  useEffect(() => {
+    // Actualiza los valores del formulario cuando cambia el usuario
+    form.reset({
       nick: user ? user.nick : "",
       solicitud: user ? user.solicitud : null,
       img: user ? user.img : null,
       email: user ? user.email || undefined : undefined,
-    }
-  })
+    });
+    setPreviewImage(user ? user.img : null);
+    setSelectedFile(null);
+    setIsUser(user?true:false)
+  }, [user, account]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -102,8 +120,24 @@ export default function UserForm({ user }: { user: User | false | null }) {
   const isFormDisabled = !user
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">Update User Profile</h2>
+    <Dialog>
+
+      <DialogTrigger asChild>
+        <Button className="px-2" variant={"outline"}>
+        <UserCog width={20} height={20}/>
+        <span className="inline-block sm:hidden px-2">Configuración</span>
+        <p className="sr-only">Configuración usuario</p>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[450px]">
+      <DialogHeader>
+        <DialogTitle>
+          Editar perfil
+        </DialogTitle>
+        <DialogDescription>
+          Editar tu información como usuario
+        </DialogDescription>
+      </DialogHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col space-y-4">
           <FormField
@@ -163,9 +197,9 @@ export default function UserForm({ user }: { user: User | false | null }) {
           />
           
           {previewImage && (
-            <div>
-              <Image src={previewImage} alt="Imagen de perfil" width={200} height={200} style={{ maxWidth: '200px', maxHeight: '200px' }} />
-              <Button onClick={() => setPreviewImage(null)} disabled={isFormDisabled}>Modificar imagen</Button>
+            <div className="flex w-full">
+              <Image src={previewImage} alt="Imagen de perfil" width={100} height={100} className="rounded-xl border-border" />
+              <Button className="mx-auto" onClick={() => setPreviewImage(null)} disabled={isFormDisabled}>Modificar imagen</Button>
             </div>
           )}
           
@@ -175,15 +209,28 @@ export default function UserForm({ user }: { user: User | false | null }) {
               <Input id="picture" type="file" onChange={handleFileChange} disabled={isFormDisabled} />
             </div>
           )}
-
+          <DialogFooter className="flex">
+            <div className="flex">
           <Button
             type="submit"
             disabled={isFormDisabled || !account}
+            variant={"ghost"}
           >
             {isFormDisabled ? "Please Log In to Update Profile" : "Update Profile"}
           </Button>
+          <DialogClose asChild>
+            <Button type="button" variant="secondary">
+              Close
+            </Button>
+          </DialogClose></div>
+          
+          </DialogFooter>
         </form>
       </Form>
-    </div>
+      <Separator className="my-2"/>
+      {isUser&&<DeleteUserButton id={user.id} address={user.address}/>}
+      </DialogContent>
+
+    </Dialog>
   )
 }

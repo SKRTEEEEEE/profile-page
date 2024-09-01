@@ -14,11 +14,10 @@
 
 ## Información
 Test de arquitectura hexagonal con NextJs 14
-### Tecnologías y herramientas utilizadas
+### Tecnologías  utilizadas
 - [**nextjs**](https://nextjs.org/)
 - [**tailwindcss**](https://tailwindcss.com/)
 - [**shadcn ui**](https://ui.shadcn.com/)
-- [taxonomy mdx components](https://github.com/shadcn-ui/taxonomy/blob/main/components/mdx-components.tsx): <br/> _NOT USED STILL_ Componentes pre-diseñados para dar estilos a los mdx en [`mdx-components`](./src/components/mdx-components.tsx).
 - [next-themes](https://github.com/pacocoursey/next-themes)
 - [**mongo db**](https://www.mongodb.com/docs/)
 - [mongodb atlas](https://www.mongodb.com/docs/atlas/getting-started/)
@@ -31,10 +30,14 @@ Test de arquitectura hexagonal con NextJs 14
 - [rehype-slug](https://github.com/rehypejs/rehype-slug)
 - [**vercel**](https://vercel.com/docs)
 - [nodemailer](https://www.nodemailer.com/)
-### [Proceso 🏃‍♂️‍➡️🛣️](./docs/process.md)
-
+### [🏃‍♂️‍➡️🛣️ Proceso](./docs/process.md)
+### [🖊️🧑‍💻 Project rules](/docs/hexa-rulez.md)
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)
-### [Project rules 🖊️🧑‍💻](/docs/hexa-rulez.md)
+### Documentación utilizada
+ **_NOT USED STILL_**
+- [taxonomy mdx components](https://github.com/shadcn-ui/taxonomy/blob/main/components/mdx-components.tsx): <br/> Componentes pre-diseñados para dar estilos a los mdx en [`mdx-components`](./src/components/mdx-components.tsx)
+### Herramientas utilizadas
+- [**mailtrap**](https://mailtrap.io/): <br/> Gestor correos
 ## Licencia
 ## Contacto
 ### Información de Contacto
