@@ -16,8 +16,13 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
     }
     async findById(id: string): Promise<User | null> {
         await this.connect()
-        const user: UserDocument | null = await UserModel.findById(id)
-        return user ? this.documentToUser(user) : null
+        try {
+            const user: UserDocument | null = await UserModel.findById(id);
+            return user ? this.documentToUser(user) : null;
+        } catch (error) {
+            console.error("Error buscando usuario por ID:", error);
+            return null; // O lanza un error, según lo que necesites.
+        }
     }
     async findByAddress(address: string): Promise<User | null> {
         await this.connect()

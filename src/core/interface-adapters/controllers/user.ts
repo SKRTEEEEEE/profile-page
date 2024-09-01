@@ -16,6 +16,7 @@ export const updateUserFormC = async(payload: VerifyLoginPayloadParams,user:{id:
     const userB = await findUserByIdUC(user.id)
     if (!userB) throw new DatabaseOperationError("User not found")
     //Ojo con esto, hemos de manejar cuando el usuario vuelva a cambiar el correo
+    let isVerified = userB.isVerified
     if(user.email !== null && userB.email !== user.email ){
         const {hashedToken, expireDate} = tokenGenerator()
         verifyToken = hashedToken
@@ -25,8 +26,9 @@ export const updateUserFormC = async(payload: VerifyLoginPayloadParams,user:{id:
         const verificationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/verify-email?verifyToken=${verifyToken}&id=${user.id}`;
         const html = createVerificationEmailUC(verificationLink);
         await sendMailUC({to: user.email, subject: "Email Verification",html})
+        isVerified = false
     }
-    await updateUserFormUC({...user, verifyToken, verifyTokenExpire})
+    await updateUserFormUC({...user, verifyToken, verifyTokenExpire, isVerified})
     return await setJwtUC(payload,{nick:user.nick,id: user.id, role: userB.role || undefined})
 }
 export const resendVerificationEmailC = async({id,email}:{id:string, email: string}) => {

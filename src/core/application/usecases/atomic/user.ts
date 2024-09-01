@@ -7,12 +7,12 @@ import { UserRepository } from "../../repositories/user";
 abstract class UseUser {
     constructor(protected userRepository:UserRepository){}
 }
-export type UpdateUserFormProps = {id:string, email:string|null,nick?:string,img:string|null, verifyToken?: string, verifyTokenExpire?: string}
+export type UpdateUserFormProps = {id:string, email:string|null,nick?:string,img:string|null, isVerified: boolean, verifyToken?: string, verifyTokenExpire?: string}
 class UpdateUserForm extends UseUser{
     async execute(user:UpdateUserFormProps): Promise<User> {
         const fUser = await this.userRepository.findById(user.id)
         if(!fUser)throw new DatabaseOperationError("User not found at Update User use-case")
-        return this.userRepository.update({...fUser, email: user.email, img: user.img, nick: user.nick, verifyToken: user.verifyToken, verifyTokenExpire: user.verifyTokenExpire}) 
+        return this.userRepository.update({...fUser, isVerified: user.isVerified, email: user.email, img: user.img, nick: user.nick, verifyToken: user.verifyToken, verifyTokenExpire: user.verifyTokenExpire}) 
     }
 }
 export const updateUserFormUC = async (user:UpdateUserFormProps) => {
