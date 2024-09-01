@@ -6,8 +6,9 @@ import { generatePayload } from "@/actions/auth"
 import { signLoginPayload } from "thirdweb/auth"
 import { makeAdmin } from "@/actions/user"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
+import { RoleType } from "@/core/domain/entities/Role"
 
-export default function MakeAdminButton({solicitudAdmin, id, userIsAdmin}:{solicitudAdmin:boolean, id: string, userIsAdmin:boolean}) {
+export default function MakeAdminButton({solicitudAdmin, id,role, userIsAdmin}:{solicitudAdmin:boolean, id: string,role:RoleType|null, userIsAdmin:boolean}) {
     const account = useActiveAccount()
     async function handleSubmit(event: React.FormEvent) {
         event.preventDefault()
@@ -23,37 +24,36 @@ export default function MakeAdminButton({solicitudAdmin, id, userIsAdmin}:{solic
             console.error("Error at delete user: "+error)
         }
       }
-    return (
+    
+      return solicitudAdmin ? (
         <form onSubmit={handleSubmit}>
-  {solicitudAdmin ? (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <span><Button 
-            disabled={!account || !userIsAdmin} 
-            variant="default" 
-            className="bg-green-800 hover:bg-green-900/60" 
-            type="submit"
-          >
-            Conceder
-          </Button> </span>
-          
-        </TooltipTrigger>
-        <TooltipContent>
-          {!userIsAdmin ? 
-            <p>Solo admin</p>
-           : !account ? 
-            <p>Iniciar sesión</p>
-           : 
-            <p>Dar admin</p>
-          }
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  ) : (
-    <Button variant="ghost">No solicita</Button>
-  )}
-</form>
-
-    )
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span>
+                  <Button
+                    disabled={!account || !userIsAdmin}
+                    variant="default"
+                    className="bg-accent hover:bg-accent/60"
+                    type="submit"
+                  >
+                    Solicita admin
+                  </Button>
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                {!userIsAdmin ? (
+                  <p>Solo admin</p>
+                ) : !account ? (
+                  <p>Iniciar sesión</p>
+                ) : (
+                  <p>Dar admin</p>
+                )}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </form>
+      ) : (role?<Button disabled variant="ghost">{role}</Button>:
+        <Button disabled variant="ghost">No solicita</Button>
+      )
 }

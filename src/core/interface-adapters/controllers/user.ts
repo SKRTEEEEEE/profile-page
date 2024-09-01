@@ -15,7 +15,8 @@ export const updateUserFormC = async(payload: VerifyLoginPayloadParams,user:{id:
     let verifyToken, verifyTokenExpire;
     const userB = await findUserByIdUC(user.id)
     if (!userB) throw new DatabaseOperationError("User not found")
-    if(user.email !== null && !userB.isVerified){
+    //Ojo con esto, hemos de manejar cuando el usuario vuelva a cambiar el correo
+    if(user.email !== null && !userB.isVerified ){
         const {hashedToken, expireDate} = tokenGenerator()
         verifyToken = hashedToken
         verifyTokenExpire = expireDate.toString()
@@ -55,7 +56,6 @@ export const verifyEmailC = async (id: string, verifyToken: string): Promise<boo
         const createdRole = await createRoleUC(user.address,RoleType["STUDENT"])
         user.roleId = createdRole.id
     }
-    //Hay que mirar porque no se pone en undefined los verifyToken, and Expire
     const sUser= await updateUserUC(user);
     console.log(sUser)
     return true;

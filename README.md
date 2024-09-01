@@ -35,17 +35,14 @@ Test de arquitectura hexagonal con NextJs 14
 
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)
 ### [Project rules 🖊️🧑‍💻](/docs/hexa-rulez.md)
-
+## Licencia
 ## Contacto
-
-### Agradecimientos
-
-### Licencia
-
 ### Información de Contacto
-
 #### [Envíame un mensaje](mailto:adanreh.m@gmail.com)
-
+### Agradecimientos
+#### Ejemplos utilizados
+##### [nikolovlazar](https://github.com/nikolovlazar)
+##### [aarongrossmandev](https://github.com/aarongrossmandev)
 ### Contribuciones y Problemas
 
 Si encuentras problemas o deseas contribuir al proyecto, por favor, crea un issue en el repositorio.

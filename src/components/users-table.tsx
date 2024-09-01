@@ -7,11 +7,11 @@ export default async function UsersTable() {
   const users = await listUsers();
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-lg">
+    <div className="p-6 bg-background/30 shadow-md rounded-lg">
       <h2 className="text-3xl font-semibold mb-6 text-gray-800">Users</h2>
       <CConectButton/>
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-300 rounded-lg">
+        <table className="min-w-full bg-background/30 border border-gray-300 rounded-lg">
           <thead className="bg-gray-100">
             <tr >
               <th
@@ -30,7 +30,7 @@ export default async function UsersTable() {
                 scope="col"
                 className="px-2 xl:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
-                Solicita Administrador
+                Roles
               </th>
               {/* <th
                 scope="col"
@@ -40,7 +40,7 @@ export default async function UsersTable() {
               </th> */}
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-background/50 divide-y divide-gray-200">
             {users?.map((user) => (
               <tr key={user.id} className="hover:bg-gray-50">
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -55,7 +55,7 @@ export default async function UsersTable() {
                   </Link> 
                 </td>*/}
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
-                  <MakeAdminButton solicitudAdmin={user.solicitud === "ADMIN"} id={user.id} userIsAdmin={activeUser&&(activeUser.role==="ADMIN")?true:false}/>
+                  <MakeAdminButton solicitudAdmin={user.solicitud === "ADMIN"} id={user.id} role={user.role} userIsAdmin={activeUser&&(activeUser.role==="ADMIN")?true:false}/>
                 </td>
                 {/* <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
                   <EditRoleSelect id={user.id} />

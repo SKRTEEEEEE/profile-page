@@ -40,7 +40,19 @@
 - _Estamos usando **mailtrap** de momento_
 - [ ] Configurar correos en un entorno real
 ## 9. Reestructurar arquitectura hexagonal
+### El usuario se le envía un correo de verificación cuando pone un correo en el formulario
+- [ ] Hay que manejar cuando el usuario se le pasa el tiempo de sesión
+- [ ] Hay que notificar al usuario que se le ha enviado un correo que ha de verificar en menos de media hora
+- [ ] Hay que notificar al usuario cuando no haya validado su correo aun
+### El usuario puede solicitar ser Student, "gratis"
+- _Actualmente: El usuario solicita ser student en el formulario, y si este a configurado el correo se le aprueba el student_
 **ACTUALIDAD**
+- [ ] Modificar la logica de ser Student
+    - [ ] El usuario solicita ser Student en una seccion especifica
+    - [ ] Si este no ha configurado correo se le solicitara
+    - [ ] Solo se le concedera el Student una verificado el correo
+- [ ] Modificar la logica de ser Admin
+
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
 **FUTURO**
 
