@@ -28,7 +28,8 @@ export async function SiteHeader(){
                         <span className="sr-only">Twitter</span>
                     </div>
                     </Link>
-                    <UserFormDialog user={user}/>
+                    <span className="hidden sm:inline-block">
+                    <UserFormDialog user={user}/></span>
 
                     <ModeToggle/>
                     <MobileNav user={user}/> 

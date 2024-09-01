@@ -197,9 +197,9 @@ export default function UserFormDialog({ user }: { user: User | false | null }) 
           />
           
           {previewImage && (
-            <div className="flex w-full">
+            <div className="flex sm:w-[400px]">
               <Image src={previewImage} alt="Imagen de perfil" width={100} height={100} className="rounded-xl border-border" />
-              <Button className="mx-auto" onClick={() => setPreviewImage(null)} disabled={isFormDisabled}>Modificar imagen</Button>
+              <Button className="m-auto" onClick={() => setPreviewImage(null)} disabled={isFormDisabled}>Modificar imagen</Button>
             </div>
           )}
           
@@ -220,7 +220,7 @@ export default function UserFormDialog({ user }: { user: User | false | null }) 
           </Button>
           <DialogClose asChild>
             <Button type="button" variant="secondary">
-              Close
+              Cerrar
             </Button>
           </DialogClose></div>
           
@@ -228,7 +228,7 @@ export default function UserFormDialog({ user }: { user: User | false | null }) 
         </form>
       </Form>
       <Separator className="my-2"/>
-      {isUser&&<DeleteUserButton id={user.id} address={user.address}/>}
+      {isUser&&user&&<DeleteUserButton id={user.id} address={user.address}/>}
       </DialogContent>
 
     </Dialog>
