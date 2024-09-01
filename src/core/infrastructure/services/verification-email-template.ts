@@ -1,3 +1,4 @@
+
 export const verificationEmailTemplate = (verificationLink: string) => {
     return `
           <html>

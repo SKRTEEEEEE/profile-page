@@ -1,6 +1,5 @@
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
-import { AuthRepository } from "../../services/auth";
-import { ExtendedJWTPayload, JWTContext } from "@/types/auth";
+import { AuthRepository, ExtendedJWTPayload, JWTContext } from "../../services/auth";
 import { authRepository } from "@/core/infrastructure/services/thirdweb-auth";
 
 abstract class UseAuth {

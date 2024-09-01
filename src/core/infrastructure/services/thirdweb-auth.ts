@@ -5,8 +5,7 @@ import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, Ver
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ThirdwebAuthAdapter } from "../connectors/thirdweb-auth";
-import { AuthRepository } from "@/core/application/services/auth";
-import { ExtendedJWTPayload, JWTContext } from "@/types/auth";
+import { AuthRepository, ExtendedJWTPayload, JWTContext } from "@/core/application/services/auth";
 import { VerificationOperationError } from "@/core/domain/errors/main";
 import { RoleType } from "@/core/domain/entities/Role";
 
@@ -48,14 +47,14 @@ class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthReposito
   //Hay que revisar estas funciones!!⚠️⚠️
   async protAdmAct(): Promise<true> {
     const isAdmin = await this.isAdmin();
-    if (!isAdmin) throw new Error("Must be admin")
+    if (!isAdmin) throw new VerificationOperationError("Must be admin")
     return isAdmin
     
   }
   //Esta función limitara a que el usuario sea el mismo que el que ha iniciado sesión
   async protLogAct(): Promise<ExtendedJWTPayload> {
     const cookies = await this.getCookies()
-    if (!cookies) throw new Error("Must log in")
+    if (!cookies) throw new VerificationOperationError("Must log in")
     return cookies
   }
 

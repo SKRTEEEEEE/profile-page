@@ -1,12 +1,11 @@
 // application/services/user-auth.ts
 // ⚠️🧠🧑‍💻 VAMOS A INTENTAR NO ABUSAR, EXTRAER PARTES COMUNES EN LA PARTE DE ATOMIC
-import { ExtendedJWTPayload } from "@/types/auth";
 import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
 import { User} from "@/core/domain/entities/User";
 import { RoleType } from "@/core/domain/entities/Role";
 import crypto from "crypto"
 import { UserRepository } from "../../repositories/user";
-import { AuthRepository } from "../../services/auth";
+import { AuthRepository, ExtendedJWTPayload } from "../../services/auth";
 import { RoleRepository } from "../../repositories/role";
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user";
 import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role";
@@ -50,7 +49,7 @@ abstract class UseUserAuthService {
 class LoginUser extends UseUserAuthService {
   async execute(payload: VerifyLoginPayloadParams): Promise<ExtendedJWTPayload> {
     const verifiedPayload = await this.authRepository.verifyPayload(payload);
-    if (!verifiedPayload.valid) throw new Error("Payload not valid")
+    if (!verifiedPayload.valid) throw new VerificationOperationError("Payload not valid")
     let user = await this.userRepository.findByAddress(verifiedPayload.payload.address);
     if (!user) {
       user = await this.userRepository.create({ address: verifiedPayload.payload.address, roleId: null, role: null, solicitud: null, img: null, email: null })
@@ -102,12 +101,12 @@ class DeleteUserAccount extends UseUserRoleAuthService {
     payload: LoginPayload;
   }, id: string, address: string) {
     const v = await this.authRepository.verifyPayload(payload)
-    if (!v.valid) throw new Error("Error with payload auth")
-    if (v.payload.address !== address) throw new Error("User only can delete her address")
+    if (!v.valid) throw new VerificationOperationError("Error with payload auth")
+    if (v.payload.address !== address) throw new VerificationOperationError("User only can delete her address")
 
     //deleteUser(id)
     const user = await this.userRepository.findById(id)
-    if (!user) throw new Error("User not found")
+    if (!user) throw new DatabaseFindError("User not found")
     if (user.roleId !== null) {
       await this.roleRepository.delete(user.roleId)
     }

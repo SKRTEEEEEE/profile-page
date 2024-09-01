@@ -3,10 +3,10 @@ import { setJwtUC } from "@/core/application/usecases/services/auth";
 import { findUserByIdUC, updateUserFormUC, updateUserUC } from "@/core/application/usecases/atomic/user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { DatabaseOperationError, SetEnvError } from "@/core/domain/errors/main";
-import { ExtendedJWTPayload } from "@/types/auth";
 import { VerifyLoginPayloadParams } from "thirdweb/auth";
 import { createVerificationEmailUC, sendMailUC } from "@/core/application/usecases/services/email";
 import { createRoleUC } from "@/core/application/usecases/atomic/role";
+import { ExtendedJWTPayload } from "@/core/application/services/auth";
 
 // Nos vamos a saltar esta capa, total igualmente la app sigue siendo la unica capa que tocara con el framework, manteniendo las otras capas separadas, no es estrictamente necesario, aunque es mas correcto
 
@@ -26,7 +26,7 @@ export const updateUserFormC = async(payload: VerifyLoginPayloadParams,user:{id:
         await sendMailUC({to: user.email, subject: "Email Verification",html})
     }
     await updateUserFormUC({...user, verifyToken, verifyTokenExpire})
-    return await setJwtUC(payload,{nick:user.nick,id: user.id})
+    return await setJwtUC(payload,{nick:user.nick,id: user.id, role: userB.role || undefined})
 }
 
 export const verifyEmailC = async (id: string, verifyToken: string): Promise<boolean> => {
@@ -46,7 +46,7 @@ export const verifyEmailC = async (id: string, verifyToken: string): Promise<boo
     user.isVerified = true;
     user.verifyToken = undefined;
     user.verifyTokenExpire = undefined;
-    // ⚠️‼️ Falta poner el user.role al student si el ha solicitado user.role
+    // ⚠️‼️ Esta parte en el futuro sera un botón de "subscripción"
     console.log("User before update:", user);
 
     if(user.solicitud===RoleType["STUDENT"]) {
