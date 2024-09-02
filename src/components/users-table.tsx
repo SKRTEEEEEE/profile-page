@@ -1,10 +1,11 @@
 import { listUsers, userInCookies } from "@/actions/user";
-import MakeAdminButton from "./make-admin-button";
 import { CConectButton } from "./custom-connect-button";
+import GiveRoleButton from "./give-role-button";
 
 export default async function UsersTable() {
   const activeUser = await userInCookies()
   const users = await listUsers();
+
 
   return (
     <div className="p-6 bg-background/30 shadow-md rounded-lg">
@@ -55,7 +56,7 @@ export default async function UsersTable() {
                   </Link> 
                 </td>*/}
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
-                  <MakeAdminButton solicitudAdmin={user.solicitud === "ADMIN"} id={user.id} role={user.role} userIsAdmin={activeUser&&(activeUser.role==="ADMIN")?true:false}/>
+                  <GiveRoleButton solicitud={user.solicitud} id={user.id} role={user.role} userIsAdmin={activeUser&&(activeUser.role==="ADMIN")?true:false}/>
                 </td>
                 {/* <td className="px-2 xl:px-6 py-4 whitespace-nowrap">
                   <EditRoleSelect id={user.id} />

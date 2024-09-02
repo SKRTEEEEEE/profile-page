@@ -10,3 +10,5 @@ export class DatabaseOperationError extends ErrorBase {}
 export class DatabaseFindError extends ErrorBase {}
 export class NotFoundError extends ErrorBase {}
 export class InputParseError extends ErrorBase {}
+export class SetStateError extends ErrorBase {}
+export class HandleOperationError extends ErrorBase {}

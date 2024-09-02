@@ -4,28 +4,30 @@ import { useActiveAccount } from "thirdweb/react"
 import { Button } from "./ui/button"
 import { generatePayload } from "@/actions/auth"
 import { signLoginPayload } from "thirdweb/auth"
-import { makeAdmin } from "@/actions/user"
+import { giveRole } from "@/actions/user"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
 import { RoleType } from "@/core/domain/entities/Role"
+import { HandleOperationError, SetStateError } from "@/core/domain/errors/main"
 
-export default function MakeAdminButton({solicitudAdmin, id,role, userIsAdmin}:{solicitudAdmin:boolean, id: string,role:RoleType|null, userIsAdmin:boolean}) {
+export default function GiveRoleButton({solicitud, id,role, userIsAdmin}:{solicitud:RoleType|null, id: string,role:RoleType|null, userIsAdmin:boolean}) {
     const account = useActiveAccount()
+
     async function handleSubmit(event: React.FormEvent) {
         event.preventDefault()
-        if(!account){
-          throw new Error("Please connect your wallet")
-        }
+        if(!account)throw new SetStateError("Please connect your wallet")
+        if(solicitud!==RoleType.ADMIN&&solicitud!==RoleType.PROF_TEST) throw new HandleOperationError("Action not corresponding")   
         try {
+
             const payload = await generatePayload({address: account.address})
             const signatureRes = await signLoginPayload({account, payload})
-            await makeAdmin(signatureRes, id)
+            await giveRole(signatureRes, id, solicitud)
 
         } catch (error) {
             console.error("Error at delete user: "+error)
         }
       }
     
-      return solicitudAdmin ? (
+      return solicitud ? (
         <form onSubmit={handleSubmit}>
           <TooltipProvider>
             <Tooltip>
@@ -37,17 +39,17 @@ export default function MakeAdminButton({solicitudAdmin, id,role, userIsAdmin}:{
                     className="bg-accent hover:bg-accent/60"
                     type="submit"
                   >
-                    Solicita admin
+                    Solicita {solicitud.toLowerCase()}
                   </Button>
                 </span>
               </TooltipTrigger>
               <TooltipContent>
                 {!userIsAdmin ? (
-                  <p>Solo admin</p>
+                  <p>Solo admin puede</p>
                 ) : !account ? (
                   <p>Iniciar sesión</p>
                 ) : (
-                  <p>Dar admin</p>
+                  <p>Dar {solicitud.toLowerCase()}</p>
                 )}
               </TooltipContent>
             </Tooltip>

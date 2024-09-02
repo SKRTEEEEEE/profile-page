@@ -2,7 +2,7 @@
 import { RoleBase } from "@/core/domain/entities/Role";
 import { UserBase } from "@/core/domain/entities/User";
 import mongoose, { Schema } from "mongoose";
-export const roleEnum = ['ADMIN', 'STUDENT', 'STUDENT_PRO']
+export const roleEnum = ['ADMIN', 'STUDENT', 'STUDENT_PRO', 'PROF_TEST', 'PROF', "PROF_PRO"]
 
 export interface UserDocument extends Document, UserBase { 
     _id: mongoose.Types.ObjectId;

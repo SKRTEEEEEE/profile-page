@@ -23,7 +23,7 @@ import { VerificacionEmailAlert } from "./verificacion-email-alert";
 import SolicitudRoleButton from "./solicitud-role";
 
 const formSchema = z.object({
-  nick: z.string().min(5,{message:"⚠️ Debe tener 5 caracteres como mínimo."}).max(25,{message:"⚠️ Debe tener 25 caracteres como máximo."}).optional(),
+  nick: z.string().min(5, { message: "⚠️ Debe tener 5 caracteres como mínimo." }).max(25, { message: "⚠️ Debe tener 25 caracteres como máximo." }).optional(),
   img: z.string().nullable().default(null),
   email: z.string().email({ message: "El email debe ser válido" }).optional(), // Cambia a string y establece un valor por defecto
 
@@ -44,7 +44,7 @@ export default function UserFormDialog({ user }: { user: User | false | null }) 
   const [previewImage, setPreviewImage] = useState<string | null>(user ? user.img : null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUser, setIsUser] = useState<boolean>(false)
-  
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -62,7 +62,7 @@ export default function UserFormDialog({ user }: { user: User | false | null }) 
     });
     setPreviewImage(user ? user.img : null);
     setSelectedFile(null);
-    setIsUser(user?true:false)
+    setIsUser(user ? true : false)
   }, [user, account]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +92,7 @@ export default function UserFormDialog({ user }: { user: User | false | null }) 
       console.error("Error al subir la imagen:", error);
     }
   }
-  
+
   async function onSubmit(formData: z.infer<typeof formSchema>) {
     if (!account || !user) {
       console.error("Please connect your wallet or log in")
@@ -101,14 +101,14 @@ export default function UserFormDialog({ user }: { user: User | false | null }) 
 
     if (selectedFile !== null) await setData()
 
-    const payload = await generatePayload({address: account.address})
-    const signatureRes = await signLoginPayload({account, payload})
+    const payload = await generatePayload({ address: account.address })
+    const signatureRes = await signLoginPayload({ account, payload })
     const updatedData = {
       ...formData,
-      email: (typeof formData.email ===  "string")? formData.email: null,
+      email: (typeof formData.email === "string") ? formData.email : null,
       img: form.getValues().img
     };
-  
+
     const res = await updateUser(user.id, signatureRes, updatedData);
     console.log("res: ", res)
   }
@@ -120,97 +120,99 @@ export default function UserFormDialog({ user }: { user: User | false | null }) 
 
       <DialogTrigger asChild>
         <Button className="px-2" variant={"outline"}>
-        <UserCog width={20} height={20}/>
-        <span className="inline-block sm:hidden px-2">Configuración</span>
-        <p className="sr-only">Configuración usuario</p>
+          <UserCog width={20} height={20} />
+          <span className="inline-block sm:hidden px-2">Configuración</span>
+          <p className="sr-only">Configuración usuario</p>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[450px]">
-      <DialogHeader>
-        <DialogTitle>
-          Editar perfil
-        </DialogTitle>
-        <DialogDescription>
-          Editar tu información como usuario
-        </DialogDescription>
-      </DialogHeader>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col space-y-4">
-          <FormField
-            control={form.control}
-            name="nick"
-            render={({field}) => (
-              <FormItem>
-                <FormLabel>Nick</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="👾 De 5 a 25 caracteres" disabled={isFormDisabled} />
-                </FormControl>
-                <FormDescription>Este será tu nombre público.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({field}) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                <Input {...field}  placeholder="ejemplo@correo.com" disabled={isFormDisabled} />
-                </FormControl>
-                <FormDescription>Email para verificación.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
+        <DialogHeader>
+          <DialogTitle>
+            Editar perfil
+          </DialogTitle>
+          <DialogDescription>
+            Editar tu información como usuario
+          </DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col space-y-4">
+            <FormField
+              control={form.control}
+              name="nick"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nick</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="👾 De 5 a 25 caracteres" disabled={isFormDisabled} />
+                  </FormControl>
+                  <FormDescription>Este será tu nombre público.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="ejemplo@correo.com" disabled={isFormDisabled} />
+                  </FormControl>
+                  <FormDescription>Email para verificación.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-       <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="picture">Imagen Perfil</Label>
-          {previewImage && (
-            <div className="flex items-center justify-between sm:w-[400px]">
-              <Image src={previewImage} id="picture" alt="Imagen de perfil" width={60} height={60} className="rounded-xl border-border border-2" />
-              <Button variant={"secondary"} className="my-auto" onClick={() => setPreviewImage(null)} disabled={isFormDisabled}>Modificar imagen</Button>
-            </div>
-          )}
-          
-          {!previewImage && (
-            
-             
-              <Input id="picture" type="file" placeholder="Click para cargar una imagen" onChange={handleFileChange} disabled={isFormDisabled} />
-           
-          )} </div>
-          <DialogFooter>
-            
-          <div className="flex w-full gap-4 flex-col">
-            <div className="flex justify-end">
-          <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Cerrar
-            </Button>
-          </DialogClose></div>
-          
-          <Button
-            type="submit"
-            disabled={isFormDisabled || !account}
-            className="w-full"
-            
-          >
-            {isFormDisabled ? "Please Log In to Update Profile" : "Update Profile"}
-          </Button></div>
-          
-          </DialogFooter>
-        </form>
-      </Form>
-      <Separator className="my-2"/>
-      {isUser&&user&&(user.email&&<VerificacionEmailAlert user={user}/>)}
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-      {isUser && user && !user.solicitud && user.email && user.role === null && (
-        <SolicitudRoleButton id={user.id} />
-      )}</div>
-      {isUser&&user&&<DeleteUserButton id={user.id} address={user.address}/>}</div>
+
+            <div className="grid w-full items-center gap-1.5">
+              <Label htmlFor="picture">Imagen Perfil</Label>
+              {previewImage && (
+                <div className="flex items-center justify-between sm:w-[400px]">
+                  <Image src={previewImage} id="picture" alt="Imagen de perfil" width={60} height={60} className="rounded-xl border-border border-2" />
+                  <Button variant={"secondary"} className="my-auto" onClick={() => setPreviewImage(null)} disabled={isFormDisabled}>Modificar imagen</Button>
+                </div>
+              )}
+
+              {!previewImage && (
+
+
+                <Input id="picture" type="file" placeholder="Click para cargar una imagen" onChange={handleFileChange} disabled={isFormDisabled} />
+
+              )} </div>
+            <DialogFooter>
+
+              <div className="flex w-full gap-4 flex-col">
+                <div className="flex justify-end">
+                  <DialogClose asChild>
+                    <Button type="button" variant="secondary">
+                      Cerrar
+                    </Button>
+                  </DialogClose></div>
+
+                <Button
+                  type="submit"
+                  disabled={isFormDisabled || !account}
+                  className="w-full"
+
+                >
+                  {isFormDisabled ? "Please Log In to Update Profile" : "Update Profile"}
+                </Button></div>
+
+            </DialogFooter>
+          </form>
+        </Form>
+        <Separator className="my-2" />
+        {isUser && user && (user.email && <VerificacionEmailAlert user={user} />)}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            {isUser && user && !user.solicitud && user.email && user.role === null && user.verifyToken=== undefined&& (
+              <SolicitudRoleButton id={user.id} />
+            )}
+          </div>
+          {isUser && user && <DeleteUserButton id={user.id} address={user.address} />}
+        </div>
       </DialogContent>
 
     </Dialog>

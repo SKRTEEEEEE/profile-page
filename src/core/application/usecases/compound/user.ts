@@ -124,32 +124,32 @@ export const deleteUserAccountUC = async (payload: {
 }
 
 // Remember update user isAdmin, and solicitudAdmin in bdd!!!!
-class MakeAdmin extends UseUserRoleAuthService {
+class GiveRole extends UseUserRoleAuthService {
   async execute(payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
-  }, id: string) {
+  }, id: string, solicitud: RoleType.ADMIN | RoleType.PROF_TEST) {
     const v = await this.authRepository.verifyPayload(payload)
     if (!v.valid) throw new VerificationOperationError("payload auth")
       const signUser = await userRepository.findByAddress(payload.payload.address)
     if (!signUser) throw new DatabaseFindError("signer user")
     if (signUser.role!=="ADMIN") throw new VerificationOperationError("Only admins")
-    const createdRole = await createRoleUC(payload.payload.address,"ADMIN" as RoleType)
+    const createdRole = await createRoleUC(payload.payload.address,solicitud)
     const user = await this.userRepository.findById(id)
     if(!user)throw new DatabaseFindError("user")
     await this.userRepository.update({
       id, address: user.address, roleId: createdRole.id,
-      role: RoleType["ADMIN"], solicitud: null, img: user.img, email: user.email, isVerified: user.isVerified
+      role: solicitud, solicitud: null, img: user.img, email: user.email, isVerified: user.isVerified
     })
     // No es necesario porque no lo hace el
     // await this.authRepository.setJwt(payload, {id:user.id, nick: user.nick, role: RoleType["ADMIN"]})
   }
 }
-export const makeAdminUC = async(payload: {
+export const giveRoleUC = async(payload: {
   signature: `0x${string}`;
   payload: LoginPayload;
-}, id: string) => {
-  const m = new MakeAdmin(userRepository, roleRepository, authRepository)
-  return await m.execute(payload,id)
+}, id: string, solicitud: RoleType.ADMIN | RoleType.PROF_TEST) => {
+  const m = new GiveRole(userRepository, roleRepository, authRepository)
+  return await m.execute(payload,id, solicitud)
 }
 

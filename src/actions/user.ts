@@ -2,7 +2,7 @@
 
 
 import { listUsersByIdUC, listUsersUC, updateUserSolicitudUC } from "@/core/application/usecases/atomic/user";
-import { deleteUserAccountUC, makeAdminUC, userInCookiesUC } from "@/core/application/usecases/compound/user";
+import { deleteUserAccountUC, giveRoleUC, userInCookiesUC } from "@/core/application/usecases/compound/user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { resendVerificationEmailC, updateUserFormC, verifyEmailC } from "@/core/interface-adapters/controllers/user";
 import { revalidatePath } from "next/cache";
@@ -65,13 +65,14 @@ export async function deleteUser(payload: {
     revalidatePath("/dashboard/config")
 }
 
-export async function makeAdmin(payload: {
+export async function giveRole(payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
-},id:string){
-    await makeAdminUC(payload,id)
+},id:string, solicitud: RoleType.ADMIN | RoleType.PROF_TEST){
+    await giveRoleUC(payload,id, solicitud)
     revalidatePath("/admin/users")
 }
+
 export async function verifyEmail(id:string, verifyToken:string){
     return await verifyEmailC(id, verifyToken)
 }
