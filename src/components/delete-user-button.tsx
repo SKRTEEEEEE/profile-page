@@ -53,7 +53,7 @@ export default function DeleteUserButton({ id, address }: { id: string; address:
 
     return (
         <Dialog>
-            <DialogTrigger asChild>
+            <DialogTrigger className="gap-4" asChild>
                 <Button variant="destructive" disabled={!account}>
                     <UserX />
                     Eliminar cuenta

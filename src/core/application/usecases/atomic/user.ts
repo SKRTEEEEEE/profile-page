@@ -3,6 +3,7 @@ import { User, UserBase } from "@/core/domain/entities/User";
 import { DatabaseFindError, DatabaseOperationError } from "@/core/domain/errors/main";
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user";
 import { UserRepository } from "../../repositories/user";
+import { RoleType } from "@/core/domain/entities/Role";
 
 abstract class UseUser {
     constructor(protected userRepository:UserRepository){}
@@ -26,6 +27,12 @@ export const updateUserTokenVerificationUC = async (id: string, verifyToken: str
     user.verifyTokenExpire=verifyTokenExpire
     const upU = await userRepository.update(user)
     return upU
+}
+export const updateUserSolicitudUC = async ({id,solicitud}:{id:string, solicitud: RoleType.PROF_TEST| RoleType.ADMIN|null}) => {
+    const user = await userRepository.findById(id)
+    if(!user) throw new DatabaseFindError("user by id")
+    user.solicitud = solicitud
+    return await userRepository.update(user)
 }
 export const listUsersByIdUC = async (id:string) => {
     return await userRepository.findById(id)

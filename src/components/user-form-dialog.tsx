@@ -20,6 +20,7 @@ import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { Separator } from "./ui/separator";
 import DeleteUserButton from "./delete-user-button";
 import { VerificacionEmailAlert } from "./verificacion-email-alert";
+import SolicitudRoleButton from "./solicitud-role";
 
 const formSchema = z.object({
   nick: z.string().min(5,{message:"⚠️ Debe tener 5 caracteres como mínimo."}).max(25,{message:"⚠️ Debe tener 25 caracteres como máximo."}).optional(),
@@ -165,42 +166,51 @@ export default function UserFormDialog({ user }: { user: User | false | null }) 
           />
           
 
-    
-          
+       <div className="grid w-full items-center gap-1.5">
+          <Label htmlFor="picture">Imagen Perfil</Label>
           {previewImage && (
-            <div className="flex sm:w-[400px]">
-              <Image src={previewImage} alt="Imagen de perfil" width={100} height={100} className="rounded-xl border-border" />
-              <Button className="m-auto" onClick={() => setPreviewImage(null)} disabled={isFormDisabled}>Modificar imagen</Button>
+            <div className="flex items-center justify-between sm:w-[400px]">
+              <Image src={previewImage} id="picture" alt="Imagen de perfil" width={60} height={60} className="rounded-xl border-border border-2" />
+              <Button variant={"secondary"} className="my-auto" onClick={() => setPreviewImage(null)} disabled={isFormDisabled}>Modificar imagen</Button>
             </div>
           )}
           
           {!previewImage && (
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="picture">Picture</Label>
-              <Input id="picture" type="file" onChange={handleFileChange} disabled={isFormDisabled} />
-            </div>
-          )}
-          <DialogFooter className="flex">
-            <div className="flex">
-          <Button
-            type="submit"
-            disabled={isFormDisabled || !account}
-            variant={"ghost"}
-          >
-            {isFormDisabled ? "Please Log In to Update Profile" : "Update Profile"}
-          </Button>
+            
+             
+              <Input id="picture" type="file" placeholder="Click para cargar una imagen" onChange={handleFileChange} disabled={isFormDisabled} />
+           
+          )} </div>
+          <DialogFooter>
+            
+          <div className="flex w-full gap-4 flex-col">
+            <div className="flex justify-end">
           <DialogClose asChild>
             <Button type="button" variant="secondary">
               Cerrar
             </Button>
           </DialogClose></div>
           
+          <Button
+            type="submit"
+            disabled={isFormDisabled || !account}
+            className="w-full"
+            
+          >
+            {isFormDisabled ? "Please Log In to Update Profile" : "Update Profile"}
+          </Button></div>
+          
           </DialogFooter>
         </form>
       </Form>
       <Separator className="my-2"/>
       {isUser&&user&&(user.email&&<VerificacionEmailAlert user={user}/>)}
-      {isUser&&user&&<DeleteUserButton id={user.id} address={user.address}/>}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+      {isUser && user && !user.solicitud && user.email && user.role === null && (
+        <SolicitudRoleButton id={user.id} />
+      )}</div>
+      {isUser&&user&&<DeleteUserButton id={user.id} address={user.address}/>}</div>
       </DialogContent>
 
     </Dialog>

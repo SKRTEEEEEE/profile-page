@@ -1,7 +1,7 @@
 "use server"
 
 
-import { listUsersByIdUC, listUsersUC } from "@/core/application/usecases/atomic/user";
+import { listUsersByIdUC, listUsersUC, updateUserSolicitudUC } from "@/core/application/usecases/atomic/user";
 import { deleteUserAccountUC, makeAdminUC, userInCookiesUC } from "@/core/application/usecases/compound/user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { resendVerificationEmailC, updateUserFormC, verifyEmailC } from "@/core/interface-adapters/controllers/user";
@@ -50,6 +50,9 @@ export async function updateUser(id: string, payload: {
         )
     revalidatePath("/")
     redirect("/")
+}
+export async function updateUserSolicitud({id,solicitud}:{id:string, solicitud: RoleType.PROF_TEST| RoleType.ADMIN|null}){
+    return await updateUserSolicitudUC({id, solicitud})
 }
 export async function resendVerificationEmail(userI:{id:string, email: string}){
     return await resendVerificationEmailC(userI)
