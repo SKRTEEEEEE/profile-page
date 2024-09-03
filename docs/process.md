@@ -41,9 +41,9 @@
 - [ ] Configurar correos en un entorno real
 ## 9. Reestructurar arquitectura hexagonal
 ### El usuario se le envía un correo de verificación cuando pone un correo en el formulario
-- [ ] Hay que manejar cuando el usuario se le pasa el tiempo de validación
-- [ ] Hay que notificar al usuario que se le ha enviado un correo que ha de verificar en menos de media hora
-- [ ] Hay que notificar al usuario cuando no haya validado su correo aun
+- [x] Hay que manejar cuando el usuario se le pasa el tiempo de validación
+- [x] Hay que notificar al usuario que se le ha enviado un correo que ha de verificar en menos de media hora
+- [x] Hay que notificar al usuario cuando no haya validado su correo aun
 ### El usuario puede solicitar ser Student, "gratis"
 - _Actualmente: El usuario solicita ser student en el formulario, y si este a configurado el correo se le aprueba el student_
 **ACTUALIDAD**
@@ -51,11 +51,13 @@
     - [ ] El usuario solicita ser Student en una seccion especifica
     - [ ] Si este no ha configurado correo se le solicitara
     - [ ] Solo se le concedera el Student una verificado el correo
-- [ ] Modificar la logica de ser Admin
+- [x] Modificar la logica de ser Admin
+- [ ] Manejar correctamente los redirect y revalidate(en revalidate cuando sea necesario revalidate la pagina actual)
 
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
 **FUTURO**
-
+#### Modificar el botón login para que sea mas funcional
+- [ ] Mostrar un cuadradito en el layout de (main)
 #### El Administrador puede eliminar un usuario
 - _Directamente se optara por la opción de vetar ya que no tiene lógica que elimine sin notificar ni nada._
 - [ ] El Administrador puede vetar de la app ciertas carteras/users
