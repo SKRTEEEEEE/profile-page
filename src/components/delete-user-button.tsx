@@ -63,7 +63,7 @@ export default function DeleteUserButton({ id, address }: { id: string; address:
                 <DialogHeader>
                     <DialogTitle>Eliminar usuario</DialogTitle>
                     <DialogDescription>
-                        Acción irreversible, introduce <b>"{address}"</b> para eliminar tu cuenta.
+                        Acción irreversible, introduce <b>&quot;{address}&quot;</b> para eliminar tu cuenta.
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
