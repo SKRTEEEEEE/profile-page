@@ -1,6 +1,4 @@
-'use client'
 
-import { useState } from "react"
 import { Check } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -13,30 +11,33 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import PlainsComparisonTable from "./plains-comparison-table"
 
 const plans = [
   {
     name: "Plan Gratuito",
     description: "Perfecto para comenzar",
-    price: "$0",
+    price: "0€",
     period: "mes",
+    subtitle: "🎉 Subscribe para comenzar !",
     features: [
-      "Acceso a cursos básicos",
-      "5 ejercicios por día",
+      "Acceso a cursos completos",
+      "Acceso a multiples ejercicios",
       "Foro de la comunidad",
       "Recursos de aprendizaje básicos",
       "Actualizaciones mensuales de contenido",
     ],
   },
   {
-    name: "Plan Estándar",
+    name: "Plan Básico",
     description: "Ideal para estudiantes dedicados",
-    price: "$9.99",
+    price: "9.99€",
     period: "mes",
-    trialPeriod: "Primer mes gratis",
+    subtitle: "💶 Ahora, primer mes GRATIS !",
     features: [
-      "Todos los cursos básicos y intermedios",
-      "Ejercicios ilimitados",
+      "Todos lo incluido en el Plan Gratuito",
+      "Acceso a cursos exclusivos",
+      "Acceso a ejercicios exclusivos",
       "Soporte por email",
       "Proyectos prácticos mensuales",
       "Acceso a webinars semanales",
@@ -44,15 +45,16 @@ const plans = [
     extraFeatures: [
       "Descarga de contenido offline",
       "Certificados de finalización",
-      "Acceso a la comunidad de estudiantes",
+      "Acceso a los grupos de estudiantes",
       "Retroalimentación personalizada en proyectos",
     ],
   },
   {
     name: "Plan Premium",
     description: "Para profesionales y expertos",
-    price: "$19.99",
+    price: "19.99€",
     period: "mes",
+    subtitle: "🧰 Primer mes, solo 10€ !",
     features: [
       "Acceso completo a todos los cursos",
       "Ejercicios avanzados y proyectos",
@@ -84,6 +86,21 @@ function FeatureList({ features }: { features: string[] }) {
     </ul>
   )
 }
+function FreePlainButton(){
+  return(
+    <Button className="w-full">Comenzar Gratis</Button>
+  )
+}
+function BasePlainButton(){
+  return(
+    <Button className="w-full">Probar Gratis</Button>
+  )
+}
+function PremiumPlainButton(){
+  return(
+    <Button className="w-full">Obtener Premium</Button>
+  )
+}
 
 function PlanCard({ plan }: { plan: typeof plans[number] }) {
   return (
@@ -97,8 +114,8 @@ function PlanCard({ plan }: { plan: typeof plans[number] }) {
           {plan.price}
           <span className="text-sm font-normal text-muted-foreground">/{plan.period}</span>
         </p>
-        {plan.trialPeriod && (
-          <p className="text-sm text-muted-foreground mt-2">{plan.trialPeriod}</p>
+        {plan.subtitle && (
+          <p className="text-sm text-muted-foreground mt-2">{plan.subtitle}</p>
         )}
         <FeatureList features={plan.features.slice(0, 3)} />
         {(plan.features.length > 3 || plan.extraFeatures) && (
@@ -127,9 +144,9 @@ function PlanCard({ plan }: { plan: typeof plans[number] }) {
         )}
       </CardContent>
       <CardFooter>
-        <Button className="w-full">
-          {plan.price === "$0" ? "Comenzar Gratis" : plan.trialPeriod ? "Probar Gratis" : "Obtener Premium"}
-        </Button>
+        
+          {plan.price === "0€" ? <FreePlainButton/> : plan.price === "9.99€" ? <BasePlainButton/> : <PremiumPlainButton/>}
+       
       </CardFooter>
     </Card>
   )
@@ -144,6 +161,7 @@ export function SubscriptionPlansPopup() {
           <PlanCard key={index} plan={plan} />
         ))}
       </div>
+      <PlainsComparisonTable/>
     </div>
   )
 }

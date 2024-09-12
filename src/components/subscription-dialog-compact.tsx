@@ -14,8 +14,9 @@ import {
 } from "@/components/ui/dialog"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
+import Link from "next/link"
 
-export function SubscriptionDialogCompact() {
+export function SubscriptionDialogCompact({buttonTitle}: {buttonTitle?:string}) {
   const [selectedPlan, setSelectedPlan] = useState("free")
 
   const plans = [
@@ -50,7 +51,7 @@ export function SubscriptionDialogCompact() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Actualizar Plan</Button>
+        <Button variant="outline">{buttonTitle?buttonTitle:"Actualizar Plan"}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -99,6 +100,7 @@ export function SubscriptionDialogCompact() {
           ))}
         </RadioGroup>
         <Button className="w-full mt-4">Confirmar selección</Button>
+        <Button variant={"outline"} className="w-full mt"><Link href="/academia/tarifas">Ver todos los detalles</Link></Button>
       </DialogContent>
     </Dialog>
   )

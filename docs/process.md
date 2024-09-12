@@ -39,7 +39,8 @@
 - [ ] Comprobar si el hash se debe utilizar así
 - _Estamos usando **mailtrap** de momento_
 - [ ] Configurar correos en un entorno real
-## 9. Reestructurar arquitectura hexagonal
+## 9. Reestructurar arquitectura hexagonal (back)
+## 10. Mejora lógica validation y role (full)
 ### El usuario se le envía un correo de verificación cuando pone un correo en el formulario
 - [x] Hay que manejar cuando el usuario se le pasa el tiempo de validación
 - [x] Hay que notificar al usuario que se le ha enviado un correo que ha de verificar en menos de media hora
@@ -52,9 +53,16 @@
     - [ ] Si este no ha configurado correo se le solicitara
     - [ ] Solo se le concedera el Student una verificado el correo
 - [x] Modificar la logica de ser Admin
+## 11. Reestructuración parte 2 (back)
+- [ ] Manejar correctamente las acciones
+    - [ ] Utilizar un mensaje de respuesta correctamente
+    - [ ] Utilizar toast para manejar los estados
+    - [ ] Manejar correctamente los estados de todos los componentes
 - [ ] Manejar correctamente los redirect y revalidate(en revalidate cuando sea necesario revalidate la pagina actual)
 
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
+
+- [ ] Mejorar el frontend, mejorando los temas, y comprobando la correcta utilización de tailwind en todos los componentes
 **FUTURO**
 #### Modificar el botón login para que sea mas funcional
 - [ ] Mostrar un cuadradito en el layout de (main)
