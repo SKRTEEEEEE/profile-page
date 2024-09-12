@@ -21,11 +21,11 @@ const plans = [
     period: "mes",
     subtitle: "🎉 Subscribe para comenzar !",
     features: [
-      "Acceso a cursos completos",
+      "Acceso a cursos profesionales",
       "Acceso a multiples ejercicios",
       "Foro de la comunidad",
       "Recursos de aprendizaje básicos",
-      "Actualizaciones mensuales de contenido",
+      // "Actualizaciones mensuales de contenido",
     ],
   },
   {
@@ -35,18 +35,16 @@ const plans = [
     period: "mes",
     subtitle: "💶 Ahora, primer mes GRATIS !",
     features: [
-      "Todos lo incluido en el Plan Gratuito",
+      "Todo lo incluido en el Plan Gratuito",
       "Acceso a cursos exclusivos",
-      "Acceso a ejercicios exclusivos",
+      "Descuentos exclusivos de la comunidad",
       "Soporte por email",
-      "Proyectos prácticos mensuales",
-      "Acceso a webinars semanales",
     ],
     extraFeatures: [
-      "Descarga de contenido offline",
-      "Certificados de finalización",
-      "Acceso a los grupos de estudiantes",
-      "Retroalimentación personalizada en proyectos",
+      "Acceso a foro exclusivo",
+      "Acceso a ejercicios exclusivos",
+      // "Descuentos en suscripciones a cursos",
+      "Recursos de aprendizaje gratuitos/incluidos"
     ],
   },
   {
@@ -56,20 +54,17 @@ const plans = [
     period: "mes",
     subtitle: "🧰 Primer mes, solo 10€ !",
     features: [
-      "Acceso completo a todos los cursos",
-      "Ejercicios avanzados y proyectos",
+      "Todo lo incluido en el Plan Básico",
+      // "Mentorías personalizadas incluidas",
       "Soporte prioritario 24/7",
-      "Certificaciones reconocidas por la industria",
-      "Mentorías personalizadas mensuales",
+      "Acceso a todos los cursos",
+      "Acceso a todos los ejercicios",
+      // "Suscripción a cursos incluida",
+
     ],
     extraFeatures: [
-      "Acceso anticipado a nuevos cursos",
-      "Descuentos en eventos y conferencias",
-      "Networking con expertos de la industria",
-      "Herramientas de desarrollo premium",
-      "Análisis personalizado de progreso",
-      "Oportunidades de empleo exclusivas",
-      "Workshops mensuales con expertos",
+      "Voto para elección de próximos ejercicios",
+      "Descarga de contenido offline",
     ],
   },
 ]
@@ -154,9 +149,9 @@ function PlanCard({ plan }: { plan: typeof plans[number] }) {
 
 export function SubscriptionPlansPopup() {
   return (
-    <div className="container mx-auto py-10">
+    <div className="container py-10">
       <h1 className="text-3xl font-bold text-center mb-10">Planes de Suscripción</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {plans.map((plan, index) => (
           <PlanCard key={index} plan={plan} />
         ))}

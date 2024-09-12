@@ -25,14 +25,14 @@ export function SubscriptionDialogCompact({buttonTitle}: {buttonTitle?:string}) 
       name: "Plan Gratuito",
       price: "$0",
       description: "Perfecto para comenzar",
-      features: ["Acceso a cursos básicos", "Ejercicios limitados", "Soporte comunitario"],
+      features: ["Acceso a cursos profesionales", "Acceso a multiples ejercicios", "Soporte comunitario"],
     },
     {
       id: "standard",
       name: "Plan Estándar",
       price: "$9.99",
       description: "Ideal para estudiantes dedicados",
-      features: ["Todos los cursos básicos", "Ejercicios ilimitados", "Soporte por email"],
+      features: ["Todo lo incluido en el Plan Gratuito", "Recursos de aprendizaje gratuitos/incluidos", "Soporte por email"],
     },
     {
       id: "premium",
@@ -40,10 +40,9 @@ export function SubscriptionDialogCompact({buttonTitle}: {buttonTitle?:string}) 
       price: "$19.99",
       description: "Para profesionales y expertos",
       features: [
-        "Acceso completo a todos los cursos",
-        "Ejercicios avanzados y proyectos",
+        "Todo lo incluido en el Plan Básico",
+        "Acceso a todo el contenido",
         "Soporte prioritario 24/7",
-        "Certificaciones",
       ],
     },
   ]
@@ -100,7 +99,7 @@ export function SubscriptionDialogCompact({buttonTitle}: {buttonTitle?:string}) 
           ))}
         </RadioGroup>
         <Button className="w-full mt-4">Confirmar selección</Button>
-        <Button variant={"outline"} className="w-full mt"><Link href="/academia/tarifas">Ver todos los detalles</Link></Button>
+        <Button variant={"outline"} className="w-full mt"><Link href="/academia/tarifas#comparacion">Ver todos los detalles</Link></Button>
       </DialogContent>
     </Dialog>
   )
