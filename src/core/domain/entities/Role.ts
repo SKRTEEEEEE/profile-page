@@ -23,5 +23,5 @@ export type RoleBase = {
   permissions: RoleType,
   stripeCustomerId?: string;
   subscriptionId?: string;
-  subscriptionStatus?: 'active' | 'canceled' | 'past_due';
+  subscriptionStatus?: string;
 }

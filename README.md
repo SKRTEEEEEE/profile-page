@@ -8,9 +8,6 @@
 </div>
 </a>
 
-<dialog>
-  <p>Greetings, one and all!</p>
-</dialog>
 
 ## Información
 Test de arquitectura hexagonal con NextJs 14
@@ -26,10 +23,13 @@ Test de arquitectura hexagonal con NextJs 14
 - [github-slugger](https://www.npmjs.com/package/github-slugger/v/1.2.1)
 - [tailwindcss typography](https://github.com/tailwindlabs/tailwindcss-typography)
 - [rehype-pretty-code](https://rehype-pretty.pages.dev/)
-- [rehype-autolink-headings)](https://github.com/rehypejs/rehype-autolink-headings)
+- [rehype-autolink-headings](https://github.com/rehypejs/rehype-autolink-headings)
 - [rehype-slug](https://github.com/rehypejs/rehype-slug)
 - [**vercel**](https://vercel.com/docs)
 - [nodemailer](https://www.nodemailer.com/)
+- [**stripe**](https://docs.stripe.com/)
+- [**thirdweb**](https://portal.thirdweb.com/)
+- [**uploadthing**](https://docs.uploadthing.com/)
 ### [🏃‍♂️‍➡️🛣️ Proceso](./docs/process.md)
 ### [🖊️🧑‍💻 Project rules](/docs/hexa-rulez.md)
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)

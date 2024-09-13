@@ -75,22 +75,23 @@ const wallets = [
 //   detailsButton={{
 //     render: () => <p>🧠</p>
 // }}
-// Definir el tipo de las claves del diccionario
-type PrimaryThemeKey = "primary-light-gray" | "primary-dark-gray" | "primary-light-gold" | "primary-dark-gold" | "primary-light-neon" | "primary-dark-neon" | "primary-light-sky" | "primary-dark-sky" | "primary-light-soft" | "primary-dark-soft";
 
-// Diccionario de colores primarios en formato hexadecimal
-const primaryThemeColors: Record<PrimaryThemeKey, string> = {
-  "primary-light-gray": "#d3d3d3", // Color primario para el tema "primary-light-gray"
-  "primary-dark-gray": "#404040",  // Color primario para el tema "primary-dark-gray"
-  "primary-light-gold": "#ffdd57", // Color primario para el tema "primary-light-gold"
-  "primary-dark-gold": "#b8860b",  // Color primario para el tema "primary-dark-gold"
-  "primary-light-neon": "#39ff14", // Color primario para el tema "primary-light-neon"
-  "primary-dark-neon": "#0b3d0b",  // Color primario para el tema "primary-dark-neon"
-  "primary-light-sky": "#87cefa",  // Color primario para el tema "primary-light-sky"
-  "primary-dark-sky": "#1e90ff",   // Color primario para el tema "primary-dark-sky"
-  "primary-light-soft": "#ffb6c1", // Color primario para el tema "primary-light-soft"
-  "primary-dark-soft": "#a52a2a"   // Color primario para el tema "primary-dark-soft"
-};
+// Definir el tipo de las claves del diccionario
+// type PrimaryThemeKey = "primary-light-gray" | "primary-dark-gray" | "primary-light-gold" | "primary-dark-gold" | "primary-light-neon" | "primary-dark-neon" | "primary-light-sky" | "primary-dark-sky" | "primary-light-soft" | "primary-dark-soft";
+
+// // Diccionario de colores primarios en formato hexadecimal
+// const primaryThemeColors: Record<PrimaryThemeKey, string> = {
+//   "primary-light-gray": "#d3d3d3", // Color primario para el tema "primary-light-gray"
+//   "primary-dark-gray": "#404040",  // Color primario para el tema "primary-dark-gray"
+//   "primary-light-gold": "#ffdd57", // Color primario para el tema "primary-light-gold"
+//   "primary-dark-gold": "#b8860b",  // Color primario para el tema "primary-dark-gold"
+//   "primary-light-neon": "#39ff14", // Color primario para el tema "primary-light-neon"
+//   "primary-dark-neon": "#0b3d0b",  // Color primario para el tema "primary-dark-neon"
+//   "primary-light-sky": "#87cefa",  // Color primario para el tema "primary-light-sky"
+//   "primary-dark-sky": "#1e90ff",   // Color primario para el tema "primary-dark-sky"
+//   "primary-light-soft": "#ffb6c1", // Color primario para el tema "primary-light-soft"
+//   "primary-dark-soft": "#a52a2a"   // Color primario para el tema "primary-dark-soft"
+// };
 
 
 export const CConectButton =  ({connectButtonLabel="Iniciar session"}:{connectButtonLabel?:string}) =>{

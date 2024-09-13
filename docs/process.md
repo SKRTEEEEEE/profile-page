@@ -46,26 +46,33 @@
 - [x] Hay que notificar al usuario que se le ha enviado un correo que ha de verificar en menos de media hora
 - [x] Hay que notificar al usuario cuando no haya validado su correo aun
 ### El usuario puede solicitar ser Student, "gratis"
-- _Actualmente: El usuario solicita ser student en el formulario, y si este a configurado el correo se le aprueba el student_
+#### Modificar el botón login para que sea mas funcional
+- [x] Mostrar un cuadradito en el layout de (main): _se puede hacer aun mas personalizado pasando-le el render como props opcionales_
 **ACTUALIDAD**
-- [ ] Modificar la logica de ser Student
-    - [ ] El usuario solicita ser Student en una seccion especifica
+- _Actualmente: El usuario solicita ser student en el formulario, y si este a configurado el correo se le aprueba el student_
+- [ ] Modificar la lógica de ser Student
+    - [ ] El usuario solicita ser Student en una sección especifica
     - [ ] Si este no ha configurado correo se le solicitara
-    - [ ] Solo se le concedera el Student una verificado el correo
-- [x] Modificar la logica de ser Admin
+    - [ ] Solo se le concederá el Student una verificado el correo
+- [x] Modificar la lógica de ser Admin
 ## 11. Reestructuración parte 2 (back)
 - [ ] Manejar correctamente las acciones
     - [ ] Utilizar un mensaje de respuesta correctamente
     - [ ] Utilizar toast para manejar los estados
     - [ ] Manejar correctamente los estados de todos los componentes
-- [ ] Manejar correctamente los redirect y revalidate(en revalidate cuando sea necesario revalidate la pagina actual)
+- [ ] Manejar correctamente los redirect y revalidate(en revalidate cuando sea necesario revalidate la pagina actual, que sea dynamico segun la pagina en la que esta)
 
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
 
 - [ ] Mejorar el frontend, mejorando los temas, y comprobando la correcta utilización de tailwind en todos los componentes
-**FUTURO**
-#### Modificar el botón login para que sea mas funcional
-- [ ] Mostrar un cuadradito en el layout de (main)
-#### El Administrador puede eliminar un usuario
-- _Directamente se optara por la opción de vetar ya que no tiene lógica que elimine sin notificar ni nada._
-- [ ] El Administrador puede vetar de la app ciertas carteras/users
+
+<br/><br/>
+
+
+<br/>
+
+> **EXTRA: FUTURO**
+> ---
+> #### El Administrador puede eliminar un usuario
+> - _Directamente se optara por la opción de vetar ya que no tiene lógica que elimine sin notificar ni nada._
+> - [ ] El Administrador puede vetar de la app ciertas carteras/users

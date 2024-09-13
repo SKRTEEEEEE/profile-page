@@ -42,7 +42,7 @@ const roleSchema = new Schema({
     permissions: { type: String, required: true, enum: roleEnum, },
     stripeCustomerId: { type: String },
   subscriptionId: { type: String },
-  subscriptionStatus: { type: String, enum: ['active', 'canceled', 'past_due'] },
+  subscriptionStatus: { type: String },
 }, {
     timestamps: true 
 })
