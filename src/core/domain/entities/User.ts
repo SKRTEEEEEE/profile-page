@@ -15,6 +15,7 @@ export class User implements UserBase {
         public verifyToken?: string,
         public verifyTokenExpire?: string,
         public nick?: string,
+        public paymentId?:string,
         
     ){}
 }
@@ -30,6 +31,7 @@ export type UserBase = {
     verifyToken?: string,
     verifyTokenExpire?: string,
     nick?: string,
+    paymentId?: string,
 
 }
 export type TUser = InstanceType<typeof User>

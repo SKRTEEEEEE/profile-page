@@ -38,8 +38,17 @@ const formSchema = z.object({
 //   message: "Si no proporcionas un email, la solicitud debe ser: 'Sin privilegios'",
 //   path: ["solicitud"], // Indica que el error se refiere al campo 'solicitud'
 // });
+const FormButtonLabelDef = () => {
+  return (
+      <>
+          <UserCog width={20} height={20} />
+          <span className="inline-block sm:hidden px-2">Configuración</span>
+          <p className="hidden sm:sr-only">Configuración usuario</p>
+      </>
+  );
+};
 
-export default function UserFormDialog({ user }: { user: User | false | null }) {
+export default function UserFormDialog({ user, formButtonLabel, buttonLabelVariant="outline", buttonLabelClass="px-2" }: { user: User | false | null, formButtonLabel?: JSX.Element, buttonLabelVariant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined, buttonLabelClass?:string }) {
   const account = useActiveAccount()
   const [previewImage, setPreviewImage] = useState<string | null>(user ? user.img : null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -119,11 +128,12 @@ export default function UserFormDialog({ user }: { user: User | false | null }) 
     <Dialog>
 
       <DialogTrigger asChild>
-        <Button className="px-2" variant={"outline"}>
-          <UserCog width={20} height={20} />
+      <Button className={buttonLabelClass} variant={buttonLabelVariant}>
+          {/* <UserCog width={20} height={20} />
           <span className="inline-block sm:hidden px-2">Configuración</span>
-          <p className="sr-only">Configuración usuario</p>
-        </Button>
+          <p className="hidden sm:sr-only">Configuración usuario</p> */}
+          {formButtonLabel||<FormButtonLabelDef/>} 
+      </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[450px]">
         <DialogHeader>

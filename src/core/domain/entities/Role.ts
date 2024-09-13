@@ -1,7 +1,7 @@
 export enum RoleType {
     ADMIN = 'ADMIN',
     STUDENT = 'STUDENT',
-    STUDENT_PRO = "STUDENT_PRO",
+    STUDENT_PRO = "STUDENT_P",
     //Ahora en beta
     PROF_TEST = "PROF_TEST",
     PROF = "PROF",
@@ -21,4 +21,7 @@ export type RoleBase = {
   id: string,
   address: string,
   permissions: RoleType,
+  stripeCustomerId?: string;
+  subscriptionId?: string;
+  subscriptionStatus?: 'active' | 'canceled' | 'past_due';
 }

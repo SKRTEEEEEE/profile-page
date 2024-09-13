@@ -33,7 +33,7 @@ export function MobileNav({ user }: { user: User | false | null }) {
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
         <div className="flex flex-col gap-3 mt-3">
-          <CConectButton/>
+          
           <MobileLink onOpenChange={setOpen} href="/academia">
             Academia
           </MobileLink>
@@ -50,6 +50,7 @@ export function MobileNav({ user }: { user: User | false | null }) {
           >
             Twitter
           </Link>
+          <CConectButton/>
           <UserFormDialog user={user}/>
         </div>
       </SheetContent>

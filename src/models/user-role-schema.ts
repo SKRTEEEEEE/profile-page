@@ -2,7 +2,7 @@
 import { RoleBase } from "@/core/domain/entities/Role";
 import { UserBase } from "@/core/domain/entities/User";
 import mongoose, { Schema } from "mongoose";
-export const roleEnum = ['ADMIN', 'STUDENT', 'STUDENT_PRO', 'PROF_TEST', 'PROF', "PROF_PRO"]
+export const roleEnum = ['ADMIN', 'STUDENT', 'STUDENT_P', 'PROF_TEST', 'PROF', "PROF_PRO"]
 
 export interface UserDocument extends Document, UserBase { 
     _id: mongoose.Types.ObjectId;
@@ -33,12 +33,16 @@ const userSchema = new Schema({
       verifyTokenExpire: {
         type: Date,
       },
+      paymentId: { type: String }, 
 }, {
     timestamps: true 
 })
 const roleSchema = new Schema({
     address: { type: String, required: true },
-    permissions: { type: String, required: true, enum: roleEnum, }
+    permissions: { type: String, required: true, enum: roleEnum, },
+    stripeCustomerId: { type: String },
+  subscriptionId: { type: String },
+  subscriptionStatus: { type: String, enum: ['active', 'canceled', 'past_due'] },
 }, {
     timestamps: true 
 })

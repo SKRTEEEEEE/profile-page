@@ -1,9 +1,8 @@
 import { ejercicios } from "#site/content";
 import { EjercicioItem } from "@/components/ejercicio-item";
-import { SubscriptionDialogCompact } from "@/components/subscription-dialog-compact";
+import { SubscriptionPlansDialog } from "@/components/subscription-plans-dialog";
 import { buttonVariants } from "@/components/ui/button";
 import { routesConfig } from "@/config/routes";
-import { siteConfig } from "@/config/site";
 import { cn, sortPosts } from "@/lib/utils";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -27,7 +26,8 @@ export default function AprenderPage() {
         <div className="flex flex-col gap-4 justify-center sm:flex-row">
           <Link href="/academia/ejercicios" className={cn(buttonVariants({size:"lg"}), "w-full sm:w-fit")}>Ver ejercicios</Link>
           {/* <Link href={siteConfig.links.github} target="_blank" rel="noreferrer" className={cn(buttonVariants({variant: "outline", size: "lg"}), "w-full sm:w-fit")}>GitHub</Link> */}
-          <SubscriptionDialogCompact buttonTitle="Tarifas" />
+          
+          <SubscriptionPlansDialog buttonTitle="Tarifas" />
         </div>
       </div>
       </section>

@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { plans } from "@/app/(main)/academia/tarifas/page"
+import { BasePlainButton, FreePlainButton, PremiumPlainButton } from "./pay-plans-buttons"
 
 
 
@@ -27,21 +28,7 @@ function FeatureList({ features }: { features: string[] }) {
     </ul>
   )
 }
-function FreePlainButton(){
-  return(
-    <Button className="w-full">Comenzar Gratis</Button>
-  )
-}
-function BasePlainButton(){
-  return(
-    <Button className="w-full">Probar Gratis</Button>
-  )
-}
-function PremiumPlainButton(){
-  return(
-    <Button className="w-full">Obtener Premium</Button>
-  )
-}
+
 
 export function SubscriptionPlanCard({ plan }: { plan: typeof plans[number] }) {
   return (

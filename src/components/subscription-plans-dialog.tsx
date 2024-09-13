@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Check } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -15,8 +15,9 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+import { cn } from "@/lib/utils"
 
-export function SubscriptionDialogCompact({buttonTitle}: {buttonTitle?:string}) {
+export function SubscriptionPlansDialog({buttonTitle}: {buttonTitle?:string}) {
   const [selectedPlan, setSelectedPlan] = useState("free")
 
   const plans = [
@@ -50,7 +51,7 @@ export function SubscriptionDialogCompact({buttonTitle}: {buttonTitle?:string}) 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">{buttonTitle?buttonTitle:"Actualizar Plan"}</Button>
+        <Button className={cn(buttonVariants({variant: "outline", size: "lg"}), "w-full sm:w-fit")}>{buttonTitle?buttonTitle:"Actualizar Plan"}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

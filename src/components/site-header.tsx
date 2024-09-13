@@ -8,6 +8,7 @@ import { MainNav } from "./main-nav";
 import ModeToggle from "./mode-toggle";
 import { userInCookies } from "@/actions/user";
 import UserFormDialog from "./user-form-dialog";
+import { CConectButton } from "./custom-connect-button";
 
 export async function SiteHeader(){
     const user = await userInCookies()
@@ -28,8 +29,13 @@ export async function SiteHeader(){
                         <span className="sr-only">Twitter</span>
                     </div>
                     </Link>
+                    <span className="sm:inline-block hidden mx-4">
+                    <CConectButton/>
+                     </span>
+                    
                     <span className="hidden sm:inline-block">
                     <UserFormDialog user={user}/></span>
+                    
 
                     <ModeToggle/>
                     <MobileNav user={user}/> 
