@@ -45,17 +45,20 @@
 - [x] Hay que manejar cuando el usuario se le pasa el tiempo de validación
 - [x] Hay que notificar al usuario que se le ha enviado un correo que ha de verificar en menos de media hora
 - [x] Hay que notificar al usuario cuando no haya validado su correo aun
-### El usuario puede solicitar ser Student, "gratis"
-#### Modificar el botón login para que sea mas funcional
+### Modificar el botón login para que sea mas funcional
 - [x] Mostrar un cuadradito en el layout de (main): _se puede hacer aun mas personalizado pasando-le el render como props opcionales_
+### Modificar la lógica de ser Admin/Profesor
+- [x] El admin o profesor se puede solicitar una vez configurado el correo en la configuración del usuario
 **ACTUALIDAD**
+## 11. Saas students (full)
 - _Actualmente: El usuario solicita ser student en el formulario, y si este a configurado el correo se le aprueba el student_
 - [ ] Modificar la lógica de ser Student
-    - [ ] El usuario solicita ser Student en una sección especifica
-    - [ ] Si este no ha configurado correo se le solicitara
-    - [ ] Solo se le concederá el Student una verificado el correo
-- [x] Modificar la lógica de ser Admin
-## 11. Reestructuración parte 2 (back)
+    - [ ] El usuario introducira su tarjeta para ser Student o Student_pro, el primer mes gratis luego mensualidad.
+    - [ ] Al aver pagado se modificara los datos en la bdd por stripe webhooks
+- [ ] Al regresar a la web de poner tarjeta, se volvera a /academia?stipe=
+    - [ ] Si se ha efectuado correctamente hay que modificar el jwt, ?haciendo-le firmar?
+    - [ ] Manejar los casos con toast()
+## 1x. Reestructuración acciones (full)
 - [ ] Manejar correctamente las acciones
     - [ ] Utilizar un mensaje de respuesta correctamente
     - [ ] Utilizar toast para manejar los estados

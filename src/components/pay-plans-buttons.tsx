@@ -1,4 +1,4 @@
-import { UserModel } from "@/models/user-role-schema";
+// import { UserModel } from "@/models/user-role-schema";
 import { Button } from "./ui/button"
 import { userInCookies } from "@/actions/user";
 import { CConectButton } from "./custom-connect-button";
@@ -14,8 +14,10 @@ async function generatePaymentLink(userId: string, planType: 'STUDENT' | 'STUDEN
   
     // Define los enlaces base de Stripe (reemplaza con tus enlaces reales)
     const stripeLinks = {
-      STUDENT_P: 'https://buy.stripe.com/test_9AQbMo4375ftfqU5kp',
-      STUDENT: 'https://buy.stripe.com/test_9AQ17K9nr6jxfqUbIM'
+      // STUDENT_P: 'https://buy.stripe.com/test_9AQbMo4375ftfqU5kp',
+      // STUDENT: 'https://buy.stripe.com/test_9AQ17K9nr6jxfqUbIM'
+      STUDENT: "https://buy.stripe.com/test_9AQdUw0QVdLZ3Ic14a",
+      STUDENT_P: "https://buy.stripe.com/test_fZe17K2Z3dLZ2E8aEL"
     };
   
     // Añade el paymentId como parámetro de consulta al enlace
@@ -53,15 +55,16 @@ export async function FreePlainButton(){
         <Button className="w-full">Inicia session</Button>
     )
     if(user.roleId===null){
-        const link = await generatePaymentLink(user.id,"STUDENT") 
+      const link = await generatePaymentLink(user.id,"STUDENT") 
         return (
-        <Button className="w-full" ><Link target="_blank" href={link}>Probar gratis</Link></Button>
+        <Button className="w-full" ><Link href={link}>Probar gratis</Link></Button>
     )}
     if(user.role===RoleType.STUDENT) 
         return (
         <Button className="w-full" disabled variant={"secondary"}>Tu plan actual</Button>
     )
-    return <Button className="w-full" disabled variant={"outline"}>Incluido en tu plan</Button>
+    const link = await generatePaymentLink(user.id,"STUDENT") 
+    return <Button className="w-full" variant={"secondary"}><Link href={link}>Primer mes gratis</Link></Button>
   }
   export async function PremiumPlainButton(){
     const user = await userInCookies()
@@ -72,7 +75,7 @@ export async function FreePlainButton(){
         const link = await generatePaymentLink(user.id,"STUDENT_P") 
 
         return (
-        <Button className="w-full" ><Link target="_blank" href={link}>{user.roleId?"Incrementar plan":"Obtener premium"}</Link></Button>
+        <Button className="w-full" ><Link href={link}>{user.roleId?"Incrementar plan":"Obtener premium"}</Link></Button>
     )}
     // if(user.role===RoleType.STUDENT) return (
     //     <Button className="w-full" >Incrementar plan</Button>
