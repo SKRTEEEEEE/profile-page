@@ -14,7 +14,10 @@ export class Role implements RoleBase {
       public address: string,
       public permissions: RoleType,
       public createdAt: string,
-      public updatedAt: string
+      public updatedAt: string,
+      public stripeCustomerId?: string,
+      public subscriptionId?: string,
+      public subscriptionStatus?: string,
     ) {}
   }
 export type RoleBase = {

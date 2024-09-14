@@ -134,7 +134,7 @@ class GiveRole extends UseUserRoleAuthService {
       const signUser = await userRepository.findByAddress(payload.payload.address)
     if (!signUser) throw new DatabaseFindError("signer user")
     if (signUser.role!=="ADMIN") throw new VerificationOperationError("Only admins")
-    const createdRole = await createRoleUC(payload.payload.address,solicitud)
+    const createdRole = await createRoleUC({address: payload.payload.address,permissions: solicitud})
     const user = await this.userRepository.findById(id)
     if(!user)throw new DatabaseFindError("user")
     await this.userRepository.update({

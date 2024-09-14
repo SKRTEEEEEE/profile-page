@@ -11,8 +11,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { plans } from "@/app/(main)/academia/tarifas/page"
 import { BasePlainButton, FreePlainButton, PremiumPlainButton } from "./pay-plans-buttons"
+import { plansBasicInfo } from "@/lib/data"
 
 
 
@@ -30,7 +30,7 @@ function FeatureList({ features }: { features: string[] }) {
 }
 
 
-export function SubscriptionPlanCard({ plan }: { plan: typeof plans[number] }) {
+export function SubscriptionPlanCard({ plan }: { plan: typeof plansBasicInfo[number] }) {
   return (
     <Card className="w-full flex flex-col">
       <CardHeader>

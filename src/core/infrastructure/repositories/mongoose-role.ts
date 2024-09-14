@@ -2,6 +2,7 @@ import { RoleRepository } from "@/core/application/repositories/role";
 import { MongoDbConnection } from "../connectors/mongo-db";
 import { Role, RoleBase, RoleType } from "@/core/domain/entities/Role";
 import { RoleDocument, RoleModel } from "@/models/user-role-schema";
+import { FilterQuery, Query, QueryOptions, UpdateQuery } from "mongoose";
 
 class MongooseRoleRepository extends MongoDbConnection implements RoleRepository{
     async create(role: Omit<RoleBase, "id">): Promise<Role> {
@@ -16,16 +17,19 @@ class MongooseRoleRepository extends MongoDbConnection implements RoleRepository
         return role ? this.documentToRole(role):null
         
     }
-    async update(id: string, permissions: RoleType): Promise<Role> {
+    async update(id:string, role?: UpdateQuery<any> | undefined): Promise<Role> {
         await this.connect()
-        const role = await RoleModel.findById(id)
-        role.permissions = permissions
-        const updatedRole = await role.save()
+        const updatedRole = await RoleModel.findByIdAndUpdate(id, role)
+   
         return this.documentToRole(updatedRole)
     }
     async delete(id: string): Promise<void> {
         await this.connect()
         await RoleModel.findByIdAndDelete(id)
+    }
+    async findDelete(filter?: FilterQuery<any> | null | undefined, options?: QueryOptions<any> | null | undefined): Query<any, any, {}, any, "findOneAndDelete", {}> {
+        await this.connect()
+        return await RoleModel.findOneAndDelete(filter, options)
     }
     private documentToRole(doc: RoleDocument): Role {
         return {
@@ -33,7 +37,10 @@ class MongooseRoleRepository extends MongoDbConnection implements RoleRepository
             address: doc.address,
             permissions: doc.permissions as RoleType,
             createdAt: doc.createdAt.toISOString(),
-            updatedAt: doc.updatedAt.toISOString()
+            updatedAt: doc.updatedAt.toISOString(),
+            stripeCustomerId: doc.stripeCustomerId,
+            subscriptionId: doc.subscriptionId,
+            subscriptionStatus: doc.subscriptionStatus
         }
     }
 }

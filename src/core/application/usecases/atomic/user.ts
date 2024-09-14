@@ -4,6 +4,7 @@ import { DatabaseFindError, DatabaseOperationError } from "@/core/domain/errors/
 import { userRepository } from "@/core/infrastructure/repositories/mongoose-user";
 import { UserRepository } from "../../repositories/user";
 import { RoleType } from "@/core/domain/entities/Role";
+import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
 
 abstract class UseUser {
     constructor(protected userRepository:UserRepository){}
@@ -41,7 +42,12 @@ export const listUsersByIdUC = async (id:string) => {
 export const listUsersUC = async () => {
     return await userRepository.findAll()
 }
-
+export const updateUserByIdUC = async (id:string, user?: UpdateQuery<any> | undefined) => {
+    return await userRepository.updateById(id, user)
+}
+export const findUserAndUpdateUC = async (filter?: FilterQuery<any> | undefined, update?: UpdateQuery<any> | undefined, options?: QueryOptions<any> | null | undefined)=> {
+    return await userRepository.findAndUpdate(filter, update, options)
+  }
 
 export const updateUserUC = async (user: UserBase): Promise<User>=> {
     return await userRepository.update(user)

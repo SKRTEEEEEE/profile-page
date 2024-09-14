@@ -3,6 +3,7 @@ import { UserRepository } from '@/core/application/repositories/user';
 import { UserDocument, UserModel } from '@/models/user-role-schema';
 import { MongoDbConnection } from '../connectors/mongo-db';
 import { DatabaseOperationError } from '@/core/domain/errors/main';
+import { FilterQuery, Query, QueryOptions, UpdateQuery } from 'mongoose';
 
 
 class MongooseUserRepository extends MongoDbConnection implements UserRepository {
@@ -64,7 +65,15 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
         // );
         return this.documentToUser(updatedUser); // Convierte el documento actualizado a la entidad User
     }
-    
+    async updateById(id:string, user?: UpdateQuery<any> | undefined): Promise<User|null> {
+        await this.connect()
+        console.log("user info in updateByID :",user)
+        return await UserModel.findByIdAndUpdate(id, user)
+    }
+    async findAndUpdate(filter?: FilterQuery<any> | undefined, update?: UpdateQuery<any> | undefined, options?: QueryOptions<any> | null | undefined){
+        await this.connect()
+        return await UserModel.findOneAndUpdate(filter, update, options)
+    }
     async delete(id:string):Promise<void> {
         await this.connect()
         const result = await UserModel.deleteOne({_id:id})
