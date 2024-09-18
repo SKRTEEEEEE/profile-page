@@ -1,3 +1,4 @@
+import { ToastTest } from "@/components/toast-test";
 import Link from "next/link";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
       {/* <Link href={"/dashboard/config"}>Ir al dashboard config</Link> */}
       <Link href={"/admin/users"}>Ir a admin users</Link>
       <Link href={"/academia"}>Ir a academia</Link>
+      <ToastTest/>
     </div>
   </main>
   );

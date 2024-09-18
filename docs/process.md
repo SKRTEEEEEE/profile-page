@@ -46,24 +46,32 @@
 - [x] Hay que notificar al usuario que se le ha enviado un correo que ha de verificar en menos de media hora
 - [x] Hay que notificar al usuario cuando no haya validado su correo aun
 ### Modificar el botón login para que sea mas funcional
-- [x] Mostrar un cuadradito en el layout de (main): _se puede hacer aun mas personalizado pasando-le el render como props opcionales_
+- [x] Mostrar un cuadrado en el layout de (main): _se puede hacer aun mas personalizado pasando-le el render como props opcionales_
 ### Modificar la lógica de ser Admin/Profesor
 - [x] El admin o profesor se puede solicitar una vez configurado el correo en la configuración del usuario
-**ACTUALIDAD**
 ## 11. Saas students (full)
 - _Actualmente: El usuario solicita ser student en el formulario, y si este a configurado el correo se le aprueba el student_
-- [ ] Modificar la lógica de ser Student
-    - [ ] El usuario introducira su tarjeta para ser Student o Student_pro, el primer mes gratis luego mensualidad.
-    - [ ] Al aver pagado se modificara los datos en la bdd por stripe webhooks
-- [ ] Al regresar a la web de poner tarjeta, se volvera a /academia?stipe=
+### Modificar la lógica de ser Student
+- [x] El usuario introducirá su tarjeta para ser Student o Student_pro, el primer mes gratis luego mensualidad.
+- [x] Al aver pagado se modificara los datos en la bdd por stripe webhooks
+**ACTUALIDAD**
+- [ ] Aplicar los botones para pagar en el dialog
+    - [ ] Detectar el plan actual y mostrar botones acorde
+### Regresar a la web al poner tarjeta
     - [ ] Si se ha efectuado correctamente hay que modificar el jwt, ?haciendo-le firmar?
     - [ ] Manejar los casos con toast()
+### Comprobar uso stripe en despliegue
 ## 1x. Reestructuración acciones (full)
-- [ ] Manejar correctamente las acciones
-    - [ ] Utilizar un mensaje de respuesta correctamente
-    - [ ] Utilizar toast para manejar los estados
-    - [ ] Manejar correctamente los estados de todos los componentes
-- [ ] Manejar correctamente los redirect y revalidate(en revalidate cuando sea necesario revalidate la pagina actual, que sea dynamico segun la pagina en la que esta)
+- [ ] Manejar correctamente los UC y C
+    - [ ] Comprobar y mejorar el uso de mongoose-repos
+    - [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
+### Manejar correctamente las acciones
+- [ ] Utilizar un mensaje de respuesta correctamente
+- [ ] Utilizar toast para manejar los estados
+    - [ ] En el caso de que el usuario configure un perfil se le ha de mostrar toast
+    - [ ] Si el usuario configura el correo mostrar otro toast conforme se le ha enviado o ha habido error
+- [ ] Manejar correctamente los estados de todos los componentes
+- [ ] Manejar correctamente los redirect y revalidate(en revalidate cuando sea necesario revalidate la pagina actual, que sea dinámico según la pagina en la que esta)
 
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
 

@@ -18,11 +18,11 @@ export async function POST(req: NextRequest) {
 
     // Handle the event
     switch (event.type) {
-      case 'payment_intent.succeeded':
-        const paymentIntentSucceeded = event.data.object;
-        // Then define and call a function to handle the event payment_intent.succeeded
-        console.log({ paymentIntentSucceeded })
-        break;
+      // case 'payment_intent.succeeded':
+      //   const paymentIntentSucceeded = event.data.object;
+      //   // Then define and call a function to handle the event payment_intent.succeeded
+      //   console.log({ paymentIntentSucceeded })
+      //   break;
       // ... handle other event types
       case "checkout.session.completed":
         console.log("checkout session triggered")
@@ -40,9 +40,9 @@ export async function POST(req: NextRequest) {
         customerSubscriptionDeletedC(subscriptionId)
         break;
 
-      case "customer.subscription.updated":
-        console.log("is updating info")
-        break;
+      // case "customer.subscription.updated":
+      //   console.log("is updating info")
+      //   break;
       default:
         console.log(`Unhandled event type ${event.type}`);
 
