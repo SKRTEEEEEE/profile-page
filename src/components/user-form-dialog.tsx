@@ -19,7 +19,7 @@ import { UserCog } from "lucide-react";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { Separator } from "./ui/separator";
 import DeleteUserButton from "./delete-user-button";
-import { VerificacionEmailAlert } from "./verificacion-email-alert";
+import { VerificacionEmailAlert } from "./verify-email/verificacion-email-alert";
 import SolicitudRoleButton from "./solicitud-role";
 
 const formSchema = z.object({

@@ -1,7 +1,7 @@
 import { listUserById, verifyEmail } from "@/actions/user";
 
-import { VerificacionEmailAlert } from "@/components/verificacion-email-alert";
-import {  RenderAlert, VerifyEmailConfirmDialog } from "@/components/verify-email-dialogs";
+import { VerificacionEmailAlert } from "@/components/verify-email/verificacion-email-alert";
+import {  RenderAlert, VerifyEmailConfirmDialog } from "@/components/verify-email/verify-email-dialogs";
 import { Suspense } from "react";
 
 type SearchParams = {

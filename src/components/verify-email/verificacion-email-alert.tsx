@@ -1,9 +1,9 @@
 "use client"
 import { User } from "@/core/domain/entities/User";
-import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { AlertCircle } from "lucide-react";
 import { resendVerificationEmail } from "@/actions/user";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useState, useEffect } from "react";
 
 export const VerificacionEmailAlert = ({ user }: { user: User }) => {

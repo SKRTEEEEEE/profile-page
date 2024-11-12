@@ -48,6 +48,7 @@ export async function updateUser(id: string, payload: {
 
         }
         )
+        //Aquí hace el revalidate
     revalidatePath("/")
     redirect("/")
 }
