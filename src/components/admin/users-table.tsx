@@ -1,6 +1,6 @@
 import { listUsers, userInCookies } from "@/actions/user";
-import { CConectButton } from "./custom-connect-button";
-import GiveRoleButton from "./give-role-button";
+import { CConectButton } from "../custom-connect-button";
+import GiveRoleButton from "../give-role-button";
 
 export default async function UsersTable() {
   const activeUser = await userInCookies()
@@ -19,7 +19,7 @@ export default async function UsersTable() {
                 scope="col"
                 className="px-2 xl:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
-                Address
+                Dirección
               </th>
               {/* <th
                 scope="col"

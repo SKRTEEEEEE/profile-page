@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import { Button } from "./ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
-import { Icons } from "./icons";
+import { Icons } from "../icons";
 import { siteConfig } from "@/config/site";
-import { CConectButton } from "./custom-connect-button";
+import { CConectButton } from "../custom-connect-button";
 import { User } from "@/core/domain/entities/User";
-import UserFormDialog from "./user-form-dialog";
+import UserFormDialog from "../site-header/user-form-dialog";
 
 export function MobileNav({ user }: { user: User | false | null }) {
   const [open, setOpen] = useState(false);
@@ -20,7 +20,7 @@ export function MobileNav({ user }: { user: User | false | null }) {
       <SheetTrigger asChild>
         <Button variant="outline" className="w-10 px-0 sm:hidden">
           <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle Theme</span>
+          <span className="sr-only">Escoger tema</span>
         </Button>
       </SheetTrigger>
       <SheetContent side="right">

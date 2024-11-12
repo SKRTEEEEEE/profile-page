@@ -1,4 +1,4 @@
-import { SiteHeader } from "@/components/site-header";
+import { SiteHeader } from "@/components/site-header/site-header";
 import { CThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/config/site";
 import type { Metadata, Viewport } from "next";

@@ -16,7 +16,7 @@
 // }
 import { userInCookies } from "@/actions/user";
 // import { CConectButton } from "@/components/custom-connect-button";
-import UserForm from "@/components/user-form-dialog";
+import UserForm from "@/components/site-header/user-form-dialog";
 
 
 export default async function EditUserPage() {

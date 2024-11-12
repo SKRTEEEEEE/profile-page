@@ -1,4 +1,4 @@
-import UsersTable from "@/components/users-table";
+import UsersTable from "@/components/admin/users-table";
 
 export default function AdminUsers() {
   return (

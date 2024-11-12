@@ -1,26 +1,26 @@
 "use client"
 import { updateUser } from "@/actions/user";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useActiveAccount } from "thirdweb/react";
 import { signLoginPayload } from "thirdweb/auth";
 import { generatePayload } from "@/actions/auth";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
-import { Input } from "./ui/input";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Input } from "../ui/input";
 import { User } from "@/core/domain/entities/User";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Label } from "./ui/label";
+import { Label } from "../ui/label";
 import { updateImg, uploadImg } from "@/actions/img";
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "./ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "../ui/dialog";
 import { UserCog } from "lucide-react";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
-import { Separator } from "./ui/separator";
-import DeleteUserButton from "./delete-user-button";
-import { VerificacionEmailAlert } from "./verify-email/verificacion-email-alert";
-import SolicitudRoleButton from "./solicitud-role";
+import { Separator } from "../ui/separator";
+import DeleteUserButton from "../delete-user-button";
+import { VerificacionEmailAlert } from "../verify-email/verificacion-email-alert";
+import SolicitudRoleButton from "../solicitud-role";
 
 const formSchema = z.object({
   nick: z.string().min(5, { message: "⚠️ Debe tener 5 caracteres como mínimo." }).max(25, { message: "⚠️ Debe tener 25 caracteres como máximo." }).optional(),

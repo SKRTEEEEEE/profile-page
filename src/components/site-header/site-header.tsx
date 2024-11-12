@@ -1,14 +1,14 @@
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
+import { buttonVariants } from "../ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { MobileNav } from "./mobile-nav";
-import { Icons } from "./icons";
-import { MainNav } from "./main-nav";
-import ModeToggle from "./mode-toggle";
+import { Icons } from "../icons";
+import { MainNav } from "../main-nav";
+import ModeToggle from "../mode-toggle";
 import { userInCookies } from "@/actions/user";
 import UserFormDialog from "./user-form-dialog";
-import { CConectButton } from "./custom-connect-button";
+import { CConectButton } from "../custom-connect-button";
 
 export async function SiteHeader(){
     const user = await userInCookies()
