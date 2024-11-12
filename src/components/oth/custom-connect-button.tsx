@@ -5,7 +5,7 @@ import { rd } from "@/actions/revrd";
 import { client } from "@/core/infrastructure/connectors/thirdweb-auth";
 import { ConnectButton, darkTheme } from "thirdweb/react"
 import { createWallet, inAppWallet } from "thirdweb/wallets";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { Wallet } from "lucide-react";
 const wallets = [
     inAppWallet({

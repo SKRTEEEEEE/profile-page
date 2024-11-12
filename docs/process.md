@@ -56,17 +56,14 @@
 - [x] Al aver pagado se modificara los datos en la bdd por stripe webhooks
 - [x] Aplicar los botones para pagar en el dialog
     - [x] Detectar el plan actual y mostrar botones acorde
+## 1x. Reestructuración acciones, core y componentes (full)
 **ACTUALIDAD**
-### Responder a las acciones del servidor con `toast`
-### Regresar a la web al poner tarjeta
-    - [ ] Si se ha efectuado correctamente hay que modificar el jwt, ?haciendo-le firmar?
-    - [ ] Manejar los casos con toast()
-## 1x. Ordenar componentes y core
-- [ ] Especial atención a use-cases
-## 1x. Reestructuración acciones (full)
+- [ ] Traducir todo a Español
+- [ ] Agrupar componentes
+
 - [ ] Manejar correctamente los UC y C
-    - [ ] Comprobar y mejorar el uso de mongoose-repos
     - [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
+### Responder a las acciones del servidor con `toast`
 ### Manejar correctamente las acciones
 - [ ] Utilizar un mensaje de respuesta correctamente
 - [ ] Utilizar toast para manejar los estados
@@ -74,6 +71,9 @@
     - [ ] Si el usuario configura el correo mostrar otro toast conforme se le ha enviado o ha habido error
 - [ ] Manejar correctamente los estados de todos los componentes
 - [ ] Manejar correctamente los redirect y revalidate(en revalidate cuando sea necesario revalidate la pagina actual, que sea dinámico según la pagina en la que esta)
+#### Regresar a la web al poner tarjeta
+    - [ ] Si se ha efectuado correctamente hay que modificar el jwt, ?haciendo-le firmar?
+    - [ ] Manejar los casos con toast()
 
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
 

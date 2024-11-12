@@ -8,7 +8,7 @@ import { MainNav } from "./main-nav";
 import ModeToggle from "./mode-toggle";
 import { userInCookies } from "@/actions/user";
 import UserFormDialog from "./user-form-dialog";
-import { CConectButton } from "../custom-connect-button";
+import { CConectButton } from "../oth/custom-connect-button";
 
 export async function SiteHeader(){
     const user = await userInCookies()

@@ -1,6 +1,6 @@
 import {ejercicios} from "#site/content"
 import { EjercicioItem } from "@/components/academia/ejercicio-item";
-import { QueryPagination } from "@/components/query-pagination";
+import { QueryPagination } from "@/components/oth/query-pagination";
 import { Tag } from "@/components/academia/tag";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getAllTags, sortPosts, sortTagsByCount } from "@/lib/utils";

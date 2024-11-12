@@ -11,7 +11,7 @@ import {
   DropdownLabel,
   DropdownTrigger,
 } from "../ui/dropdown-themes";
-import { DropdownProvider } from "../dropdown-provider";
+import { DropdownProvider } from "../oth/dropdown-provider";
 
 type ThemeType = {
   light: { name: string; color: string }[];

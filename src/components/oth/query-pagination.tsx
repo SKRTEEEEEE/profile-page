@@ -1,7 +1,7 @@
 "use client"
 //academia folder
 import { usePathname, useSearchParams } from "next/navigation";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "./ui/pagination";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../ui/pagination";
 
 interface QueryPaginationProps{
     totalPages: number;

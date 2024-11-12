@@ -1,4 +1,4 @@
-import { ToastTest } from "@/components/toast-test";
+import { ToastTest } from "@/components/oth/toast-test";
 import Link from "next/link";
 
 export default function Home() {

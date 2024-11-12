@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { forwardRef } from "react";
-import { useDropdown } from "../dropdown-provider";
+import { useDropdown } from "../oth/dropdown-provider";
 
 const DropdownTrigger = forwardRef<
   HTMLButtonElement,
