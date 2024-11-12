@@ -5,12 +5,10 @@ import { cn } from "@/lib/utils";
 import type { Metadata} from "next";
 import { Urbanist } from "next/font/google";
 
-// import 'swiper/css';
-// import 'swiper/css/pagination';
-// import 'swiper/css/scrollbar';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
-// import Navbar from "@/components/main/navbar";
-// import Header from "@/components/main/header";
 import { ThirdwebProvider } from "thirdweb/react";
 
 
@@ -29,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <div className={cn(urbanist.className," bg-no-repeat bg-gradient-cover")}>
+      <div className={cn(urbanist.className,"")}>
         <CThemeProvider  disableTransitionOnChange defaultTheme="dark-soft">
       <ThirdwebProvider>
         <Navbar />

@@ -1,4 +1,4 @@
-import { BookText, CodeSquare,  HomeIcon, UserRound, Linkedin, Github, Mail, Link } from "lucide-react";
+import { BookText, CodeSquare,  HomeIcon, UserRound, Linkedin, Github, Mail, Link, Info } from "lucide-react";
 import { FaNodeJs, FaReact } from "react-icons/fa";
 // import { RiNextjsLine } from "react-icons/ri";
 
@@ -6,6 +6,7 @@ import { SiChakraui, SiNextui, SiSolidity, SiStyledcomponents, SiSwiper, SiTailw
 import { TbBrandNextjs, TbBrandThreejs, TbBrandTypescript } from "react-icons/tb";
 import { SiThirdweb } from "react-icons/si";
 import { RiJavascriptLine } from "react-icons/ri";
+
 
 
 
@@ -42,31 +43,39 @@ export const itemsNavbar = [
     },
     {
         id: 2,
-        title: "AboutMe",
-        icon: <UserRound size={25} color="#fff" strokeWidth={1} aria-describedby="AboutMe"/>,
-        link: "/about-me",
-        desc: "Información tecnológica sobre mi"
+        title: "Perfil",
+        icon: <UserRound size={25} color="#fff" strokeWidth={1} aria-describedby="Perfil"/>,
+        link: "/ceo",
+        desc: "Presentación perfil"
     },
     {
         id: 3,
-        title: "Portfolio",
-        icon: <CodeSquare size={25} color="#fff" strokeWidth={1} aria-describedby="Portfolio"/>,
-        link: "/portfolio",
-        desc: "Principales proyectos de código abierto"
+        title: "Información",
+        icon: <Info  size={25} color="#fff" strokeWidth={1} aria-describedby="Información"/>,
+        link: "/ceo/info",
+        desc: "Principal Información tecnológica"
         
     },
     {
         id: 4,
-        title: "Services",
-        icon: <BookText  size={25} color="#fff" strokeWidth={1} aria-describedby="Services"/>,
-        link: "/services",
-        desc: "Estudios certificados oficiales"
+        title: "Portafolio",
+        icon: <CodeSquare size={25} color="#fff" strokeWidth={1} aria-describedby="Portafolio"/>,
+        link: "/ceo/portafolio",
+        desc: "Principales proyectos de código abierto"
+        
     },
     {
         id: 5,
+        title: "Estudios",
+        icon: <BookText  size={25} color="#fff" strokeWidth={1} aria-describedby="Estudios"/>,
+        link: "/ceo/estudios",
+        desc: "Estudios certificados oficiales"
+    },
+    {
+        id: 6,
         title: "Code",
         icon: <Link  size={25} color="#fff" strokeWidth={1} aria-describedby="Code"/>,
-        link: "/code",
+        link: "/ceo/code",
         desc: "Información sobre proyectos de código abierto web3"
     },
 ];

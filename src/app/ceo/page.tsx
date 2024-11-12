@@ -8,7 +8,7 @@ export default function Home() {
     return (
       <main>
         <TransitionPage />
-        <div className="flex min-h-[100vh]">
+        <div className="flex min-h-[100vh] bg-no-repeat bg-gradient-cover">
           <CoverParticles />
           <Introduction />
         </div>
