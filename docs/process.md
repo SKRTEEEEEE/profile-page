@@ -59,8 +59,14 @@
 ## 1x. Reestructuración acciones, core y componentes (full)
 **ACTUALIDAD**
 - [ ] Traducir todo a Español
-- [ ] Agrupar componentes
+- [x] Agrupar componentes
+### Migrar a web antigua
+### Dependencias
+- [`tsparticles`](https://github.com/tsparticles/react/#readme)
 
+```bash
+npm i @tsparticles/react @tsparticles/slim
+```
 - [ ] Manejar correctamente los UC y C
     - [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
 ### Responder a las acciones del servidor con `toast`
