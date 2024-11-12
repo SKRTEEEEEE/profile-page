@@ -1,9 +1,9 @@
-'use client'
+"use client"
 
-import { useState } from "react"
-import { Check } from "lucide-react"
+import { useState } from "react";
+import { Check } from "lucide-react";
 
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -11,14 +11,38 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
-import Link from "next/link"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/dialog";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import Link from "next/link";
+import { cn, generatePaymentLink } from "@/lib/utils";
+import { User } from "@/core/domain/entities/User";
+import { RoleType } from "@/core/domain/entities/Role";
 
-export function SubscriptionPlansDialog({buttonTitle}: {buttonTitle?:string}) {
-  const [selectedPlan, setSelectedPlan] = useState("free")
+type State = {
+  actualRole: string;
+  button: string;
+};
+
+export function SubscriptionPlansDialog({ buttonTitle, user }: { buttonTitle?: string; user: false | User }) {
+  const getInitialState = (): State => {
+    if (user) {
+      switch (user.role) {
+        case RoleType.STUDENT:
+          return { actualRole: "standard", button: "Tu plan actual" };
+        case RoleType.STUDENT_PRO:
+          return { actualRole: "premium", button: "Tu plan actual" };
+        case null:
+          return { actualRole: "free", button: "Tu plan actual" };
+        default:
+          return { actualRole: "premium", button: "Equivalente a tu plan actual" };
+      }
+    }
+    return { actualRole: "free", button: "Debes Inicia sesión" };
+  };
+
+  const [selectedPlan, setSelectedPlan] = useState(getInitialState().actualRole);
+  const initialState = getInitialState();
 
   const plans = [
     {
@@ -26,7 +50,7 @@ export function SubscriptionPlansDialog({buttonTitle}: {buttonTitle?:string}) {
       name: "Plan Gratuito",
       price: "$0",
       description: "Perfecto para comenzar",
-      features: ["Acceso a cursos profesionales", "Acceso a multiples ejercicios", "Soporte comunitario"],
+      features: ["Acceso a cursos profesionales", "Acceso a múltiples ejercicios", "Soporte comunitario"],
     },
     {
       id: "standard",
@@ -46,12 +70,14 @@ export function SubscriptionPlansDialog({buttonTitle}: {buttonTitle?:string}) {
         "Soporte prioritario 24/7",
       ],
     },
-  ]
+  ];
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className={cn(buttonVariants({variant: "outline", size: "lg"}), "w-full sm:w-fit")}>{buttonTitle?buttonTitle:"Actualizar Plan"}</Button>
+        <Button className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full sm:w-fit")}>
+          {buttonTitle ? buttonTitle : "Actualizar Plan"}
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -99,9 +125,15 @@ export function SubscriptionPlansDialog({buttonTitle}: {buttonTitle?:string}) {
             </div>
           ))}
         </RadioGroup>
-        <Button className="w-full mt-4">Confirmar selección</Button>
-        <Button variant={"outline"} className="w-full mt"><Link href="/academia/tarifas#comparacion">Ver todos los detalles</Link></Button>
+        <Button disabled={selectedPlan === initialState.actualRole || user === false} className="w-full mt-4">
+          {
+          <Link href={user === false ? "#": selectedPlan === "standard" ? generatePaymentLink(user.id, "STUDENT"): selectedPlan ==="premium" ? generatePaymentLink(user.id, "STUDENT_P"): "#free-eliminar"}>
+          {selectedPlan === initialState.actualRole ? initialState.button : user === false ?"Inicia session para configurar":"Confirmar selección"}</Link>}
+        </Button>
+        <Button variant={"outline"} className="w-full mt-2">
+          <Link href="/academia/tarifas#comparacion">Ver todos los detalles</Link>
+        </Button>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

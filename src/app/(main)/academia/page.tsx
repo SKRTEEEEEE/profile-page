@@ -1,4 +1,5 @@
 import { ejercicios } from "#site/content";
+import { userInCookies } from "@/actions/user";
 import { EjercicioItem } from "@/components/ejercicio-item";
 import { SubscriptionPlansDialog } from "@/components/subscription-plans-dialog";
 import { buttonVariants } from "@/components/ui/button";
@@ -10,8 +11,9 @@ export const metadata: Metadata = {
   title: routesConfig.academia.title,
   description: routesConfig.academia.description
 }
-export default function AprenderPage() {
+export default async function AprenderPage() {
   const latestPosts = sortPosts(ejercicios).slice(0,5)
+  const user = await userInCookies()
 
   return (
     <>
@@ -27,7 +29,7 @@ export default function AprenderPage() {
           <Link href="/academia/ejercicios" className={cn(buttonVariants({size:"lg"}), "w-full sm:w-fit")}>Ver ejercicios</Link>
           {/* <Link href={siteConfig.links.github} target="_blank" rel="noreferrer" className={cn(buttonVariants({variant: "outline", size: "lg"}), "w-full sm:w-fit")}>GitHub</Link> */}
           
-          <SubscriptionPlansDialog buttonTitle="Tarifas" />
+          <SubscriptionPlansDialog buttonTitle="Tarifas" user={user}/>
         </div>
       </div>
       </section>

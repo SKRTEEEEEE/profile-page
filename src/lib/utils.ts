@@ -59,3 +59,23 @@ export function getPostsByTagSlug(posts: Array<Ejercicio>, tag: string){
     return slugifiedTags.includes(tag)
   })
 }
+
+
+export function generatePaymentLink(userId: string, planType: 'STUDENT' | 'STUDENT_P') {
+
+  // Genera un identificador único para este intento de pago
+
+
+  // Define los enlaces base de Stripe (reemplaza con tus enlaces reales)
+  const stripeLinks = {
+    // STUDENT_P: 'https://buy.stripe.com/test_9AQbMo4375ftfqU5kp',
+    // STUDENT: 'https://buy.stripe.com/test_9AQ17K9nr6jxfqUbIM'
+    STUDENT: "https://buy.stripe.com/test_9AQdUw0QVdLZ3Ic14a",
+    STUDENT_P: "https://buy.stripe.com/test_fZe17K2Z3dLZ2E8aEL"
+  };
+
+  // Añade el paymentId como parámetro de consulta al enlace
+  const paymentLink = `${stripeLinks[planType]}?client_reference_id=${userId}`;
+
+  return paymentLink;
+}

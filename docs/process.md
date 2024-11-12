@@ -54,13 +54,15 @@
 ### Modificar la lógica de ser Student
 - [x] El usuario introducirá su tarjeta para ser Student o Student_pro, el primer mes gratis luego mensualidad.
 - [x] Al aver pagado se modificara los datos en la bdd por stripe webhooks
+- [x] Aplicar los botones para pagar en el dialog
+    - [x] Detectar el plan actual y mostrar botones acorde
 **ACTUALIDAD**
-- [ ] Aplicar los botones para pagar en el dialog
-    - [ ] Detectar el plan actual y mostrar botones acorde
+### Responder a las acciones del servidor con `toast`
 ### Regresar a la web al poner tarjeta
     - [ ] Si se ha efectuado correctamente hay que modificar el jwt, ?haciendo-le firmar?
     - [ ] Manejar los casos con toast()
-### Comprobar uso stripe en despliegue
+## 1x. Ordenar componentes y core
+- [ ] Especial atención a use-cases
 ## 1x. Reestructuración acciones (full)
 - [ ] Manejar correctamente los UC y C
     - [ ] Comprobar y mejorar el uso de mongoose-repos
@@ -76,6 +78,8 @@
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
 
 - [ ] Mejorar el frontend, mejorando los temas, y comprobando la correcta utilización de tailwind en todos los componentes
+## 1x. Comprobar uso stripe en despliegue (back)
+## xx. Migrar a web real/antigua
 
 <br/><br/>
 
