@@ -1,11 +1,11 @@
 "use client"
 
 import { useActiveAccount } from "thirdweb/react"
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 import { generatePayload } from "@/actions/auth"
 import { signLoginPayload } from "thirdweb/auth"
 import { giveRole } from "@/actions/user"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import { RoleType } from "@/core/domain/entities/Role"
 import { HandleOperationError, SetStateError } from "@/core/domain/errors/main"
 

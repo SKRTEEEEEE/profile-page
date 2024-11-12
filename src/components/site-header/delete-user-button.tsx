@@ -2,13 +2,13 @@
 
 import { deleteUser } from "@/actions/user";
 import { useActiveAccount, useActiveWallet } from "thirdweb/react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { generatePayload } from "@/actions/auth";
 import { signLoginPayload } from "thirdweb/auth";
 import { UserX } from "lucide-react";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Input } from "./ui/input";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Input } from "../ui/input";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { z } from "zod"; // Asegúrate de que esto sea 'zod', no 'velite'
 import { zodResolver } from "@hookform/resolvers/zod";

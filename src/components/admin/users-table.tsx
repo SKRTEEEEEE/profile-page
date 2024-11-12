@@ -1,6 +1,6 @@
 import { listUsers, userInCookies } from "@/actions/user";
 import { CConectButton } from "../custom-connect-button";
-import GiveRoleButton from "../give-role-button";
+import GiveRoleButton from "./give-role-button";
 
 export default async function UsersTable() {
   const activeUser = await userInCookies()

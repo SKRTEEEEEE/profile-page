@@ -1,6 +1,6 @@
 import { ejercicios } from "#site/content";
 import { userInCookies } from "@/actions/user";
-import { EjercicioItem } from "@/components/ejercicio-item";
+import { EjercicioItem } from "@/components/academia/ejercicio-item";
 import { SubscriptionPlansDialog } from "@/components/plains-dialog/subscription-plans-dialog";
 import { buttonVariants } from "@/components/ui/button";
 import { routesConfig } from "@/config/routes";

@@ -1,5 +1,5 @@
 "use client"
-
+//Se usa en bastaantes sitios
 import { generatePayload, isLoggedIn, login, logout } from "@/actions/auth"
 import { rd } from "@/actions/revrd";
 import { client } from "@/core/infrastructure/connectors/thirdweb-auth";

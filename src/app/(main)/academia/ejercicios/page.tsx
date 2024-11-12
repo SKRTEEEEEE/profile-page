@@ -1,5 +1,5 @@
 import {ejercicios} from "#site/content"
-import { EjercicioItem } from "@/components/ejercicio-item";
+import { EjercicioItem } from "@/components/academia/ejercicio-item";
 import { QueryPagination } from "@/components/query-pagination";
 import { Tag } from "@/components/academia/tag";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

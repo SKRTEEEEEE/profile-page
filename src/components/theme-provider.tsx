@@ -1,5 +1,5 @@
 "use client"
-
+// se usa en el layout
 import { ThemeProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
 

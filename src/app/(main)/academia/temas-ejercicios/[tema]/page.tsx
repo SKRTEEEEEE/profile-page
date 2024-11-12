@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tag } from "@/components/academia/tag";
 import {slug} from "github-slugger"
 import { Metadata } from "next";
-import { EjercicioItem } from "@/components/ejercicio-item";
+import { EjercicioItem } from "@/components/academia/ejercicio-item";
 
 interface TagPageProps {
     params: {
