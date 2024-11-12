@@ -150,31 +150,31 @@ export const dataCounter = [
 
 export const lenguajesResources = [
     {
-        icon: <FaReact aria-description="React icono"/>,
+        icon: <FaReact aria-describedby="React icono"/>,
         title: "React",
         description: "React-DOM, JWT, Hooks, APIs, Protected Routes, JSX, Router, Redux, etc...",
         img: "https://cdn3d.iconscout.com/3d/free/thumb/free-react-js-5562354-4642758.png"
     },
     {
-        icon: <SiTailwindcss aria-description="Tailwind icono"/>,
+        icon: <SiTailwindcss aria-describedby="Tailwind icono"/>,
         title: "TailwindCSS",
         description: "Mobile-first, resposive, utility-first, classes y variables, plugins, etc...",
         img: "https://cdn3d.iconscout.com/3d/free/preview/free-tailwind-9294852-7577995.png?f=webp&h=700"
     },
     {
-        icon: <TbBrandNextjs aria-description="Next javascripts icono"/>,
+        icon: <TbBrandNextjs aria-describedby="Next javascripts icono"/>,
         title: "Next.js",
         description: "SSR, CSR, APIs, Pre-rendering, SEO Friendly, Next.js14 Compability, etc...",
         img: "https://tsh.io/wp-content/uploads/2022/03/Next-logo-adj.png"
     },
     {
-        icon: <FaNodeJs aria-description="Node javascript icono"/>,
+        icon: <FaNodeJs aria-describedby="Node javascript icono"/>,
         title: "Node.js",
         description: "Async/Await, Nodemon.js, Express.js, NPM (Node Package Manager), JSON, etc...",
         img: "https://cdn3d.iconscout.com/3d/free/thumb/free-nodejs-11492982-9325317.png"
     },
     {
-        icon: <SiSolidity aria-description="Solidity icono"/>,
+        icon: <SiSolidity aria-describedby="Solidity icono"/>,
         title: "Solidity",
         description: "Smart Contracts, Hardhat, Ethet.js, Thirdweb, Estandares ERC, Chainlink, etc... ",
     },
@@ -244,7 +244,7 @@ export const dataPortfolio = [
             ]
             
         },
-        image: "/image-3.png",
+        image: "/ceo/image-3.png",
         urlGithub: "https://github.com/SKRTEEEEEE/profile-page",
         urlDemo: "",
         operative: true,
@@ -255,7 +255,7 @@ export const dataPortfolio = [
         title: "Blockchain para empresas",
         description: "Pagina de presentación blockchain para empresas",
         objetivo: "Mostrar las posibilidades que ofrece la blockchain para empresas",
-        objetivos:[ "conceptos teóricos", "frontend y visual", "autorrealización", "atraer inversiones"],
+        objetivos:[ "conceptos teóricos", "frontend y visual", "auto-realización", "atraer inversiones"],
         technologies: {
             frontend: [{
                 title: "NextJS",
@@ -278,7 +278,7 @@ export const dataPortfolio = [
             ]
             
         },
-        image: "/image-2.png",
+        image: "/ceo/image-2.png",
         urlGithub: "https://github.com/SKRTEEEEEE/blockchain-presentation",
         urlDemo: "https://blockchain-presentation-eta.vercel.app/",
         operative: true,
@@ -350,7 +350,7 @@ export const dataPortfolio = [
             ]
             
         },
-        image: "/image-4.png",
+        image: "/ceo/image-4.png",
         urlGithub: "https://github.com/SKRTEEEEEE/ejemplos-dApps",
         urlDemo: "http://ejemplos-d-apps.vercel.app/",
         operative: true,
@@ -391,7 +391,7 @@ export const dataPortfolio = [
             ]
             
         },
-        image: "/image-3.jpg",
+        image: "/ceo/image-3.jpg",
         urlGithub: "https://github.com/SKRTEEEEEE/profile-page/tree/v01.02/",
         urlDemo: "",
         operative: false,

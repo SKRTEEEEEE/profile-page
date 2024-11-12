@@ -4,7 +4,7 @@ type DBConnection = {
     isConnected: boolean;
   }
 
-const connectToDB = async ():Promise<Connection> => {
+export const connectToDB = async ():Promise<Connection> => {
   const connection: DBConnection = {isConnected: false};
   try {
     if (connection.isConnected) return mongoose.connection;
