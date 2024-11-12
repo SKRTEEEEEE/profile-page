@@ -8,11 +8,11 @@ import { TypeAnimation } from 'react-type-animation';
 
 const Introduction = () => {
     return (
-        <div className="z-20  w-full bg-darkBg/60">
+        <div className="z-20  w-full">
             <div className="z-20 flex items-center justify-around max-h-dvh p-6 py-20 md:py-s0 md:grid-cols-2">
                 <Image src="/ceo/home-4.png" priority width="300" height="800" className="hidden sm:flex" alt="Avatar" />
                 <div className="flex flex-col justify-center max-w-xl">
-                    <h1 tabIndex={0} className="mt-6 text-3xl relative top-6 font-bold"><span className="text-primary-300">Hola, </span><span className="text-primary-400">soy </span><br className="md:hidden"/><span className="text-5xl">Adan Reh Mañach</span></h1>
+                    <h1 tabIndex={0} className="mt-6 text-3xl relative top-6 font-bold"><span className="text-primary-ceo-300">Hola, </span><span className="text-primary-ceo-400">soy </span><br className="md:hidden"/><span className="text-5xl">Adan Reh Mañach</span></h1>
                     <h2  className="h-32 text-2xl mt-12 leading-tight text-center md:text-left md:text-4xl md:mb-10">Desarrollador, <br />
                         <TypeAnimation
                             sequence={[
@@ -29,7 +29,7 @@ const Introduction = () => {
                             wrapper="span"
                             speed={25}
                             repeat={Infinity}
-                            className="font-bold text-secondary"
+                            className="font-bold text-secondary-ceo"
                         />
                     </h2>
 
@@ -42,7 +42,7 @@ const Introduction = () => {
                             Ver proyectos
                         </Link>
                         <Link href="mailto:adanreh.m@gmail.com"
-                            className="px-3 py-2 my-5 transition-all border-2 cursor-pointer text-md w-fit text-primary-200/80 border-secondary rounded-xl hover:shadow-xl hover:shadow-secondary" >
+                            className="px-3 py-2 my-5 transition-all border-2 cursor-pointer text-md w-fit text-primary-ceo-200/80 border-secondary-ceo rounded-xl hover:shadow-xl hover:shadow-secondary-ceo" >
                             Contacta conmigo
                         </Link>
                     </div>
