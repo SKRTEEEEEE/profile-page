@@ -1,3 +1,5 @@
+import Header from "@/components/ceo/header";
+import Navbar from "@/components/ceo/navbar";
 import { CThemeProvider } from "@/components/oth/theme-provider";
 import { cn } from "@/lib/utils";
 import type { Metadata} from "next";
@@ -30,8 +32,8 @@ export default function RootLayout({
       <div className={cn(urbanist.className," bg-no-repeat bg-gradient-cover")}>
         <CThemeProvider  disableTransitionOnChange defaultTheme="dark-soft">
       <ThirdwebProvider>
-        {/* <Navbar />
-        <Header /> */}
+        <Navbar />
+        <Header />
         {children}
       </ThirdwebProvider>
       </CThemeProvider>

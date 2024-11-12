@@ -1,6 +1,6 @@
 "use client"
 
-import { CoverParticles } from "@/components/ceo/cover-particles";
+import { CoverParticles } from "@/components/oth/cover-particles";
 import Introduction from "@/components/ceo/introduction";
 import TransitionPage from "@/components/oth/transition-page";
 
