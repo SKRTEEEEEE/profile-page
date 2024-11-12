@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { BasePlainButton, FreePlainButton, PremiumPlainButton } from "./pay-plans-buttons"
+import { BasePlainButton, FreePlainButton, PremiumPlainButton } from "../plains-dialog/pay-plans-buttons"
 import { plansBasicInfo } from "@/lib/data"
 
 

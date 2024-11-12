@@ -1,7 +1,7 @@
 import { getAllTags, getPostsByTagSlug, sortTagsByCount } from "@/lib/utils";
 import {ejercicios} from "#site/content"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tag } from "@/components/tag";
+import { Tag } from "@/components/academia/tag";
 import {slug} from "github-slugger"
 import { Metadata } from "next";
 import { EjercicioItem } from "@/components/ejercicio-item";

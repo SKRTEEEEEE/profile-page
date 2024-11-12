@@ -5,7 +5,7 @@ import { notFound } from "next/navigation"
 import "./mdx.css"
 import { Metadata } from "next"
 import { siteConfig } from "@/config/site"
-import { Tag } from "@/components/tag"
+import { Tag } from "@/components/academia/tag"
 import { MDXContent } from "@/components/mdx-components"
 
 interface PostPageProps{

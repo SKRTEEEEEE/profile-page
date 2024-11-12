@@ -1,5 +1,5 @@
 import PlainsComparisonTable from "@/components/plains-comparison-table";
-import { SubscriptionPlanCard } from "@/components/subscription-plans-card";
+import { SubscriptionPlanCard } from "@/components/academia/subscription-plans-card";
 import { plansBasicInfo } from "@/lib/data";
 
 export default function Page () {

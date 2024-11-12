@@ -1,7 +1,7 @@
 import { getAllTags, sortTagsByCount } from "@/lib/utils";
 import { Metadata } from "next";
 import {ejercicios} from "#site/content"
-import { Tag } from "@/components/tag";
+import { Tag } from "@/components/academia/tag";
 
 export const metadata: Metadata = {
     title: "Temas ejercicios",
