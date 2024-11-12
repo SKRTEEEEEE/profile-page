@@ -20,7 +20,7 @@ import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { Separator } from "../ui/separator";
 import DeleteUserButton from "../delete-user-button";
 import { VerificacionEmailAlert } from "../verify-email/verificacion-email-alert";
-import SolicitudRoleButton from "../solicitud-role";
+import SolicitudRoleButton from "./solicitud-role";
 
 const formSchema = z.object({
   nick: z.string().min(5, { message: "⚠️ Debe tener 5 caracteres como mínimo." }).max(25, { message: "⚠️ Debe tener 25 caracteres como máximo." }).optional(),

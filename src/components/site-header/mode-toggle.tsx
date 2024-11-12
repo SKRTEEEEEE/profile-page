@@ -10,8 +10,8 @@ import {
   DropdownItem,
   DropdownLabel,
   DropdownTrigger,
-} from "./ui/dropdown-themes";
-import { DropdownProvider } from "./dropdown-provider";
+} from "../ui/dropdown-themes";
+import { DropdownProvider } from "../dropdown-provider";
 
 type ThemeType = {
   light: { name: string; color: string }[];

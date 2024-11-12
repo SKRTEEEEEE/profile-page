@@ -1,4 +1,4 @@
-import PlainsComparisonTable from "@/components/plains-comparison-table";
+import PlainsComparisonTable from "@/components/academia/plains-comparison-table";
 import { SubscriptionPlanCard } from "@/components/academia/subscription-plans-card";
 import { plansBasicInfo } from "@/lib/data";
 
