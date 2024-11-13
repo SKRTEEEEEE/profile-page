@@ -1,6 +1,13 @@
 # ToDo
 ## Remembers
-### Remember 08.2024 (Actual)
+### Remember 11.2024 (Actual)
+#### Arreglar shields io jsonPath search
+- [x] COMPROBAR MD AL AÑADIR ELIMINAR TECHS
+- [x] Hay que modificar la tabla del user para que acepte el nuevo formato json
+- [ ] ❓ _Ver que pasa con uploadthing_
+#### ARREGLAR ADMINS
+- [ ] Hay que modificar los users, y en consequencia los admins para adaptarse al nuevo model
+### Remember 08.2024 
 #### Other
 - [ ] **CLEAN CODE**
     - [ ] **Actions**

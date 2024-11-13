@@ -100,11 +100,45 @@ export async function actualizarJson() {
         })?.percentage.toFixed(2);
         return usogithubString !== undefined ? parseFloat(usogithubString) : 0;
     };
-    const newJsonData = flattenTechs(proyectosDB).map(proyecto => {
+    // const newJsonData = flattenTechs(proyectosDB).map(proyecto => {
+    //     const { badge, color, isFw, isLib, preferencia, ...remainingProps } = proyecto;
+    //     const porcentajeGithub = getGithubPercentage(proyecto.name);
+    //     return { ...remainingProps, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value };
+    // });
+    type TechJsonData = {
+        name: string;
+        afinidad: number;
+        value: string;
+        experiencia: number;
+        valueexp: string;
+        usogithub: number;
+        valueuso: string;
+    };
+    
+    const newJsonData = flattenTechs(proyectosDB).reduce<{ [key: string]: TechJsonData }>((acc, proyecto) => {
         const { badge, color, isFw, isLib, preferencia, ...remainingProps } = proyecto;
         const porcentajeGithub = getGithubPercentage(proyecto.name);
-        return { ...remainingProps, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value };
-    });
+        const lenguajeName = proyecto.name; // Nombre del lenguaje como clave
+        
+        // Crear el objeto con los datos correspondientes
+        const languageData: TechJsonData = {
+            name: lenguajeName,
+            afinidad: proyecto.afinidad,  // Asegúrate de que 'afinidad' esté presente en `proyecto`
+            value: proyecto.value,  // Si 'value' es parte de 'proyecto'
+            experiencia: proyecto.experiencia,  // Asegúrate de que 'experiencia' esté en `proyecto`
+            valueexp: proyecto.valueexp,  // Si 'valueexp' es parte de 'proyecto'
+            usogithub: porcentajeGithub,  // Porcentaje calculado de GitHub
+            valueuso: getGithubUsoByRange(porcentajeGithub).value  // Esto mapea el porcentaje a un nivel
+        };
+    
+        // Asigna el objeto al acumulador utilizando el nombre del lenguaje como clave
+        acc[lenguajeName] = languageData;
+        
+        return acc;
+    }, {});
+    
+    
+    
     await updateFileContent(path.json, "Actualizar archivo .json", JSON.stringify(newJsonData, null, 2), jsonSha);
     console.log("Archivo Json actualizado");
 }

@@ -34,6 +34,8 @@ const AdminTechTable: React.FC<AdminTechTableProps> = ({lenguajes, session}) => 
 
   // Celdas de cada fila "estilos"
   const renderCell = (item: FullTechData, columnKey: string) => {
+    console.log("item", item);
+    console.log("img", item.img)
     switch (columnKey) {
       case "name":
         const langHardcdd = lenguajesResources.find(lang => lang.title === item.name);

@@ -24,8 +24,10 @@ export const flattenAdmin = (admins: IAdmins[]): FlattenAdmin[] => {
 };
 
 export const useCookies = (session: RGetCookies | JWTPayload) => {
+  console.log("session", session);
   if (session !== false) {
     const ctx: {} = session.ctx || {};
+    console.log("ctx", ctx);
     return { ...ctx, address: session.sub };
   } else {
     return { isAdmin: false, address: false };
