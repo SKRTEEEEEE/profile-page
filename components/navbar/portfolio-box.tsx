@@ -19,7 +19,7 @@ const PortfolioBox = (props: PortfolioBoxProps) => {
     return (
         <div
             key={id}
-            className={operative?"p-4 transition duration-150 rounded-lg bg-secondary/20 hover:bg-secondary/80 border border-teal-50 rounded-xl":"p-4 transition duration-150 rounded-lg bg-black/80 "}
+            className={operative?"p-4 transition duration-150  bg-secondary/20 hover:bg-secondary/80 border border-teal-50 rounded-xl":"p-4 transition duration-150 rounded-lg bg-black/80 "}
         > <Link
         href={operative?urlDemo:"#"}
         target={operative?"_blank":"_self"}
