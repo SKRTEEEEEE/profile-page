@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 
 import "./mdx.css"
 import { Metadata } from "next"
-import { siteConfig } from "@/config/site"
+import { siteConfigMain as siteConfig } from "@/config/site"
 import { Tag } from "@/components/academia/tag"
 import { MDXContent } from "@/components/academia/mdx-components"
 

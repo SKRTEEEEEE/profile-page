@@ -16,5 +16,8 @@ class UploadThingImgRepository extends UploadThingAdapter implements ImgReposito
         console.log(`Eliminada: ${success} \n ${deletedCount} Imagen ${img}`);
         return success
     }
+    async useUtapi() {
+        return this.utapi
+    }
 }
 export const uploadthingImgRepository = new UploadThingImgRepository()

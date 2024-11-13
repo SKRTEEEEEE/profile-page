@@ -83,11 +83,23 @@ npm install react-icons --save
 ```bash
 npm i swiper
 ```
+
+```bash
+npm i react-countup
+```
+
+```bash
+npm i @octokit/rest
+```
+
 ```bash
 npm i react-countup
 ```
 ```bash
-
+npm i react-countup
+```
+```bash
+npm i react-countup
 ```
 
 

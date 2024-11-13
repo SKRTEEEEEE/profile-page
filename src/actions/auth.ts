@@ -1,7 +1,7 @@
 "use server"
 
 import { loginUserUC } from "@/core/application/usecases/compound/user"
-import { generatePayloadUC, isLoggedInUC, logoutUC } from "@/core/application/usecases/services/auth"
+import { generatePayloadUC, getCookiesUC, isLoggedInUC, logoutUC, protAdmActUC } from "@/core/application/usecases/services/auth"
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth"
 
 
@@ -17,5 +17,10 @@ export async function logout(){
 export async function login(payload: VerifyLoginPayloadParams){
     return await loginUserUC(payload)
 }
-
+export async function getCookies(){
+    return await getCookiesUC()
+}
+export async function protAdmAct(){
+    return await protAdmActUC()
+}
 

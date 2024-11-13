@@ -14,11 +14,15 @@ export const logoutUC = async () => {
     const l = new Logout(authRepository)
     await l.execute()
 }
-// export class GetCookies extends UseAuth {
-//     async execute(): Promise<ExtendedJWTPayload|false>{
-//         return this.authRepository.getCookies()
-//     }
-// }
+class GetCookies extends UseAuth {
+    async execute(): Promise<ExtendedJWTPayload|false>{
+        return this.authRepository.getCookies()
+    }
+}
+export const getCookiesUC = async () => {
+    const g = new GetCookies(authRepository)
+    return g.execute()
+}
 class IsLoggedIn extends UseAuth {
     async execute(): Promise<boolean>{
         return this.authRepository.isLoggedIn()
@@ -33,11 +37,15 @@ export const isLoggedInUC = async (): Promise<boolean> => {
 //         return this.authRepository.isAdmin()
 //     }
 // }
-// export class ProtAdmAct extends UseAuth {
-//     async execute(): Promise<true>{
-//         return this.authRepository.protAdmAct()
-//     }
-// }
+class ProtAdmAct extends UseAuth {
+    async execute(): Promise<true>{
+        return this.authRepository.protAdmAct()
+    }
+}
+export const protAdmActUC = async () => {
+    const p = new ProtAdmAct(authRepository)
+    return p.execute()
+}
 // export class ProtLogAct extends UseAuth {
 //     async execute(): Promise<ExtendedJWTPayload> {
 //         return this.authRepository.protLogAct()

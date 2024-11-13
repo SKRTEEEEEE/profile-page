@@ -1,4 +1,5 @@
 import { uploadthingImgRepository } from "@/core/infrastructure/services/uploadthing-img";
+import { UTApi } from "uploadthing/server";
 
 abstract class UseImage {
     constructor(protected imgRepository:ImgRepository){}
@@ -24,3 +25,16 @@ export const uploadImageUC = async(file:File) => {
     const u = new UploadImage(uploadthingImgRepository)
     return await u.execute(file)
 }
+// Caso de uso para recuperar `utapi`
+class UseUtapiUC extends UseImage {
+
+    async execute(): Promise<UTApi> {
+        return this.imgRepository.useUtapi();
+    }
+}
+
+// Función para usar el caso de uso y devolver `utapi`
+export const useUtapiUC = async (): Promise<UTApi> => {
+    const useUtapi = new UseUtapiUC(uploadthingImgRepository);
+    return await useUtapi.execute();
+};
