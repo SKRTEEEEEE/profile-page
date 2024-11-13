@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <div className={cn(urbanist.className,"")}>
+      <div className={urbanist.className}>
         <CThemeProvider  disableTransitionOnChange defaultTheme="dark-soft">
       <ThirdwebProvider>
         <Navbar />

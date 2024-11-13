@@ -44,7 +44,7 @@ const SliderCode: React.FC<SliderCodeProps> = ({data}) => {
                             <SwiperSlide key={id}>
                                 <article className='flex flex-col  h-full justify-evenly items-evenly'>
 
-                                    <h2 tabIndex={0} className='text-center text-3xl text-primary font-semibold'>{name}</h2>
+                                    <h2 tabIndex={0} className='text-center text-3xl text-primary-ceo font-semibold'>{name}</h2>
                                     <div className="mt-5 text-center">
                                         {description}
                                     </div>
@@ -53,7 +53,7 @@ const SliderCode: React.FC<SliderCodeProps> = ({data}) => {
                                             <legend className='text-primary-200'>Principales usos</legend>
                                             <ul>
                                                 {usos.map((uso, index) => (
-                                                    <li className='text-xs border-primary-200/10 border-b-2 rounded-sm px-2 py' key={index}>{uso}</li>
+                                                    <li className='text-xs border-primary-ceo-200/10 border-b-2 rounded-sm px-2 py' key={index}>{uso}</li>
                                                 ))}</ul>
                                         </fieldset>
                                     </section>
@@ -64,7 +64,7 @@ const SliderCode: React.FC<SliderCodeProps> = ({data}) => {
                                         <Link
                                             href={`https://ejemplos-d-apps.vercel.app/${path}`}
                                             target="_blank"
-                                            className="p-2 transition duration-150 rounded-lg bg-secondary hover:bg-secondary/80"
+                                            className="p-2 transition duration-150 rounded-lg bg-secondary-ceo hover:bg-secondary/80"
                                         >
                                             Ejemplo desplegado
                                         </Link>
