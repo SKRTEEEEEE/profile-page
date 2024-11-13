@@ -1,6 +1,6 @@
 import { SiteHeader } from "@/components/site-header/site-header";
 import { CThemeProvider } from "@/components/oth/theme-provider";
-import { siteConfigMain as siteConfig } from "@/config/site";
+import { siteConfigAdmin as siteConfig } from "@/config/site";
 import type { Metadata, Viewport } from "next";
 import { ThirdwebProvider } from "thirdweb/react";
 import { Icons } from "@/components/site-header/icons";
@@ -20,29 +20,30 @@ export const viewport: Viewport = {
 const dataSiteConfig = {
   logo: {
       path: "/",
-      render: <>
+      render: 
+      <>
           <Icons.logo className="h-6 w-6" />
           <span className="font-bold">{siteConfig.name}</span>
       </>
   },
   paths: [
       {
-          id: "ejercicios",
-          path: "./academia/ejercicios",
-          title: "Ejercicios"
+          id: "techs",
+          path: "/admin/techs",
+          title: "Tecnologías"
       }
   ],
   icons: [
       {
-          id: "github",
-          path: siteConfig.links.github,
-          title: "Github",
+          id: "users",
+          path: siteConfig.links.users,
+          title: "Usuarios",
           render: 
           <>
-              <Icons.gitHub className="h-4 w-4"/>
-              <span className="sr-only">GitHub</span>
+              <Icons.users className="h-5 w-5"/>
+              <span className="sr-only">Usuarios</span>
           </>,
-          blank: true
+          blank: false
       },
       {
           id: "twitter",

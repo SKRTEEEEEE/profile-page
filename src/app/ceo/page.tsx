@@ -4,7 +4,7 @@ import { CoverParticles } from "@/components/oth/cover-particles";
 import Introduction from "@/components/ceo/introduction";
 import TransitionPage from "@/components/oth/transition-page";
 
-export default function Home() {
+export default function CeoPage() {
     return (
       <main>
         <TransitionPage />

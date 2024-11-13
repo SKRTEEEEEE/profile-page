@@ -67,11 +67,36 @@
 ```bash
 npm i @tsparticles/react @tsparticles/slim
 ```
+
+```bash
+npm i framer-motion
+```
+
+```bash
+npm install react-type-animation
+```
+
+```bash
+npm install react-icons --save
+```
+
+```bash
+npm i swiper
+```
+```bash
+npm i react-countup
+```
+```bash
+
+```
+
+
 - [ ] Manejar correctamente los UC y C
     - [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
 ### Responder a las acciones del servidor con `toast`
 ### Manejar correctamente las acciones
 - [ ] Utilizar un mensaje de respuesta correctamente
+- [ ] **Acción de DAR ADMIN** es un muy buen ejemplo de aver que pasa
 - [ ] Utilizar toast para manejar los estados
     - [ ] En el caso de que el usuario configure un perfil se le ha de mostrar toast
     - [ ] Si el usuario configura el correo mostrar otro toast conforme se le ha enviado o ha habido error

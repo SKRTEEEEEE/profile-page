@@ -6,13 +6,13 @@ import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
-import { Icons } from "./icons";
-import { siteConfig } from "@/config/site";
+
 import { CConectButton } from "../oth/custom-connect-button";
 import { User } from "@/core/domain/entities/User";
 import UserFormDialog from "../site-header/user-form-dialog";
+import { DataSiteConfig } from "@/lib/types";
 
-export function MobileNav({ user }: { user: User | false | null }) {
+export function MobileNav({ user, dataSiteConfig }: { user: User | false | null, dataSiteConfig: DataSiteConfig }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -26,30 +26,33 @@ export function MobileNav({ user }: { user: User | false | null }) {
       <SheetContent side="right">
         <MobileLink
           onOpenChange={setOpen}
-          href="/"
+          href={dataSiteConfig.logo.path}
           className="flex items-center"
         >
-          <Icons.logo className="mr-2 h-4 w-4" />
-          <span className="font-bold">{siteConfig.name}</span>
+          {/* Logo mas nombre "render" */}
+            {dataSiteConfig.logo.render}
         </MobileLink>
+        
         <div className="flex flex-col gap-3 mt-3">
-          
-          <MobileLink onOpenChange={setOpen} href="/academia">
-            Academia
+          {/* "Paginas " */}
+          <MobileLink onOpenChange={setOpen} href={dataSiteConfig.paths[0].path}>
+            {dataSiteConfig.paths[0].title}
           </MobileLink>
           {/* <MobileLink onOpenChange={setOpen} href="/about">
             About
           </MobileLink> */}
-          <Link target="_blank" rel="noreferrer" href={siteConfig.links.github}>
-            GitHub
-          </Link>
-          <Link
-            target="_blank"
-            rel="noreferrer"
-            href={siteConfig.links.twitter}
-          >
-            Twitter
-          </Link>
+          {/* Icons part */}
+
+          {
+            dataSiteConfig.icons.map(icon => {
+              return(
+                <Link key={icon.id} target={icon.blank?"_blank":"_self"} rel="noreferrer" href={icon.path}>
+                  {icon.title}
+                </Link>
+              )
+            })
+          }
+  
           <CConectButton/>
           <UserFormDialog user={user}/>
         </div>
