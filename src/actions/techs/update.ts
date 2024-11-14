@@ -1,12 +1,11 @@
-// @ts-nocheck
 
 "use server"
 
 import { IFramework, ILenguaje, ILibreria, LenguajesModel } from "@/models/lenguajes-schema";
 
-import { connectToDB } from "@/utils/db-connect";
+import { FrameworkData, LibreriaData } from "@/lib/types";
+import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { actualizarJson } from "./actualizarJson";
-import { FrameworkData, LibreriaData } from "@/types/ui";
 
 // UPDATE(se usa la funcion revalidateLenguajes en el "client")
 type UpdateData = ILenguaje | FrameworkData | LibreriaData;

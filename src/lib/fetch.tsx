@@ -1,5 +1,6 @@
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { LenguajesModel } from "@/models/lenguajes-schema";
+import { RoleModel } from "@/models/user-role-schema";
 import { Web3ProjectModel } from "@/models/web3_project-schema";
 // import { AdminModel, UserModel } from "@/models/user-schema";
 
@@ -28,13 +29,23 @@ export const fetchLenguajes = async () => {
 //   }
 // };
 
-// export const fetchAdmins = async () => {
-//   try {
-//     await connectToDB();
-//     const admins = await AdminModel.find()
-//     return admins;
-//   } catch (error) {
-//     console.error("Error al obtener los admins: ", error);
-//     throw new Error('No se pudieron obtener los administradores');
-//   }
-// }
+export const fetchRoles = async () => {
+  try {
+    await connectToDB();
+    const roles = await RoleModel.find()
+    return roles;
+  } catch (error) {
+    console.error("Error al obtener los roles: ", error);
+    throw new Error('No se pudieron obtener los roles');
+  }
+}
+export const fetchAdmins = async () => {
+  try {
+    const roles = await fetchRoles()
+    const admins = roles.find(role => role.permission === "ADMIN")
+    return admins
+  } catch (error) {
+    console.error("Error al obtener los admins: ", error);
+    throw new Error('No se pudieron obtener los administradores');
+  }
+}

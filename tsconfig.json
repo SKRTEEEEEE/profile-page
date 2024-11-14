@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,14 +22,25 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "#site/content": ["./.velite"]
+      "@/*": [
+        "./src/*"
+      ],
+      "#site/content": [
+        "./.velite"
+      ]
     }
   },
   // Despues de migrar mirar que pasa
   // "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
   // "exclude": ["node_modules"]
-  "exclude": ["node_modules", ".next"]
+  "exclude": [
+    "node_modules",
+    ".next"
+  ]
 }

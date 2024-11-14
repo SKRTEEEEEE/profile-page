@@ -17,6 +17,8 @@ export async function logout(){
 export async function login(payload: VerifyLoginPayloadParams){
     return await loginUserUC(payload)
 }
+
+// merge-old
 export async function getCookies(){
     return await getCookiesUC()
 }

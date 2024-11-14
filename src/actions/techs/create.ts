@@ -1,15 +1,13 @@
-// @ts-nocheck
-
 
 "use server"
 
 
 
+import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { IFramework, LenguajesModel } from "@/models/lenguajes-schema";
-import { CommonTechData } from "@/types/ui";
-import { FrameworkData, LibreriaData } from "@/types/ui";
+import { CommonTechData, FrameworkData, LibreriaData } from "@/lib/types";
 
-import { connectToDB } from "@/utils/db-connect";
+
 // CREATE (se usa la funcion revalidateLenguajes en el "client")
 // Actualizar base de datos sin operaciones de archivo
 export async function publicarLeng({ name, afinidad, badge, preferencia, color, experiencia, img }: CommonTechData) {
