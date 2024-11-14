@@ -91,13 +91,16 @@ npm i react-countup
 ```bash
 npm i @octokit/rest
 ```
+- **nextui**
 
-```bash
-npm i react-countup
-```
-```bash
-npm i react-countup
-```
+    ```bash
+    npm i @nextui-org/react
+    ```
+
+    ```bash
+    npm i @react-stately/data
+    ```
+
 ```bash
 npm i react-countup
 ```

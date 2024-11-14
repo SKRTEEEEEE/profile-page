@@ -2,7 +2,7 @@
 
 import { protAdmAct as adminOnlyAction } from "@/actions/auth";
 import { deleteTech } from "@/actions/techs/delete";
-import { ExtendedJWTPayload } from "@/core/application/services/auth";
+import { ExtendedJWTPayload, JWTContext } from "@/core/application/services/auth";
 
 import { Spinner, Tooltip } from "@nextui-org/react";
 import { useState } from "react";
@@ -21,24 +21,30 @@ type DeleteTechButtonProps = {
 // };
 
 
-//Ojo con la session aqui!!!
+//Ojo con la session aqui!!! ✅
 
 const useCookies = (session: false | ExtendedJWTPayload) => {
   if (session !== false) {
-    const ctx: {} = session.ctx || {};
-    console.log("ctx", ctx);
-    return { ...ctx, address: session.sub };
+    const ctx: {} | JWTContext = session.ctx || {};
+    // console.log("ctx", ctx);
+    if (Object.keys(ctx).length > 0 && (ctx as JWTContext).role === "ADMIN") {
+      // Se establece isAdmin en true si el rol es ADMIN
+      return { isAdmin: true, address: session.sub };
+    }
+    // Si no es ADMIN, se establece isAdmin en false
+    return { isAdmin: false, address: session.sub };
   } else {
     return { isAdmin: false, address: false };
   }
 }
 
 const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ session, name, onError }) => {
+  // console.log("session delete-tech-button: ", session)
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isAdmin, address } = useCookies(session);
   
 
-  console.log("isAdmin delete admin tech: ", isAdmin)
+  // console.log("isAdmin delete admin tech: ", isAdmin)
   const handleClick = async () => {
     setIsLoading(true);
     try {

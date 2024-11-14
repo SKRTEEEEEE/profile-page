@@ -1,6 +1,6 @@
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { LenguajesModel } from "@/models/lenguajes-schema";
-import { RoleModel } from "@/models/user-role-schema";
+import { RoleDocument, RoleModel } from "@/models/user-role-schema";
 import { Web3ProjectModel } from "@/models/web3_project-schema";
 // import { AdminModel, UserModel } from "@/models/user-schema";
 
@@ -29,7 +29,7 @@ export const fetchLenguajes = async () => {
 //   }
 // };
 
-export const fetchRoles = async () => {
+export const fetchRoles = async (): Promise<RoleDocument[]> => {
   try {
     await connectToDB();
     const roles = await RoleModel.find()
@@ -42,7 +42,7 @@ export const fetchRoles = async () => {
 export const fetchAdmins = async () => {
   try {
     const roles = await fetchRoles()
-    const admins = roles.find(role => role.permission === "ADMIN")
+    const admins = roles.filter(role => role.permissions === "ADMIN")
     return admins
   } catch (error) {
     console.error("Error al obtener los admins: ", error);

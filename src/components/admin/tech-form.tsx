@@ -62,6 +62,7 @@ const useIsAdmin = (admins: FlattenAdmin[]) => {
     return {isAdmin, account};
 };
 const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, tech, admins }) => {
+    console.log("admins tech-form: ", admins)
     const initialCatTech = tech ? (tech.isLib ? "libreria" : (tech.isFw ? "framework" : "lenguaje")) : "lenguaje";
     const [selectedCat, setSelectedCat] = useState<string>(initialCatTech);
     const [inputValue, setInputValue] = useState<string>(tech?.name||'');

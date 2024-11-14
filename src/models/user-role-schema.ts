@@ -47,4 +47,4 @@ const roleSchema = new Schema({
     timestamps: true 
 })
 export const UserModel = mongoose.models.User || mongoose.model('User', userSchema);
-export const RoleModel = mongoose.models.Role || mongoose.model("Role", roleSchema)
+export const RoleModel = mongoose.models.Role || mongoose.model<RoleDocument>("Role", roleSchema)
