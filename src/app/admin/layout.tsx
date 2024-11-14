@@ -4,6 +4,7 @@ import { siteConfigAdmin as siteConfig } from "@/config/site";
 import type { Metadata, Viewport } from "next";
 import { ThirdwebProvider } from "thirdweb/react";
 import { Icons } from "@/components/site-header/icons";
+import { UsersRound } from "lucide-react";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -40,7 +41,7 @@ const dataSiteConfig = {
           title: "Usuarios",
           render: 
           <>
-              <Icons.users className="h-5 w-5"/>
+              <UsersRound  className="h-5 w-5"/>
               <span className="sr-only">Usuarios</span>
           </>,
           blank: false

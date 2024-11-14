@@ -8,6 +8,9 @@ import TechFormulario from "@/components/admin/tech-form"
 export default async function TechsDynAdminPage ({params}:{params: {name:string}}){
     const lenguajes = await fetchLenguajes()
     const admins = await fetchAdmins()
+    const cleanAdmins = admins.map(admin => ({
+      ...JSON.parse(JSON.stringify(admin))
+      }));
     // const allAdmins = flattenAdmin(admins)
     const allLeng = flattenTechs(lenguajes)
     const tech = allLeng.find(l => l.name === params.name) 
@@ -18,5 +21,5 @@ export default async function TechsDynAdminPage ({params}:{params: {name:string}
         }
         return [];
       });
-    return tech&&<TechFormulario dispoLeng={dispoLeng} dispoFw={dispoFw} tech={tech} admins={admins}/>
+    return tech&&<TechFormulario dispoLeng={dispoLeng} dispoFw={dispoFw} tech={tech} admins={cleanAdmins}/>
 }

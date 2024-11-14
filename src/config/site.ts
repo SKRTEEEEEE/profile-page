@@ -17,7 +17,7 @@ export const siteConfigAdmin = {
     links:{
         users: "/admin/users",
         twitter: "https://github.com/SKRTEEEEEE",
-        persodsajdsakjkanalSite: "https://profile-skrt.vercel.app/"
+        idk: "https://profile-skrt.vercel.app/"
     }
 }
 
