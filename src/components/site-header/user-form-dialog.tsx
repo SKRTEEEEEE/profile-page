@@ -140,7 +140,7 @@ export default function UserFormDialog({ user, formButtonLabel, buttonLabelVaria
           <DialogTitle>
             Editar perfil
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-xs">
             Editar tu información como usuario
           </DialogDescription>
         </DialogHeader>

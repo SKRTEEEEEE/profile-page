@@ -1,7 +1,6 @@
 "use client"
 
 
-// import CConnectButton from "../main/custom-connect-button";
 import techBadges from "@/lib/data-slugs";
 import { Autocomplete, AutocompleteItem, Button, Input, Radio, RadioGroup, Slider, Spinner, Tooltip } from "@nextui-org/react";
 import { useEffect, useState } from "react";
@@ -13,12 +12,9 @@ import { publicarFwALeng, publicarLeng, publicarLibAFw } from "@/actions/techs/c
 import { actualizarJson } from "@/actions/techs/actualizarJson";
 import { FrameworkData, FrameworksDispo, FullTechData, LenguajesDispo, LibreriaData, TechBadge } from "@/lib/types";
 import { ILenguaje } from "@/models/lenguajes-schema";
-// import { UploadButton } from "@/utils/uploadthing";
 import { CConectButton } from "../oth/custom-connect-button";
 import CustomAsyncAutocomplete from "./custom-techs-autocomplete";
 import { useActiveAccount } from "thirdweb/react";
-// import useIsAdmin from "@/hooks/useIsAdmin";
-// import { FlattenAdmin } from "@/utils/utils.types";
 
 
 type FormularioTechsProps = {
@@ -27,17 +23,12 @@ type FormularioTechsProps = {
     tech?: FullTechData;
     admins: FlattenAdmin[];
 }
-//Esto hay que modificarlo
+
 type FlattenAdmin = {
     id: string;
     address: string;
   }
-/* 
-- [x] Falta manejar los casos en el que el usuario cambie de fwTo, o libTo en el form
-- [x] Falta manejar el caso en el que el usuario este haciendo un update que no pueda cambiar el fwTo y el libTo
 
-El caso create de librerias esta funcionando
-*/
 const useIsAdmin = (admins: FlattenAdmin[]) => {
     const [isAdmin, setIsAdmin] = useState(false);
     const account = useActiveAccount();
@@ -67,14 +58,10 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
     const [selectedCat, setSelectedCat] = useState<string>(initialCatTech);
     const [inputValue, setInputValue] = useState<string>(tech?.name||'');
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [imageUploaded, setImageUploaded] = useState<string|false>(false);
 
     const isUpdating = !!tech;
 
-    /* - [ ] Falta hacer el isAdmin en el server
-    Al hacer el isAdmin en el server, utilizando la función creada en auth.ts `actionAdmin()`, lo que hacemos es comprobar desde el servidor, y con la blockchain, que el usuario es "admin".
-    Al hacer esto, a diferencia de que no, nos pedirá firmar la comprobación con nuestra wallet (para así demostrar que somos dicho usuario), pero no nos costara gas.
-    */
+
     const { isAdmin, account } =  useIsAdmin(admins);
     console.log("isAdmin: ",isAdmin )
 
@@ -113,7 +100,7 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
                 preferencia: parseInt(data.preferencia, 10),
                 color: data.color,
                 experiencia: parseFloat(data.experiencia),
-                img: imageUploaded
+                img: "imageUploaded-future"
             };
     
             let transformedData;
@@ -237,27 +224,7 @@ const TechFormulario: React.FC<FormularioTechsProps> =  ({ dispoLeng, dispoFw, t
                 />
             }
             
-            {//Actualmente no permite editar la imagen, también hay que mostrarle al usuario la imagen que ha subido y permitirle cambiarla antes de enviarla al Storage 
-            // !isUpdating&&(!imageUploaded&&isAdmin)?(
 
-            //     <UploadButton
-            //     className="mt-4 ut-button:bg-red-500 ut-button:ut-readying:bg-red-500/50"
-            //     endpoint="imageUploader"
-            //     onClientUploadComplete={(res) => {
-            //     console.log("Files: ", res);
-            //     console.log("Url: ",res[0].url)
-            //     alert("Upload Completed");
-            //     setImageUploaded(res[0].url); // Deshabilita el dropzone después de la subida
-            //     }}
-            //     onUploadError={(error: Error) => {
-            //     alert(`ERROR! ${error.message}`);
-            //     }}
-            //     disabled={imageUploaded?true:false}
-            //     config={{mode: "manual"}}
-            //      />
-            // ):<p style={{ color: "green" }}>Image set correctly.</p>
-            
-            }
             <Input isRequired name="preferencia" type="number" label="Preferencia" description="Orden en categoría" size="sm" className="max-w-[120px]" defaultValue={tech?.preferencia.toString()}/>
             <Input isRequired name="badge" type="string" label="Badge MD" description="Badge para usar en markdown" size="md"  defaultValue={tech?.badge}/>
             <Input isRequired name="color" type="color-hex" label="Color" description="Color que se pueda usar como logo en los badges de shields.io" size="sm" variant="underlined" labelPlacement="outside-left" defaultValue={tech?.color} />

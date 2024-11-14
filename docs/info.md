@@ -49,4 +49,19 @@
 - Acceso a los grupos de estudiantes: REPETIDA
 - Retroalimentación personalizada en proyectos
 - [ ] Networking con expertos de la industria
+## Limitaciones acciones
+### v1
+#### Tier 1 (B): Limitar según contexto
+- [ ] Mirar la session y si tiene ctx, mirar que clase de permissions tiene
+#### Tier 2 (F): Cuenta activa & fetch role
+- [ ] Mirar cuenta activa/conectada (usando useActiveAccount() de thirdweb)
+- [ ] Fetch de todos los administradores
+- [ ] Comprobar si esta en la lista de administradores
 
+    **Ventaja/s**
+    - Deberia detectar automaticamente los cambios, tanto en bdd como si cambia la cuenta
+#### Tier 3 (B): Limitar acción desde el servidor
+- [ ] Utilizar una función que limite desde el servidor
+
+    **OJO:**
+    - Esto es lo mismo que el tier1. Hay que evitar duplicidades!!
