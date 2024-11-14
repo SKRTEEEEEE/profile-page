@@ -16,7 +16,7 @@ export function cn(...inputs: ClassValue[]) {
 
 
 
-
+// Esto es de academia y "antiguo"
 
 export function formatDate(input: string | number): string{
   const date = new Date(input)

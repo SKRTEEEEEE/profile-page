@@ -6,13 +6,14 @@ import { ExtendedJWTPayload, JWTContext } from "@/core/application/services/auth
 
 import { Spinner, Tooltip } from "@nextui-org/react";
 import { useState } from "react";
-import { LuDelete } from "react-icons/lu";
+import { Button } from "../ui/button";
+import { Trash2 } from "lucide-react";
 
 
 type DeleteTechButtonProps = {
   name: string;
   onError: (error: string) => void;
-  session: false | ExtendedJWTPayload
+  isAdmin: boolean;
 }
 // type FlattenCtx = {
 //   isAdmin: boolean;
@@ -21,27 +22,26 @@ type DeleteTechButtonProps = {
 // };
 
 
-//Ojo con la session aqui!!! ✅
+//Ojo con la session aqui!!! 🧠 En vez de pasar la session paso si es admin, menos trabajo en el cliente
 
-const useCookies = (session: false | ExtendedJWTPayload) => {
-  if (session !== false) {
-    const ctx: {} | JWTContext = session.ctx || {};
-    // console.log("ctx", ctx);
-    if (Object.keys(ctx).length > 0 && (ctx as JWTContext).role === "ADMIN") {
-      // Se establece isAdmin en true si el rol es ADMIN
-      return { isAdmin: true, address: session.sub };
-    }
-    // Si no es ADMIN, se establece isAdmin en false
-    return { isAdmin: false, address: session.sub };
-  } else {
-    return { isAdmin: false, address: false };
-  }
-}
+// const useCookies = (session: false | ExtendedJWTPayload) => {
+//   if (session !== false) {
+//     const ctx: {} | JWTContext = session.ctx || {};
+//     // console.log("ctx", ctx);
+//     if (Object.keys(ctx).length > 0 && (ctx as JWTContext).role === "ADMIN") {
+//       // Se establece isAdmin en true si el rol es ADMIN
+//       return { isAdmin: true, address: session.sub };
+//     }
+//     // Si no es ADMIN, se establece isAdmin en false
+//     return { isAdmin: false, address: session.sub };
+//   } else {
+//     return { isAdmin: false, address: false };
+//   }
+// }
 
-const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ session, name, onError }) => {
+const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onError }) => {
   // console.log("session delete-tech-button: ", session)
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { isAdmin, address } = useCookies(session);
   
 
   // console.log("isAdmin delete admin tech: ", isAdmin)
@@ -49,10 +49,10 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ session, name, onEr
     setIsLoading(true);
     try {
       if (!isAdmin) {
-        onError(`Administrador no válido: ${address}`)
+        onError(`Administrador no válido`)
         return alert("Only admin can do")
       }
-      if (address) {
+      else {
         const response = await adminOnlyAction()
         if (response) {
           const res = await deleteTech(name);
@@ -89,7 +89,12 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ session, name, onEr
         <Spinner size="lg" />
       ) : (
         <Tooltip color="danger" content={isAdmin ? "Delete user" : "Only Admin"}>
-          <button
+          <Button onClick={handleClick}
+          disabled={!isAdmin} variant="ghost" size="icon">
+                      <Trash2 className="h-4 w-4 text-destructive" />
+                      <span className="sr-only">Delete {name}</span>
+                    </Button>
+          {/* <button
             onClick={handleClick}
             disabled={!isAdmin}
             style={{
@@ -101,7 +106,7 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ session, name, onEr
             aria-disabled={!isAdmin}
           >
             <LuDelete size={"45px"} />
-          </button>
+          </button> */}
         </Tooltip>
       )}
     </>
