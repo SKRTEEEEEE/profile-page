@@ -21,6 +21,9 @@ import { actualizarMd } from "@/actions/techs/actualizarMd"
 import { publicarFwALeng, publicarLeng, publicarLibAFw } from "@/actions/techs/create"
 import { actualizarJson } from "@/actions/techs/actualizarJson"
 import { rv, rvrd } from "@/actions/revrd"
+import { FaSpinner } from "react-icons/fa"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
+import { CConectButton } from "../oth/custom-connect-button"
 
 const techSchema = z.object({
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
@@ -88,15 +91,16 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
   const isUpdating = !!tech;
   const { isAdmin, account } =  useIsAdmin(admins);
 
-
-
   const form = useForm<TechFormValues>({
     resolver: zodResolver(techSchema),
     defaultValues: {
+      name: tech ? tech.name : "",
+      badge: tech ? tech.badge : "",
       category: tech ? (tech.isLib ? "libreria" : (tech.isFw ? "framework" : "lenguaje")) : "lenguaje",
-      experiencia: 25,
-      afinidad: 30,
-      preferencia: 1,
+      experiencia: tech ? tech.experiencia : 25,
+      afinidad: tech ? tech.afinidad: 30,
+      preferencia: tech? tech.preferencia : 1,
+      color: tech ? tech.color : "",
     },
   })
 
@@ -199,19 +203,6 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
                 <TabsTrigger value="details">Detalles</TabsTrigger>
               </TabsList>
               <TabsContent value="general" className="space-y-4">
-                {/* <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Nombre</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Nombre de la tecnología" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                /> */}
                 <SearchCombobox name="name" title="nombre" form={form} data={techBadges} />
                 <FormField
                   control={form.control}
@@ -256,85 +247,9 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
                   )}
                 />
                 {form.watch("category") !== "lenguaje" && (
-                  // <FormField
-                  //   control={form.control}
-                  //   name="lenguajeTo"
-                  //   render={({ field }) => (
-                  //     <FormItem>
-                  //       <FormLabel>Lenguaje perteneciente</FormLabel>
-                  //       <FormControl>
-                  //         <Input placeholder="Lenguaje al que pertenece" {...field} />
-                  //       </FormControl>
-                  //       <FormMessage />
-                  //     </FormItem>
-                  //   )}
-                  // />
                   <SearchCombobox name="lenguajeTo" title="lenguaje" data={dispoLeng} form={form}/>
                 )}
                 {form.watch("category") === "libreria" && (
-                  // <FormField
-                  //   control={form.control}
-                  //   name="frameworkTo"
-                  //   render={({ field }) => (
-                  //     <FormItem>
-                  //       <FormLabel>Framework perteneciente</FormLabel>
-                  //       <Popover>
-                  //         <PopoverTrigger asChild>
-                  //           <FormControl>
-                  //             <Button
-                  //               variant="outline"
-                  //               role="combobox"
-                  //               className={cn(
-                  //                 "w-[200px] justify-between",
-                  //                 !field.value && "text-muted-foreground"
-                  //               )}
-                  //             >
-                  //               {field.value
-                  //                 ? dispoFw.find(
-                  //                     (fw) => fw.name === field.value
-                  //                   )?.name
-                  //                 : "Select framework"}
-                  //               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                  //             </Button>
-                  //           </FormControl>
-                  //         </PopoverTrigger>
-                  //         <PopoverContent className="w-[200px] p-0">
-                  //           <Command>
-                  //             <CommandInput placeholder="Search framework..." />
-                  //             <CommandList>
-                  //               <CommandEmpty>No language found.</CommandEmpty>
-                  //               <CommandGroup>
-                  //                 {dispoFw.map((fw) => (
-                  //                   <CommandItem
-                  //                     value={fw.name}
-                  //                     key={fw.name}
-                  //                     onSelect={() => {
-                  //                       form.setValue("frameworkTo", fw.name)
-                  //                     }}
-                  //                   >
-                  //                     {fw.name}
-                  //                     <Check
-                  //                       className={cn(
-                  //                         "ml-auto",
-                  //                         fw.name === field.value
-                  //                           ? "opacity-100"
-                  //                           : "opacity-0"
-                  //                       )}
-                  //                     />
-                  //                   </CommandItem>
-                  //                 ))}
-                  //               </CommandGroup>
-                  //             </CommandList>
-                  //           </Command>
-                  //         </PopoverContent>
-                  //       </Popover>
-                  //       <FormDescription>
-                  //         This is the language that will be used in the dashboard.
-                  //       </FormDescription>
-                  //       <FormMessage />
-                  //     </FormItem>
-                  //   )}
-                  // />
                   <SearchCombobox name="frameworkTo" title="framework" data={dispoFw} form={form}/>
                 )}
               </TabsContent>
@@ -431,7 +346,25 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
               </TabsContent>
             </Tabs>
             <DialogFooter>
-              <Button type="submit">Guardar cambios</Button>
+            {
+            account ? (
+                isLoading ? (
+                  <p><FaSpinner size="sm" /> Cargando...</p>
+                ) : (
+                  <TooltipProvider>
+                    <Tooltip>
+
+                      <TooltipTrigger asChild>
+                                <Button variant={isAdmin?"outline":"destructive"}>{isUpdating?(isAdmin?"Actualizar":"Solo Admin"):(isAdmin?"Crear Tech":"Solo Admin")}</Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                              <Button style={{cursor: !isAdmin?"not-allowed":"pointer"}}  disabled={!isAdmin} type="submit">Enviar</Button>
+                              </TooltipContent>
+                  </Tooltip></TooltipProvider>
+                )
+              ) : <CConectButton/>
+            
+            }
             </DialogFooter>
           </form>
         </Form>

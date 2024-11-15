@@ -3,7 +3,7 @@ import { fetchAdmins, fetchLenguajes } from "@/lib/fetch"
 import { flattenTechs } from "@/lib/techs"
 // import { flattenAdmin } from "@/utils/auth"
 import { FrameworksDispo, LenguajesDispo } from "@/lib/types"
-import TechFormulario from "@/components/admin/tech-form"
+import TechFormulario from "@/components/admin/tech-dialog"
 
 export default async function TechsDynAdminPage ({params}:{params: {name:string}}){
     const lenguajes = await fetchLenguajes()

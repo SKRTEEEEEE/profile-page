@@ -56,12 +56,13 @@
 - [x] Al aver pagado se modificara los datos en la bdd por stripe webhooks
 - [x] Aplicar los botones para pagar en el dialog
     - [x] Detectar el plan actual y mostrar botones acorde
-## 1x. Reestructuración acciones, core y componentes (full)
+## 1x. Reestructuración y importar web antigua (full) [merge-old]
+### Reestructuración parte 1
 **ACTUALIDAD**
 - [ ] Traducir todo a Español
-- [x] Agrupar componentes
-### Migrar a web antigua
-### Dependencias
+- [x] Agrupar componentes en carpetas
+### Importar a web antigua
+#### Dependencias
 - [`tsparticles`](https://github.com/tsparticles/react/#readme)
 
 ```bash
@@ -91,7 +92,7 @@ npm i react-countup
 ```bash
 npm i @octokit/rest
 ```
-- **nextui**
+- **nextui** -> *uninstalled*
 
     ```bash
     npm i @nextui-org/react
@@ -104,8 +105,24 @@ npm i @octokit/rest
 ```bash
 npm i react-countup
 ```
+#### Eliminar NextUi
+- [x] Terminar de eliminar NextUI y desinstalar-lo
+#### Techs form
+- [ ] Permitir ver el formulario aunque no se haya iniciado session (pero no accionar el delete)
+- [ ] Acabar de comprobar el uso: 
+    - [ ] con fw y libs
+    - [ ] viendo que pasa en el md
+- [ ] Incluir upload imagenes
+- [ ] Mejorar frontend:
+    - [ ] Mejorar/usar mayus en el name
+    - [ ] Mejorar autocomplete
+    - [ ] Mejorar color y prefe (poner cuadrado input mas peque y al lado del title)
+    - [ ] Mejorar expe y afinidad (poner input mas peque al lado del title y al lado el total escojido)
 
+#### Tech table
+- [ ] Terminar parte mobile
 
+### Backend
 - [ ] Manejar correctamente los UC y C
     - [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
 ### Responder a las acciones del servidor con `toast`
@@ -125,7 +142,6 @@ npm i react-countup
 
 - [ ] Mejorar el frontend, mejorando los temas, y comprobando la correcta utilización de tailwind en todos los componentes
 ## 1x. Comprobar uso stripe en despliegue (back)
-## xx. Migrar a web real/antigua
 
 <br/><br/>
 

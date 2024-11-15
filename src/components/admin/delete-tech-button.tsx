@@ -4,10 +4,11 @@ import { protAdmAct as adminOnlyAction } from "@/actions/auth";
 import { deleteTech } from "@/actions/techs/delete";
 import { ExtendedJWTPayload, JWTContext } from "@/core/application/services/auth";
 
-import { Spinner, Tooltip } from "@nextui-org/react";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { FaSpinner } from "react-icons/fa";
 
 
 type DeleteTechButtonProps = {
@@ -20,7 +21,20 @@ type DeleteTechButtonProps = {
 //   [key: string]: any; // Permite otras propiedades dinámicas
 
 // };
-
+    {/* <button
+            onClick={handleClick}
+            disabled={!isAdmin}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: !isAdmin ? 'not-allowed' : 'pointer',
+              padding: 0,
+            }}
+            aria-disabled={!isAdmin}
+          >
+            <LuDelete size={"45px"} />
+          </button> 
+        </Tooltip>*/}
 
 //Ojo con la session aqui!!! 🧠 En vez de pasar la session paso si es admin, menos trabajo en el cliente
 
@@ -86,28 +100,27 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
   return (
     <>
       {isLoading ? (
-        <Spinner size="lg" />
+        <FaSpinner size="lg" />
       ) : (
-        <Tooltip color="danger" content={isAdmin ? "Delete user" : "Only Admin"}>
-          <Button onClick={handleClick}
-          disabled={!isAdmin} variant="ghost" size="icon">
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                      <span className="sr-only">Delete {name}</span>
-                    </Button>
-          {/* <button
-            onClick={handleClick}
-            disabled={!isAdmin}
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: !isAdmin ? 'not-allowed' : 'pointer',
-              padding: 0,
-            }}
-            aria-disabled={!isAdmin}
-          >
-            <LuDelete size={"45px"} />
-          </button> */}
-        </Tooltip>
+        // <Tooltip color="danger" content={isAdmin ? "Delete user" : "Only Admin"}>
+        //   <Button onClick={handleClick}
+        //   disabled={!isAdmin} variant="ghost" size="icon">
+        //               <Trash2 className="h-4 w-4 text-destructive" />
+        //               <span className="sr-only">Delete {name}</span>
+        //             </Button>
+
+                    <TooltipProvider>
+                    <Tooltip>
+
+                      <TooltipTrigger asChild>
+                                <Button variant={"ghost"} onClick={handleClick}><Trash2 className="h-4 w-4 text-destructive" />
+                                <span className="sr-only">Delete {name}</span></Button>
+                              </TooltipTrigger>
+                              <TooltipContent className="bg-transparent border-none p-0">
+                              <Button style={{cursor: !isAdmin?"not-allowed":"pointer"}} variant={"destructive"} disabled={!isAdmin} type="submit">{isAdmin ?  `Eliminar ${name}` : "Solo Admin"}</Button>
+                              </TooltipContent>
+                  </Tooltip></TooltipProvider>
+      
       )}
     </>
   );

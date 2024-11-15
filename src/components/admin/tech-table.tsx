@@ -18,7 +18,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import DeleteTechButton from "./delete-tech-button"
-import { TechDialog } from "./tech-form-2"
+import { TechDialog } from "./tech-dialog"
 import { FrameworksDispo, FullTechData, LenguajesDispo } from "@/lib/types"
 
 // type TechData = {
@@ -53,6 +53,7 @@ const renderButtonNew =
 <Plus className="h-4 w-4" />
 Añadir nueva tecnología
 </Button>
+
 export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: AdminTechTableProps) {
   const {dispoLeng, dispoFw} = dispo
   const [page, setPage] = useState(1)
@@ -66,13 +67,6 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
   return (
     <div className="w-full max-w-4xl mx-auto space-y-4 p-4">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sticky top-0 bg-background z-10 py-4">
-        {/* <Button variant="outline" className="w-full sm:w-auto gap-2">
-          <LogIn className="h-4 w-4" />
-          Sign in -otro boton-
-        </Button> 
-        
-        <Button variant="outline">Añadir nueva tecnología</Button>
-        */}
         <TechDialog dispoLeng={dispoLeng} dispoFw={dispoFw} renderButton={renderButtonNew} admins={admins}/>
       </div>
 
@@ -89,7 +83,17 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedData.map((tech) => (
+            {paginatedData.map((tech) => 
+            {
+              const renderButtonEdit = 
+              <Button variant="ghost" size="icon" asChild>
+                <div>
+                  <Pencil className="h-4 w-4" />
+                  <span className="sr-only">Edit {tech.name}</span>
+                </div>
+              </Button>
+
+              return(
               <TableRow key={tech.name}>
                 <TableCell className="font-medium">
                   <div className="flex items-center space-x-3">
@@ -114,22 +118,19 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end space-x-2">
-                    <Button variant="ghost" size="icon" asChild>
-                      <Link href={`/techs/${tech.name}`}>
-                        <Pencil className="h-4 w-4" />
-                        <span className="sr-only">Edit {tech.name}</span>
-                      </Link>
-                    </Button>
+                    <TechDialog dispoLeng={dispoLeng} dispoFw={dispoFw} renderButton={renderButtonEdit} tech={tech} admins={admins}/>
                     <DeleteTechButton isAdmin={isAdmin} name={tech.name} onError={(error) => setError(error)}/>
                   </div>
                 </TableCell>
               </TableRow>
-            ))}
+            )}
+            
+            )}
           </TableBody>
         </Table>
       </div>
 
-      {/* Mobile view */}
+      {/* Mobile view ⚠️⬇️ FALTA TERMINAR ⬇️⚠️ */}
       <div className="space-y-4 sm:hidden">
         {paginatedData.map((tech) => (
           <Card key={tech.name}>

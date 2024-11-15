@@ -1,5 +1,5 @@
 
-import TechFormulario from "@/components/admin/tech-form";
+import TechFormulario from "@/components/admin/tech-dialog";
 import {  fetchAdmins, fetchLenguajes } from "@/lib/fetch";
 import { FrameworksDispo, LenguajesDispo } from "@/lib/types";
 // import { flattenAdmin } from "@/utils/auth";

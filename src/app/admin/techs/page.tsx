@@ -1,6 +1,5 @@
 import { getCookies } from "@/actions/auth"
-import AdminTechTable from "@/components/admin/admin-tech-table"
-import { Providers } from "@/components/oth/providers"
+import AdminTechTable from "@/components/admin/tech-table"
 // import { JWTContext } from "@/core/application/services/auth"
 import { fetchAdmins, fetchLenguajes } from "@/lib/fetch"
 import { flattenTechs } from "@/lib/techs"
@@ -28,13 +27,13 @@ const TechsAdminPage = async( ) =>{
 
  
     return (
-        <Providers>
+        
         <section className="h-dvh flex flex-col justify-center items-center">
             
         {/* <AdminTechTable lenguajes={allLeng} session={session}/> */}
         <AdminTechTable lenguajes={allLeng} isAdmin={isAdmin} dispo={{dispoLeng,dispoFw}} admins={cleanAdmins}/>
         </section>
-        </Providers>
+        
     )
 }
 
