@@ -15,8 +15,8 @@ const path = { md: "sys/techs-test.md", json: "sys/techs-test.json" };
 const ref = "profile-page";
 
 
-export async function actualizarMd(name: string, badge: string, colorhash: string) {
-    const color = colorhash.slice(1)
+export async function actualizarMd(create?:{name: string, badge: string, colorhash: string}) {
+    const color = create?.colorhash.slice(1)
     await connectToDB();
     try {
         const proyectosDB: ILenguaje[] = await LenguajesModel.find();
@@ -30,11 +30,14 @@ export async function actualizarMd(name: string, badge: string, colorhash: strin
     <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
 </a>
 </p>\n\n\n***\n<br>\n\n`;
-
-        newMdContent += `>- ## ${badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.value&label=%F0%9F%92%97%20Afinidad&color=${color}&style=flat&logo=${name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.afinidad&color=${color}&style=flat&label=%20&suffix=%25)
+        if(create){
+            const{name, badge} = create
+            newMdContent += `>- ## ${badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.value&label=%F0%9F%92%97%20Afinidad&color=${color}&style=flat&logo=${name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.afinidad&color=${color}&style=flat&label=%20&suffix=%25)
         ![Experiencia](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.valueexp&label=%F0%9F%8F%85%20Experiencia&color=${color}&style=flat&logo=${name})![Experiencia %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.experiencia&color=${color}&style=flat&label=%20&suffix=%25)
         ![Uso En Github](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.valueuso&label=%F0%9F%98%BB%20Uso%20en%20github&color=${color}&style=flat&logo=${name})![Uso en Github %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.usogithub&color=${color}&style=flat&label=%20&suffix=%25)\n>\n>![New Badge](https://img.shields.io/badge/%C2%A1_novedad_%F0%9F%91%8D_!-NEW_%F0%9F%93%A5_%F0%9F%97%92%EF%B8%8F-blue?style=social)
 `;
+        }
+        
 
         proyectosDB.sort((a, b) => a.preferencia - b.preferencia).forEach((proyecto) => {
             newMdContent += `\n\n>- ## ${createBadgeTech(proyecto)}`;

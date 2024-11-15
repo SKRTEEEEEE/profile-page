@@ -81,10 +81,7 @@ export const verifyEmailC = async (id: string, verifyToken: string): Promise<boo
 }
 export const checkoutSessionCompletedC = async (session: Stripe.Response<Stripe.Checkout.Session>) => {
     
-    // console.log("session", { session })
-    // console.log("client reference:", session.client_reference_id)
     const user: User | null = await findUserByIdUC(session.client_reference_id!);
-    // console.log("user: ", user)
     if (!user) throw new Error("Error with client_reference_id")
     if (!session.metadata || !session.metadata.role) throw new Error("Error at set metadata role")
     const role = await listRoleUC(user.roleId!)
@@ -102,7 +99,6 @@ export const checkoutSessionCompletedC = async (session: Stripe.Response<Stripe.
       console.log("Cancelling previous subscription...");
 
       try {
-        // Cancel the previous subscription
         
         await deleteCustomerUC(stripeCustomerId!)
      

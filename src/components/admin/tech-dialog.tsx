@@ -107,7 +107,7 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
       color: tech ? tech.color : "",
       lenguajeTo: tech ? tech.isFw ? tech.isFw as string : "" : "",
       frameworkTo: tech ? tech.isLib ? tech.isLib as string : "" : "",
-      img: null
+      img: tech ? tech.img : null,
     },
   })
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -195,7 +195,7 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
         if (isUpdating) {
             response = await updateTech(transformedData as ILenguaje | FrameworkData | LibreriaData);
         } else {
-            await actualizarMd(data.name, data.badge, data.color);
+            await actualizarMd({name: data.name, badge:data.badge, colorhash: data.color});
             switch (selectedCat) {
                 case "lenguaje":
                     response = await publicarLeng(transformedData as ILenguaje);
@@ -216,8 +216,8 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
         console.log("response: ", response);
         if (response.success) {
             alert(`¡Felicidades! ${response.message}`);
-            rv("/test/mongodb");
-            rvrd('/admin/techs');
+            rv("/admin/techs");
+            
         } else {
             alert(`Oops! ${response.message}`);
         }
