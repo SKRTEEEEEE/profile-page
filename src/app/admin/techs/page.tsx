@@ -16,7 +16,6 @@ const TechsAdminPage = async( ) =>{
 
     const allLeng = flattenTechs(lenguajes)
     const isAdmin = session ? session.ctx.role === "ADMIN" : false;
-    console.log("isAdmin admin/techs: ", isAdmin)
     const dispoLeng = lenguajes.map((lenguaje: LenguajesDispo) => ({ name: lenguaje.name }));
   const dispoFw = lenguajes.flatMap((lenguaje) => {
       if (Array.isArray(lenguaje.frameworks) && lenguaje.frameworks.length > 0) {

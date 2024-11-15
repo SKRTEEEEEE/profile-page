@@ -87,6 +87,7 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
           <TableBody>
             {paginatedData.map((tech) => 
             {
+              console.log("tech tech-table: ",tech)
               const renderButtonEdit = 
               <span>
               <TooltipProvider>
