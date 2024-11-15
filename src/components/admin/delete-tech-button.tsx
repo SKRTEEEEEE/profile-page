@@ -64,11 +64,13 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
           <Tooltip>
 
             <TooltipTrigger asChild>
-              <Button variant={"ghost"} onClick={handleClick}><Trash2 className="h-4 w-4 text-destructive" />
+              <span>
+              <Button disabled={!isAdmin} type="submit" variant={"ghost"} onClick={handleClick}><Trash2 className="h-4 w-4 text-destructive" />
                 <span className="sr-only">Delete {name}</span></Button>
+              </span>
             </TooltipTrigger>
             <TooltipContent className="bg-transparent border-none p-0">
-              <Button style={{ cursor: !isAdmin ? "not-allowed" : "pointer" }} variant={"destructive"} disabled={!isAdmin} type="submit">{isAdmin ? `Eliminar ${name}` : "Solo Admin"}</Button>
+              <Button  variant={"destructive"} >{isAdmin ? `Eliminar ${name}` : "Solo Admin"}</Button>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

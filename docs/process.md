@@ -114,12 +114,12 @@ npm i react-countup
     - [x] viendo que pasa en el md
 
 - [ ] Incluir upload imagenes
-- [ ] Permitir ver el formulario aunque no se haya iniciado session (pero no accionar el delete)
+- [x] Permitir ver el formulario aunque no se haya iniciado session (pero no accionar el delete)
 - [ ] Mejorar frontend:
     - [ ] Mejorar/usar mayus en el name
-    - [ ] Mejorar autocomplete
-    - [ ] Mejorar color y prefe (poner cuadrado input mas peque y al lado del title)
-    - [ ] Mejorar expe y afinidad (poner input mas peque al lado del title y al lado el total escojido)
+    - [x] Mejorar autocomplete p1 (faltaria hacer un personalizado para el name)
+    - [x] Mejorar color y prefe (poner cuadrado input mas peque y al lado del title)
+    - [x] Mejorar expe y afinidad (poner input mas peque al lado del title y al lado el total escojido)
 
 #### Tech table
 - [ ] Terminar parte mobile
@@ -127,8 +127,8 @@ npm i react-countup
 ### Backend
 - [ ] Manejar correctamente los UC y C
     - [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
-### Responder a las acciones del servidor con `toast`
-### Manejar correctamente las acciones
+#### Responder a las acciones del servidor con `toast`
+#### Manejar correctamente las acciones
 - [ ] Utilizar un mensaje de respuesta correctamente
 - [ ] **Acción de DAR ADMIN** es un muy buen ejemplo de aver que pasa
 - [ ] Utilizar toast para manejar los estados

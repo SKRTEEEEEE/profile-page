@@ -88,14 +88,7 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
             {paginatedData.map((tech) => 
             {
               const renderButtonEdit = 
-              // <Button variant="ghost" size="icon" asChild>
-              //   <div>
-              //     <Pencil className="h-4 w-4" />
-              //     <span className="sr-only">Edit {tech.name}</span>
-              //   </div>
-              // </Button>;
-
-
+              <span>
               <TooltipProvider>
               <Tooltip>
     
@@ -109,7 +102,14 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
                   <Button variant={"secondary"}>{ `Editar ${tech.name}` }</Button>
                 </TooltipContent>
               </Tooltip>
-            </TooltipProvider>
+              </TooltipProvider>
+              </span>
+   // <Button variant="ghost" size="icon" asChild>
+              //   <div>
+              //     <Pencil className="h-4 w-4" />
+              //     <span className="sr-only">Edit {tech.name}</span>
+              //   </div>
+              // </Button>;
 
               return(
               <TableRow key={tech.name}>
