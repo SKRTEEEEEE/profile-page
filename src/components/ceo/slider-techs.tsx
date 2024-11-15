@@ -60,4 +60,4 @@ const SliderTechs = ({data}: {data:FullTechData[]}) => {
     );
 }
 
-export default SliderServices;
+export default SliderTechs;
