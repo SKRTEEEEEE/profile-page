@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -11,24 +11,16 @@ import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Slider } from "@/components/ui/slider"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { LenguajesDispo, FrameworksDispo } from "@/lib/types"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
-import techBadges from "@/lib/data-slugs"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
-import { Check, ChevronsUpDown } from "lucide-react"
+import { LenguajesDispo, FrameworksDispo, FullTechData, FrameworkData, LibreriaData } from "@/lib/types"
 import {  SearchCombobox } from "../oth/search-combobox"
+import techBadges from "@/lib/data-slugs"
+import { useActiveAccount } from "thirdweb/react"
+import { updateTech } from "@/actions/techs/update"
+import { ILenguaje } from "@/models/lenguajes-schema"
+import { actualizarMd } from "@/actions/techs/actualizarMd"
+import { publicarFwALeng, publicarLeng, publicarLibAFw } from "@/actions/techs/create"
+import { actualizarJson } from "@/actions/techs/actualizarJson"
+import { rv, rvrd } from "@/actions/revrd"
 
 const techSchema = z.object({
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
@@ -46,33 +38,145 @@ const techSchema = z.object({
 
 type TechFormValues = z.infer<typeof techSchema>
 
-const defaultValues: Partial<TechFormValues> = {
-  category: "lenguaje",
-  experiencia: 25,
-  afinidad: 30,
-  preferencia: 1,
-}
+// const defaultValues: Partial<TechFormValues> = {
+//   category: "lenguaje",
+//   experiencia: 25,
+//   afinidad: 30,
+//   preferencia: 1,
+// }
 
-interface TechDialogProps {
+type FlattenAdmin = {
+  id: string;
+  address: string;
+}
+type TechDialogProps = {
   dispoLeng: LenguajesDispo[]
   dispoFw: FrameworksDispo[]
   renderButton: JSX.Element
+  tech?: FullTechData
+  admins: FlattenAdmin[]
 }
+const useIsAdmin = (admins: FlattenAdmin[]) => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const account = useActiveAccount();
 
-export function TechDialog({ dispoLeng, dispoFw, renderButton }: TechDialogProps) {
+  useEffect(() => {
+      const checkIsAdmin = async () => {
+          try {
+              if (account?.address) {
+                  const isAdminUser = admins.some(admin => admin.address === account.address);
+                  setIsAdmin(isAdminUser);
+                  console.log("isAdmin (TechTable): ", isAdminUser);
+                  console.log("address: ", account.address);
+              }
+          } catch (error) {
+              console.error('Error al verificar si la cuenta es administrador', error);
+          }
+      };
+
+      checkIsAdmin();
+  }, [admins, account]);
+
+  return {isAdmin, account};
+};
+export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: TechDialogProps) {
   const [open, setOpen] = useState(false)
   const [activeTab, setActiveTab] = useState("general")
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+
+  const isUpdating = !!tech;
+  const { isAdmin, account } =  useIsAdmin(admins);
+
+
 
   const form = useForm<TechFormValues>({
     resolver: zodResolver(techSchema),
-    defaultValues,
+    defaultValues: {
+      category: tech ? (tech.isLib ? "libreria" : (tech.isFw ? "framework" : "lenguaje")) : "lenguaje",
+      experiencia: 25,
+      afinidad: 30,
+      preferencia: 1,
+    },
   })
 
-  function onSubmit(data: TechFormValues) {
+  async function onSubmit(data: TechFormValues) {
     //Esto esta por hacer
     console.log(data)
-    setOpen(false)
-    form.reset()
+    setIsLoading(true);
+    const selectedCat = form.watch("category")
+    try {
+      const commonData = {
+        name: data.name,
+        afinidad: data.afinidad,
+        badge: data.badge,
+        preferencia: data.preferencia,
+        color: data.color,
+        experiencia: data.experiencia,
+        img: "imageUploaded-future"
+    };
+
+    let transformedData;
+    switch (selectedCat) {
+        case "lenguaje":
+            transformedData = commonData;
+            break;
+        case "framework":
+            transformedData = {
+                ...commonData,
+                lenguajeTo: isUpdating ? tech?.isFw : data.lenguajeTo,
+            };
+            break;
+        case "libreria":
+            transformedData = {
+                ...commonData,
+                lenguajeTo: isUpdating ? tech?.isFw : data.lenguajeTo,
+                frameworkTo: isUpdating ? tech?.isLib : data.frameworkTo,
+            };
+            break;
+        default:
+            throw new Error("Categoría no reconocida");
+    }
+
+    console.log("transformedData: ", transformedData);
+    let response;
+    if(isAdmin){
+        if (isUpdating) {
+            response = await updateTech(transformedData as ILenguaje | FrameworkData | LibreriaData);
+        } else {
+            await actualizarMd(data.name, data.badge, data.color);
+            switch (selectedCat) {
+                case "lenguaje":
+                    response = await publicarLeng(transformedData as ILenguaje);
+                    break;
+                case "framework":
+                    response = await publicarFwALeng(transformedData as FrameworkData);
+                    break;
+                case "libreria":
+                    response = await publicarLibAFw(transformedData as LibreriaData);
+                    break;
+                default:
+                    response = {success:false, message: "Categoría no reconocida"}
+                    throw new Error("Categoría no reconocida");                         
+            }
+            await actualizarJson();                    
+            }
+        }else{response={success:false, message: "User not admin"}}
+        console.log("response: ", response);
+        if (response.success) {
+            alert(`¡Felicidades! ${response.message}`);
+            rv("/test/mongodb");
+            rvrd('/admin/techs');
+        } else {
+            alert(`Oops! ${response.message}`);
+        }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false)
+      setOpen(false)
+      form.reset()
+    }    
   }
 
   return (

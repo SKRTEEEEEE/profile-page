@@ -46,13 +46,14 @@ type AdminTechTableProps = {
       dispoLeng: LenguajesDispo[]
       dispoFw: FrameworksDispo[]
     }
+    admins: any[];
   }
 const renderButtonNew = 
 <Button className="w-full sm:w-auto gap-2">
 <Plus className="h-4 w-4" />
 Añadir nueva tecnología
 </Button>
-export default function AdminTechTable({ lenguajes, isAdmin, dispo }: AdminTechTableProps) {
+export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: AdminTechTableProps) {
   const {dispoLeng, dispoFw} = dispo
   const [page, setPage] = useState(1)
   const rowsPerPage = 3
@@ -72,7 +73,7 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo }: AdminTechT
         
         <Button variant="outline">Añadir nueva tecnología</Button>
         */}
-        <TechDialog dispoLeng={dispoLeng} dispoFw={dispoFw} renderButton={renderButtonNew} />
+        <TechDialog dispoLeng={dispoLeng} dispoFw={dispoFw} renderButton={renderButtonNew} admins={admins}/>
       </div>
 
       {/* Desktop view */}
