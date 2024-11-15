@@ -39,7 +39,8 @@ export function SearchCombobox({title, data, name, form }:ComboboxDemoProps) {
     name={name}
     render={({ field }) => (
       <FormItem>
-        <FormLabel>{title} perteneciente</FormLabel>
+        <div className="h-full flex justify-between items-center">
+        <FormLabel>{title.charAt(0).toUpperCase() + title.slice(1).toLowerCase()}: </FormLabel>
         <Popover>
           <PopoverTrigger asChild>
             <FormControl>
@@ -89,7 +90,7 @@ export function SearchCombobox({title, data, name, form }:ComboboxDemoProps) {
               </CommandList>
             </Command>
           </PopoverContent>
-        </Popover>
+        </Popover></div>
         <FormDescription>
           This is the language that will be used in the dashboard.
         </FormDescription>

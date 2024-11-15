@@ -58,7 +58,6 @@
     - [x] Detectar el plan actual y mostrar botones acorde
 ## 1x. Reestructuración y importar web antigua (full) [merge-old]
 ### Reestructuración parte 1
-**ACTUALIDAD**
 - [ ] Traducir todo a Español
 - [x] Agrupar componentes en carpetas
 ### Importar a web antigua
@@ -108,11 +107,14 @@ npm i react-countup
 #### Eliminar NextUi
 - [x] Terminar de eliminar NextUI y desinstalar-lo
 #### Techs form
-- [ ] Permitir ver el formulario aunque no se haya iniciado session (pero no accionar el delete)
+**ACTUALIDAD**
 - [ ] Acabar de comprobar el uso: 
     - [ ] con fw y libs
-    - [ ] viendo que pasa en el md
+    - [ ] cambiando el orden de preferencia
+    - [x] viendo que pasa en el md
+
 - [ ] Incluir upload imagenes
+- [ ] Permitir ver el formulario aunque no se haya iniciado session (pero no accionar el delete)
 - [ ] Mejorar frontend:
     - [ ] Mejorar/usar mayus en el name
     - [ ] Mejorar autocomplete

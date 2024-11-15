@@ -101,6 +101,8 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
       afinidad: tech ? tech.afinidad: 30,
       preferencia: tech? tech.preferencia : 1,
       color: tech ? tech.color : "",
+      lenguajeTo: tech ? tech.isFw ? tech.isFw as string : "" : "",
+      frameworkTo: tech ? tech.isLib ? tech.isLib as string : "" : ""
     },
   })
 
@@ -190,9 +192,9 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Añadir tecnología</DialogTitle>
+          <DialogTitle>{isUpdating?"Editar":"Añadir"} tecnología</DialogTitle>
           <DialogDescription className="text-xs">
-            Ingresa los detalles de la nueva tecnología aquí.
+            Ingresa los datos de la tecnología.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
