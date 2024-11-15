@@ -20,7 +20,7 @@ import { ILenguaje } from "@/models/lenguajes-schema"
 import { actualizarMd } from "@/actions/techs/actualizarMd"
 import { publicarFwALeng, publicarLeng, publicarLibAFw } from "@/actions/techs/create"
 import { actualizarJson } from "@/actions/techs/actualizarJson"
-import { rv, rvrd } from "@/actions/revrd"
+import {  rvrd } from "@/actions/revrd"
 import { FaSpinner } from "react-icons/fa"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import { CConectButton } from "../oth/custom-connect-button"
@@ -141,13 +141,6 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
     //Esto esta por hacer
     console.log(baseData)
     setIsLoading(true);
-    // if (!account) {
-    //   console.error("Please connect your wallet or log in")
-    //   return
-    // }
-
-    // if (selectedFile !== null) await setData()
-    
     try {
       if (selectedFile !== null) {
         await setData(); // Sube la imagen y actualiza el campo "img"
@@ -216,7 +209,7 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
         console.log("response: ", response);
         if (response.success) {
             alert(`¡Felicidades! ${response.message}`);
-            rv("/admin/techs");
+            rvrd("/admin/techs");
             
         } else {
             alert(`Oops! ${response.message}`);
