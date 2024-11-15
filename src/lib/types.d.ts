@@ -21,7 +21,6 @@ export type LenguajesDispo = {
   export type FrameworksDispo = {
     name: string;
   }
-
 // Techs data
 export interface FrameworkData extends CommonTechData {
     lenguajeTo: string;

@@ -1,11 +1,19 @@
 
 
-import SliderServices from "@/components/ceo/slider-services";
+import SliderTechs from "@/components/ceo/slider-techs";
 import { MotionTransition } from "@/components/oth/transition-component";
 import TransitionPage from "@/components/oth/transition-page";
+import { Button } from "@/components/ui/button";
+import { fetchLenguajes } from "@/lib/fetch";
+import { flattenTechs } from "@/lib/techs";
 import Image from "next/image";
+import Link from "next/link";
 
-const AboutMePage = () => {
+const AboutMePage = async () => {
+    const lenguajes = await fetchLenguajes()
+    const allLeng = flattenTechs(lenguajes)
+
+
     return (
         <main className="bg-opacity-90">
             <TransitionPage/>
@@ -19,7 +27,7 @@ const AboutMePage = () => {
                 <div className="max-w-[450px]">
 
                     <h1 tabIndex={0} className="text-xl leading-tight text-center sm:text-left xl:text-4xl xl:mb-5">Mis <span className="font-bold text-secondary-ceo"> skills.</span></h1>
-                    
+                    <h2  className='hover:text-secondary-ceo-600/20 text-secondary-ceo-300'>Perfil profesional: </h2>
                         <ul className="md:mb-3 xl:text-xl 
                     text-gray-300">
                             <li className="mb-2 border-secondary-ceo/10 border-4 rounded-md">
@@ -27,14 +35,18 @@ const AboutMePage = () => {
                             </li>
                             <li className="mb-2 border-secondary-ceo/10 border-4 rounded-md"><span tabIndex={0}>Fullstack dApp <i>EVM</i></span><br />Solidity, Ether.js, Thirdweb, Hardhat, Forge, Chainlink, etc... </li>
                         </ul>
+                    <div className="space-y-2 flex flex-col w-full">
+                        <Button className="w-full" variant={"secondary"}>Lista completa de techs utilizadas</Button>
+                        <Button variant={"outline"} className="w-full"><Link href={"/admin/techs"}>Ver pagina de administración</Link></Button>
+                    </div>
                         
                  
                 </div>
 
                 {/* SLIDER */}
                 <div>
-                <h2 className='text-secondary-ceo-600/20 hover:text-secondary-ceo-600' tabIndex={0}>Principales lenguajes utilizados: </h2>
-                    <SliderServices />
+                <h2 className='hover:text-secondary-ceo-600/20 text-secondary-ceo-300 mb-4' tabIndex={0}>Principales lenguajes utilizados: </h2>
+                    <SliderTechs data={allLeng}/>
                 </div>
             </section>
         </main>

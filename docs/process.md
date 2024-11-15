@@ -1,4 +1,5 @@
 # Proceso
+[Link a actualidad](#actualidad)
 ## 1. Estructura app (back)
 ### `npx create-next-app@latest`
 ### Estructura hexagonal
@@ -56,11 +57,9 @@
 - [x] Al aver pagado se modificara los datos en la bdd por stripe webhooks
 - [x] Aplicar los botones para pagar en el dialog
     - [x] Detectar el plan actual y mostrar botones acorde
-## 1x. Reestructuración y importar web antigua (full) [merge-old]
-### Reestructuración parte 1
-- [ ] Traducir todo a Español
+## 12. Reestructuración y importar web antigua (full) [merge-old]
+### Importar web "antigua/actual"
 - [x] Agrupar componentes en carpetas
-### Importar a web antigua
 #### Dependencias
 - [`tsparticles`](https://github.com/tsparticles/react/#readme)
 
@@ -107,13 +106,12 @@ npm i react-countup
 #### Eliminar NextUi
 - [x] Terminar de eliminar NextUI y desinstalar-lo
 #### Techs form
-**ACTUALIDAD**
 - [ ] Acabar de comprobar el uso: 
     - [ ] con fw y libs
     - [ ] cambiando el orden de preferencia
     - [x] viendo que pasa en el md
 
-- [ ] Incluir upload imagenes
+- [x] Incluir upload imágenes
 - [x] Permitir ver el formulario aunque no se haya iniciado session (pero no accionar el delete)
 - [ ] Mejorar frontend:
     - [ ] Mejorar/usar mayus en el name
@@ -121,10 +119,12 @@ npm i react-countup
     - [x] Mejorar color y prefe (poner cuadrado input mas peque y al lado del title)
     - [x] Mejorar expe y afinidad (poner input mas peque al lado del title y al lado el total escojido)
 
-#### Tech table
-- [ ] Terminar parte mobile
+##### **ACTUALIDAD**
 
-### Backend
+## 1x. Reestructurar Backend y hexagonal arq (back)
+### Crear parte "about me" de markdowns
+### Pasar backend techs a hexagonal
+### Mejorar arquitectura
 - [ ] Manejar correctamente los UC y C
     - [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
 #### Responder a las acciones del servidor con `toast`
@@ -141,8 +141,12 @@ npm i react-countup
     - [ ] Manejar los casos con toast()
 
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
-
+## 1x. Frontend
 - [ ] Mejorar el frontend, mejorando los temas, y comprobando la correcta utilización de tailwind en todos los componentes
+- [ ] Traducir todo a Español
+#### Tech table
+- [ ] Terminar parte mobile
+
 ## 1x. Comprobar uso stripe en despliegue (back)
 
 <br/><br/>
