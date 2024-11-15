@@ -101,7 +101,8 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
                       <AvatarImage src={tech.img} alt={tech.name} />
                       <AvatarFallback>{tech.name.substring(0, 2).toUpperCase()}</AvatarFallback>
                     </Avatar>
-                    <span>{tech.name}</span>
+                    <span>{tech.name.charAt(0).toUpperCase() + tech.name.slice(1).toLowerCase()}</span>
+
                   </div>
                 </TableCell>
                 <TableCell>{tech.afinidad}</TableCell>
@@ -109,7 +110,7 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
                 <TableCell>
                   <Badge 
                     style={{ 
-                      backgroundColor: `#${tech.color}`,
+                      backgroundColor: `${tech.color}`,
                       color: parseInt(tech.color, 16) > 0xffffff / 2 ? '#000' : '#fff'
                     }}
                   >

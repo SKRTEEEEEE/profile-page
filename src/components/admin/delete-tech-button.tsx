@@ -100,7 +100,9 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
   return (
     <>
       {isLoading ? (
-        <FaSpinner size="lg" />
+        <Button variant={"destructive"} className="">
+        <FaSpinner width={6} height={6} color="red"/>
+        </Button>
       ) : (
         // <Tooltip color="danger" content={isAdmin ? "Delete user" : "Only Admin"}>
         //   <Button onClick={handleClick}

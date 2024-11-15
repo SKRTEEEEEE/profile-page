@@ -349,16 +349,18 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
             {
             account ? (
                 isLoading ? (
-                  <p><FaSpinner size="sm" /> Cargando...</p>
+                  <Button disabled variant={"outline"} className="gap-2"><FaSpinner width={6} height={6} /> <span>Cargando...</span></Button>
                 ) : (
                   <TooltipProvider>
                     <Tooltip>
 
                       <TooltipTrigger asChild>
-                                <Button variant={isAdmin?"outline":"destructive"}>{isUpdating?(isAdmin?"Actualizar":"Solo Admin"):(isAdmin?"Crear Tech":"Solo Admin")}</Button>
+                                <Button variant={isAdmin?"outline":"destructive"}>
+                                  Guardar
+                                </Button>
                               </TooltipTrigger>
-                              <TooltipContent>
-                              <Button style={{cursor: !isAdmin?"not-allowed":"pointer"}}  disabled={!isAdmin} type="submit">Enviar</Button>
+                              <TooltipContent className="bg-transparent border-none p-0">
+                              <Button style={{cursor: !isAdmin?"not-allowed":"pointer"}} variant={isAdmin?"secondary":"destructive"} disabled={!isAdmin} type="submit">{isUpdating?(isAdmin?"Actualizar":"Solo Admin"):(isAdmin?"Crear Tech":"Solo Admin")}</Button>
                               </TooltipContent>
                   </Tooltip></TooltipProvider>
                 )
