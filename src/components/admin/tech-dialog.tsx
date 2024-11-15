@@ -216,9 +216,9 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
                         <RadioGroup
                           onValueChange={field.onChange}
                           defaultValue={field.value}
-                          className="flex flex-col space-y-1"
+                          className="flex items-center text-sm space-x-3"
                         >
-                          <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormItem className="flex items-center space-x-1 space-y-0">
                             <FormControl>
                               <RadioGroupItem value="lenguaje" />
                             </FormControl>
@@ -274,11 +274,13 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
                   name="color"
                   render={({ field }) => (
                     <FormItem>
+                      <div className="flex items-center justify-between w-full space-x-4">
                       <FormLabel>Color</FormLabel>
                       <FormControl>
                         <Input type="color" {...field} />
                       </FormControl>
-                      <FormDescription>
+                      </div>
+                      <FormDescription className="text-xs">
                         Color para usar en los badges de shields.io
                       </FormDescription>
                       <FormMessage />
@@ -290,12 +292,14 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
                   name="preferencia"
                   render={({ field }) => (
                     <FormItem>
+                      <div className="flex items-center justify-between w-full gap-x-4">
                       <FormLabel>Preferencia</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
+                        <Input className="w-16 text-center" type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
                       </FormControl>
-                      <FormDescription>
-                        Orden en categoría (1-100)
+                      </div>
+                      <FormDescription className="text-xs">
+                        Orden en categoría 
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -306,6 +310,9 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
                   name="experiencia"
                   render={({ field }) => (
                     <FormItem>
+                      <div className="flex space-x-4 mt-4 items-center">
+                      <div className="w-full">
+                      <div className="flex items-center justify-between w-full gap-x-4">
                       <FormLabel>Experiencia</FormLabel>
                       <FormControl>
                         <Slider
@@ -316,10 +323,14 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
                           onValueChange={(value) => field.onChange(value[0])}
                         />
                       </FormControl>
+                      </div>
                       <FormDescription>
                         Nivel de experiencia (0-100)
                       </FormDescription>
                       <FormMessage />
+                      </div>
+                      <div className="text-2xl">{field.value}</div>
+                      </div>
                     </FormItem>
                   )}
                 />
@@ -328,6 +339,9 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
                   name="afinidad"
                   render={({ field }) => (
                     <FormItem>
+                       <div className="flex space-x-4 mt-4 items-center">
+                      <div className="w-full">
+                      <div className="flex items-center justify-between w-full gap-x-4">
                       <FormLabel>Afinidad</FormLabel>
                       <FormControl>
                         <Slider
@@ -338,10 +352,14 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
                           onValueChange={(value) => field.onChange(value[0])}
                         />
                       </FormControl>
+                      </div>
                       <FormDescription>
                         Nivel de afinidad (0-100)
                       </FormDescription>
                       <FormMessage />
+                      </div>
+                      <div className="text-2xl">{field.value}</div>
+                      </div>
                     </FormItem>
                   )}
                 />

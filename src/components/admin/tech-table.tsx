@@ -20,6 +20,8 @@ import {
 import DeleteTechButton from "./delete-tech-button"
 import { TechDialog } from "./tech-dialog"
 import { FrameworksDispo, FullTechData, LenguajesDispo } from "@/lib/types"
+import { Tooltip } from "@radix-ui/react-tooltip"
+import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 
 // type TechData = {
 //   name: string
@@ -86,12 +88,28 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
             {paginatedData.map((tech) => 
             {
               const renderButtonEdit = 
-              <Button variant="ghost" size="icon" asChild>
-                <div>
-                  <Pencil className="h-4 w-4" />
-                  <span className="sr-only">Edit {tech.name}</span>
-                </div>
-              </Button>
+              // <Button variant="ghost" size="icon" asChild>
+              //   <div>
+              //     <Pencil className="h-4 w-4" />
+              //     <span className="sr-only">Edit {tech.name}</span>
+              //   </div>
+              // </Button>;
+
+
+              <TooltipProvider>
+              <Tooltip>
+    
+                <TooltipTrigger asChild>
+                  <Button variant={"ghost"} size={"icon"}>
+                    <Pencil className="h-4 w-4" />
+                    <span className="sr-only">Delete {tech.name}</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent className="bg-transparent border-none p-0">
+                  <Button variant={"secondary"}>{ `Editar ${tech.name}` }</Button>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
 
               return(
               <TableRow key={tech.name}>
