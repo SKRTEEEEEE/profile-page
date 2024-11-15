@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss"
 import {fontFamily} from "tailwindcss/defaultTheme"
-import {nextui} from "@nextui-org/react";
 
 
 const config = {
@@ -140,7 +139,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography"), nextui()],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config
 
 export default config
