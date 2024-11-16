@@ -1,6 +1,6 @@
 "use server"
 
-import { IFramework, ILenguaje, ILibreria, LenguajesModel } from "@/models/lenguajes-schema";
+import { IFramework, ILenguaje, ILibreria, LenguajesModel } from "@/models/tech-schema";
 import { FrameworkData, LibreriaData } from "@/lib/types";
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { actualizarJson } from "./actualizarJson";

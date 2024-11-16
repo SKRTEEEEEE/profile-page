@@ -8,7 +8,7 @@ export type CommonTechData = {
     badge: string;
     color: string;
     experiencia: number;
-    img: string;
+    img: string | null;
 }
 //tech-formulario.tsx useAsyncList autocomplete
 export type TechBadge = {
@@ -29,6 +29,7 @@ export interface LibreriaData extends CommonTechData {
     lenguajeTo: string;
     frameworkTo: string;
 }
+
 
 // Full tech data
 export interface FullTechData extends CommonTechData {
@@ -52,7 +53,7 @@ export type UserData = {
     address: string;
     isAdmin: boolean;
     solicitudAdmin: boolean;
-    img?: string;
+    img?: string | null;
   }
 // ADMIN DATA
 export type AdminData = {

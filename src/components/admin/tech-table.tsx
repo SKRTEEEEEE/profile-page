@@ -117,7 +117,7 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
                 <TableCell className="font-medium">
                   <div className="flex items-center space-x-3">
                     <Avatar>
-                      <AvatarImage src={tech.img} alt={tech.name} />
+                      <AvatarImage src={tech.img ? tech.img : ""} alt={tech.name} />
                       <AvatarFallback>{tech.name.substring(0, 2).toUpperCase()}</AvatarFallback>
                     </Avatar>
                     <span>{tech.name.charAt(0).toUpperCase() + tech.name.slice(1).toLowerCase()}</span>
@@ -158,7 +158,7 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
               <CardTitle className="text-sm font-medium">
                 <div className="flex items-center space-x-3">
                   <Avatar>
-                    <AvatarImage src={tech.img} alt={tech.name} />
+                    <AvatarImage src={tech.img?tech.img:""} alt={tech.name} />
                     <AvatarFallback>{tech.name.substring(0, 2).toUpperCase()}</AvatarFallback>
                   </Avatar>
                   <span>{tech.name}</span>

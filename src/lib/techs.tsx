@@ -1,4 +1,4 @@
-import { IFramework, ILenguaje, ILibreria } from "@/models/lenguajes-schema";
+import { IFramework, ILenguaje, ILibreria } from "@/models/tech-schema";
 import { FullTechData } from "@/lib/types";
 
 type BadgeAndValue = {

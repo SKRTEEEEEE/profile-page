@@ -28,12 +28,20 @@ implements MongooseBaseRepository<TBase, TPrimary> {
     return document ? this.documentToPrimary(document) : null;
   }
   // -> Read All
-  // async read(filter: FilterQuery<TPrimary>, projection?: ProjectionType<any> | null | undefined, options?: QueryOptions<any> | null | undefined): Promise<TPrimary[] | null>{
-  //   await this.connect()
-  //   const docs = await this.Model.find(filter,projection,options)
-  //   return docs ? docs.map(doc=>(this.documentToPrimary(doc))):null
-
-  // }
+  async read(
+    filter?: FilterQuery<TPrimary>,
+    projection?: ProjectionType<any> | null,
+    options?: QueryOptions<any> | null
+  ): Promise<TPrimary[]|null> {
+    try {
+      await this.connect();
+      const docs = await this.Model.find(filter || {}, projection, options) // Usa un objeto vacío si filter es undefined
+      return docs.length > 0 ? docs.map(user=>this.documentToPrimary(user)):null
+    } catch (error) {
+      console.error("Error al leer documentos:", error);
+      throw new Error("Error en la operación de lectura");
+    }
+  }
 
   async updateById(
     id: string,

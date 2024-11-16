@@ -1,7 +1,6 @@
-import { RoleDocument } from "@/core/domain/entities/Role";
+import { readRoleUC } from "@/core/application/usecases/entities/role";
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
-import { LenguajesModel } from "@/models/lenguajes-schema";
-import { RoleModel } from "@/models/user-role-schema";
+import { LenguajesModel } from "@/models/tech-schema";
 import { Web3ProjectModel } from "@/models/web3_project-schema";
 // import { AdminModel, UserModel } from "@/models/user-schema";
 
@@ -18,32 +17,12 @@ export const fetchLenguajes = async () => {
 }
 
 
+// ver si necesito fetchAdmins, yo creo que no es necesario!
 
-// export const fetchUsers = async () => {
-//   try {
-//     await connectToDB(); 
-//     const users = await UserModel.find();
-//     return users;
-//   } catch (error) {
-//     console.error('Error al obtener usuarios:', error);
-//     throw new Error('No se pudieron obtener los usuarios');
-//   }
-// };
-
-export const fetchRoles = async (): Promise<RoleDocument[]> => {
-  try {
-    await connectToDB();
-    const roles = await RoleModel.find()
-    return roles;
-  } catch (error) {
-    console.error("Error al obtener los roles: ", error);
-    throw new Error('No se pudieron obtener los roles');
-  }
-}
 export const fetchAdmins = async () => {
   try {
-    const roles = await fetchRoles()
-    const admins = roles.filter(role => role.permissions === "ADMIN")
+    const roles = await readRoleUC()
+    const admins = roles?.filter(role => role.permissions === "ADMIN")
     return admins
   } catch (error) {
     console.error("Error al obtener los admins: ", error);

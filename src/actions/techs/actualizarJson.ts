@@ -4,7 +4,7 @@
 
 import { Octokit } from "@octokit/rest";
 
-import { ILenguaje, LenguajesModel } from "@/models/lenguajes-schema";
+import { ILenguaje, LenguajesModel } from "@/models/tech-schema";
 import { flattenTechs, getGithubUsoByRange } from "@/lib/techs";
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { fetchFileSha, updateFileContent } from "./utils";

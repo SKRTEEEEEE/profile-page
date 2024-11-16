@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -16,7 +15,7 @@ import {  SearchCombobox } from "../oth/search-combobox"
 import techBadges from "@/lib/data-slugs"
 import { useActiveAccount } from "thirdweb/react"
 import { updateTech } from "@/actions/techs/update"
-import { ILenguaje } from "@/models/lenguajes-schema"
+import { ILenguaje } from "@/models/tech-schema"
 import { actualizarMd } from "@/actions/techs/actualizarMd"
 import { publicarTech } from "@/actions/techs/create"
 import { actualizarJson } from "@/actions/techs/actualizarJson"
@@ -26,30 +25,10 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/
 import { CConectButton } from "../oth/custom-connect-button"
 import Image from "next/image"
 import { updateImg, uploadImg } from "@/actions/img"
+import { TechForm, techSchema } from "@/core/domain/entities/Tech"
 
-const techSchema = z.object({
-  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
-  category: z.enum(["lenguaje", "framework", "libreria"], {
-    required_error: "Debes seleccionar una categoría",
-  }),
-  badge: z.string().min(2, "El badge debe tener al menos 2 caracteres"),
-  color: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, "Color inválido"),
-  preferencia: z.number().int().min(1, "Debe ser al menos 1").max(100, "No puede ser mayor a 100"),
-  experiencia: z.number().min(0, "No puede ser negativo").max(100, "No puede ser mayor a 100"),
-  afinidad: z.number().min(0, "No puede ser negativo").max(100, "No puede ser mayor a 100"),
-  lenguajeTo: z.string().optional(),
-  frameworkTo: z.string().optional(),
-  img: z.string().regex(/https:\/\/utfs\.io\/f\/([a-f0-9\-]+)-([a-z0-9]+)\.(jpg|webp|png)/, "URL invalida").nullable().default(null)
-})
 
-type TechFormValues = z.infer<typeof techSchema>
 
-// const defaultValues: Partial<TechFormValues> = {
-//   category: "lenguaje",
-//   experiencia: 25,
-//   afinidad: 30,
-//   preferencia: 1,
-// }
 
 type FlattenAdmin = {
   id: string;
@@ -89,13 +68,13 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
   const [open, setOpen] = useState(false)
   const [activeTab, setActiveTab] = useState("general")
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [previewImage, setPreviewImage] = useState<string | null>(tech ? tech.img : null)
+  const [previewImage, setPreviewImage] = useState<string | null >(tech ? tech.img : null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const isUpdating = !!tech;
   const { isAdmin, account } =  useIsAdmin(admins);
 
-  const form = useForm<TechFormValues>({
+  const form = useForm<TechForm>({
     resolver: zodResolver(techSchema),
     defaultValues: {
       name: tech ? tech.name : "",
@@ -137,7 +116,7 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
       console.error("Error al subir la imagen:", error);
     }
   }
-  async function onSubmit(baseData: TechFormValues) {
+  async function onSubmit(baseData: TechForm) {
     //Esto esta por hacer
     console.log(baseData)
     setIsLoading(true);

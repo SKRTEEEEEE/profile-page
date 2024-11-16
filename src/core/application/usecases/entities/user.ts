@@ -16,7 +16,7 @@ export const listUserByAddressUC = async(address: string)=>{
 }
 
 export const listUsersUC = async () => {
-    return await userRepository.findAll()
+    return await userRepository.read()
 }
 
 export const createUserUC = async (data: Omit<UserBase, "id">) =>{

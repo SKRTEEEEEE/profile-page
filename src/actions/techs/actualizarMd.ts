@@ -2,7 +2,7 @@
 "use server"
 
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
-import { IFramework, ILenguaje, ILibreria, LenguajesModel } from "@/models/lenguajes-schema";
+import { IFramework, ILenguaje, ILibreria, LenguajesModel } from "@/models/tech-schema";
 import { fetchFileSha, updateFileContent } from "./utils";
 import { createBadgeTech } from "@/lib/techs";
 

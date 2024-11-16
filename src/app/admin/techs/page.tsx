@@ -10,7 +10,7 @@ const TechsAdminPage = async( ) =>{
     // const session = await getCookies()
     const session = await getCookies()
     const admins = await fetchAdmins();
-    const cleanAdmins = admins.map(admin => ({
+    const cleanAdmins = admins?.map(admin => ({
         ...JSON.parse(JSON.stringify(admin))
         }));
 
@@ -30,7 +30,7 @@ const TechsAdminPage = async( ) =>{
         <section className="h-dvh flex flex-col justify-center items-center">
             
         {/* <AdminTechTable lenguajes={allLeng} session={session}/> */}
-        <AdminTechTable lenguajes={allLeng} isAdmin={isAdmin} dispo={{dispoLeng,dispoFw}} admins={cleanAdmins}/>
+        <AdminTechTable lenguajes={allLeng} isAdmin={isAdmin} dispo={{dispoLeng,dispoFw}} admins={cleanAdmins||[]}/>
         </section>
         
     )

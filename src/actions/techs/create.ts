@@ -1,10 +1,11 @@
 "use server"
 
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
-import { LenguajesModel, IFramework } from "@/models/lenguajes-schema";
-import { CommonTechData, FrameworkData, LibreriaData } from "@/lib/types";
+import { LenguajesModel, IFramework } from "@/models/tech-schema";
+import {  FrameworkData, LibreriaData } from "@/lib/types";
+import { TechBase } from "@/core/domain/entities/Tech";
 
-type PublicarData = CommonTechData & Partial<FrameworkData> & Partial<LibreriaData>;
+type PublicarData = TechBase & Partial<FrameworkData> & Partial<LibreriaData>;
 
 export async function publicarTech(data: PublicarData) {
     await connectToDB();

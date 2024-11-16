@@ -6,6 +6,5 @@ import { MongooseBaseRepository } from "./mongoose";
 
 export type UserRepository = MongooseBaseRepository<UserBase, User> & {
   findByAddress(address:string): Promise<User|null>;
-  findAll(): Promise<User[]|null>;
   deleteRoleId(id:string): Promise<void>;
 }

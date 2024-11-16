@@ -42,7 +42,7 @@ const SliderTechs = ({data}: {data:FullTechData[]}) => {
                                 <h3 className="mb-4 text-xl" tabIndex={0}>{(item.name).charAt(0).toUpperCase() + (item.name).slice(1).toLowerCase()}</h3>
                                 
                                 <Avatar className='w-16 h-16 mb-2'>
-                                    <AvatarImage src={item.img} alt={item.name} />
+                                    <AvatarImage src={item.img?item.img:""} alt={item.name} />
                                     <AvatarFallback>{item.name.substring(0, 2).toUpperCase()}</AvatarFallback>
                                 </Avatar>
                                </div>
