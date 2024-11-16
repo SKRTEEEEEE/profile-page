@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils";
 import { MobileNav } from "./mobile-nav";
 import { MainNav } from "./main-nav";
 import ModeToggle from "./mode-toggle";
-import { userInCookies } from "@/actions/user";
 import UserFormDialog from "./user-form-dialog";
 import { CConectButton } from "../oth/custom-connect-button";
 import { DataSiteConfig } from "@/lib/types";
+import { userInCookiesUC } from "@/core/interface-adapters/controllers/user";
 
 
 export async function SiteHeader({dataSiteConfig}: {dataSiteConfig: DataSiteConfig}){
-    const user = await userInCookies()
+    const user = await userInCookiesUC()
     return <header className="z-10 sticky top-0 w-full border-b border-border bg-background/95 background-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 max-w-screen-2xl items-center">
             <MainNav dataSiteConfig={dataSiteConfig}/>

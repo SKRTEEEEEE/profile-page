@@ -1,7 +1,8 @@
-import { listUserById, verifyEmail } from "@/actions/user";
 
 import { VerificacionEmailAlert } from "@/components/verify-email/verificacion-email-alert";
 import {  RenderAlert, VerifyEmailConfirmDialog } from "@/components/verify-email/verify-email-dialogs";
+import { listUsersByIdUC } from "@/core/application/usecases/entities/user";
+import { verifyEmailC } from "@/core/interface-adapters/controllers/user";
 import { Suspense } from "react";
 
 type SearchParams = {
@@ -19,11 +20,11 @@ async function VerifyEmailContent({ verifyToken, id }: SearchParams) {
     return <RenderAlert title="URL Invalida"  description="Esta pagina no contiene contenido."/>
   }
 
-  const user = await listUserById(id)
+  const user = await listUsersByIdUC(id)
   if (!user) {
     return <RenderAlert title="URL Invalida"  description="Si estas tratando de validar el email, intenta-lo después."/>
   } else if (user.verifyToken == verifyToken) {
-    const result = await verifyEmail(id, verifyToken);
+    const result = await verifyEmailC(id, verifyToken);
 
     if (result) {
       return (

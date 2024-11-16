@@ -1,5 +1,8 @@
 "use server"
 
+// -> ❕🧠⚠️❗⬇️ SOLO PARA ACCIONES QUE SON LLAMADAS DESDE EL CLIENTE! - sino usar UC/C ⬇️❗⚠️🧠❕
+//NOT CHECKED!
+
 import { deleteImageUC, uploadImageUC, useUtapiUC as getUtapiUC } from "@/core/application/usecases/services/img";
 import { InputParseError } from "@/core/domain/errors/main";
 

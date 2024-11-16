@@ -1,9 +1,9 @@
 import { ejercicios } from "#site/content";
-import { userInCookies } from "@/actions/user";
 import { EjercicioItem } from "@/components/academia/ejercicio-item";
 import { SubscriptionPlansDialog } from "@/components/oth/plains-dialog/subscription-plans-dialog";
 import { buttonVariants } from "@/components/ui/button";
 import { routesConfig } from "@/config/routes";
+import { userInCookiesUC } from "@/core/interface-adapters/controllers/user";
 import { cn, sortPosts } from "@/lib/utils";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 }
 export default async function AprenderPage() {
   const latestPosts = sortPosts(ejercicios).slice(0,5)
-  const user = await userInCookies()
+  const user = await userInCookiesUC()
 
   return (
     <>

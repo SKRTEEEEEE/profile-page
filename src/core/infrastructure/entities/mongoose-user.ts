@@ -8,7 +8,7 @@ interface UserTransformOptions {
     roleId?: (value: any) => string | null;
   }
 
-class MongooseUserRepository extends MongooseRepository<UserBase, User, UserDocument, UserTransformOptions> implements UserRepository{
+export class MongooseUserRepository extends MongooseRepository<UserBase, User, UserDocument, UserTransformOptions> implements UserRepository{
     constructor(){
         super(UserModel, {
             roleId: (value) => value?.toString() || null,
@@ -30,7 +30,6 @@ class MongooseUserRepository extends MongooseRepository<UserBase, User, UserDocu
         return users.length > 0 ? users.map(user=>this.documentToPrimary(user)):null
         }
 }
-export const userRepository = new MongooseUserRepository()
 // class MongooseUserRepository extends MongoDbConnection implements UserRepository {
 
 //     async create(user: User): Promise<User> {

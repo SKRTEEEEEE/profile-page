@@ -25,6 +25,9 @@ export const createRoleUC = async(newRole: Omit<RoleBase, "id">) => {
 //   const dr = new DeleteRole(roleRepository)
 //   return await dr.execute(id)
 // }
+export const deleteRoleByIdUC = async (id:string) => {
+  return await roleRepository.delete(id)
+}
 export const findOneRoleAndDeleteUC = async (filter?: FilterQuery<any> | null | undefined, options?: QueryOptions<any> | null | undefined):Promise<Role|undefined> => {
   return await roleRepository.findDelete(filter,options)
 }

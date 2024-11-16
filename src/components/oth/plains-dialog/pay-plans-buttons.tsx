@@ -1,17 +1,17 @@
 // import { UserModel } from "@/models/user-role-schema";
 import { Button } from "../../ui/button"
-import { userInCookies } from "@/actions/user";
 import { CConectButton } from "../custom-connect-button";
 import { RoleType } from "@/core/domain/entities/Role";
 import Link from "next/link";
 import UserFormDialog from "../../site-header/user-form-dialog";
 import { generatePaymentLink } from "@/lib/utils";
+import { userInCookiesUC } from "@/core/interface-adapters/controllers/user";
 
 
 
 
 export async function FreePlainButton(){
-    const user = await userInCookies()
+    const user = await userInCookiesUC()
     if(!user) return(
       <CConectButton connectButtonLabel="Comenzar gratis"/>
     )
@@ -34,7 +34,7 @@ export async function FreePlainButton(){
     return <Button className="w-full" disabled variant={"outline"}>Incluido en tu plan</Button>
   }
   export async function BasePlainButton(){
-    const user = await userInCookies()
+    const user = await userInCookiesUC()
     if(!user) return(
         <Button className="w-full">Inicia session</Button>
     )
@@ -54,7 +54,7 @@ export async function FreePlainButton(){
       </Link></Button>
   }
   export async function PremiumPlainButton(){
-    const user = await userInCookies()
+    const user = await userInCookiesUC()
     if(!user) return(
         <Button className="w-full">Inicia session</Button>
     )

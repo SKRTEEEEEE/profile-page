@@ -84,3 +84,7 @@ export const setJwtUC = async (payload: VerifyLoginPayloadParams, context:JWTCon
     const s = new SetJwt(authRepository)
     return await s.execute(payload,context)
 }
+
+export const verifyPayloadUC = async(params: VerifyLoginPayloadParams)=>{
+    return await authRepository.verifyPayload(params)
+}

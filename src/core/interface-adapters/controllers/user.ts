@@ -1,24 +1,18 @@
-import { setJwtUC } from "@/core/application/usecases/services/auth";
-import { findUserAndUpdateUC, listUsersByIdUC, updateUserByIdUC } from "@/core/application/usecases/entities/user";
+import { getCookiesUC, logoutUC, setJwtUC, verifyPayloadUC } from "@/core/application/usecases/services/auth";
+import { createUserUC, deleteUserByIdUC, findUserAndUpdateUC, listUserByAddressUC, listUsersByIdUC, updateUserByIdUC } from "@/core/application/usecases/entities/user";
 // import { RoleType } from "@/core/domain/entities/Role";
 import { DatabaseFindError, DatabaseOperationError, SetEnvError, VerificationOperationError } from "@/core/domain/errors/main";
 import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
 import { createVerificationEmailUC, sendMailUC } from "@/core/application/usecases/services/email";
 // import { createRoleUC } from "@/core/application/usecases/atomic/role";
-import { AuthRepository, ExtendedJWTPayload } from "@/core/application/interfaces/services/auth";
-import { constructEventWebhookUC, deleteCustomerUC, retrieveSessionUC, retrieveSubscriptionUC } from "@/core/application/usecases/services/pay";
+import {  ExtendedJWTPayload } from "@/core/application/interfaces/services/auth";
+import { deleteCustomerUC,  retrieveSubscriptionUC } from "@/core/application/usecases/services/pay";
 import { RoleType } from "@/core/domain/entities/Role";
 import { User } from "@/core/domain/entities/User";
-import { createRoleUC, findOneRoleAndDeleteUC, listRoleUC, updateRoleUC } from "@/core/application/usecases/entities/role";
+import { createRoleUC, deleteRoleByIdUC, findOneRoleAndDeleteUC, listRoleUC, updateRoleUC } from "@/core/application/usecases/entities/role";
 import Stripe from "stripe";
-import { UserRepository } from "@/core/application/interfaces/entities/user";
-import { RoleRepository } from "@/core/application/interfaces/entities/role";
-import { userRepository } from "@/core/infrastructure/entities/mongoose-user";
-import { roleRepository } from "@/core/infrastructure/entities/mongoose-role";
-import { authRepository } from "@/core/infrastructure/services/thirdweb-auth";
 import crypto from "crypto"
 
-//No se donde poner esto, luego lo terminare de pensar
 class TokenGenerator {
   private generateToken(): string{
     return crypto.randomBytes(20).toString("hex")
@@ -39,7 +33,6 @@ export const tokenGenerator = () => {
   const t = new TokenGenerator()
   return t.generateVerificationToken()
 }
-// Nos vamos a saltar esta capa, total igualmente la app sigue siendo la unica capa que tocara con el framework, manteniendo las otras capas separadas, no es estrictamente necesario, aunque es mas correcto
 
 
 export const updateUserFormC = async(payload: VerifyLoginPayloadParams,user:{id:string, email:string|null,nick?:string,img:string|null}): Promise<ExtendedJWTPayload | null> => {
@@ -59,7 +52,6 @@ export const updateUserFormC = async(payload: VerifyLoginPayloadParams,user:{id:
         await sendMailUC({to: user.email, subject: "Email Verification",html})
         isVerified = false
     }
-    // await updateUserFormUC({...user, verifyToken, verifyTokenExpire, isVerified})
     const res = await updateUserByIdUC(user.id, {...user, verifyToken, verifyTokenExpire, isVerified})
     if(!res) throw new DatabaseOperationError("update user form")
     return await setJwtUC(payload,{nick:user.nick,id: user.id, role: userB.role || undefined})
@@ -73,7 +65,6 @@ export const resendVerificationEmailC = async({id,email}:{id:string, email: stri
         const html = createVerificationEmailUC(verificationLink);
         const res = await sendMailUC({to: email, subject: "Email Verification",html})
         
-        // const upU = await updateUserTokenVerificationUC(id,hashedToken,expireDate.toString())
         const upU = await updateUserByIdUC(id, {verifyToken: hashedToken, verifyTokenExpire: expireDate.toString()})
         return {updatedUser: upU, sendedMail: res}
 }
@@ -98,12 +89,6 @@ export const verifyEmailC = async (id: string, verifyToken: string): Promise<boo
     // ⚠️‼️ Esta parte en el futuro sera un botón de "subscripción"
     console.log("User before update:", user);
 
-    // if(user.solicitud===RoleType["STUDENT"]) {
-    //     user.solicitud = null;
-    //     user.role = RoleType["STUDENT"]
-    //     const createdRole = await createRoleUC(user.address,RoleType["STUDENT"])
-    //     user.roleId = createdRole.id
-    // }
     const sUser = await updateUserByIdUC(user.id, user)
     if(!sUser) throw new DatabaseOperationError("update user")
     console.log(sUser)
@@ -148,7 +133,6 @@ export const checkoutSessionCompletedC = async (session: Stripe.Response<Stripe.
       })
       console.log("Role created: ", role)
       try {
-        // await role.save()
         const updatedUser = await updateUserByIdUC(user.id, { roleId: role.id, role: session.metadata.role });
         if(!updatedUser){ throw new Error(`Error at find user ${user.id}: `) }else {
             console.log("updatedUser: ", updatedUser)
@@ -179,7 +163,6 @@ export const checkoutSessionCompletedC = async (session: Stripe.Response<Stripe.
 export const customerSubscriptionDeletedC = async (subscriptionId: string) => {
     try {
         const subscription = await retrieveSubscriptionUC(subscriptionId);
-        // console.log("subscription: ", { subscription })
         const role = await findOneRoleAndDeleteUC({ stripeCustomerId: subscription.customer as string });
         
         // 💡 Corregido: Se usa 'return' en lugar de 'break'
@@ -195,114 +178,76 @@ export const customerSubscriptionDeletedC = async (subscriptionId: string) => {
     }
 };
 
-//✅💨CHECKED
 
-// user-role-auth controller
 
-abstract class UseUserRoleAuthService {
-  constructor(protected userRepository: UserRepository, protected roleRepository: RoleRepository, protected authRepository: AuthRepository) { }
-}
-class DeleteUserAccount extends UseUserRoleAuthService {
-
-  async execute(payload: {
-    signature: `0x${string}`;
-    payload: LoginPayload;
-  }, id: string, address: string) {
-    const v = await this.authRepository.verifyPayload(payload)
-    if (!v.valid) throw new VerificationOperationError("Error with payload auth")
-    if (v.payload.address !== address) throw new VerificationOperationError("User only can delete her address")
-
-    //deleteUser(id)
-    const user = await this.userRepository.readById(id)
-    if (!user) throw new DatabaseFindError("User not found")
-    if (user.roleId !== null) {
-      await this.roleRepository.delete(user.roleId)
-    }
-    await this.userRepository.delete(id)
-    await this.authRepository.logout()
-  }
-
-}
 export const deleteUserAccountUC = async (payload: {
   signature: `0x${string}`;
   payload: LoginPayload;
 }, id: string, address: string) => {
-  const d = new DeleteUserAccount(userRepository, roleRepository, authRepository)
-  return await d.execute(payload,id,address)
+  const v = await verifyPayloadUC(payload)
+  if (!v.valid) throw new VerificationOperationError("Error with payload auth")
+  if (v.payload.address !== address) throw new VerificationOperationError("User only can delete her address")
+
+  //deleteUser(id)
+  const user = await listUsersByIdUC(id)
+  if (!user) throw new DatabaseFindError("User not found")
+  if (user.roleId !== null) {
+    await deleteRoleByIdUC(user.roleId)
+  }
+  await deleteUserByIdUC(id)
+  await logoutUC()
 }
 
-class GiveRole extends UseUserRoleAuthService {
-  async execute(payload: {
-    signature: `0x${string}`;
-    payload: LoginPayload;
-  }, id: string, solicitud: RoleType.ADMIN | RoleType.PROF_TEST) {
-    const v = await this.authRepository.verifyPayload(payload)
-    if (!v.valid) throw new VerificationOperationError("payload auth")
-      const signUser = await userRepository.findByAddress(payload.payload.address)
-    if (!signUser) throw new DatabaseFindError("signer user")
-    if (signUser.role!=="ADMIN") throw new VerificationOperationError("Only admins")
-    const createdRole = await createRoleUC({address: payload.payload.address,permissions: solicitud})
-    const user = await this.userRepository.readById(id)
-    if(!user)throw new DatabaseFindError("user")
-    await this.userRepository.updateById(id,{
-      id, address: user.address, roleId: createdRole.id,
-      role: solicitud, solicitud: null, img: user.img, email: user.email, isVerified: user.isVerified
-    })
-  }
-}
+
 export const giveRoleUC = async(payload: {
   signature: `0x${string}`;
   payload: LoginPayload;
 }, id: string, solicitud: RoleType.ADMIN | RoleType.PROF_TEST) => {
-  const m = new GiveRole(userRepository, roleRepository, authRepository)
-  return await m.execute(payload,id, solicitud)
+  const v = await verifyPayloadUC(payload)
+    if (!v.valid) throw new VerificationOperationError("payload auth")
+      const signUser = await listUserByAddressUC(payload.payload.address)
+    if (!signUser) throw new DatabaseFindError("signer user")
+    if (signUser.role!=="ADMIN") throw new VerificationOperationError("Only admins")
+    const createdRole = await createRoleUC({address: payload.payload.address,permissions: solicitud})
+    const user = await listUsersByIdUC(id)
+    if(!user)throw new DatabaseFindError("user")
+    await updateUserByIdUC(id,{
+      id, address: user.address, roleId: createdRole.id,
+      role: solicitud, solicitud: null, img: user.img, email: user.email, isVerified: user.isVerified
+    })
 }
 
 
-// user-auth service
-
-abstract class UseUserAuthService {
-  constructor(protected userRepository: UserRepository, protected authRepository: AuthRepository) { }
-}
 
 
 
-class LoginUser extends UseUserAuthService {
-  async execute(payload: VerifyLoginPayloadParams): Promise<ExtendedJWTPayload> {
-    const verifiedPayload = await this.authRepository.verifyPayload(payload);
-    if (!verifiedPayload.valid) throw new VerificationOperationError("Payload not valid")
-    let user = await this.userRepository.findByAddress(verifiedPayload.payload.address);
-    if (!user) {
-      user = await this.userRepository.create({ address: verifiedPayload.payload.address, roleId: null, role: null, solicitud: null, img: null, email: null , isVerified: false})
-    }
 
-    const jwt = await this.authRepository.setJwt(
-      payload,
-      {
-        role: user.role || undefined,
-        nick: user.nick,
-        id: user.id
-      }
-    );
-    return jwt
-  }
-}
+
 export const loginUserUC = async (payload: VerifyLoginPayloadParams) => {
-  const l = new LoginUser(userRepository, authRepository)
-  return await l.execute(payload)
+  const verifiedPayload = await verifyPayloadUC(payload);
+  if (!verifiedPayload.valid) throw new VerificationOperationError("Payload not valid")
+  let user = await listUserByAddressUC(verifiedPayload.payload.address);
+  if (!user) {
+    user = await createUserUC({ address: verifiedPayload.payload.address, roleId: null, role: null, solicitud: null, img: null, email: null , isVerified: false})
+  }
+
+  const jwt = await setJwtUC(
+    payload,
+    {
+      role: user.role || undefined,
+      nick: user.nick,
+      id: user.id
+    }
+  );
+  return jwt
 }
 
 
-class UserInCookies extends UseUserAuthService {
-  async execute(): Promise<User | false> {
-    const cooki = await this.authRepository.getCookies()
+
+export const userInCookiesUC = async () => {
+  const cooki = await getCookiesUC()
     if (!cooki) return false
-    const user = await this.userRepository.findByAddress(cooki.sub)
+    const user = await listUserByAddressUC(cooki.sub)
     if (!user) return false
     return user
-  }
-}
-export const userInCookiesUC = async () => {
-  const u = new UserInCookies(userRepository,authRepository)
-  return await u.execute()
 }

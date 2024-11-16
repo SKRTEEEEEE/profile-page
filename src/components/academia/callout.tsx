@@ -1,7 +1,7 @@
 // "ejemplo de componente personalizado"
 
-import { userInCookies } from "@/actions/user";
 import { RoleType } from "@/core/domain/entities/Role";
+import { userInCookiesUC } from "@/core/interface-adapters/controllers/user";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
@@ -37,7 +37,7 @@ export async function Callout({
     role= "student",
     ...props
 }: CalloutProps) {
-    const user = await userInCookies()
+    const user = await userInCookiesUC()
     if(role==="student"){ 
         if (!user || (user.role !== RoleType["ADMIN"] && user.role !== RoleType["STUDENT"])) {
             
