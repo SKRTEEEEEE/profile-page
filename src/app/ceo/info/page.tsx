@@ -4,13 +4,13 @@ import SliderTechs from "@/components/ceo/slider-techs";
 import { MotionTransition } from "@/components/oth/transition-component";
 import TransitionPage from "@/components/oth/transition-page";
 import { Button } from "@/components/ui/button";
-import { fetchLenguajes } from "@/lib/fetch";
+import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
 import { flattenTechs } from "@/lib/techs";
 import Image from "next/image";
 import Link from "next/link";
 
 const AboutMePage = async () => {
-    const lenguajes = await fetchLenguajes()
+    const lenguajes = await readAllTechsUC()
     const allLeng = flattenTechs(lenguajes)
 
 

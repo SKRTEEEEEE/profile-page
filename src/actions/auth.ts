@@ -22,9 +22,7 @@ export async function login(payload: VerifyLoginPayloadParams){
 }
 
 // merge-old
-export async function getCookies(){
-    return await getCookiesUC()
-}
+
 export async function protAdmAct(){
     return await protAdmActUC()
 }

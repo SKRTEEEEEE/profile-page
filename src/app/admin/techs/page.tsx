@@ -1,14 +1,14 @@
-import { getCookies } from "@/actions/auth"
 import AdminTechTable from "@/components/admin/tech-table"
+import { readAllTechsUC } from "@/core/application/usecases/entities/tech"
+import { getCookiesUC } from "@/core/application/usecases/services/auth"
 // import { JWTContext } from "@/core/application/services/auth"
-import { fetchAdmins, fetchLenguajes } from "@/lib/fetch"
+import { fetchAdmins } from "@/lib/fetch"
 import { flattenTechs } from "@/lib/techs"
 import { FrameworksDispo, LenguajesDispo } from "@/lib/types"
 
 const TechsAdminPage = async( ) =>{
-    const lenguajes = await fetchLenguajes()
-    // const session = await getCookies()
-    const session = await getCookies()
+    const lenguajes = await readAllTechsUC()
+    const session = await getCookiesUC()
     const admins = await fetchAdmins();
     const cleanAdmins = admins?.map(admin => ({
         ...JSON.parse(JSON.stringify(admin))

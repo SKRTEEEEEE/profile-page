@@ -1,6 +1,7 @@
 import mongoose, { Model, Document, UpdateQuery, FilterQuery, QueryOptions, ProjectionType } from 'mongoose';
 import { MongoDbConnection } from '../connectors/mongo-db';
 import { MongooseBase, MongooseBaseRepository } from '@/core/infrastructure/types/mongoose';
+import { Query } from 'mongoose';
 
 
 
@@ -32,11 +33,11 @@ implements MongooseBaseRepository<TBase, TPrimary> {
     filter?: FilterQuery<TPrimary>,
     projection?: ProjectionType<any> | null,
     options?: QueryOptions<any> | null
-  ): Promise<TPrimary[]|null> {
+  ): Query<TPrimary[], any, {}, any, "find", {}> {
     try {
       await this.connect();
       const docs = await this.Model.find(filter || {}, projection, options) // Usa un objeto vacío si filter es undefined
-      return docs.length > 0 ? docs.map(user=>this.documentToPrimary(user)):null
+      return docs.map(user=>this.documentToPrimary(user))
     } catch (error) {
       console.error("Error al leer documentos:", error);
       throw new Error("Error en la operación de lectura");
