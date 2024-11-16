@@ -2,29 +2,15 @@
 // import { RoleRepository } from "@/core/domain/repositories/role-repository";
 
 import { Role, RoleBase } from "@/core/domain/entities/Role";
-import { roleRepository } from "@/core/infrastructure/entities/mongoose-role";
 import { RoleRepository } from "../../interfaces/entities/role";
 import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
-// import { UpdateQuery } from "mongoose";
+import { MongooseRoleRepository } from "@/core/infrastructure/entities/mongoose-role";
 
-//⬇️⛔🆘 No sera necesario usar CreateRole, o otros usecases parecidos ya que eso seran services, al utilizar User y Role
-//🙋‍♂️⚠️➡️ Aquí solo pondremos usecases como ListRole, ListRolesByPermission, etc...: Solo utilizan el Role
+const roleRepository = new MongooseRoleRepository()
 
 export const createRoleUC = async(newRole: Omit<RoleBase, "id">) => {
     return await roleRepository.create(newRole)
   }
-// class DeleteRole {
-//     constructor(private roleRepository: RoleRepository) {}
-  
-//     async execute(id: string): Promise<void> {
-//       await this.roleRepository.delete(id)
-      
-//     }
-//   }
-// export const deleteRoleUC = async (id:string) => {
-//   const dr = new DeleteRole(roleRepository)
-//   return await dr.execute(id)
-// }
 export const deleteRoleByIdUC = async (id:string) => {
   return await roleRepository.delete(id)
 }
