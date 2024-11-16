@@ -1,8 +1,8 @@
 import { User, UserBase, UserDocument } from '@/core/domain/entities/User';
-import { UserRepository } from '@/core/application/repositories/user';
 import { UserModel } from '@/models/user-role-schema';
 import { DatabaseOperationError } from '@/core/domain/errors/main';
 import { MongooseRepository } from './mongoose-base';
+import { UserRepository } from '@/core/application/interfaces/entities/user';
 
 interface UserTransformOptions {
     roleId?: (value: any) => string | null;

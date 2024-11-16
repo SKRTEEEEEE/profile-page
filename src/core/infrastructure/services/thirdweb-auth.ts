@@ -3,7 +3,7 @@
 
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, VerifyLoginPayloadResult } from "thirdweb/auth";
 import { ThirdwebAuthAdapter } from "../connectors/thirdweb-auth";
-import { AuthRepository, ExtendedJWTPayload, JWTContext } from "@/core/application/services/auth";
+import { AuthRepository, ExtendedJWTPayload, JWTContext } from "@/core/application/interfaces/services/auth";
 import { VerificationOperationError } from "@/core/domain/errors/main";
 import { RoleType } from "@/core/domain/entities/Role";
 //Para hacer-lo bien estas funciones no se deberian usar aquí⚠️🧠👨‍🎓!

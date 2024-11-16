@@ -1,4 +1,4 @@
-import { AuthRepository } from "@/core/application/services/auth";
+import { AuthRepository } from "@/core/application/interfaces/services/auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError, UTApi } from "uploadthing/server";
 import { authRepository } from "../services/thirdweb-auth";

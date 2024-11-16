@@ -2,8 +2,8 @@
 // import { RoleRepository } from "@/core/domain/repositories/role-repository";
 
 import { Role, RoleBase } from "@/core/domain/entities/Role";
-import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role";
-import { RoleRepository } from "../../repositories/role";
+import { roleRepository } from "@/core/infrastructure/entities/mongoose-role";
+import { RoleRepository } from "../../interfaces/entities/role";
 import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
 // import { UpdateQuery } from "mongoose";
 

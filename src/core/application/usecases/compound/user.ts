@@ -4,14 +4,14 @@ import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
 import { User} from "@/core/domain/entities/User";
 import { RoleType } from "@/core/domain/entities/Role";
 import crypto from "crypto"
-import { UserRepository } from "../../repositories/user";
-import { AuthRepository, ExtendedJWTPayload } from "../../services/auth";
-import { RoleRepository } from "../../repositories/role";
-import { userRepository } from "@/core/infrastructure/repositories/mongoose-user";
-import { roleRepository } from "@/core/infrastructure/repositories/mongoose-role";
+import { AuthRepository, ExtendedJWTPayload } from "../../interfaces/services/auth";
+import { RoleRepository } from "../../interfaces/entities/role";
+import { userRepository } from "@/core/infrastructure/entities/mongoose-user";
+import { roleRepository } from "@/core/infrastructure/entities/mongoose-role";
 import { authRepository } from "@/core/infrastructure/services/thirdweb-auth";
 import { createRoleUC } from "../atomic/role";
 import { DatabaseFindError, VerificationOperationError } from "@/core/domain/errors/main";
+import { UserRepository } from "../../interfaces/entities/user";
 
 
 //No se donde poner esto, luego lo terminare de pensar

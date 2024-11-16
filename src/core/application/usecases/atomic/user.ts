@@ -1,10 +1,10 @@
 import { User, UserBase } from "@/core/domain/entities/User";
 
 import { DatabaseFindError, DatabaseOperationError } from "@/core/domain/errors/main";
-import { userRepository } from "@/core/infrastructure/repositories/mongoose-user";
-import { UserRepository } from "../../repositories/user";
+import { userRepository } from "@/core/infrastructure/entities/mongoose-user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
+import { UserRepository } from "../../interfaces/entities/user";
 
 abstract class UseUser {
     constructor(protected userRepository:UserRepository){}

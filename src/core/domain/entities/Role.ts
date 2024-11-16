@@ -1,4 +1,4 @@
-import { MongooseBase, TimestampBase } from "@/core/application/repositories/mongoose";
+import { MongooseBase, TimestampBase } from "@/core/infrastructure/types/mongoose";
 import mongoose from "mongoose";
 
 export enum RoleType {

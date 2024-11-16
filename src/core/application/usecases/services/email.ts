@@ -1,5 +1,5 @@
 import { nodemailerEmailRepository } from "@/core/infrastructure/services/nodemailer-email"
-import { SendMailParams } from "../../services/email"
+import { SendMailParams } from "../../interfaces/services/email"
 
 export const createVerificationEmailUC = (verificationLink: string) => {
     return nodemailerEmailRepository.createVerificationEmail(verificationLink)

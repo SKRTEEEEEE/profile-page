@@ -6,7 +6,7 @@ import { DatabaseOperationError, SetEnvError } from "@/core/domain/errors/main";
 import { VerifyLoginPayloadParams } from "thirdweb/auth";
 import { createVerificationEmailUC, sendMailUC } from "@/core/application/usecases/services/email";
 // import { createRoleUC } from "@/core/application/usecases/atomic/role";
-import { ExtendedJWTPayload } from "@/core/application/services/auth";
+import { ExtendedJWTPayload } from "@/core/application/interfaces/services/auth";
 import { constructEventWebhookUC, deleteCustomerUC, retrieveSessionUC, retrieveSubscriptionUC } from "@/core/application/usecases/services/pay";
 import { RoleType } from "@/core/domain/entities/Role";
 import { User } from "@/core/domain/entities/User";

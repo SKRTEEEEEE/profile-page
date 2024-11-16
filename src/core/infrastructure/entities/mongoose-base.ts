@@ -1,6 +1,6 @@
 import mongoose, { Model, Document, UpdateQuery, FilterQuery, QueryOptions, ProjectionType } from 'mongoose';
 import { MongoDbConnection } from '../connectors/mongo-db';
-import { MongooseBase, MongooseBaseRepository } from '@/core/application/repositories/mongoose';
+import { MongooseBase, MongooseBaseRepository } from '@/core/infrastructure/types/mongoose';
 
 
 

@@ -1,4 +1,4 @@
-import { PaymentRepository } from "@/core/application/services/pay";
+import { PaymentRepository } from "@/core/application/interfaces/services/pay";
 import { StripeConnector } from "../connectors/stripe-auth";
 import Stripe from "stripe";
 
