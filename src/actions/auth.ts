@@ -1,7 +1,7 @@
 "use server"
 
-import { loginUserUC } from "@/core/application/usecases/compound/user"
 import { generatePayloadUC, getCookiesUC, isLoggedInUC, logoutUC, protAdmActUC } from "@/core/application/usecases/services/auth"
+import { loginUserUC } from "@/core/interface-adapters/controllers/user"
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth"
 
 
