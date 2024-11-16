@@ -1,7 +1,7 @@
 import { RoleRepository } from "@/core/application/repositories/role";
 import { MongoDbConnection } from "../connectors/mongo-db";
-import { Role, RoleBase, RoleType } from "@/core/domain/entities/Role";
-import { RoleDocument, RoleModel } from "@/models/user-role-schema";
+import { Role, RoleBase, RoleDocument, RoleType } from "@/core/domain/entities/Role";
+import {  RoleModel } from "@/models/user-role-schema";
 import { FilterQuery, Query, QueryOptions, UpdateQuery } from "mongoose";
 
 class MongooseRoleRepository extends MongoDbConnection implements RoleRepository{

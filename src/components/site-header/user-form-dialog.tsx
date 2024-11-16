@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
-import { User } from "@/core/domain/entities/User";
+import { User, userSchema } from "@/core/domain/entities/User";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Label } from "../ui/label";
@@ -22,12 +22,11 @@ import DeleteUserButton from "./delete-user-button";
 import { VerificacionEmailAlert } from "../verify-email/verificacion-email-alert";
 import SolicitudRoleButton from "./solicitud-role";
 
-const formSchema = z.object({
-  nick: z.string().min(5, { message: "⚠️ Debe tener 5 caracteres como mínimo." }).max(25, { message: "⚠️ Debe tener 25 caracteres como máximo." }).optional(),
-  img: z.string().nullable().default(null),
-  email: z.string().email({ message: "El email debe ser válido" }).optional(), // Cambia a string y establece un valor por defecto
-
-})
+// const userSchema = z.object({
+//   nick: z.string().min(5, { message: "⚠️ Debe tener 5 caracteres como mínimo." }).max(25, { message: "⚠️ Debe tener 25 caracteres como máximo." }).optional(),
+//   img: z.string().nullable().default(null),
+//   email: z.string().email({ message: "El email debe ser válido" }).optional(), // Cambia a string y establece un valor por defecto
+// })
 // .refine(data => {
 //   // Si el email no está presente, la solicitud debe ser null
 //   if (!data.email) {
@@ -54,8 +53,8 @@ export default function UserFormDialog({ user, formButtonLabel, buttonLabelVaria
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUser, setIsUser] = useState<boolean>(false)
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof userSchema>>({
+    resolver: zodResolver(userSchema),
     defaultValues: {
       nick: "",
       img: null,
@@ -102,7 +101,7 @@ export default function UserFormDialog({ user, formButtonLabel, buttonLabelVaria
     }
   }
 
-  async function onSubmit(formData: z.infer<typeof formSchema>) {
+  async function onSubmit(formData: z.infer<typeof userSchema>) {
     if (!account || !user) {
       console.error("Please connect your wallet or log in")
       return
@@ -167,7 +166,7 @@ export default function UserFormDialog({ user, formButtonLabel, buttonLabelVaria
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="ejemplo@correo.com" disabled={isFormDisabled} />
+                    <Input {...field} value={field.value ?? ''}  placeholder="ejemplo@correo.com" disabled={isFormDisabled} />
                   </FormControl>
                   <FormDescription>Email para verificación.</FormDescription>
                   <FormMessage />

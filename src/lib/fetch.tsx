@@ -1,6 +1,7 @@
+import { RoleDocument } from "@/core/domain/entities/Role";
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { LenguajesModel } from "@/models/lenguajes-schema";
-import { RoleDocument, RoleModel } from "@/models/user-role-schema";
+import { RoleModel } from "@/models/user-role-schema";
 import { Web3ProjectModel } from "@/models/web3_project-schema";
 // import { AdminModel, UserModel } from "@/models/user-schema";
 

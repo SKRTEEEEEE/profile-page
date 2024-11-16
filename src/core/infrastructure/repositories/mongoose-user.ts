@@ -1,6 +1,6 @@
-import { User, UserBase } from '@/core/domain/entities/User';
+import { User, UserBase, UserDocument } from '@/core/domain/entities/User';
 import { UserRepository } from '@/core/application/repositories/user';
-import { UserDocument, UserModel } from '@/models/user-role-schema';
+import { UserModel } from '@/models/user-role-schema';
 import { MongoDbConnection } from '../connectors/mongo-db';
 import { DatabaseOperationError } from '@/core/domain/errors/main';
 import { FilterQuery, Query, QueryOptions, UpdateQuery } from 'mongoose';

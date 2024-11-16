@@ -8,53 +8,6 @@ import { getUtapi } from "../img";
 import { actualizarMd } from "./actualizarMd";
 
 
-
-
-const path = { md: "sys/techs-test.md", json: "sys/techs-test.json" };
-//Trabajaremos con la rama main(AL FINAL) para no tener que estar haciendo "git pulls al main"
-
-// async function updateMd() {
-//     await connectToDB();
-//     try {
-//         const proyectosDB: ILenguaje[] = await LenguajesModel.find();
-//         const filePath = path.md;
-//         const mdSha = await fetchFileSha(filePath);
-
-//         if (!mdSha) {
-//             throw new Error("El archivo .md no se encuentra en el repositorio");
-//         }
-
-//         let newMdContent = `# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
-// <p align="center">
-// <a href="#">
-//     <img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
-// </a>
-// </p>\n\n\n***\n<br>\n\n`;
-
-//         proyectosDB.sort((a, b) => a.preferencia - b.preferencia).forEach((proyecto) => {
-//             newMdContent += `\n\n>- ## ${createBadgeTech(proyecto)}`
-//             if (proyecto.frameworks) {
-//                 proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);
-//                 proyecto.frameworks.forEach((framework) => {
-//                     newMdContent += `\n\n> ### ${createBadgeTech(framework)}`;
-
-//                     if (framework.librerias) {
-//                         framework.librerias.sort((a, b) => a.preferencia - b.preferencia).forEach((libreria) => {
-//                             newMdContent += `\n> - #### ${createBadgeTech(libreria)}`;
-//                         });
-//                     }
-//                 })
-//             }
-//         });
-
-//         await updateFileContent(filePath, "Actualizar archivo .md", newMdContent, mdSha);
-
-//         console.log("Archivo .md actualizado correctamente");
-//     } catch (error) {
-//         console.error('Error actualizando el archivo .md:', error);
-//         throw new Error('Error actualizando el archivo .md');
-//     }
-// }
 export async function deleteImage (img: string) {
     const fileName = img.split('/').pop();
     if (fileName) {

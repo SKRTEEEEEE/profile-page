@@ -2,12 +2,13 @@
 
 
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, VerifyLoginPayloadResult } from "thirdweb/auth";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { ThirdwebAuthAdapter } from "../connectors/thirdweb-auth";
 import { AuthRepository, ExtendedJWTPayload, JWTContext } from "@/core/application/services/auth";
 import { VerificationOperationError } from "@/core/domain/errors/main";
 import { RoleType } from "@/core/domain/entities/Role";
+//Para hacer-lo bien estas funciones no se deberian usar aquí⚠️🧠👨‍🎓!
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthRepository {
   async logout(): Promise<void> {
@@ -27,24 +28,30 @@ class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthReposito
         return authRes.parsedJWT as ExtendedJWTPayload
     
   }
-
+  async generatePayload(params: GenerateLoginPayloadParams): Promise<LoginPayload>  {
+    return this.thirdwebAuth.generatePayload(params)
+  }
+  async verifyPayload(params: VerifyLoginPayloadParams): Promise<VerifyLoginPayloadResult> {
+    return this.thirdwebAuth.verifyPayload(params)
+  }
+  
   async getCookies(): Promise<ExtendedJWTPayload | false> {
     const jwt = cookies().get("jwt");
     if (!jwt?.value) return false;
     const result = await this.thirdwebAuth.verifyJWT({ jwt: jwt.value });
     return result.valid ? result.parsedJWT as ExtendedJWTPayload : false;
   }
-
+  
   async isLoggedIn(): Promise<boolean> {
     const cookies = await this.getCookies();
     return cookies !== false;
   }
-
+  
+  //Hay que revisar estas funciones!!⚠️⚠️
   async isAdmin(): Promise<boolean> {
     const cookies = await this.getCookies();
     return cookies !== false && cookies.ctx?.role === RoleType["ADMIN"];
   }
-  //Hay que revisar estas funciones!!⚠️⚠️
   async protAdmAct(): Promise<true> {
     const isAdmin = await this.isAdmin();
     if (!isAdmin) throw new VerificationOperationError("Must be admin")
@@ -68,12 +75,6 @@ class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthReposito
     const cookies = await this.getCookies();
     if (cookies === false || cookies.ctx?.isAdmin !== true) redirect(path);
     return cookies;
-  }
-  async generatePayload(params: GenerateLoginPayloadParams): Promise<LoginPayload>  {
-    return this.thirdwebAuth.generatePayload(params)
-  }
-  async verifyPayload(params: VerifyLoginPayloadParams): Promise<VerifyLoginPayloadResult> {
-    return this.thirdwebAuth.verifyPayload(params)
   }
 }
 export const authRepository = new ThirdwebAuthRepository()

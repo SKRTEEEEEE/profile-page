@@ -1,37 +1,24 @@
+import { z } from "zod"
 import { RoleType } from "./Role"
+import { DocumentBase, MongooseBase } from "./types"
 
-export class User implements UserBase {
-    constructor(
-        public id: string,
-        public address: string,
-        public roleId: string | null,
-        public role: RoleType | null,
-        public solicitud: RoleType | null,
-        public img: string | null,
-        public email: string | null,
-        public isVerified: boolean,
-        public createdAt: string,
-        public updatedAt: string,
-        public verifyToken?: string,
-        public verifyTokenExpire?: string,
-        public nick?: string,
-        public paymentId?:string,
-        
-    ){}
-}
-export type UserBase = {
+export const userSchema = z.object({
+    nick: z.string().min(5, { message: "⚠️ Debe tener 5 caracteres como mínimo." }).max(25, { message: "⚠️ Debe tener 25 caracteres como máximo." }).optional(),
+    img: z.string().nullable().default(null),
+    email: z.string().email({ message: "El email debe ser válido" }).nullable().optional(), // Cambia a string y establece un valor por defecto
+  })
+export type UserForm = z.infer<typeof userSchema>
+export interface UserDocument extends Document, UserBase, DocumentBase {}
+export type User = MongooseBase & UserBase
+export type UserBase = UserForm & {
     id: string,
     address: string,
     roleId: string | null,
     role: RoleType | null,
     solicitud: RoleType | null,
-    img: string | null,
-    email: string | null,
     isVerified: boolean,
     verifyToken?: string,
     verifyTokenExpire?: string,
     nick?: string,
     paymentId?: string,
-
 }
-export type TUser = InstanceType<typeof User>
