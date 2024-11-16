@@ -1,7 +1,7 @@
 "use server"
 
 
-import { listUsersByIdUC, listUsersUC, updateUserByIdUC } from "@/core/application/usecases/atomic/user";
+import { listUsersByIdUC, listUsersUC, updateUserByIdUC } from "@/core/application/usecases/entities/user";
 import { RoleType } from "@/core/domain/entities/Role";
 import { deleteUserAccountUC, giveRoleUC, resendVerificationEmailC, updateUserFormC, userInCookiesUC, verifyEmailC } from "@/core/interface-adapters/controllers/user";
 import { revalidatePath } from "next/cache";

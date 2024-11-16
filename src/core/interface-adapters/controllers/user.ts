@@ -1,5 +1,5 @@
 import { setJwtUC } from "@/core/application/usecases/services/auth";
-import { findUserAndUpdateUC, listUsersByIdUC, updateUserByIdUC } from "@/core/application/usecases/atomic/user";
+import { findUserAndUpdateUC, listUsersByIdUC, updateUserByIdUC } from "@/core/application/usecases/entities/user";
 // import { RoleType } from "@/core/domain/entities/Role";
 import { DatabaseFindError, DatabaseOperationError, SetEnvError, VerificationOperationError } from "@/core/domain/errors/main";
 import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
@@ -9,7 +9,7 @@ import { AuthRepository, ExtendedJWTPayload } from "@/core/application/interface
 import { constructEventWebhookUC, deleteCustomerUC, retrieveSessionUC, retrieveSubscriptionUC } from "@/core/application/usecases/services/pay";
 import { RoleType } from "@/core/domain/entities/Role";
 import { User } from "@/core/domain/entities/User";
-import { createRoleUC, findOneRoleAndDeleteUC, listRoleUC, updateRoleUC } from "@/core/application/usecases/atomic/role";
+import { createRoleUC, findOneRoleAndDeleteUC, listRoleUC, updateRoleUC } from "@/core/application/usecases/entities/role";
 import Stripe from "stripe";
 import { UserRepository } from "@/core/application/interfaces/entities/user";
 import { RoleRepository } from "@/core/application/interfaces/entities/role";
