@@ -7,14 +7,15 @@ import { MongooseBase, MongooseBaseRepository } from '@/core/application/reposit
 export abstract class MongooseRepository<
   TBase,
   TPrimary extends TBase & MongooseBase,
-  TDocument extends TBase & mongoose.Document
+  TDocument extends TBase & mongoose.Document,
+  TOptions extends Partial<Record<keyof TPrimary, (value: any) => any>> = {}
 > extends MongoDbConnection
 implements MongooseBaseRepository<TBase, TPrimary> {
-  constructor(private Model: Model<any, {}, {}, {}, any, any>) {
+  constructor(protected Model: Model<any, {}, {}, {}, any, any>, private parseOpt?: TOptions) {
     super();
   }
 
-  async create(data: Omit<TPrimary, 'id' | 'createdAt' | 'updatedAt'>): Promise<TPrimary> {
+  async create(data: Omit<TBase, 'id'>): Promise<TPrimary> {
     await this.connect();
     const newDocument: TDocument = new this.Model(data);
     const savedDocument = await newDocument.save();
@@ -36,8 +37,8 @@ implements MongooseBaseRepository<TBase, TPrimary> {
 
   async updateById(
     id: string,
-    updateData: UpdateQuery<TBase>,
-    options?: QueryOptions<any> & { includeResultMetadata: true; lean: true; }
+    updateData: UpdateQuery<TBase> | undefined,
+    options?: QueryOptions<any> | null | undefined & { includeResultMetadata: true; lean: true; }
   ): Promise<TPrimary | null> {
     await this.connect();
     const updatedDocument: TDocument|null = await this.Model.findByIdAndUpdate(id, updateData, (options ? options: {
@@ -46,11 +47,11 @@ implements MongooseBaseRepository<TBase, TPrimary> {
     return updatedDocument ? this.documentToPrimary(updatedDocument) : null;
   }
   // -> findOneAndUpdate
-  // async update(filter?: FilterQuery<TPrimary> | undefined, update?: UpdateQuery<TBase> | undefined, options?: QueryOptions<TBase> | null | undefined): Promise<TPrimary | null> {
-  //   await this.connect()
-  //   const updatedDocument: TDocument|null = await this.Model.findOneAndUpdate(filter, update, options)
-  //   return updatedDocument ? this.documentToPrimary(updatedDocument): null
-  // }
+    async update(filter?: FilterQuery<TPrimary> | undefined, update?: UpdateQuery<TBase> | undefined, options?: QueryOptions<TBase> | null | undefined): Promise<TPrimary | null> {
+        await this.connect()
+        const updatedDocument: TDocument|null = await this.Model.findOneAndUpdate(filter, update, options)
+        return updatedDocument ? this.documentToPrimary(updatedDocument): null
+    }
 
   async delete(id: string): Promise<boolean> {
     await this.connect();
@@ -58,13 +59,33 @@ implements MongooseBaseRepository<TBase, TPrimary> {
     return !!result;
   }
 
+  // protected documentToPrimary(document: TDocument,): TPrimary {
+  //   const { _id, createdAt, updatedAt, ...rest } = document.toObject();
+  //   return {
+  //     id: _id.toString(),
+  //     createdAt: createdAt.toISOString(),
+  //     updatedAt: updatedAt.toISOString(),
+  //     ...rest,
+  //   } as TPrimary;
+  // }
   protected documentToPrimary(document: TDocument): TPrimary {
     const { _id, createdAt, updatedAt, ...rest } = document.toObject();
-    return {
+  
+    const result: Partial<TPrimary> = {
       id: _id.toString(),
       createdAt: createdAt.toISOString(),
       updatedAt: updatedAt.toISOString(),
       ...rest,
-    } as TPrimary;
+    };
+  
+    // Aplicar las transformaciones especificadas en las opciones
+    if (this.parseOpt) {
+      Object.entries(this.parseOpt).forEach(([key, transformFn]) => {
+        if (key in result) {
+          result[key as keyof TPrimary] = transformFn(result[key as keyof TPrimary]);
+        }
+      });
+    }
+    return result as TPrimary;
   }
 }

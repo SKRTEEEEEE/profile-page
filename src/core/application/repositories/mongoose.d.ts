@@ -1,14 +1,14 @@
-import mongoose, { Document } from "mongoose"
+import mongoose, { Document, QueryOptions, UpdateQuery } from "mongoose"
 
 export type MongooseBaseRepository<
 TBase,
 TPrimary extends TBase & MongooseBase,
 > = {
-  create(data: Omit<TPrimary, 'id' | 'createdAt' | 'updatedAt'>): Promise<TPrimary>
+  create(data: Omit<TBase, 'id' >): Promise<TPrimary>
   readById(id: string): Promise<TPrimary | null>
   updateById(id: string,
-    updateData: UpdateQuery<TBase>,
-    options?: QueryOptions<any> & { includeResultMetadata: true; lean: true; }
+    updateData?: UpdateQuery<TBase> | undefined,
+    options?: QueryOptions<any> | null | undefined & { includeResultMetadata: true; lean: true; }
   ): Promise<TPrimary | null>
   delete(id:string):Promise<boolean>
 }

@@ -43,11 +43,11 @@ export const listRoleUC = async (id:string) =>{
 }
 class UpdateRole{
   constructor(private roleRepository:RoleRepository){}
-  async execute(id:string, role?: UpdateQuery<any> | undefined){
+  async execute(id:string, role?: Partial<RoleBase> | undefined){
     return await this.roleRepository.updateById(id, role)
   }
 }
-export const updateRoleUC = async(id:string, role?: UpdateQuery<any> | undefined) => {
+export const updateRoleUC = async(id:string, role?: UpdateQuery<RoleBase> | undefined) => {
   const ur = new UpdateRole(roleRepository)
   return ur.execute(id, role)
 }

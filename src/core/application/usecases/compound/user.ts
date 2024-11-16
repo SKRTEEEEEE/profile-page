@@ -52,7 +52,7 @@ class LoginUser extends UseUserAuthService {
     if (!verifiedPayload.valid) throw new VerificationOperationError("Payload not valid")
     let user = await this.userRepository.findByAddress(verifiedPayload.payload.address);
     if (!user) {
-      user = await this.userRepository.create({ address: verifiedPayload.payload.address, roleId: null, role: null, solicitud: null, img: null, email: null })
+      user = await this.userRepository.create({ address: verifiedPayload.payload.address, roleId: null, role: null, solicitud: null, img: null, email: null , isVerified: false})
     }
 
     const jwt = await this.authRepository.setJwt(
@@ -105,7 +105,7 @@ class DeleteUserAccount extends UseUserRoleAuthService {
     if (v.payload.address !== address) throw new VerificationOperationError("User only can delete her address")
 
     //deleteUser(id)
-    const user = await this.userRepository.findById(id)
+    const user = await this.userRepository.readById(id)
     if (!user) throw new DatabaseFindError("User not found")
     if (user.roleId !== null) {
       await this.roleRepository.delete(user.roleId)
@@ -135,9 +135,9 @@ class GiveRole extends UseUserRoleAuthService {
     if (!signUser) throw new DatabaseFindError("signer user")
     if (signUser.role!=="ADMIN") throw new VerificationOperationError("Only admins")
     const createdRole = await createRoleUC({address: payload.payload.address,permissions: solicitud})
-    const user = await this.userRepository.findById(id)
+    const user = await this.userRepository.readById(id)
     if(!user)throw new DatabaseFindError("user")
-    await this.userRepository.update({
+    await this.userRepository.updateById(id,{
       id, address: user.address, roleId: createdRole.id,
       role: solicitud, solicitud: null, img: user.img, email: user.email, isVerified: user.isVerified
     })
