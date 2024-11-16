@@ -1,19 +1,17 @@
-
 "use server"
 
-
-
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
-import { IFramework, LenguajesModel } from "@/models/lenguajes-schema";
+import { LenguajesModel, IFramework } from "@/models/lenguajes-schema";
 import { CommonTechData, FrameworkData, LibreriaData } from "@/lib/types";
 
+type PublicarData = CommonTechData & Partial<FrameworkData> & Partial<LibreriaData>;
 
-// CREATE (se usa la funcion revalidateLenguajes en el "client")
-// Actualizar base de datos sin operaciones de archivo
-export async function publicarLeng({ name, afinidad, badge, preferencia, color, experiencia, img }: CommonTechData) {
+export async function publicarTech(data: PublicarData) {
     await connectToDB();
-    console.log("img: ",img)
-    const nuevoProyecto = new LenguajesModel({
+
+    const { name, afinidad, badge, preferencia, color, experiencia, img, lenguajeTo, frameworkTo } = data;
+
+    const nuevoItem = {
         name,
         afinidad,
         badge,
@@ -21,76 +19,40 @@ export async function publicarLeng({ name, afinidad, badge, preferencia, color, 
         color,
         experiencia,
         img
-    });
-    console.log("nuevo proyecto: ",nuevoProyecto)
-    try {
-        const proyectoGuardado = await nuevoProyecto.save();
-        console.log("Proyecto guardado correctamente:", proyectoGuardado);
-        return { success: true, message: `Proyecto guardado correctamente en la BDD. Proyecto: ${nuevoProyecto.name}` };
-    } catch (error) {
-        console.error(error);
-        return { success: false, message: `Error al guardar el proyecto` };
-    }
-}
-
-export async function publicarFwALeng({ name, afinidad, badge, preferencia, color, experiencia,img, lenguajeTo }: FrameworkData) {
-    await connectToDB();
-    const nuevoFramework = {
-        name,
-        afinidad,
-        badge,
-        preferencia,
-        color,
-        experiencia, 
-        img
     };
-    
-    try {
-        const lenguaje = await LenguajesModel.findOne({ name: lenguajeTo });
-        if (lenguaje) {
-            lenguaje.frameworks.push(nuevoFramework);
-            await lenguaje.save();
-            console.log("Framework agregado correctamente:", nuevoFramework);
-            return { success: true, message: `Framework guardado correctamente en la BDD. Proyecto: ${nuevoFramework.name}` };
-        } else {
-            return { success: false, message: `Lenguaje no encontrado ${lenguajeTo}` };
-        }
-    } catch (error) {
-        console.error('Error al agregar el framework:', error);
-        return { success: false, message: `Error al guardar el proyecto` };
-    }
-}
 
-export async function publicarLibAFw({ name, afinidad, badge, preferencia, color, experiencia,img, lenguajeTo, frameworkTo }: LibreriaData) {
-    await connectToDB();
     try {
-        const nuevaLibreria = {
-            name,
-            afinidad,
-            badge,
-            preferencia,
-            color,
-            experiencia,
-            img
-        };
+        if (!lenguajeTo) {
+            // Caso 1: Publicar un nuevo lenguaje
+            const nuevoLenguaje = new LenguajesModel(nuevoItem);
+            await nuevoLenguaje.save();
+            return { success: true, message: `Lenguaje ${name} guardado correctamente en la BDD.` };
+        }
 
         const lenguaje = await LenguajesModel.findOne({ name: lenguajeTo });
         if (!lenguaje) {
             return { success: false, message: `Lenguaje no encontrado: ${lenguajeTo}` };
         }
 
-        const framework = lenguaje.frameworks.find((framework: IFramework) => framework.name === frameworkTo);
-        if (!framework) {
-            return { success: false, message: `Framework no encontrado en la base de datos: ${frameworkTo}` };
+        if (!frameworkTo) {
+            // Caso 2: Agregar un framework a un lenguaje
+            lenguaje.frameworks.push(nuevoItem as IFramework);
+            await lenguaje.save();
+            return { success: true, message: `Framework ${name} agregado correctamente al lenguaje ${lenguajeTo}.` };
         }
 
-        framework.librerias.push(nuevaLibreria);
-        await lenguaje.save();
-        console.log("Libreria agregada correctamente:", nuevaLibreria);
+        // Caso 3: Agregar una librería a un framework
+        const framework = lenguaje.frameworks.find((fw:any) => fw.name === frameworkTo);
+        if (!framework) {
+            return { success: false, message: `Framework no encontrado: ${frameworkTo}` };
+        }
 
-        return { success: true, message: `Librería agregada correctamente: ${nuevaLibreria.name}` };
+        framework.librerias.push(nuevoItem);
+        await lenguaje.save();
+        return { success: true, message: `Librería ${name} agregada correctamente al framework ${frameworkTo} del lenguaje ${lenguajeTo}.` };
+
     } catch (error) {
-        console.error("Error al agregar la librería: ", error);
-        return { success: false, message: `Error al agregar la librería` };
+        console.error("Error al publicar la tecnología:", error);
+        return { success: false, message: "Error al publicar la tecnología" };
     }
 }

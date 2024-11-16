@@ -18,7 +18,7 @@ import { useActiveAccount } from "thirdweb/react"
 import { updateTech } from "@/actions/techs/update"
 import { ILenguaje } from "@/models/lenguajes-schema"
 import { actualizarMd } from "@/actions/techs/actualizarMd"
-import { publicarFwALeng, publicarLeng, publicarLibAFw } from "@/actions/techs/create"
+import { publicarTech } from "@/actions/techs/create"
 import { actualizarJson } from "@/actions/techs/actualizarJson"
 import {  rvrd } from "@/actions/revrd"
 import { FaSpinner } from "react-icons/fa"
@@ -191,13 +191,13 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
             await actualizarMd({name: data.name, badge:data.badge, colorhash: data.color});
             switch (selectedCat) {
                 case "lenguaje":
-                    response = await publicarLeng(transformedData as ILenguaje);
+                    response = await publicarTech(transformedData as ILenguaje);
                     break;
                 case "framework":
-                    response = await publicarFwALeng(transformedData as FrameworkData);
+                    response = await publicarTech(transformedData as FrameworkData);
                     break;
                 case "libreria":
-                    response = await publicarLibAFw(transformedData as LibreriaData);
+                    response = await publicarTech(transformedData as LibreriaData);
                     break;
                 default:
                     response = {success:false, message: "Categoría no reconocida"}

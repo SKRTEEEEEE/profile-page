@@ -91,7 +91,6 @@ export async function deleteTech(name: string) {
 
             // Eliminar la librería
             lenguaje.frameworks[frameworkIndex].librerias.splice(libreriaIndex, 1);
-            console.log("libreria: ",libreria)
             proyectoActualizado = await lenguaje.save();
             if (proyectoActualizado) {
                 const res = await doDelete("Librería", name, libreria.img);
@@ -118,7 +117,6 @@ export async function deleteTech(name: string) {
 
         // Buscar en lenguajes
         const lenguajeEliminado = await LenguajesModel.findOneAndDelete({ name: name });
-        console.log("lenguaje eliminado: ", lenguajeEliminado)
         if (lenguajeEliminado) {
             const res = await doDelete("Lenguaje", name, lenguajeEliminado.img);
             return res;
