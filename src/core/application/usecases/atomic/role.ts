@@ -33,7 +33,7 @@ export const findOneRoleAndDeleteUC = async (filter?: FilterQuery<any> | null | 
 class ListRole {
 constructor(private roleRepository: RoleRepository) {}
 async execute(id: string): Promise<Role|null> {
-    const findedRole = await this.roleRepository.findById(id)
+    const findedRole = await this.roleRepository.readById(id)
     return findedRole;
 }
 }
@@ -44,7 +44,7 @@ export const listRoleUC = async (id:string) =>{
 class UpdateRole{
   constructor(private roleRepository:RoleRepository){}
   async execute(id:string, role?: UpdateQuery<any> | undefined){
-    return await this.roleRepository.update(id, role)
+    return await this.roleRepository.updateById(id, role)
   }
 }
 export const updateRoleUC = async(id:string, role?: UpdateQuery<any> | undefined) => {

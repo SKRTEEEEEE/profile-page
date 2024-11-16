@@ -1,5 +1,5 @@
 
-import { RoleDocument } from "@/core/domain/entities/Role";
+import { RoleBase, RoleDocument } from "@/core/domain/entities/Role";
 import { UserDocument } from "@/core/domain/entities/User";
 
 import mongoose, { Schema } from "mongoose";
@@ -8,7 +8,7 @@ export const roleEnum = ['ADMIN', 'STUDENT', 'STUDENT_P', 'PROF_TEST', 'PROF', "
 
 
 
-const userSchema = new Schema({
+const userSchema = new Schema<UserDocument>({
     address: { type: String, required: true },
     roleId: {default: null, type: mongoose.Schema.Types.ObjectId, ref: "Role" },
     role: { default: null, type: String, enum: roleEnum },
@@ -30,7 +30,7 @@ const userSchema = new Schema({
 }, {
     timestamps: true 
 })
-const roleSchema = new Schema({
+const roleSchema = new Schema<RoleDocument>({
     address: { type: String, required: true },
     permissions: { type: String, required: true, enum: roleEnum, },
     stripeCustomerId: { type: String },

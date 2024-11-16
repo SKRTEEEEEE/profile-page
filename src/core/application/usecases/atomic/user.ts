@@ -49,7 +49,7 @@ export const findUserAndUpdateUC = async (filter?: FilterQuery<any> | undefined,
     return await userRepository.findAndUpdate(filter, update, options)
   }
 
-export const updateUserUC = async (user: UserBase): Promise<User>=> {
+export const updateUserUC = async (user: User): Promise<User>=> {
     return await userRepository.update(user)
 }
 

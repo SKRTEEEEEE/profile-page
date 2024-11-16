@@ -7,7 +7,7 @@ export type UserRepository = {
   create(user: Omit<UserBase, 'id'|"isVerified">): Promise<User>;
   findById(id: string): Promise<User | null>;
   findByAddress(address:string): Promise<User|null>;
-  update(user: UserBase): Promise<User>;
+  update(user: Partial<User>): Promise<User>;
   delete(id: string): Promise<void>;
   findAll(): Promise<User[]|null>;
   deleteRoleId(id:string): Promise<void>;

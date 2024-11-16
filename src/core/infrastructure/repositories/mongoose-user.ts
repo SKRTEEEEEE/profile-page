@@ -30,14 +30,14 @@ class MongooseUserRepository extends MongoDbConnection implements UserRepository
         const user = await UserModel.findOne({address})
         return user ? this.documentToUser(user) : null        
     }
-    async update(user: UserBase): Promise<User> {
+    async update(user: User): Promise<User> {
         await this.connect(); // Asegúrate de que la conexión esté establecida
         const updateFields: any = { ...user };
         const unsetFields: any = {};
 
         // Recorre los campos del objeto y si están indefinidos, agrega un campo para eliminar
         for (const key in user) {
-            if (user[key as keyof UserBase] === undefined) {
+            if (user[key as keyof User] === undefined) {
                 unsetFields[key] = "";
                 delete updateFields[key]; // Elimina el campo de updateFields para evitar conflictos con $set
             }
