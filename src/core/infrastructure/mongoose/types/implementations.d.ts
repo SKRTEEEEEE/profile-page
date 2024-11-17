@@ -1,24 +1,27 @@
-export type MongooseBaseI<
+import { MongooseBase } from ".";
+
+export type MongooseCRUI<
   TBase,
-  TPrimary extends TBase & MongooseBase,
 > = {
   create(
     data: Omit<TBase, 'id'>
   )
-    : Promise<TPrimary>
+    : Promise<TBase & MongooseBase>
   readById(
     id: string
   )
-    : Promise<TPrimary | null>
-  updateById(id: string,
-    updateData?: UpdateQuery<TBase> | undefined,
-    options?: QueryOptions<any> | null | undefined & { includeResultMetadata: true; lean: true; }
+    : Promise<TBase & MongooseBase | null>
+  updateById(
+    id: string,
+    updateData?: Partial<TBase> | undefined,
+    options?: any | null | undefined
   )
-    : Promise<TPrimary | null>
+    : Promise<TBase & MongooseBase | null>
 }
 export type MongooseDeleteI = {
   delete(
-    filter?: FilterQuery<any> | null | undefined, options?: QueryOptions<any> | null | undefined
+    filter?: Partial<TBase & MongooseBase> | null | undefined, 
+    options?: any | null | undefined
   ): Query<any, any, {}, any, "findOneAndDelete", {}>
 }
 export type MongooseDeleteByIdI = {
@@ -27,19 +30,19 @@ export type MongooseDeleteByIdI = {
   )
     : Promise<boolean>
 }
-export type MongooseReadI<TPrimary> = {
+export type MongooseReadI<TBase> = {
   read(
-    filter?: FilterQuery<TPrimary>,
+    filter?: FilterQuery<TBase & MongooseBase>,
     projection?: ProjectionType<any> | null | undefined,
     options?: QueryOptions<any> | null | undefined
   )
-    : Promise<TPrimary[] | null>
+    : Promise<(TBase & MongooseBase)[] | null>
 }
-export type MongooseUpdateI<TBase, TPrimary> = {
+export type MongooseUpdateI<TBase> = {
   update(
-    filter?: FilterQuery<TPrimary> | undefined,
+    filter?: FilterQuery<TBase & MongooseBase> | undefined,
     update?: UpdateQuery<TBase> | undefined,
     options?: QueryOptions<TBase> | null | undefined
   )
-    : Query<TPrimary[], any, {}, any, "find", {}>
+    : Query<(TBase & MongooseBase)[], any, {}, any, "find", {}>
 }

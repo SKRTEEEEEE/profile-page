@@ -15,7 +15,7 @@ import { MongooseLengPattern } from "../patterns/leng.pattern";
 //     }
 //   }
   
-  export class MongooseLenguajesRepository extends MongooseLengPattern<TechBase, Leng, LengDocument> implements LengRepository<TechBase, Leng> {
+  export class MongooseLenguajesRepository extends MongooseLengPattern<Leng> implements LengRepository<TechBase> {
     constructor() {
       super(LenguajesModel);
     }

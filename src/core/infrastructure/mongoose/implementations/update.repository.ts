@@ -6,13 +6,11 @@ import { MongooseUpdateI } from "../types/implementations"
 
 export class MongooseUpdateRepository<
 TBase,
-TPrimary extends TBase & MongooseBase,
-TDocument extends TBase & MongooseDocument,
-> extends MongooseBaseRepository<TBase, TPrimary, TDocument> implements MongooseUpdateI<TBase, TPrimary>{
+> extends MongooseBaseRepository<TBase> implements MongooseUpdateI<TBase>{
   // -> findOneAndUpdate
-  async update(filter?: FilterQuery<TPrimary> | undefined, update?: UpdateQuery<TBase> | undefined, options?: QueryOptions<TBase> | null | undefined): Promise<TPrimary | null> {
+  async update(filter?: FilterQuery<TBase & MongooseBase> | undefined, update?: UpdateQuery<TBase> | undefined, options?: QueryOptions<TBase> | null | undefined): Promise<TBase & MongooseBase | null> {
     await this.connect()
-    const updatedDocument: TDocument|null = await this.Model.findOneAndUpdate(filter, update, options)
-    return updatedDocument ? this.documentToPrimary(updatedDocument): null
+    const updatedDocument: TBase & MongooseDocument|null = await this.Model.findOneAndUpdate(filter, update, options)
+    return updatedDocument ? this.documentToPrimary(updatedDocument) as TBase & MongooseBase: null
 }
 }

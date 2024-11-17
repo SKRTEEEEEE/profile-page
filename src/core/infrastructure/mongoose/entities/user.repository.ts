@@ -8,7 +8,7 @@ interface UserTransformOptions {
     roleId?: (value: any) => string | null;
   }
 
-export class MongooseUserRepository extends MongooseUserPattern<UserBase, User, UserDocument, UserTransformOptions> implements UserRepository<UserBase, User, UserDocument>{
+export class MongooseUserRepository extends MongooseUserPattern<UserBase, UserTransformOptions> implements UserRepository<UserBase>{
     constructor(){
         super(UserModel, {
             roleId: (value) => value?.toString() || null,

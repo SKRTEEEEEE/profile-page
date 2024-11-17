@@ -8,15 +8,13 @@ import { MongooseReadI } from "../types/implementations";
 
 export class MongooseReadRepository<
 TBase,
-TPrimary extends TBase & MongooseBase,
-TDocument extends TBase & MongooseDocument,
-> extends MongooseBaseRepository<TBase, TPrimary, TDocument> implements MongooseReadI<TPrimary>{
+> extends MongooseBaseRepository<TBase> implements MongooseReadI<TBase>{
     // -> Read All
     async read(
-      filter?: FilterQuery<TPrimary>,
+      filter?: FilterQuery<TBase & MongooseBase>,
       projection?: ProjectionType<any> | null,
       options?: QueryOptions<any> | null
-    ): Query<TPrimary[], any, {}, any, "find", {}> {
+    ): Query<(TBase & MongooseBase)[], any, {}, any, "find", {}> {
       try {
         await this.connect();
         const docs = await this.Model.find(filter || {}, projection, options) // Usa un objeto vacío si filter es undefined
