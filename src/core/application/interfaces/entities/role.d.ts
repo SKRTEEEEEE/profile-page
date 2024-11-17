@@ -1,7 +1,12 @@
 // src/core/domain/repositories/RoleRepository.ts
 
-import { Role, RoleBase, RoleType } from "@/core/domain/entities/Role";
-import { MongooseBaseRepository } from "../../../infrastructure/types/mongoose";
+import { Role, RoleBase, RoleDocument, RoleType } from "@/core/domain/entities/Role";
+import { MongooseBaseI, MongooseDeleteI, MongooseReadI } from "../../../infrastructure/types/mongoose";
 
 
-export type RoleRepository = MongooseBaseRepository<RoleBase,Role> & {}
+export type RoleRepository<
+TBase,
+TPrimary extends TBase & MongooseBase,
+TDocument extends TBase & MongooseDocument,
+> = MongooseBaseI<TBase,TPrimary> & MongooseDeleteI<TDocument> & MongooseReadI<TPrimary> 
+// export type RoleRepository = MongooseBaseI<RoleBase,Role>&MongooseDeleteI<RoleDocument>&MongooseReadI<Role>

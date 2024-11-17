@@ -4,6 +4,7 @@ import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { LenguajesModel, IFramework } from "@/models/tech-schema";
 import {  FrameworkData, LibreriaData } from "@/lib/types";
 import { TechBase } from "@/core/domain/entities/Tech";
+import { getLengModelUC } from "@/core/application/usecases/entities/tech";
 
 type PublicarData = TechBase & Partial<FrameworkData> & Partial<LibreriaData>;
 
@@ -25,7 +26,9 @@ export async function publicarTech(data: PublicarData) {
     try {
         if (!lenguajeTo) {
             // Caso 1: Publicar un nuevo lenguaje
-            const nuevoLenguaje = new LenguajesModel(nuevoItem);
+            // NOS HEMOS QUEDADO AQUI ❕⬇️❗⬇️🧠⚠️❕⬇️❗⬇️❗⬇️✅
+            const LengModel = getLengModelUC()
+            const nuevoLenguaje = new LengModel(nuevoItem);
             await nuevoLenguaje.save();
             return { success: true, message: `Lenguaje ${name} guardado correctamente en la BDD.` };
         }
