@@ -15,10 +15,10 @@ export const createRoleUC = async(newRole: Omit<RoleBase, "id">) => {
     return await roleRepository.create(newRole)
   }
 export const deleteRoleByIdUC = async (id:string) => {
-  return await roleRepository.delete(id)
+  return await roleRepository.deleteById(id)
 }
 export const findOneRoleAndDeleteUC = async (filter?: FilterQuery<any> | null | undefined, options?: QueryOptions<any> | null | undefined):Promise<Role|undefined> => {
-  return await roleRepository.findDelete(filter,options)
+  return await roleRepository.delete(filter,options)
 }
 // 🧠⚠️➡️ Podemos crear los "use-cases" agrupados, como hemos hecho en services. Esto nos ahorrara tener que inicializar siempre en mismo constructor.
 // Se comentan ya que de momento no se utilizan

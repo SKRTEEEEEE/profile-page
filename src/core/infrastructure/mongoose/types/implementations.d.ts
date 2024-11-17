@@ -17,6 +17,11 @@ export type MongooseBaseI<
     : Promise<TPrimary | null>
 }
 export type MongooseDeleteI = {
+  delete(
+    filter?: FilterQuery<any> | null | undefined, options?: QueryOptions<any> | null | undefined
+  ): Query<any, any, {}, any, "findOneAndDelete", {}>
+}
+export type MongooseDeleteByIdI = {
   deleteById(
     id: string
   )

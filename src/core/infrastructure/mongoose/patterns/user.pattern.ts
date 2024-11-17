@@ -26,7 +26,7 @@ TOptions extends Partial<Record<keyof TPrimary, (value: any) => any>> = {}
     this.updateRepo = new MongooseUpdateRepository(this.Model)
   }
   // Implementar el método delete
-  async delete(id: string): Promise<boolean> {
+  async deleteById(id: string): Promise<boolean> {
     return await this.deleteRepo.deleteById(id);
   }
   async read(

@@ -24,9 +24,4 @@ export class MongooseUserRepository extends MongooseUserPattern<UserBase, User, 
         const user = await this.Model.findOne({address})
         return user ? this.documentToPrimary(user) : null        
         }
-        async findAll(): Promise<User[] | null> {
-        await this.connect()
-        const users = await this.Model.find()
-        return users.length > 0 ? users.map(user=>this.documentToPrimary(user)):null
-        }
 }
