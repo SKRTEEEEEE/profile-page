@@ -5,6 +5,7 @@ import { MongooseReadRepository } from "../implementations/read.repository";
 import { ProjectionType } from "mongoose";
 import { MongooseDeleteByIdRepository, MongooseDeleteRepository } from "../implementations/delete.repository";
 import { MongooseUpdateRepository } from "../implementations/update.repository";
+import { RoleRepository } from "@/core/application/interfaces/entities/role";
 
 
 export abstract class MongooseRolePattern<
@@ -12,7 +13,7 @@ TBase,
 TPrimary extends TBase & MongooseBase,
 TDocument extends TBase & MongooseDocument,
 TOptions extends Partial<Record<keyof TPrimary, (value: any) => any>> = {}
-> extends MongooseBaseRepository<TBase, TPrimary, TDocument, TOptions>{
+> extends MongooseBaseRepository<TBase, TPrimary, TDocument, TOptions> implements RoleRepository<TBase, TPrimary, TDocument>{
   private readRepo: MongooseReadRepository<TBase, TPrimary, TDocument>;
   private deleteByIdRepo: MongooseDeleteByIdRepository<TBase, TPrimary, TDocument>;
   private deleteRepo: MongooseDeleteRepository<TBase, TPrimary, TDocument>
@@ -27,8 +28,8 @@ TOptions extends Partial<Record<keyof TPrimary, (value: any) => any>> = {}
     this.updateRepo = new MongooseUpdateRepository(this.Model)
   }
   // Implementar el método delete
-  async deleteById(id: string): Promise<void> {
-    this.deleteByIdRepo.deleteById(id);
+  async deleteById(id: string): Promise<boolean> {
+    return this.deleteByIdRepo.deleteById(id);
     
   }
   async read(

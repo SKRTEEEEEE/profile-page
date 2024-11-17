@@ -1,5 +1,5 @@
 import { Fw, Leng, Lib } from "@/core/domain/entities/Tech";
-import { MongooseBaseI, MongooseReadI } from "@/core/infrastructure/types/mongoose";
+import { MongooseBaseI, MongooseReadI } from "@/core/infrastructure/mongoose/types/implementations";
 import { Model } from "mongoose";
 
 

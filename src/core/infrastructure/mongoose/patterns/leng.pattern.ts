@@ -23,7 +23,6 @@ TOptions extends Partial<Record<keyof TPrimary, (value: any) => any>> = {}
     projection?: ProjectionType<any> | null,
     options?: QueryOptions<any> | null
   ): Promise<TPrimary[] | null> {
-    // Asumiendo que tienes un método read en MongooseBaseRepository o necesitas implementarlo
     return this.readRepo.read(filter, projection, options);
   }
 }
