@@ -1,10 +1,10 @@
-import { FilterQuery, Model, Query, QueryOptions } from "mongoose";
+import { FilterQuery, Model, Query, QueryOptions, UpdateQuery } from "mongoose";
 import { MongooseBase, MongooseDocument } from "../types";
 import { MongooseBaseRepository } from "../implementations/base.repository";
 import { MongooseReadRepository } from "../implementations/read.repository";
 import { ProjectionType } from "mongoose";
 import { MongooseDeleteByIdRepository, MongooseDeleteRepository } from "../implementations/delete.repository";
-import { RoleRepository } from "@/core/application/interfaces/entities/role";
+import { MongooseUpdateRepository } from "../implementations/update.repository";
 
 
 export abstract class MongooseRolePattern<
@@ -12,10 +12,11 @@ TBase,
 TPrimary extends TBase & MongooseBase,
 TDocument extends TBase & MongooseDocument,
 TOptions extends Partial<Record<keyof TPrimary, (value: any) => any>> = {}
-> extends MongooseBaseRepository<TBase, TPrimary, TDocument, TOptions> implements RoleRepository<TBase, TPrimary, TDocument>{
+> extends MongooseBaseRepository<TBase, TPrimary, TDocument, TOptions>{
   private readRepo: MongooseReadRepository<TBase, TPrimary, TDocument>;
   private deleteByIdRepo: MongooseDeleteByIdRepository<TBase, TPrimary, TDocument>;
   private deleteRepo: MongooseDeleteRepository<TBase, TPrimary, TDocument>
+  private updateRepo: MongooseUpdateRepository<TBase, TPrimary, TDocument>
 
   constructor(Model: Model<any, {}, {}, {}, any, any>) {
     super(Model);
@@ -23,10 +24,12 @@ TOptions extends Partial<Record<keyof TPrimary, (value: any) => any>> = {}
     this.readRepo = new MongooseReadRepository(this.Model);
     this.deleteByIdRepo = new MongooseDeleteByIdRepository(this.Model);
     this.deleteRepo = new MongooseDeleteRepository(this.Model)
+    this.updateRepo = new MongooseUpdateRepository(this.Model)
   }
   // Implementar el método delete
-  async deleteById(id: string): Promise<boolean> {
-    return this.deleteByIdRepo.deleteById(id);
+  async deleteById(id: string): Promise<void> {
+    this.deleteByIdRepo.deleteById(id);
+    
   }
   async read(
     filter?: FilterQuery<TPrimary>,
@@ -38,5 +41,8 @@ TOptions extends Partial<Record<keyof TPrimary, (value: any) => any>> = {}
   }
   async delete(filter?: FilterQuery<any> | null | undefined, options?: QueryOptions<any> | null | undefined): Query<any, any, {}, any, "findOneAndDelete", {}>{
     return this.deleteRepo.delete(filter, options)
+  }
+  async update(filter?: FilterQuery<TPrimary> | undefined, update?: UpdateQuery<TBase> | undefined, options?: QueryOptions<TBase> | null | undefined): Promise<TPrimary | null>{
+    return this.updateRepo.update(filter, update, options)
   }
 }

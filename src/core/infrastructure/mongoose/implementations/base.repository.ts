@@ -4,6 +4,10 @@ import { UpdateQuery } from "mongoose";
 import { MongooseBase, MongooseDocument } from "../types";
 import { MongooseBaseI } from "../types/implementations";
 
+
+// Esta parte ya esta bien que utilize los tipos de mongoose?
+
+
 export abstract class MongooseBaseRepository<
   TBase,
   TPrimary extends TBase & MongooseBase,
