@@ -16,8 +16,8 @@ export type MongooseBaseI<
   )
     : Promise<TPrimary | null>
 }
-export type MongooseDeleteI<TDocument> = {
-  delete(
+export type MongooseDeleteI = {
+  deleteById(
     id: string
   )
     : Promise<boolean>

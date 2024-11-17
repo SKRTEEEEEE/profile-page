@@ -3,7 +3,7 @@ import { MongooseBase, MongooseDocument } from "../types";
 import { MongooseBaseRepository } from "../implementations/base.repository";
 import { MongooseReadRepository } from "../implementations/read.repository";
 import { ProjectionType } from "mongoose";
-import { MongooseDeleteRepository } from "../implementations/delete.repository";
+import { MongooseDeleteByIdRepository } from "../implementations/delete.repository";
 import { RoleRepository } from "@/core/application/interfaces/entities/role";
 
 
@@ -14,17 +14,17 @@ TDocument extends TBase & MongooseDocument,
 TOptions extends Partial<Record<keyof TPrimary, (value: any) => any>> = {}
 > extends MongooseBaseRepository<TBase, TPrimary, TDocument, TOptions> implements RoleRepository<TBase, TPrimary, TDocument>{
   private readRepo: MongooseReadRepository<TBase, TPrimary, TDocument>;
-  private deleteRepo: MongooseDeleteRepository<TBase, TPrimary, TDocument>;
+  private deleteRepo: MongooseDeleteByIdRepository<TBase, TPrimary, TDocument>;
 
   constructor(Model: Model<any, {}, {}, {}, any, any>) {
     super(Model);
 
     this.readRepo = new MongooseReadRepository(this.Model);
-    this.deleteRepo = new MongooseDeleteRepository(this.Model);
+    this.deleteRepo = new MongooseDeleteByIdRepository(this.Model);
   }
   // Implementar el método delete
   async delete(id: string): Promise<boolean> {
-    return this.deleteRepo.delete(id);
+    return this.deleteRepo.deleteById(id);
   }
   async read(
     filter?: FilterQuery<TPrimary>,
