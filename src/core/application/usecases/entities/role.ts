@@ -4,7 +4,7 @@
 import { Role, RoleBase, RoleDocument } from "@/core/domain/entities/Role";
 import { RoleRepository } from "../../interfaces/entities/role";
 import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
-import { MongooseRoleRepository } from "@/core/infrastructure/entities/mongoose-role";
+import { MongooseRoleRepository } from "@/core/infrastructure/mongoose/entities/role.repository";
 
 const roleRepository = new MongooseRoleRepository()
 

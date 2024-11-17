@@ -45,8 +45,8 @@ type AdminTechTableProps = {
     lenguajes: FullTechData[];
     isAdmin: boolean;  
     dispo: {
-      dispoLeng: LenguajesDispo[]
-      dispoFw: FrameworksDispo[]
+      dispoLeng?: LenguajesDispo[]
+      dispoFw?: FrameworksDispo[]
     }
     admins: any[];
   }

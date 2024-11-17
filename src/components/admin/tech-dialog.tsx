@@ -35,8 +35,8 @@ type FlattenAdmin = {
   address: string;
 }
 type TechDialogProps = {
-  dispoLeng: LenguajesDispo[]
-  dispoFw: FrameworksDispo[]
+  dispoLeng?: LenguajesDispo[]
+  dispoFw?: FrameworksDispo[]
   renderButton: JSX.Element
   tech?: FullTechData
   admins: FlattenAdmin[]

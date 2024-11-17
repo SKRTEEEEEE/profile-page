@@ -1,8 +1,7 @@
-import { Leng, Tech } from "@/core/domain/entities/Tech";
-import { MongooseLenguajesRepository, MongooseLibreriaRepository } from "@/core/infrastructure/entities/mongoose-tech";
+import { Leng } from "@/core/domain/entities/Tech";
+import { MongooseLenguajesRepository } from "@/core/infrastructure/mongoose/entities/tech.repository";
 import { FilterQuery, ProjectionType, QueryOptions } from "mongoose";
 
-const libRepository = new MongooseLibreriaRepository()
 const lengRepository = new MongooseLenguajesRepository()
 
 export const readAllTechsUC=async()=>{

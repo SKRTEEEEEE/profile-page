@@ -1,7 +1,7 @@
 import { z } from "zod"
 import { RoleType } from "./Role"
 import mongoose from "mongoose"
-import { MongooseBase, MongooseDocument, TimestampBase } from "@/core/infrastructure/types/mongoose"
+import { MongooseBase, MongooseDocument, TimestampBase } from "@/core/infrastructure/mongoose/types/index"
 
 export const userSchema = z.object({
     nick: z.string().min(5, { message: "⚠️ Debe tener 5 caracteres como mínimo." }).max(25, { message: "⚠️ Debe tener 25 caracteres como máximo." }).optional(),

@@ -13,11 +13,15 @@ const TechsAdminPage = async( ) =>{
     const cleanAdmins = admins?.map(admin => ({
         ...JSON.parse(JSON.stringify(admin))
         }));
-
+    if(!lenguajes)return(
+      <section className="h-dvh flex flex-col justify-center items-center">
+        <h2>Parte en costrucao 🏗️🚧</h2>
+      </section>
+    )
     const allLeng = flattenTechs(lenguajes)
     const isAdmin = session ? session.ctx.role === "ADMIN" : false;
-    const dispoLeng = lenguajes.map((lenguaje: LenguajesDispo) => ({ name: lenguaje.name }));
-  const dispoFw = lenguajes.flatMap((lenguaje) => {
+    const dispoLeng = lenguajes?.map((lenguaje: LenguajesDispo) => ({ name: lenguaje.name }));
+  const dispoFw = lenguajes?.flatMap((lenguaje) => {
       if (Array.isArray(lenguaje.frameworks) && lenguaje.frameworks.length > 0) {
         return lenguaje.frameworks.map((fw: FrameworksDispo) => ({ name: fw.name }));
       }

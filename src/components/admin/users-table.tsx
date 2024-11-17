@@ -43,7 +43,7 @@ export default async function UsersTable() {
             </tr>
           </thead>
           <tbody className="bg-background/50 divide-y divide-gray-200">
-            {users?.map((user) => (
+            {users?.map((user: any) => (
               <tr key={user.id} className="hover:bg-gray-50">
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {user.address}

@@ -1,8 +1,8 @@
 import { RoleRepository } from "@/core/application/interfaces/entities/role";
 import { Role, RoleBase, RoleDocument } from "@/core/domain/entities/Role";
 import { RoleModel } from "@/models/user-role-schema";
-import { MongooseRolePattern } from "./mongoose-base";
 import { FilterQuery, Query, QueryOptions } from "mongoose";
+import { MongooseRolePattern } from "../patterns/role.pattern";
 
 
 

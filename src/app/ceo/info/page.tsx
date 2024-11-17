@@ -6,12 +6,17 @@ import TransitionPage from "@/components/oth/transition-page";
 import { Button } from "@/components/ui/button";
 import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
 import { flattenTechs } from "@/lib/techs";
+import { FullTechData } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 
 const AboutMePage = async () => {
     const lenguajes = await readAllTechsUC()
-    const allLeng = flattenTechs(lenguajes)
+    let allLeng: false|FullTechData[]
+    if(!lenguajes){
+        allLeng = false
+    }else {
+     allLeng = flattenTechs(lenguajes)}
 
 
     return (
@@ -44,10 +49,16 @@ const AboutMePage = async () => {
                 </div>
 
                 {/* SLIDER */}
+                {allLeng!==false?<div>
+                    
+                    <h2 className='hover:text-secondary-ceo-600/20 text-secondary-ceo-300 mb-4' tabIndex={0}>Principales lenguajes utilizados: </h2>
+                        <SliderTechs data={allLeng}/>
+                    </div>: 
                 <div>
-                <h2 className='hover:text-secondary-ceo-600/20 text-secondary-ceo-300 mb-4' tabIndex={0}>Principales lenguajes utilizados: </h2>
-                    <SliderTechs data={allLeng}/>
-                </div>
+                    
+                <h2 className='hover:text-secondary-ceo-600/20 text-secondary-ceo-300 mb-4' tabIndex={0}>🚧Building.... //_🐲 </h2>
+                    
+                </div>}
             </section>
         </main>
     );

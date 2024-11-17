@@ -24,7 +24,7 @@ import { UseFormReturn } from "react-hook-form"
 
 type ComboboxDemoProps = {
   title: string;
-  data: {
+  data?: {
     name:string
     [key: string]: any;
   }[]
@@ -53,7 +53,7 @@ export function SearchCombobox({title, data, name, form }:ComboboxDemoProps) {
                 )}
               >
                 {field.value
-                  ? data.find(
+                  ? data?.find(
                       (dat) => dat.name === field.value
                     )?.name
                   : `Selecciona  ${title}`}
@@ -67,7 +67,7 @@ export function SearchCombobox({title, data, name, form }:ComboboxDemoProps) {
               <CommandList>
                 <CommandEmpty>{title} no encontrado.</CommandEmpty>
                 <CommandGroup>
-                  {data.map((dat) => (
+                  {data?.map((dat) => (
                     <CommandItem
                       value={dat.name}
                       key={dat.name}

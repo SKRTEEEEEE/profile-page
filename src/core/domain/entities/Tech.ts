@@ -1,4 +1,4 @@
-import { MongooseBase, MongooseDocument, TimestampBase } from "@/core/infrastructure/types/mongoose"
+import { MongooseBase, MongooseDocument, TimestampBase } from "@/core/infrastructure/mongoose/types/index"
 import mongoose from "mongoose"
 import { z } from "zod"
 

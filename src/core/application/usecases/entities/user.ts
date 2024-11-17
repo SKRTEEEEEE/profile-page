@@ -1,5 +1,5 @@
 import {  User, UserBase } from "@/core/domain/entities/User";
-import { MongooseUserRepository } from "@/core/infrastructure/entities/mongoose-user";
+import { MongooseUserRepository } from "@/core/infrastructure/mongoose/entities/user.repository";
 
 import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
 
