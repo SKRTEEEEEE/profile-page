@@ -20,7 +20,7 @@ const LibreriaSchema: Schema = new Schema<LibDocument>({
     img: {type: String}
   }, { timestamps: true });
 
-  export const LibreriasModel = mongoose.models.Librerias || mongoose.model<LibDocument>("Librerias", LibreriaSchema)
+  // export const LibreriasModel = mongoose.models.Librerias || mongoose.model<LibDocument>("Librerias", LibreriaSchema)
   
   const FrameworkSchema: Schema = new Schema<FwDocument>({
     name: { type: String, required: true },
@@ -33,7 +33,7 @@ const LibreriaSchema: Schema = new Schema<LibDocument>({
     librerias: [LibreriaSchema],
   }, { timestamps: true });
   
-  export const FrameworksModel = mongoose.models.Frameworks || mongoose.model<FwDocument>("Frameworks", FrameworkSchema)
+  // export const FrameworksModel = mongoose.models.Frameworks || mongoose.model<FwDocument>("Frameworks", FrameworkSchema)
 
   const LenguajesSchema: Schema = new Schema<LengDocument>({
     name: { type: String, required: true },

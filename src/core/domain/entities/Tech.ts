@@ -27,7 +27,7 @@ export type Lib = Tech
 export type Fw = Tech&{
     librerias?: Lib[]
 }
-export type Leng = Tech&{
+export type Leng = TechBase&{
     frameworks?: Fw[]
 }
 export interface LibDocument extends TechDocument {}

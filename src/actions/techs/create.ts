@@ -1,8 +1,8 @@
 "use server"
 
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
-import { LenguajesModel } from "@/models/tech-schema";
 import { TechBase, TechForm } from "@/core/domain/entities/Tech";
+import { createTechUC, readOneTechUC, updateTechUC } from "@/core/application/usecases/entities/tech";
 
 
 export async function publicarTech(data: TechForm) {
@@ -23,12 +23,12 @@ export async function publicarTech(data: TechForm) {
     try {
         if (!lenguajeTo) {
             // Caso 1: Publicar un nuevo lenguaje
-            const nuevoLenguaje = new LenguajesModel(nuevoItem);
-            await nuevoLenguaje.save();
+            const nuevoLenguaje = await createTechUC(nuevoItem);
+            if(!nuevoLenguaje) return {success: false, message:`No se ha podido guardar ${name} en la BDD.` }
             return { success: true, message: `Lenguaje ${name} guardado correctamente en la BDD.` };
         }
 
-        const lenguaje = await LenguajesModel.findOne({ name: lenguajeTo });
+        const lenguaje = await readOneTechUC({ name: lenguajeTo });
         if (!lenguaje) {
             return { success: false, message: `Lenguaje no encontrado: ${lenguajeTo}` };
         }
@@ -36,7 +36,8 @@ export async function publicarTech(data: TechForm) {
         if (!frameworkTo) {
             // Caso 2: Agregar un framework a un lenguaje
             lenguaje.frameworks.push(nuevoItem);
-            await lenguaje.save();
+            const res = await updateTechUC({name: lenguajeTo}, lenguaje)
+            if(!res?.frameworks?.find(fw=>fw.name === nuevoItem.name)) return {success: false,message: `Error al agregar el framework ${name} al lenguaje ${lenguajeTo}.` }
             return { success: true, message: `Framework ${name} agregado correctamente al lenguaje ${lenguajeTo}.` };
         }
 
@@ -48,6 +49,8 @@ export async function publicarTech(data: TechForm) {
 
         framework.librerias.push(nuevoItem);
         await lenguaje.save();
+        // const res = await updateTechUC({name: lenguajeTo}, nuevoItem)
+        // if(res !== lenguaje) return {success: false,message: `Error al agregar el framework ${name} al lenguaje ${lenguajeTo}.` }
         return { success: true, message: `Librería ${name} agregada correctamente al framework ${frameworkTo} del lenguaje ${lenguajeTo}.` };
 
     } catch (error) {

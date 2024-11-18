@@ -39,3 +39,7 @@ export const deleteTechUC = async (
   ) => {
     return await lengRepository.update(filter, update, options)
   }
+
+  export const createTechUC =  async (data: TechBase) =>{
+    return await lengRepository.create(data)
+  }
