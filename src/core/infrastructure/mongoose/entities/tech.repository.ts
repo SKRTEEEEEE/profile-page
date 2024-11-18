@@ -1,11 +1,11 @@
 import { Leng, LengDocument, TechBase } from "@/core/domain/entities/Tech";
 import {  LenguajesModel } from "@/models/tech-schema";
 import { LengRepository } from "@/core/application/interfaces/entities/tech";
-import { MongooseLengPattern } from "../patterns/leng.pattern";
 import { FilterQuery } from "mongoose";
+import { MongooseCRRUUD2Pattern } from "../patterns/crruud2.pattern";
 
   
-  export class MongooseLenguajesRepository extends MongooseLengPattern<Leng> implements LengRepository<TechBase> {
+  export class MongooseLenguajesRepository extends MongooseCRRUUD2Pattern<Leng> implements LengRepository<TechBase> {
     constructor() {
       super(LenguajesModel);
     }

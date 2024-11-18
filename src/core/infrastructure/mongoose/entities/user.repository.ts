@@ -2,13 +2,13 @@ import { User, UserBase, UserDocument } from '@/core/domain/entities/User';
 import { UserModel } from '@/models/user-role-schema';
 import { DatabaseOperationError } from '@/core/domain/errors/main';
 import { UserRepository } from '@/core/application/interfaces/entities/user';
-import { MongooseUserPattern } from '../patterns/user.pattern';
+import { MongooseCRRUUD1Pattern } from '../patterns/crruud1.pattern';
 
 interface UserTransformOptions {
     roleId?: (value: any) => string | null;
   }
 
-export class MongooseUserRepository extends MongooseUserPattern<UserBase, UserTransformOptions> implements UserRepository<UserBase>{
+export class MongooseUserRepository extends MongooseCRRUUD1Pattern<UserBase, UserTransformOptions> implements UserRepository<UserBase>{
     constructor(){
         super(UserModel, {
             roleId: (value) => value?.toString() || null,

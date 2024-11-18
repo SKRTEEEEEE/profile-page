@@ -1,4 +1,4 @@
-import { Fw, FwDocument, Leng, LengDocument, LibDocument, TechBase } from "@/core/domain/entities/Tech";
+import { Fw, Leng, TechBase } from "@/core/domain/entities/Tech";
 import { MongooseLenguajesRepository } from "@/core/infrastructure/mongoose/entities/tech.repository";
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 

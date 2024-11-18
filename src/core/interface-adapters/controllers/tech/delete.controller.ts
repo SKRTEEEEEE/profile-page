@@ -15,6 +15,7 @@ async function doDelete (tipo:string, name:string, img: string) {
     console.log(`${tipo} ${name} eliminada correctamente del json`);
     await actualizarMd();
     console.log(`${tipo} ${name} eliminada correctamente del md`);
+    //Hay que hacer bien esta parte de aquí!
     revalidatePath("/admin/techs")
     revalidatePath("/test/mongodb")
     return true;

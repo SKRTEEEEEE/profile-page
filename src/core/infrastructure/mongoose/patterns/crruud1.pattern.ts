@@ -5,23 +5,26 @@ import { MongooseReadRepository } from "../implementations/read.repository";
 import { MongooseUpdateRepository } from "../implementations/update.repository";
 import { FilterQuery } from "mongoose";
 import { QueryOptions } from "mongoose";
-import { UserRepository } from "@/core/application/interfaces/entities/user";
 import { MongooseBase } from "../types";
 import { MongooseCRURepository } from "../implementations/cru.repository";
+import { MongooseCRRUUD1 } from "../types/patterns";
 
-// crruud
+/* 
+  - crruud v1
 
-export abstract class MongooseUserPattern<
-TBase,
-TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>> = {}
-> extends MongooseBaseRepository<TBase, TOptions> implements UserRepository<TBase>{
+  deleteById
+*/
+export abstract class MongooseCRRUUD1Pattern<
+  TBase,
+  TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>> = {}
+> extends MongooseBaseRepository<TBase, TOptions> implements MongooseCRRUUD1<TBase> {
   private cruRepo: MongooseCRURepository<TBase>
   private readRepo: MongooseReadRepository<TBase>;
   private updateRepo: MongooseUpdateRepository<TBase>
   private deleteRepo: MongooseDeleteByIdRepository<TBase>;
 
 
-  constructor(Model: Model<any, {}, {}, {}, any, any>,parseOpt: TOptions) {
+  constructor(Model: Model<any, {}, {}, {}, any, any>, parseOpt?: TOptions) {
     super(Model, parseOpt);
 
     this.readRepo = new MongooseReadRepository(this.Model);
@@ -34,24 +37,13 @@ TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>
     data: Omit<TBase, 'id'>
   )
     : Promise<TBase & MongooseBase> {
-      return await this.cruRepo.create(data)
-    }
+    return await this.cruRepo.create(data)
+  }
   async readById(
     id: string
   )
     : Promise<TBase & MongooseBase | null> {
-      return await this.cruRepo.readById(id)
-    }
-  async updateById(id: string,
-    updateData?: UpdateQuery<TBase> | undefined,
-    options?: QueryOptions<any> | null | undefined & { includeResultMetadata: true; lean: true; }
-  )
-    : Promise<TBase & MongooseBase | null> {
-      return await this.cruRepo.updateById(id,updateData,options)
-    }
-  // Implementar el método delete
-  async deleteById(id: string): Promise<boolean> {
-    return await this.deleteRepo.deleteById(id);
+    return await this.cruRepo.readById(id)
   }
   async read(
     filter?: FilterQuery<TBase & MongooseBase>,
@@ -61,7 +53,19 @@ TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>
     // Asumiendo que tienes un método read en MongooseBaseRepository o necesitas implementarlo
     return await this.readRepo.read(filter, projection, options);
   }
-  async update(filter?: FilterQuery<TBase & MongooseBase> | undefined, update?: UpdateQuery<TBase> | undefined, options?: QueryOptions<TBase> | null | undefined): Promise<TBase & MongooseBase | null>{
+  async updateById(id: string,
+    updateData?: UpdateQuery<TBase> | undefined,
+    options?: QueryOptions<any> | null | undefined & { includeResultMetadata: true; lean: true; }
+  )
+    : Promise<TBase & MongooseBase | null> {
+    return await this.cruRepo.updateById(id, updateData, options)
+  }
+  async update(filter?: FilterQuery<TBase & MongooseBase> | undefined, update?: UpdateQuery<TBase> | undefined, options?: QueryOptions<TBase> | null | undefined): Promise<TBase & MongooseBase | null> {
     return await this.updateRepo.update(filter, update, options)
   }
+  // Implementar el método delete
+  async deleteById(id: string): Promise<boolean> {
+    return await this.deleteRepo.deleteById(id);
+  }
+
 }
