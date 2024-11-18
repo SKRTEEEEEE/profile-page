@@ -3,7 +3,7 @@
 // -> ❕🧠⚠️❗⬇️ SOLO PARA ACCIONES QUE SON LLAMADAS DESDE EL CLIENTE! - sino usar UC/C ⬇️❗⚠️🧠❕
 //NOT CHECKED!
 
-import { deleteImageUC, uploadImageUC, useUtapiUC as getUtapiUC } from "@/core/application/usecases/services/img";
+import { deleteImageUC, uploadImageUC } from "@/core/application/usecases/services/img";
 import { InputParseError } from "@/core/domain/errors/main";
 
 export async function uploadImg(formData: FormData) {
@@ -21,8 +21,4 @@ export async function updateImg(formData: FormData, url:string){
     if(!dR)throw new Error("Error at delete img")
     return await uploadImageUC(img)
 
-}
-//merge-old
-export async function getUtapi(){
-    return await getUtapiUC()
 }

@@ -1,12 +1,10 @@
-"use server"
-
-import { actualizarJson } from "../../core/interface-adapters/utils/tech/actualizarJson";
+import { actualizarJson } from "@/core/interface-adapters/utils/tech/actualizarJson";
 import { updateTechUC } from "@/core/application/usecases/entities/tech";
-import { FwDocument, LengDocument, LibDocument } from "@/core/domain/entities/Tech";
+import { TechForm } from "@/core/domain/entities/Tech";
 
-type UpdateData = LengDocument | FwDocument | LibDocument;
 
-export async function updateTech(updateData: UpdateData) {
+
+export async function updateTechC(updateData: TechForm) {
     try {
         let proyectoActualizado;
         if ('frameworkTo' in updateData) {

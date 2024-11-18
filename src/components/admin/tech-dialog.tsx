@@ -14,8 +14,7 @@ import { LenguajesDispo, FrameworksDispo, FullTechData, FrameworkData, LibreriaD
 import {  SearchCombobox } from "../oth/search-combobox"
 import techBadges from "@/lib/data-slugs"
 import { useActiveAccount } from "thirdweb/react"
-import { updateTech } from "@/actions/techs/update"
-import { ILenguaje } from "@/models/tech-schema"
+import { updateTech } from "@/actions/tech"
 import { actualizarMd } from "@/core/interface-adapters/utils/tech/actualizarMd"
 import { publicarTech } from "@/actions/techs/create"
 import { actualizarJson } from "@/core/interface-adapters/utils/tech/actualizarJson"
@@ -131,6 +130,7 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
       const selectedCat = form.watch("category")
       const commonData = {
         name: data.name,
+        category: data.category,
         afinidad: data.afinidad,
         badge: data.badge,
         preferencia: data.preferencia,
@@ -139,7 +139,7 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
         img: data.img
     };
 
-    let transformedData;
+    let transformedData: TechForm;
     switch (selectedCat) {
         case "lenguaje":
             transformedData = commonData;
@@ -147,14 +147,14 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
         case "framework":
             transformedData = {
                 ...commonData,
-                lenguajeTo: isUpdating ? tech?.isFw : data.lenguajeTo,
+                lenguajeTo: isUpdating ? tech?.isFw ? data.lenguajeTo : undefined : data.lenguajeTo,
             };
             break;
         case "libreria":
             transformedData = {
                 ...commonData,
-                lenguajeTo: isUpdating ? tech?.isFw : data.lenguajeTo,
-                frameworkTo: isUpdating ? tech?.isLib : data.frameworkTo,
+                lenguajeTo: isUpdating ? tech?.isFw ? data.lenguajeTo : undefined : data.lenguajeTo,
+                frameworkTo: isUpdating ? tech?.isLib ? data.frameworkTo : undefined : data.frameworkTo,
             };
             break;
         default:
@@ -165,18 +165,18 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
     let response;
     if(isAdmin){
         if (isUpdating) {
-            response = await updateTech(transformedData as LengDocument|LibDocument|FwDocument);
+            response = await updateTech(transformedData);
         } else {
             await actualizarMd({name: data.name, badge:data.badge, colorhash: data.color});
             switch (selectedCat) {
                 case "lenguaje":
-                    response = await publicarTech(transformedData as ILenguaje);
+                    response = await publicarTech(transformedData);
                     break;
                 case "framework":
-                    response = await publicarTech(transformedData as FrameworkData);
+                    response = await publicarTech(transformedData);
                     break;
                 case "libreria":
-                    response = await publicarTech(transformedData as LibreriaData);
+                    response = await publicarTech(transformedData);
                     break;
                 default:
                     response = {success:false, message: "Categoría no reconocida"}

@@ -16,7 +16,8 @@ export const techSchema = z.object({
     frameworkTo: z.string().optional(),
     img: z.string().regex(/https:\/\/utfs\.io\/f\/([a-f0-9\-]+)-([a-z0-9]+)\.(jpg|webp|png)/, "URL invalida").nullable().default(null)
   })
-  
+export type UpdateTechForm = LengDocument | FwDocument | LibDocument;  
+
 export type TechForm = z.infer<typeof techSchema>
 export type Tech = MongooseBase & TechBase
 export interface TechDocument extends TechBase, TimestampBase, MongooseDocument{

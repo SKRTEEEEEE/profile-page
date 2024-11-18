@@ -1,18 +1,16 @@
 "use server"
 
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
-import { LenguajesModel, IFramework } from "@/models/tech-schema";
-import {  FrameworkData, LibreriaData } from "@/lib/types";
-import { TechBase } from "@/core/domain/entities/Tech";
+import { LenguajesModel } from "@/models/tech-schema";
+import { TechBase, TechForm } from "@/core/domain/entities/Tech";
 
-type PublicarData = TechBase & Partial<FrameworkData> & Partial<LibreriaData>;
 
-export async function publicarTech(data: PublicarData) {
+export async function publicarTech(data: TechForm) {
     await connectToDB();
 
     const { name, afinidad, badge, preferencia, color, experiencia, img, lenguajeTo, frameworkTo } = data;
 
-    const nuevoItem = {
+    const nuevoItem: TechBase = {
         name,
         afinidad,
         badge,
@@ -37,7 +35,7 @@ export async function publicarTech(data: PublicarData) {
 
         if (!frameworkTo) {
             // Caso 2: Agregar un framework a un lenguaje
-            lenguaje.frameworks.push(nuevoItem as IFramework);
+            lenguaje.frameworks.push(nuevoItem);
             await lenguaje.save();
             return { success: true, message: `Framework ${name} agregado correctamente al lenguaje ${lenguajeTo}.` };
         }
