@@ -133,7 +133,7 @@ export const checkoutSessionCompletedC = async (session: Stripe.Response<Stripe.
       })
       console.log("Role created: ", role)
       try {
-        const updatedUser = await updateUserByIdUC(user.id, { roleId: role.id, role: session.metadata.role });
+        const updatedUser = await updateUserByIdUC(user.id, { roleId: role.id, role: session.metadata.role as RoleType });
         if(!updatedUser){ throw new Error(`Error at find user ${user.id}: `) }else {
             console.log("updatedUser: ", updatedUser)
         }
@@ -154,7 +154,7 @@ export const checkoutSessionCompletedC = async (session: Stripe.Response<Stripe.
         console.log("role info to be updated: ", {role})
       const updatedRole =  await updateRoleUC(role.id, role)
       console.log("updatedRole :", {updatedRole})
-      const updatedUser = await updateUserByIdUC(user.id, {role: session.metadata.role})
+      const updatedUser = await updateUserByIdUC(user.id, {role: session.metadata.role as RoleType})
       if(!updatedUser) {throw new Error( `Error at find user ${user.id}` )}else{
       console.log("updatedUser: ", {updatedUser})}
        
@@ -212,7 +212,7 @@ export const giveRoleUC = async(payload: {
     const user = await listUsersByIdUC(id)
     if(!user)throw new DatabaseFindError("user")
     await updateUserByIdUC(id,{
-      id, address: user.address, roleId: createdRole.id,
+       address: user.address, roleId: createdRole.id,
       role: solicitud, solicitud: null, img: user.img, email: user.email, isVerified: user.isVerified
     })
 }
