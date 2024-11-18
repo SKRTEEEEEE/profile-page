@@ -3,8 +3,8 @@
 # Next-hexa-test
 <a href="https://github.com/SKRTEEEEEE">
 <div align="center">
-  <img  src="https://github.com/SKRTEEEEEE/SKRTEEEEEE/blob/main/resources/img/grid-snake.svg"
-       alt="snake" />
+  <img src="./docs/profile-page.gif"
+       alt="banner" style="width: 100%"/>
 </div>
 </a>
 
@@ -50,4 +50,10 @@ Test de arquitectura hexagonal con NextJs 14
 
 Si encuentras problemas o deseas contribuir al proyecto, por favor, crea un issue en el repositorio.
 
+<a href="https://github.com/SKRTEEEEEE">
+<div align="center">
+  <img  src="https://github.com/SKRTEEEEEE/SKRTEEEEEE/blob/main/resources/img/grid-snake.svg"
+       alt="snake" />
+</div>
+</a>
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
