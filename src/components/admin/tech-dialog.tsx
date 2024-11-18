@@ -25,7 +25,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/
 import { CConectButton } from "../oth/custom-connect-button"
 import Image from "next/image"
 import { updateImg, uploadImg } from "@/actions/img"
-import { TechForm, techSchema } from "@/core/domain/entities/Tech"
+import { FwDocument, LengDocument, LibDocument, TechForm, techSchema } from "@/core/domain/entities/Tech"
 
 
 
@@ -165,7 +165,7 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
     let response;
     if(isAdmin){
         if (isUpdating) {
-            response = await updateTech(transformedData as ILenguaje | FrameworkData | LibreriaData);
+            response = await updateTech(transformedData as LengDocument|LibDocument|FwDocument);
         } else {
             await actualizarMd({name: data.name, badge:data.badge, colorhash: data.color});
             switch (selectedCat) {

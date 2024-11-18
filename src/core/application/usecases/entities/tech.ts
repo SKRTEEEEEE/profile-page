@@ -31,3 +31,11 @@ export const deleteTechUC = async (
   )=>{
     return await lengRepository.delete(filter, options)
   }
+
+  export const updateTechUC = async (
+    filter?: any | undefined,
+    update?: any | undefined,
+    options?: any | null | undefined
+  ) => {
+    return await lengRepository.update(filter, update, options)
+  }

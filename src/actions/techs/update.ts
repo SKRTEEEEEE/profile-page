@@ -1,19 +1,17 @@
 "use server"
 
-import { IFramework, ILenguaje, ILibreria, LenguajesModel } from "@/models/tech-schema";
-import { FrameworkData, LibreriaData } from "@/lib/types";
-import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { actualizarJson } from "../../core/interface-adapters/utils/tech/actualizarJson";
+import { updateTechUC } from "@/core/application/usecases/entities/tech";
+import { FwDocument, LengDocument, LibDocument } from "@/core/domain/entities/Tech";
 
-type UpdateData = ILenguaje | FrameworkData | LibreriaData;
+type UpdateData = LengDocument | FwDocument | LibDocument;
 
 export async function updateTech(updateData: UpdateData) {
-    await connectToDB();
     try {
         let proyectoActualizado;
         if ('frameworkTo' in updateData) {
             // Actualizar librería
-            proyectoActualizado = await LenguajesModel.findOneAndUpdate(
+            proyectoActualizado = await updateTechUC(
                 { "frameworks.librerias.name": updateData.name },
                 {
                     $set: {
@@ -36,7 +34,7 @@ export async function updateTech(updateData: UpdateData) {
             );
         } else if ('lenguajeTo' in updateData) {
             // Actualizar framework
-            proyectoActualizado = await LenguajesModel.findOneAndUpdate(
+            proyectoActualizado = await updateTechUC(
                 { "frameworks.name": updateData.name },
                 {
                     $set: {
@@ -53,7 +51,7 @@ export async function updateTech(updateData: UpdateData) {
             );
         } else {
             // Actualizar lenguaje
-            proyectoActualizado = await LenguajesModel.findOneAndUpdate(
+            proyectoActualizado = await updateTechUC(
                 { name: updateData.name },
                 updateData,
                 { new: true }
