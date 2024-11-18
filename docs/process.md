@@ -131,6 +131,7 @@ npm i react-countup
 - [ ] Manejar correctamente los UC y C
     - [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
 #### Responder a las acciones del servidor con `toast`
+- [ ] Aplicar toast en el tech-form (tech-dialog)
 #### Manejar correctamente las acciones
 - [ ] Utilizar un mensaje de respuesta correctamente
 - [ ] **Acción de DAR ADMIN** es un muy buen ejemplo de aver que pasa

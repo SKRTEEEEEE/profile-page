@@ -1,7 +1,7 @@
 "use client"
 
 import { protAdmAct as adminOnlyAction } from "@/actions/auth";
-import { deleteTech } from "@/actions/techs/delete";
+import { deleteTech } from "@/actions/tech";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";

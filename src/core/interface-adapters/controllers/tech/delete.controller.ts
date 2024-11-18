@@ -1,27 +1,16 @@
-"use server"
 
-import { IFramework, ILenguaje, ILibreria, LenguajesModel } from "@/models/tech-schema";
 import { revalidatePath } from "next/cache";
-import { actualizarJson } from "./actualizarJson";
-import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
-import { getUtapi } from "../img";
-import { actualizarMd } from "./actualizarMd";
+import { deleteImageUC } from "@/core/application/usecases/services/img";
+import {  deleteTechUC, readOneTechUC } from "@/core/application/usecases/entities/tech";
+import { FwDocument, LibDocument } from "@/core/domain/entities/Tech";
+import { actualizarJson } from "../../utils/tech/actualizarJson";
+import { actualizarMd } from "../../utils/tech/actualizarMd";
 
 
-export async function deleteImage (img: string) {
-    const fileName = img.split('/').pop();
-    if (fileName) {
-        const utapi = await getUtapi()
-        const { success, deletedCount } = await utapi.deleteFiles(fileName);
-        console.log(`Eliminada: ${success} \n ${deletedCount} Imagen ${fileName}`);
-        return success
-    }
-    return false
-}
 
 async function doDelete (tipo:string, name:string, img: string) {
     console.log(`${tipo} ${name} eliminada correctamente`);
-    await deleteImage(img)
+    await deleteImageUC(img)
     await actualizarJson();
     console.log(`${tipo} ${name} eliminada correctamente del json`);
     await actualizarMd();
@@ -30,17 +19,16 @@ async function doDelete (tipo:string, name:string, img: string) {
     revalidatePath("/test/mongodb")
     return true;
 }
-export async function deleteTech(name: string) {
-    await connectToDB();
+export async function deleteTechC(name: string) {
     try {
         let proyectoActualizado = null;
 
         // Buscar en librerías
-        let lenguaje = await LenguajesModel.findOne({ "frameworks.librerias.name": name });
+        let lenguaje = await readOneTechUC({ "frameworks.librerias.name": name });
         if (lenguaje) {
-            const frameworkIndex = lenguaje.frameworks.findIndex((fw:IFramework) => fw.librerias?.some((lib:ILibreria) => lib.name === name));
-            const libreriaIndex = lenguaje.frameworks[frameworkIndex].librerias.findIndex((lib:ILibreria) => lib.name === name);
-            const libreria = lenguaje.frameworks[frameworkIndex].librerias.find((lib:ILibreria) => lib.name === name);
+            const frameworkIndex = lenguaje.frameworks.findIndex((fw:FwDocument) => fw.librerias?.some((lib:LibDocument) => lib.name === name));
+            const libreriaIndex = lenguaje.frameworks[frameworkIndex].librerias.findIndex((lib:LibDocument) => lib.name === name);
+            const libreria = lenguaje.frameworks[frameworkIndex].librerias.find((lib:LibDocument) => lib.name === name);
 
             // Eliminar la librería
             lenguaje.frameworks[frameworkIndex].librerias.splice(libreriaIndex, 1);
@@ -52,10 +40,10 @@ export async function deleteTech(name: string) {
         }
 
         // Buscar en frameworks
-        lenguaje = await LenguajesModel.findOne({ "frameworks.name": name });
+        lenguaje = await readOneTechUC({ "frameworks.name": name });
         if (lenguaje) {
-            const frameworkIndex = lenguaje.frameworks.findIndex((fw:IFramework) => fw.name === name);
-            const framework = lenguaje.frameworks.find((fw:IFramework) => fw.name === name);
+            const frameworkIndex = lenguaje.frameworks.findIndex((fw:FwDocument) => fw.name === name);
+            const framework = lenguaje.frameworks.find((fw:FwDocument) => fw.name === name);
 
 
             // Eliminar el framework
@@ -69,7 +57,7 @@ export async function deleteTech(name: string) {
         }
 
         // Buscar en lenguajes
-        const lenguajeEliminado = await LenguajesModel.findOneAndDelete({ name: name });
+        const lenguajeEliminado = await deleteTechUC({ name: name });
         if (lenguajeEliminado) {
             const res = await doDelete("Lenguaje", name, lenguajeEliminado.img);
             return res;

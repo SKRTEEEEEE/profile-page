@@ -3,7 +3,7 @@
 
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { IFramework, ILenguaje, ILibreria, LenguajesModel } from "@/models/tech-schema";
-import { fetchFileSha, updateFileContent } from "./utils";
+import { fetchFileSha, updateFileContent } from "../../../../actions/techs/utils";
 import { createBadgeTech } from "@/lib/techs";
 
 const owner = "SKRTEEEEEE";
