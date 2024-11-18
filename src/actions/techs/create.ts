@@ -27,8 +27,7 @@ export async function publicarTech(data: PublicarData) {
         if (!lenguajeTo) {
             // Caso 1: Publicar un nuevo lenguaje
             // NOS HEMOS QUEDADO AQUI ❕⬇️❗⬇️🧠⚠️❕⬇️❗⬇️❗⬇️✅
-            const LengModel = getLengModelUC()
-            const nuevoLenguaje = new LengModel(nuevoItem);
+            const nuevoLenguaje = getLengModelUC(nuevoItem);
             await nuevoLenguaje.save();
             return { success: true, message: `Lenguaje ${name} guardado correctamente en la BDD.` };
         }

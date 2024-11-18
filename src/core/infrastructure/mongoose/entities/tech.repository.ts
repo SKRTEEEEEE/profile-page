@@ -19,7 +19,7 @@ import { MongooseLengPattern } from "../patterns/leng.pattern";
     constructor() {
       super(LenguajesModel);
     }
-    public get getLengModel(){
-      return new this.Model
+    public makeModel(data: Partial<Leng>){
+      return new this.Model(data)
     }
   }
