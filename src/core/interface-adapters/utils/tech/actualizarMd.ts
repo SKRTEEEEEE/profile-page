@@ -5,6 +5,7 @@ import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { IFramework, ILenguaje, ILibreria, LenguajesModel } from "@/models/tech-schema";
 import { fetchFileSha, updateFileContent } from "../../../../actions/techs/utils";
 import { createBadgeTech } from "@/lib/techs";
+import { LengFull } from "@/core/domain/entities/Tech";
 
 const owner = "SKRTEEEEEE";
 
@@ -19,7 +20,7 @@ export async function actualizarMd(create?:{name: string, badge: string, colorha
     const color = create?.colorhash.slice(1)
     await connectToDB();
     try {
-        const proyectosDB: ILenguaje[] = await LenguajesModel.find();
+        const proyectosDB: LengFull[] = await LenguajesModel.find();
         const mdSha = await fetchFileSha(path.md);
         if (!mdSha) {
             throw new Error("El archivo .md no se encuentra en el repositorio");

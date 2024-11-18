@@ -17,7 +17,14 @@ export const techSchema = z.object({
     img: z.string().regex(/https:\/\/utfs\.io\/f\/([a-f0-9\-]+)-([a-z0-9]+)\.(jpg|webp|png)/, "URL invalida").nullable().default(null)
   })
 export type UpdateTechForm = LengDocument | FwDocument | LibDocument;  
-
+export interface FullTechData extends TechBase {
+    value: string; 
+    valueexp: string; 
+    isFw?: boolean|string; 
+    isLib?: boolean|string; 
+    usogithub?: number; 
+    
+  }
 export type TechForm = z.infer<typeof techSchema>
 export type Tech = MongooseBase & TechBase
 export interface TechDocument extends TechBase, TimestampBase, MongooseDocument{
@@ -27,6 +34,7 @@ export type Lib = Tech
 export type Fw = Tech&{
     librerias?: Lib[]
 }
+export type LengFull = Leng & MongooseBase
 export type Leng = TechBase&{
     frameworks?: Fw[]
 }

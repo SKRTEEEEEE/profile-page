@@ -1,6 +1,4 @@
-import { IFramework, ILenguaje, ILibreria } from "@/models/tech-schema";
-import { FullTechData } from "@/lib/types";
-import { Leng } from "@/core/domain/entities/Tech";
+import { FullTechData, Fw, Leng, LengFull, Lib } from "@/core/domain/entities/Tech";
 
 type BadgeAndValue = {
     badge: string;
@@ -89,7 +87,7 @@ export function getGithubUsoByRange(numValue:number):BadgeAndValue{
     return { badge, value };
 }
 
-export const flattenTechs = (proyectos: ILenguaje[]|Leng[]) => {
+export const flattenTechs = (proyectos: LengFull[]|Leng[]) => {
     let flattenedArray: FullTechData[] = [];
 
     proyectos.forEach((proyecto) => {
@@ -143,7 +141,7 @@ export const flattenTechs = (proyectos: ILenguaje[]|Leng[]) => {
     return flattenedArray;
 };
 
-export function createBadgeTech(tech: ILenguaje | IFramework | ILibreria) {
+export function createBadgeTech(tech: Lib | Leng | Fw) {
     const color = tech.color.slice(1)
     console.log("color: ", color)
     return (

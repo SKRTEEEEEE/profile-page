@@ -4,8 +4,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 
 // import { lenguajesResources } from '@/lib/data-ceo';
-import { FullTechData } from '@/lib/types';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { FullTechData } from '@/core/domain/entities/Tech';
 
 const SliderTechs = ({data}: {data:FullTechData[]}) => {
     return (

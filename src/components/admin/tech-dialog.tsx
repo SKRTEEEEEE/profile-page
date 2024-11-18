@@ -10,21 +10,17 @@ import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Slider } from "@/components/ui/slider"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { LenguajesDispo, FrameworksDispo, FullTechData, FrameworkData, LibreriaData } from "@/lib/types"
 import {  SearchCombobox } from "../oth/search-combobox"
 import techBadges from "@/lib/data-slugs"
 import { useActiveAccount } from "thirdweb/react"
-import { updateTech } from "@/actions/tech"
-import { actualizarMd } from "@/core/interface-adapters/utils/tech/actualizarMd"
-import { publicarTech } from "@/actions/techs/create"
-import { actualizarJson } from "@/core/interface-adapters/utils/tech/actualizarJson"
+import { createTech, updateTech } from "@/actions/tech"
 import {  rvrd } from "@/actions/revrd"
 import { FaSpinner } from "react-icons/fa"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import { CConectButton } from "../oth/custom-connect-button"
 import Image from "next/image"
 import { updateImg, uploadImg } from "@/actions/img"
-import { FwDocument, LengDocument, LibDocument, TechForm, techSchema } from "@/core/domain/entities/Tech"
+import {  FullTechData, TechForm, techSchema } from "@/core/domain/entities/Tech"
 
 
 
@@ -34,8 +30,8 @@ type FlattenAdmin = {
   address: string;
 }
 type TechDialogProps = {
-  dispoLeng?: LenguajesDispo[]
-  dispoFw?: FrameworksDispo[]
+  dispoLeng?: {name:string}[]
+  dispoFw?: {name:string}[]
   renderButton: JSX.Element
   tech?: FullTechData
   admins: FlattenAdmin[]
@@ -167,24 +163,10 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
         if (isUpdating) {
             response = await updateTech(transformedData);
         } else {
-            await actualizarMd({name: data.name, badge:data.badge, colorhash: data.color});
-            switch (selectedCat) {
-                case "lenguaje":
-                    response = await publicarTech(transformedData);
-                    break;
-                case "framework":
-                    response = await publicarTech(transformedData);
-                    break;
-                case "libreria":
-                    response = await publicarTech(transformedData);
-                    break;
-                default:
-                    response = {success:false, message: "Categoría no reconocida"}
-                    throw new Error("Categoría no reconocida");                         
+           response = await createTech(transformedData)                   
             }
-            await actualizarJson();                    
-            }
-        }else{response={success:false, message: "User not admin"}}
+        }else
+        {response={success:false, message: "User not admin"}}
         console.log("response: ", response);
         if (response.success) {
             alert(`¡Felicidades! ${response.message}`);

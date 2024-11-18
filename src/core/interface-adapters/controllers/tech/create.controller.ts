@@ -1,14 +1,12 @@
-"use server"
-
-import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { TechBase, TechForm } from "@/core/domain/entities/Tech";
 import { createTechUC, readOneTechUC, updateTechUC } from "@/core/application/usecases/entities/tech";
+import { actualizarMd } from "../../utils/tech/actualizarMd";
+import { actualizarJson } from "../../utils/tech/actualizarJson";
 
-
-export async function publicarTech(data: TechForm) {
-    await connectToDB();
-
+export async function createTechC(data: TechForm):Promise<{success:boolean, message:string}> {
     const { name, afinidad, badge, preferencia, color, experiencia, img, lenguajeTo, frameworkTo } = data;
+    await actualizarMd({name,badge, colorhash:color})
+
 
     const nuevoItem: TechBase = {
         name,
@@ -36,9 +34,20 @@ export async function publicarTech(data: TechForm) {
         if (!frameworkTo) {
             // Caso 2: Agregar un framework a un lenguaje
             lenguaje.frameworks.push(nuevoItem);
-            const res = await updateTechUC({name: lenguajeTo}, lenguaje)
-            if(!res?.frameworks?.find(fw=>fw.name === nuevoItem.name)) return {success: false,message: `Error al agregar el framework ${name} al lenguaje ${lenguajeTo}.` }
-            return { success: true, message: `Framework ${name} agregado correctamente al lenguaje ${lenguajeTo}.` };
+            const res = await updateTechUC({name: lenguajeTo}, lenguaje, {new:true})
+            // Validar directamente en el resultado devuelto por `updateTechUC`
+            const frameworkAgregado = res?.frameworks?.some(fw => fw.name === nuevoItem.name);
+            if (!frameworkAgregado) {
+                return {
+                    success: false,
+                    message: `Error al agregar el framework ${name} al lenguaje ${lenguajeTo}.`
+                };
+            }
+
+            return {
+                success: true,
+                message: `Framework ${name} agregado correctamente al lenguaje ${lenguajeTo}.`
+            };
         }
 
         // Caso 3: Agregar una librería a un framework
@@ -49,6 +58,7 @@ export async function publicarTech(data: TechForm) {
 
         framework.librerias.push(nuevoItem);
         await lenguaje.save();
+        await actualizarJson()
         // const res = await updateTechUC({name: lenguajeTo}, nuevoItem)
         // if(res !== lenguaje) return {success: false,message: `Error al agregar el framework ${name} al lenguaje ${lenguajeTo}.` }
         return { success: true, message: `Librería ${name} agregada correctamente al framework ${frameworkTo} del lenguaje ${lenguajeTo}.` };

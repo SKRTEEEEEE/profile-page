@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Pencil, Plus } from 'lucide-react'
 import Link from "next/link"
 import {
@@ -19,34 +19,18 @@ import {
 } from "@/components/ui/pagination"
 import DeleteTechButton from "./delete-tech-button"
 import { TechDialog } from "./tech-dialog"
-import { FrameworksDispo, FullTechData, LenguajesDispo } from "@/lib/types"
 import { Tooltip } from "@radix-ui/react-tooltip"
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
+import { FullTechData } from "@/core/domain/entities/Tech"
 
-// type TechData = {
-//   name: string
-//   img: string
-//   afinidad: number
-//   experiencia: number
-//   color: string
-// }
-
-// const mockData: TechData[] = [
-//   { name: "JavaScript", img: "/placeholder.svg?height=40&width=40", afinidad: 90, experiencia: 80, color: "F7DF1E" },
-//   { name: "React", img: "/placeholder.svg?height=40&width=40", afinidad: 85, experiencia: 75, color: "61DAFB" },
-//   { name: "Node.js", img: "/placeholder.svg?height=40&width=40", afinidad: 80, experiencia: 70, color: "339933" },
-//   { name: "TypeScript", img: "/placeholder.svg?height=40&width=40", afinidad: 75, experiencia: 65, color: "3178C6" },
-//   { name: "Python", img: "/placeholder.svg?height=40&width=40", afinidad: 70, experiencia: 60, color: "3776AB" },
-//   { name: "Docker", img: "/placeholder.svg?height=40&width=40", afinidad: 65, experiencia: 55, color: "2496ED" },
-// ]
 // - [ ] Falta mostrar el error del delete, y mejorar...
 // - [ ] Falta terminar la parte del mobile
 type AdminTechTableProps = {
     lenguajes: FullTechData[];
     isAdmin: boolean;  
     dispo: {
-      dispoLeng?: LenguajesDispo[]
-      dispoFw?: FrameworksDispo[]
+      dispoLeng?: {name:string}[]
+      dispoFw?: {name:string}[]
     }
     admins: any[];
   }

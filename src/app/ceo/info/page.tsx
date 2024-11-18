@@ -5,8 +5,8 @@ import { MotionTransition } from "@/components/oth/transition-component";
 import TransitionPage from "@/components/oth/transition-page";
 import { Button } from "@/components/ui/button";
 import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
+import { FullTechData, Leng } from "@/core/domain/entities/Tech";
 import { flattenTechs } from "@/lib/techs";
-import { FullTechData } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 

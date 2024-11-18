@@ -8,6 +8,7 @@ import { ILenguaje, LenguajesModel } from "@/models/tech-schema";
 import { flattenTechs, getGithubUsoByRange } from "@/lib/techs";
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { fetchFileSha, updateFileContent } from "../../../../actions/techs/utils";
+import { LengFull } from "@/core/domain/entities/Tech";
 
 
 type RepoDetails = {
@@ -85,7 +86,7 @@ async function peticionRepos() {
 
 export async function actualizarJson() {
     await connectToDB();
-    const proyectosDB: ILenguaje[] = await LenguajesModel.find();
+    const proyectosDB: LengFull[] = await LenguajesModel.find();
     const jsonSha = await fetchFileSha(path.json);
     if (!jsonSha) {
         console.error("El archivo .json no se encuentra en el repositorio");
