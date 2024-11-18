@@ -1,3 +1,4 @@
+import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
 import { MongooseBase } from ".";
 
 export type MongooseCRUI<

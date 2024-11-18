@@ -6,12 +6,14 @@ import { ProjectionType } from "mongoose";
 import { LengRepository } from "@/core/application/interfaces/entities/tech";
 import { MongooseCRURepository } from "../implementations/cru.repository";
 
+// -> crru
+
 export abstract class MongooseLengPattern<
 TBase,
 TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>> = {}
 > extends MongooseBaseRepository<TBase, TOptions> implements LengRepository<TBase>{
-  private readRepo: MongooseReadRepository<TBase>;
   private cruRepo: MongooseCRURepository<TBase>
+  private readRepo: MongooseReadRepository<TBase>;
 
   constructor(Model: Model<any, {}, {}, {}, any, any>) {
     super(Model);

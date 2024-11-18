@@ -9,14 +9,16 @@ import { UserRepository } from "@/core/application/interfaces/entities/user";
 import { MongooseBase } from "../types";
 import { MongooseCRURepository } from "../implementations/cru.repository";
 
+// crruud
+
 export abstract class MongooseUserPattern<
 TBase,
 TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>> = {}
 > extends MongooseBaseRepository<TBase, TOptions> implements UserRepository<TBase>{
-  private readRepo: MongooseReadRepository<TBase>;
-  private deleteRepo: MongooseDeleteByIdRepository<TBase>;
-  private updateRepo: MongooseUpdateRepository<TBase>
   private cruRepo: MongooseCRURepository<TBase>
+  private readRepo: MongooseReadRepository<TBase>;
+  private updateRepo: MongooseUpdateRepository<TBase>
+  private deleteRepo: MongooseDeleteByIdRepository<TBase>;
 
 
   constructor(Model: Model<any, {}, {}, {}, any, any>,parseOpt: TOptions) {

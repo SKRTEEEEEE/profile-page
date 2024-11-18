@@ -3,7 +3,6 @@
 
 import { Role, RoleBase } from "@/core/domain/entities/Role";
 import { RoleRepository } from "../../interfaces/entities/role";
-import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
 import { MongooseRoleRepository } from "@/core/infrastructure/mongoose/entities/role.repository";
 
 const roleRepository = new MongooseRoleRepository()
@@ -17,7 +16,7 @@ export const createRoleUC = async(newRole: Omit<RoleBase, "id">) => {
 export const deleteRoleByIdUC = async (id:string) => {
   return await roleRepository.deleteById(id)
 }
-export const findOneRoleAndDeleteUC = async (filter?: FilterQuery<any> | null | undefined, options?: QueryOptions<any> | null | undefined):Promise<Role|undefined> => {
+export const findOneRoleAndDeleteUC = async (filter?: Partial<Role> | null | undefined, options?: any | null | undefined):Promise<Role|undefined> => {
   return await roleRepository.delete(filter,options)
 }
 // 🧠⚠️➡️ Podemos crear los "use-cases" agrupados, como hemos hecho en services. Esto nos ahorrara tener que inicializar siempre en mismo constructor.
@@ -39,7 +38,7 @@ class UpdateRole{
     return await this.roleRepository.updateById(id, role)
   }
 }
-export const updateRoleUC = async(id:string, role?: UpdateQuery<RoleBase> | undefined) => {
+export const updateRoleUC = async(id:string, role?: Partial<RoleBase> | undefined) => {
   const ur = new UpdateRole(roleRepository)
   return ur.execute(id, role)
 }

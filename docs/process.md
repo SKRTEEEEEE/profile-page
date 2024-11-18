@@ -122,8 +122,11 @@ npm i react-countup
 ##### **ACTUALIDAD**
 
 ## 1x. Reestructurar Backend y hexagonal arq (back)
-### Crear parte "about me" de markdowns
 ### Pasar backend techs a hexagonal
+
+### Despliegue
+- [ ] Hay que cambiar el ATLAS env secret para que apunte a la nueva colección, en el despliegue de next-hexa-test, para que funcione con los datos de profile-page(actual), igual que en el local.
+### Crear parte "about me" de markdowns
 ### Mejorar arquitectura
 - [ ] Manejar correctamente los UC y C
     - [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_

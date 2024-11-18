@@ -8,16 +8,17 @@ import { MongooseUpdateRepository } from "../implementations/update.repository";
 import { RoleRepository } from "@/core/application/interfaces/entities/role";
 import { MongooseCRURepository } from "../implementations/cru.repository";
 
+// crruudd 
 
 export abstract class MongooseRolePattern<
 TBase,
 TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>> = {}
 > extends MongooseBaseRepository<TBase, TOptions> implements RoleRepository<TBase>{
+  private cruRepo: MongooseCRURepository<TBase>
   private readRepo: MongooseReadRepository<TBase>;
+  private updateRepo: MongooseUpdateRepository<TBase>
   private deleteByIdRepo: MongooseDeleteByIdRepository<TBase>;
   private deleteRepo: MongooseDeleteRepository<TBase>
-  private updateRepo: MongooseUpdateRepository<TBase>
-  private cruRepo: MongooseCRURepository<TBase>
 
   constructor(Model: Model<any, {}, {}, {}, any, any>) {
     super(Model);
