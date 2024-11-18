@@ -1,14 +1,12 @@
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
-# Next-hexa-test
 
-<a href="https://github.com/SKRTEEEEEE">
+# Profile Page Clean Arch
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/SKRTEEEEEE/next-hexa-test/buildp/docs/profile-page.gif" alt="banner" />
 </div>
-</a>
 
-![Img](https://raw.githubusercontent.com/SKRTEEEEEE/next-hexa-test/buildp/docs/profile-page.gif)
 
 ## Información
 Test de arquitectura hexagonal con NextJs 14
