@@ -116,7 +116,7 @@ npm i react-countup
 
 ##### **ACTUALIDAD**
 
-## 1x. Reestructurar clean arch v3 p1 (back) 
+## 13. Reestructurar clean arch v3 p1 (back) 
 ### Pasar backend techs a clean
 - [x] Pasar techs functionalities to clean arch
 ### Crear parte "about me" de markdowns
