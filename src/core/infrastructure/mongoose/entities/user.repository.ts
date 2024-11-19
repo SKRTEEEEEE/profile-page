@@ -1,5 +1,5 @@
 import { User, UserBase, UserDocument } from '@/core/domain/entities/User';
-import { UserModel } from '@/models/user-role-schema';
+import { UserModel } from '@/core/infrastructure/mongoose/schemas/user-role-schema';
 import { DatabaseOperationError } from '@/core/domain/errors/main';
 import { UserRepository } from '@/core/application/interfaces/entities/user';
 import { MongooseCRRUUD1Pattern } from '../patterns/crruud1.pattern';

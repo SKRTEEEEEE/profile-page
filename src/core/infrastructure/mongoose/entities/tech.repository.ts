@@ -1,5 +1,5 @@
 import { Leng, LengDocument, TechBase } from "@/core/domain/entities/Tech";
-import {  LenguajesModel } from "@/models/tech-schema";
+import {  LenguajesModel } from "@/core/infrastructure/mongoose/schemas/tech-schema";
 import { LengRepository } from "@/core/application/interfaces/entities/tech";
 import { FilterQuery } from "mongoose";
 import { MongooseCRRUUD2Pattern } from "../patterns/crruud2.pattern";

@@ -25,7 +25,8 @@ Test de arquitectura hexagonal con NextJs 14
 
 
 ### [🏃‍♂️‍➡️🛣️ Proceso](./docs/process.md)
-### [🖊️🧑‍💻 Project rules](/docs/hexa-rulez.md)
+#### [⏱️💼 ToDo](./docs/process.md#actualidad)
+### [🖊️🧑‍💻 Project rules - **🏗️ _working.._**](/docs/hexa-rulez.md)
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)
 ### Documentación utilizada
  **_NOT USED STILL_**

@@ -116,19 +116,13 @@ npm i react-countup
 
 ##### **ACTUALIDAD**
 
-## 1x. Reestructurar Backend y hexagonal arq p1 (back) 
+## 1x. Reestructurar clean arch v3 p1 (back) 
 ### Pasar backend techs a clean
 - [x] Pasar techs functionalities to clean arch
-### Despliegue
-- [ ] Hay que cambiar el ATLAS env secret para que apunte a la nueva colección, en el despliegue de next-hexa-test, para que funcione con los datos de profile-page(actual), igual que en el local.
 ### Crear parte "about me" de markdowns
 - [ ] Mirar si se puede hacer con md en vez de mdx
-### Mejorar arquitectura
-- [ ] Manejar correctamente los UC y C
-    - [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
-#### Responder a las acciones del servidor con `toast`
-- [ ] Aplicar toast en el tech-form (tech-dialog)
-#### Manejar correctamente las acciones
+## 1x. Reestructurar clean arch v3 p2 (back)
+### Manejar correctamente los UC, C y acciones
 - [ ] Utilizar un mensaje de respuesta correctamente
 - [ ] **Acción de DAR ADMIN** es un muy buen ejemplo de aver que pasa
 - [ ] Utilizar toast para manejar los estados
@@ -136,11 +130,25 @@ npm i react-countup
     - [ ] Si el usuario configura el correo mostrar otro toast conforme se le ha enviado o ha habido error
 - [ ] Manejar correctamente los estados de todos los componentes
 - [ ] Manejar correctamente los redirect y revalidate(en revalidate cuando sea necesario revalidate la pagina actual, que sea dinámico según la pagina en la que esta)
-#### Regresar a la web al poner tarjeta
+- [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
+#### Utilizar un mensaje de respuesta unificado
+- [ ] Responder a las acciones del servidor con `toast`
+    - [ ] Aplicar toast en el tech-form (tech-dialog)
+#### Mejorar errores correctamente
+### Revisar connectors
+- [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
+#### Traspasar ocktokit a clean arch
+
+
+### Regresar a la web al poner tarjeta
     - [ ] Si se ha efectuado correctamente hay que modificar el jwt, ?haciendo-le firmar?
     - [ ] Manejar los casos con toast()
 
-- [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
+
+### Despliegue
+- [ ] Hay que cambiar el ATLAS env secret para que apunte a la nueva colección, en el despliegue de next-hexa-test, para que funcione con los datos de profile-page(actual), igual que en el local.
+
+
 ## 1x. Frontend
 - [ ] Mejorar el frontend, mejorando los temas, y comprobando la correcta utilización de tailwind en todos los componentes
 - [ ] Traducir todo a Español

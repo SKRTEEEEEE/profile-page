@@ -1,11 +1,12 @@
 import { TechBase, TechForm } from "@/core/domain/entities/Tech";
-import { createTechUC, readOneTechUC, updateTechUC } from "@/core/application/usecases/entities/tech";
+import { createTechUC, readAllTechsUC, readOneTechUC, updateTechUC } from "@/core/application/usecases/entities/tech";
 import { actualizarMd } from "../../utils/tech/actualizarMd";
 import { actualizarJson } from "../../utils/tech/actualizarJson";
 
 export async function createTechC(data: TechForm):Promise<{success:boolean, message:string}> {
     const { name, afinidad, badge, preferencia, color, experiencia, img, lenguajeTo, frameworkTo } = data;
-    await actualizarMd({name,badge, colorhash:color})
+    const proyectosDB = await readAllTechsUC()
+    await actualizarMd(proyectosDB,{name,badge, colorhash:color} )
 
 
     const nuevoItem: TechBase = {

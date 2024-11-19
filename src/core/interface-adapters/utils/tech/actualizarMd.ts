@@ -1,8 +1,6 @@
 
 "use server"
 
-import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
-import { IFramework, ILenguaje, ILibreria, LenguajesModel } from "@/models/tech-schema";
 import { fetchFileSha, updateFileContent } from "../../../../actions/techs/utils";
 import { createBadgeTech } from "@/lib/techs";
 import { LengFull } from "@/core/domain/entities/Tech";
@@ -16,11 +14,9 @@ const path = { md: "sys/techs-test.md", json: "sys/techs-test.json" };
 const ref = "profile-page";
 
 
-export async function actualizarMd(create?:{name: string, badge: string, colorhash: string}) {
+export async function actualizarMd(proyectosDB: LengFull[]|null, create?:{name: string, badge: string, colorhash: string}) {
     const color = create?.colorhash.slice(1)
-    await connectToDB();
     try {
-        const proyectosDB: LengFull[] = await LenguajesModel.find();
         const mdSha = await fetchFileSha(path.md);
         if (!mdSha) {
             throw new Error("El archivo .md no se encuentra en el repositorio");
@@ -40,7 +36,7 @@ export async function actualizarMd(create?:{name: string, badge: string, colorha
         }
         
 
-        proyectosDB.sort((a, b) => a.preferencia - b.preferencia).forEach((proyecto) => {
+        proyectosDB?.sort((a, b) => a.preferencia - b.preferencia).forEach((proyecto) => {
             newMdContent += `\n\n>- ## ${createBadgeTech(proyecto)}`;
             if (proyecto.frameworks) {
                 proyecto.frameworks.sort((a, b) => a.preferencia - b.preferencia);

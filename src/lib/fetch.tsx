@@ -1,6 +1,6 @@
 import { readRoleUC } from "@/core/application/usecases/entities/role";
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
-import { Web3ProjectModel } from "@/models/web3_project-schema";
+import { Web3ProjectModel } from "@/core/infrastructure/mongoose/schemas/web3_project-schema";
 // import { AdminModel, UserModel } from "@/models/user-schema";
 
 
