@@ -21,7 +21,7 @@ Test de arquitectura hexagonal con NextJs 14
 | [swiper](https://swiperjs.com/react)                                        | [**nextui - _uninstalled_**](https://nextui.org/)                           | [@octokit/rest](https://www.npmjs.com/package/@octokit/rest) |                                        |
 | [react-countup](https://www.npmjs.com/package/react-countup) | [@react-stately/data - **_uninstalled_**](https://www.npmjs.com/package/@react-stately/data) |                                                             |                                        |
 | [github-slugger](https://www.npmjs.com/package/github-slugger/v/1.2.1)      | [@tsparticles/react](https://www.npmjs.com/package/@tsparticles/react) |                                                             |                                        |
-| [@tsparticles/slim](https://www.npmjs.com/package/@tsparticles/slim)        |                                                            |                                                             |                                        |
+| [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote/blob/main/README.md) | [@tsparticles/slim](https://www.npmjs.com/package/@tsparticles/slim)        |                                                             |                                        |
 
 
 ### [🏃‍♂️‍➡️🛣️ Proceso](./docs/process.md)
@@ -29,8 +29,9 @@ Test de arquitectura hexagonal con NextJs 14
 ### [🖊️🧑‍💻 Project rules - **🏗️ _working.._**](/docs/hexa-rulez.md)
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)
 ### Documentación utilizada
- **_NOT USED STILL_**
-- [taxonomy mdx components](https://github.com/shadcn-ui/taxonomy/blob/main/components/mdx-components.tsx): <br/> Componentes pre-diseñados para dar estilos a los mdx en [`mdx-components`](./src/components/mdx-components.tsx)
+- [mdxjs components](https://mdxjs.com/table-of-components/): <br/> Tabla de cambio de componentes.
+
+- [taxonomy mdx components](https://github.com/shadcn-ui/taxonomy/blob/main/components/mdx-components.tsx):  **_NOT USED STILL_** <br/> Componentes pre-diseñados para dar estilos a los mdx en [`mdx-components`](./src/components/mdx-components.tsx)
 ### Herramientas utilizadas
 - [**mailtrap**](https://mailtrap.io/): <br/> Gestor correos
 ## Licencia

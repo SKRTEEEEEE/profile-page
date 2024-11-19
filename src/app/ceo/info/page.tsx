@@ -41,7 +41,7 @@ const AboutMePage = async () => {
                             <li className="mb-2 border-secondary-ceo/10 border-4 rounded-md"><span tabIndex={0}>Fullstack dApp <i>EVM</i></span><br />Solidity, Ether.js, Thirdweb, Hardhat, Forge, Chainlink, etc... </li>
                         </ul>
                     <div className="space-y-2 flex flex-col w-full">
-                        <Button className="w-full" variant={"secondary"}>Lista completa de techs utilizadas</Button>
+                        <Button className="w-full" variant={"secondary"}><Link href={"/ceo/docs/techs"}>Lista completa de techs utilizadas</Link></Button>
                         <Button variant={"outline"} className="w-full"><Link href={"/admin/techs"}>Ver pagina de administración</Link></Button>
                     </div>
                         

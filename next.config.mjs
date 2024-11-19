@@ -7,6 +7,7 @@ if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 }
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    transpilePackages: ["next-mdx-remote"],
     images:{
         remotePatterns: [
             {
