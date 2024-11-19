@@ -51,7 +51,7 @@
 - [ ] Networking con expertos de la industria
 ## Limitaciones acciones
 ### v1
-#### Tier 1 (B): Limitar según contexto
+#### Tier 1 (B): Limitar según contexto (estar conectado/login)
 - [ ] Mirar la session y si tiene ctx, mirar que clase de permissions tiene
 #### Tier 2 (F): Cuenta activa & fetch role
 - [ ] Mirar cuenta activa/conectada (usando useActiveAccount() de thirdweb)

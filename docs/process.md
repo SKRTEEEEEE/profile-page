@@ -106,27 +106,23 @@ npm i react-countup
 #### Eliminar NextUi
 - [x] Terminar de eliminar NextUI y desinstalar-lo
 #### Techs form
-- [ ] Acabar de comprobar el uso: 
-    - [ ] con fw y libs
-    - [ ] cambiando el orden de preferencia
-    - [x] viendo que pasa en el md
-
 - [x] Incluir upload imágenes
 - [x] Permitir ver el formulario aunque no se haya iniciado session (pero no accionar el delete)
-- [ ] Mejorar frontend:
-    - [ ] Mejorar/usar mayus en el name
+- [x] Mejorar frontend:
+    - [x] Mejorar/usar mayus en el name
     - [x] Mejorar autocomplete p1 (faltaria hacer un personalizado para el name)
     - [x] Mejorar color y prefe (poner cuadrado input mas peque y al lado del title)
     - [x] Mejorar expe y afinidad (poner input mas peque al lado del title y al lado el total escojido)
 
 ##### **ACTUALIDAD**
 
-## 1x. Reestructurar Backend y hexagonal arq (back)
-### Pasar backend techs a hexagonal
-
+## 1x. Reestructurar Backend y hexagonal arq p1 (back) 
+### Pasar backend techs a clean
+- [x] Pasar techs functionalities to clean arch
 ### Despliegue
 - [ ] Hay que cambiar el ATLAS env secret para que apunte a la nueva colección, en el despliegue de next-hexa-test, para que funcione con los datos de profile-page(actual), igual que en el local.
 ### Crear parte "about me" de markdowns
+- [ ] Mirar si se puede hacer con md en vez de mdx
 ### Mejorar arquitectura
 - [ ] Manejar correctamente los UC y C
     - [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
