@@ -124,10 +124,11 @@ npm i react-countup
 ### Migrar a NextJs 15
 - [Información](https://nextjs.org/blog/next-15)
 - 💡 Optamos por el comando de codemods: `npx @next/codemod@canary upgrade latest`
-- [ ] Ejecutar el comando de migración y esperar que nada pete 🫠
+- [x] Ejecutar el comando de migración y esperar que nada pete 🫠
 ```
 
 ```
+- [ ] Solucionar **el error de re-hidratación de next-themes: esta en [theme-provider switch component](../src/components/oth/theme-provider.tsx)** probablemente ❗🧎‍♂️‍➡️💨
 ## 1x. Reestructurar clean arch v3 p2 (back)
 ### Manejar correctamente los UC, C y acciones
 - [ ] Utilizar e unificar un mensaje de respuesta correctamente

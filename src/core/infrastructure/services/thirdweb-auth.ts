@@ -12,7 +12,8 @@ import { redirect } from "next/navigation";
 
 class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthRepository {
   async logout(): Promise<void> {
-    (await cookies()).delete("jwt");
+    const res = await cookies()
+    res.delete("jwt");
   }
 
   async setJwt(payload: VerifyLoginPayloadParams, context: JWTContext): Promise<ExtendedJWTPayload> {
