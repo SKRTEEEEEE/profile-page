@@ -91,7 +91,7 @@ Aqui intentare definir:
 ## Graficos
 
 
-![Clean Arch](./clean-arch-export-1-9-2024-12_20_53.png)
+![Clean Arch](./img/clean-arch-export-1-9-2024-12_20_53.png)
 
 ![image.png](https://eraser.imgix.net/workspaces/IWxmuP747p51TzWwWeQp/tPNoyguwX4NkLJrSfkArLhioXeN2/8ePB4gUcbJh19zEemYtJl.png?ixlib=js-3.7.0 "image.png")
 

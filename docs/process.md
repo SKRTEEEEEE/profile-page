@@ -120,10 +120,10 @@ npm i react-countup
 ### Pasar backend techs a clean
 - [x] Pasar techs functionalities to clean arch
 ### Crear parte "about me" de markdowns
-- [ ] Mirar si se puede hacer con md en vez de mdx
+- [x] Mirar si se puede hacer con md en vez de mdx
 ## 1x. Reestructurar clean arch v3 p2 (back)
 ### Manejar correctamente los UC, C y acciones
-- [ ] Utilizar un mensaje de respuesta correctamente
+- [ ] Utilizar e unificar un mensaje de respuesta correctamente
 - [ ] **Acción de DAR ADMIN** es un muy buen ejemplo de aver que pasa
 - [ ] Utilizar toast para manejar los estados
     - [ ] En el caso de que el usuario configure un perfil se le ha de mostrar toast

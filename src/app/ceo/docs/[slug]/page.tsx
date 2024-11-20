@@ -14,12 +14,19 @@ import Link from "next/link";
 
 const GITHUB_RAW_TECHS_URL =
   "https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/main/about/techs.md";
+const GITHUB_RAW_TECHS_BASE = 
+  "https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/main/about/"
 
 
 async function fetchMarkdownFile(filename?: string): Promise<string | null> {
   try {
-    const response = await fetch(`${GITHUB_RAW_TECHS_URL}`);
-    // const response = await fetch(`https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/main/utils/learn-techs/backend/api-cat.md`);
+    let response: Response|{ok:false} = {ok:false}
+    if(!filename){
+    response = await fetch(`${GITHUB_RAW_TECHS_URL}`);
+  }
+    if(filename === "techs" || filename === "degrees"){
+    response = await fetch(`${GITHUB_RAW_TECHS_BASE}${filename}.md`);
+  }
     if (!response.ok) {
       return null;
     }
@@ -48,20 +55,20 @@ const components = {
     ),
     h4: (props:any)=> <h4 className="mt-1" {...props}></h4>,
     hr: (props:any)=><hr className="mt-2 " {...props}/>,
-    a: (props:any)=><Link href={props.href}{...props}></Link>
+    a: (props:any)=><Link target="_blank" href={props.href}{...props}></Link>
     
   };
-  
+
   export default async function DocPage(
-  //   {
-  //   params,
-  // }: {
-  //   params: Promise<{ slug: string }>
-  // }
+    {
+    params,
+  }: {
+    params: Promise<{ slug: string }>
+  }
 ) {
-    // const slug = (await params).slug
-    // const doc = await fetchMarkdownFile(slug)
-    const doc = await fetchMarkdownFile()
+    const slug = (await params).slug
+    const doc = await fetchMarkdownFile(slug)
+    // const doc = await fetchMarkdownFile()
   
     if (!doc) notFound();
   
