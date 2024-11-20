@@ -7,12 +7,13 @@ import { Metadata } from "next";
 import { EjercicioItem } from "@/components/academia/ejercicio-item";
 
 interface TagPageProps {
-    params: {
+    params: Promise<{
         tema: string
-    }
+    }>
 }
 
-export async function generateMetadata({params}: TagPageProps): Promise<Metadata>{
+export async function generateMetadata(props: TagPageProps): Promise<Metadata> {
+    const params = await props.params;
     const {tema}= params;
     return {
         title: tema,
@@ -26,7 +27,8 @@ export const generateStaticParams = () =>{
     return paths
 }
 
-export default function TemaPage({params}: TagPageProps){
+export default async function TemaPage(props: TagPageProps) {
+    const params = await props.params;
     const {tema} = params;
     const title = tema.split("-").join(" ")
 
@@ -76,6 +78,4 @@ export default function TemaPage({params}: TagPageProps){
     </div> 
     </div>
     )
-
-
 }

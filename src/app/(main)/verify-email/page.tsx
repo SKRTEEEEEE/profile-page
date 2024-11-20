@@ -44,7 +44,8 @@ async function VerifyEmailContent({ verifyToken, id }: SearchParams) {
 }
 
 
-export default function VerifyEmailPage({ searchParams }: PageProps) {
+export default async function VerifyEmailPage(props: PageProps) {
+  const searchParams = await props.searchParams;
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="w-full max-w-md">

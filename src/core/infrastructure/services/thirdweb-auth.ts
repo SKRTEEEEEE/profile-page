@@ -12,7 +12,7 @@ import { redirect } from "next/navigation";
 
 class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthRepository {
   async logout(): Promise<void> {
-    cookies().delete("jwt");
+    (await cookies()).delete("jwt");
   }
 
   async setJwt(payload: VerifyLoginPayloadParams, context: JWTContext): Promise<ExtendedJWTPayload> {
@@ -22,7 +22,7 @@ class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthReposito
             payload: verifiedPayload.payload,
             context
           });
-          cookies().set("jwt", jwt);
+          (await cookies()).set("jwt", jwt);
           const authRes = await this.thirdwebAuth.verifyJWT({jwt});
         if(!authRes.valid)throw new VerificationOperationError("jwt login token")
         return authRes.parsedJWT as ExtendedJWTPayload
@@ -36,7 +36,7 @@ class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthReposito
   }
   
   async getCookies(): Promise<ExtendedJWTPayload | false> {
-    const jwt = cookies().get("jwt");
+    const jwt = (await cookies()).get("jwt");
     if (!jwt?.value) return false;
     const result = await this.thirdwebAuth.verifyJWT({ jwt: jwt.value });
     return result.valid ? result.parsedJWT as ExtendedJWTPayload : false;

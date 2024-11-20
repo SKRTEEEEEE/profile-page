@@ -121,6 +121,13 @@ npm i react-countup
 - [x] Pasar techs functionalities to clean arch
 ### Crear parte "about me" de markdowns
 - [x] Mirar si se puede hacer con md en vez de mdx
+### Migrar a NextJs 15
+- [Información](https://nextjs.org/blog/next-15)
+- 💡 Optamos por el comando de codemods: `npx @next/codemod@canary upgrade latest`
+- [ ] Ejecutar el comando de migración y esperar que nada pete 🫠
+```
+
+```
 ## 1x. Reestructurar clean arch v3 p2 (back)
 ### Manejar correctamente los UC, C y acciones
 - [ ] Utilizar e unificar un mensaje de respuesta correctamente

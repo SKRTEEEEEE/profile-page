@@ -34,7 +34,8 @@ const TechsSection: React.FC<TechsSectionProps> = ({ techs, sectionTitle }) => (
       )}
     </section>
 
-export default function ProjectsDynPage({ params }: { params: { id: number } }) {
+export default async function ProjectsDynPage(props: { params: Promise<{ id: number }> }) {
+  const params = await props.params;
   const project = dataPortfolio.find((item) => item.id == params.id);
 
 

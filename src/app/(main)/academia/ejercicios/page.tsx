@@ -9,9 +9,9 @@ import { Metadata } from "next";
 const POSTS_PAGE = 5;
 
 interface BlogPageProps {
-    searchParams: {
+    searchParams: Promise<{
         page?: string;
-    }
+    }>
 }
 
 export const metadata: Metadata = {
@@ -19,7 +19,8 @@ export const metadata: Metadata = {
     description: "This is a example blog by Skrt"
 }
 
-export default async function BlogPage({searchParams}: BlogPageProps){
+export default async function BlogPage(props: BlogPageProps) {
+    const searchParams = await props.searchParams;
     const currentPage = Number(searchParams?.page) || 1
     const sortedPosts = sortPosts(ejercicios.filter(post=>post.published))
     const totalPages = Math.ceil(sortedPosts.length/POSTS_PAGE)
@@ -71,5 +72,5 @@ export default async function BlogPage({searchParams}: BlogPageProps){
             </CardContent>
         </Card>
         </div>
-        </div> 
+        </div>
 }
