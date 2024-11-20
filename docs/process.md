@@ -157,6 +157,10 @@ npm i react-countup
 
 
 ## 1x. Frontend
+### next-themes
+- [ ] Cuando se modifique next-themes: **hay que fijar-se/solucionar en el error de re-hidratación**
+
+    Este ocurre cuando entramos directamente a **cualquier ruta**, excepto [la principal / root](http://localhost:3000)
 - [ ] Mejorar el frontend, mejorando los temas, y comprobando la correcta utilización de tailwind en todos los componentes
 - [ ] Traducir todo a Español
 #### Tech table

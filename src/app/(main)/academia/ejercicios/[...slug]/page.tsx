@@ -9,20 +9,20 @@ import { Tag } from "@/components/academia/tag"
 import { MDXContent } from "@/components/academia/mdx-components"
 
 interface PostPageProps{
-    params: Promise<{
+    params: {
         slug: string[]
-    }>
+    }
 }
 
 async function getPostFromParams(params:PostPageProps["params"]){
-    const slug = params?.slug.join("/")
+    const slug = (await params)?.slug.join("/")
     const post = ejercicios.find(post => post.slugAsParams === slug)
 
     return post
 }
 
 export async function generateMetadata(props: PostPageProps): Promise<Metadata> {
-    const params = await props.params;
+    const params = props.params;
     const post = await getPostFromParams(params)
 
     if(!post){
