@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "buildCommand": "npm run install && next build",
+    "buildCommand": "next build",
     "installCommand": "npm install --force",
     "devCommand": "next dev --turbopack",
     "outputDirectory": ".next",
