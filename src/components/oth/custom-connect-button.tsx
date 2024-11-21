@@ -80,12 +80,12 @@ const client = getClient.client
 
 export const CConectButton =  ({connectButtonLabel="Iniciar session"}:{connectButtonLabel?:string}) =>{
     const [img, setImg] = useState<string|undefined>(undefined)
-    console.log("image in connect button :", img)
     return(
+      <div suppressHydrationWarning>
         <ConnectButton
         
-        theme={darkTheme({
-        })}
+        // theme={darkTheme({
+        // })}
         client={client}
         wallets={wallets}
         connectModal={{
@@ -129,6 +129,6 @@ export const CConectButton =  ({connectButtonLabel="Iniciar session"}:{connectBu
             doLogout:async () => {
               await fetch('/api/logout', { method: 'GET' });
           }
-        }}/>
+        }}/></div>
     )
 }
