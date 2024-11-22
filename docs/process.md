@@ -132,17 +132,23 @@ npm i react-countup
 
 ## 1x. Frontend
 ### next-themes
-- [ ] Cuando se modifique next-themes: 
+- [x] Cuando se modifique next-themes: 
     - [x] **Hay que fijar-se/solucionar en el error de re-hidratación**
 
         Este ocurre cuando entramos directamente a **cualquier ruta**, excepto [la principal / root](http://localhost:3000)
-- [ ] Mejorar el frontend, mejorando los temas, y comprobando la correcta utilización de tailwind en todos los componentes
+- [x] Mejorar el frontend, mejorando los temas, y comprobando la correcta utilización de tailwind en todos los componentes **p1**
 - [ ] Traducir todo a Español
 - [ ] Unificar lógica del main(grid-layout)
-    - [ ] mínimo: Las partes que utilizan el `site-header` component
+    - [x] mínimo: Las partes que utilizan el `site-header` component
+### Oth
 #### Tech table
-- [ ] Terminar parte mobile
-
+- [x] Terminar parte mobile
+#### Tech dialog
+- [ ] Tratar de encontrar el causante del problema del id
+- [ ] Responder acciones del servidor con `toast()`
+### EXTRA(dep)
+- [ ] Tratar de automatizar mínimamente la gestión de las dos versiones, tanto de Nextjs como React - o a falta de, documentar proceso.  
+## 1x. Internalization (en/es/de) `i18n`
 ## 1x. Reestructurar clean arch v3 p2 (back)
 ### Revisar connectors
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
@@ -172,7 +178,6 @@ npm i react-countup
 - [x] Hay que cambiar el ATLAS env secret para que apunte a la nueva colección, en el despliegue de next-hexa-test, para que funcione con los datos de profile-page(actual), igual que en el local.
 
 
-## 1x. Internalization (en/es/de) `i18n`
 ## 1x. Comprobar uso stripe en despliegue (back)
 
 <br/><br/>

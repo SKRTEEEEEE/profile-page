@@ -2,41 +2,28 @@ import Link from "next/link";
 import { buttonVariants } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { MobileNav } from "./mobile-nav";
-import { MainNav } from "./main-nav";
 import UserFormDialog from "./user-form-dialog";
 import { CConectButton } from "../oth/custom-connect-button";
 import { DataSiteConfig } from "@/lib/types";
 import { userInCookiesUC } from "@/core/interface-adapters/controllers/user";
 import ThemePopover from "./theme-popover";
 
-type ThemeType = {
-    light: { name: string; color: string }[];
-    dark: { name: string; color: string }[];
-  };
-  
-  const themes: ThemeType = {
-    light: [
-      { name: "grays", color: "bg-zinc-100" },
-      { name: "gold", color: "bg-yellow-300" },
-      { name: "neon", color: "bg-pink-500" },
-      { name: "sky", color: "bg-purple-400" },
-      { name: "soft", color: "bg-gray-800" },
-    ],
-    dark: [
-      { name: "grays", color: "bg-zinc-950" },
-      { name: "gold", color: "bg-yellow-700" },
-      { name: "neon", color: "bg-pink-600" },
-      { name: "sky", color: "bg-purple-600" },
-      { name: "soft", color: "bg-gray-300" },
-    ],
-  };
-  
 
-export async function SiteHeader({dataSiteConfig}: {dataSiteConfig: DataSiteConfig}){
+
+export async function SiteHeader({ dataSiteConfig }: { dataSiteConfig: DataSiteConfig }) {
     const user = await userInCookiesUC()
     return <header className="z-10 sticky top-0 w-full border-b border-border bg-background/95 background-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 max-w-screen-2xl items-center">
-            <MainNav dataSiteConfig={dataSiteConfig}/>
+            <nav className="flex items-center space-x-4 lg:space-x-6">
+                {/* Logo part */}
+                <Link href={dataSiteConfig.logo.path} className="flex items-center">
+                    {dataSiteConfig.logo.render}
+                </Link>
+                {/* Paginas part */}
+                <Link href={dataSiteConfig.paths[0].path} className={"text-sm font-medium transition-color hover:text-primary hidden md:inline-block"}>{dataSiteConfig.paths[0].title}</Link>
+                {/* <Link href="/about" className={cn("text-sm font-medium transition-color hover:text-primary hidden sm:inline-block", pathname === "/about" ? "text-foreground" : "text-foreground/60")}>About</Link> */}
+            </nav>
+
             <div className="flex flex-1 items-center justify-end space-x-2">
                 <nav className="flex items-center gap-2">
                     {/* Icons part */}
@@ -44,25 +31,26 @@ export async function SiteHeader({dataSiteConfig}: {dataSiteConfig: DataSiteConf
                     {
                         dataSiteConfig.icons.map(item => {
                             return (
-                                <Link key={item.title} href={item.path} target={item.blank?"_blank":"_self"} rel="noreferrer">
-                                    <div className={cn(buttonVariants({variant: "ghost"}),"w-10 px-0 hidden sm:inline-flex")}>
+                                <Link key={item.title} href={item.path} target={item.blank ? "_blank" : "_self"} rel="noreferrer">
+                                    <div className={cn(buttonVariants({ variant: "ghost" }), "w-10 px-0 hidden md:inline-flex")}>
                                         {item.render}
                                     </div>
-                                    </Link>
+                                </Link>
                             )
                         })
-                    }
-                    <span className="sm:inline-block hidden ">
-                    <CConectButton/>
-                     </span>
-                    
-                    <span className="hidden sm:inline-block ">
-                    <UserFormDialog user={user}/></span>
-                    
+                    }</nav>
+                    <span className="flex items-center gap-2">
+                    <span className="md:inline-block hidden ">
+                        <CConectButton />
+                    </span>
+
+                    <span className="hidden md:inline-block ">
+                        <UserFormDialog user={user} /></span>
+
 
                     <ThemePopover />
-                    <MobileNav dataSiteConfig={dataSiteConfig} user={user}/> 
-                </nav>
+                    <MobileNav dataSiteConfig={dataSiteConfig} user={user} /></span>
+                
 
             </div>
         </div>
