@@ -1,14 +1,14 @@
 "use client"
 
-import Link from "next/link";
 
 import { itemsNavbar } from "@/lib/data-ceo";
 
-import { usePathname } from "next/navigation";
 import { MotionTransition } from "../oth/transition-component";
+import { Link, usePathname } from "@/i18n/routing";
 
 const Navbar = () => {
     const router = usePathname()
+    console.log("router: ", router)
 
     return (
         <MotionTransition position="right" className="fixed z-40 flex flex-col items-center justify-center w-full mt-auto h-max bottom-10">
@@ -19,7 +19,9 @@ const Navbar = () => {
                             key={item.id}
                             className={`px-3 py-2 transition duration-150 rounded-full cursor-pointer hover:bg-secondary-ceo ${router === item.link && 'bg-secondary-ceo'}`}
                             data-tooltip-target="tooltip-default">
-                            <Link href={item.link}>{item.icon} <p id={item.title} className="hidden">{item.desc}</p></Link>
+                            <Link href={item.link as "/ceo" | "/ceo/proyectos" | "/ceo/portafolio" | "/ceo/info" | "/ceo/estudios" | "/ceo/code"}>{item.icon} 
+                                <p id={item.title} className="sr-only">{item.desc}</p>
+                            </Link>
                             
                         </div>
                     ))}

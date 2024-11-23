@@ -50,8 +50,8 @@ type Project = {
 export default function ProjectsPage() {
   const projectsPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
-  const t = useTranslations("ceo.proyectos")
   const c = useTranslations("common")
+  const t = useTranslations("ceo.proyectos")
 
   const projects = t.raw("id");
   
