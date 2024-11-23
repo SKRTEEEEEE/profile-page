@@ -1,0 +1,255 @@
+{
+    "ceo": {
+        "main": {
+            "introduction": {
+                "greeting": "Hola",
+                "introduction": "soy",
+                "developer_title": "Desarrollador",
+                "type_animation": {
+                    "1": "de la nueva generación web descentralizada",
+                    "2": "de branding web para proyectos innovadores",
+                    "3": "de interacción entre mundo real y web3",
+                    "4": "utilizando tecnologías web actuales e eficientes."
+                },
+                "description": "Fullstack especializado en tecnologías escalables y descentralizadas, enfocado en ofrecer una experiencia de usuario agradable a través de funcionalidad interactiva y segura.",
+                "buttons": {
+                    "view_projects": "Ver proyectos",
+                    "contact_me": "Contacta conmigo"
+                }
+            }
+        },
+        "proyectos": {
+            "main": {
+                "h1": "Mis proyectos web de muestra desplegados:",
+                "ul": {
+                    "buttons": {
+                        "url_demo": [
+                            "Ir",
+                            "al proyecto"
+                        ],
+                        "url_github": [
+                            "Ver",
+                            "Código"
+                        ],
+                        "url_project": [
+                            "Info",
+                            "del proyecto"
+                        ]
+                    }
+                }
+            },
+            "id": [
+                {
+                    "id": 2,
+                    "title": "Perfil Web del Desarrollador",
+                    "description": "Mi pagina de perfil como desarrollador",
+                    "main_objetive": "Mostrar mis habilidades como desarrollador Fullstack",
+                    "objetives": [
+                        "SCRUM",
+                        "buena documentación",
+                        "autorrealización",
+                        "compatibilidad frontend"
+                    ],
+                    "technologies": {
+                        "frontend": [
+                            {
+                                "title": "NextJS",
+                                "iconName": "TbBrandNextjs",
+                                "version": "v14",
+                                "desc": "parte principal"
+                            },
+                            {
+                                "title": "TailwindCSS",
+                                "iconName": "SiTailwindcss",
+                                "version": "v3",
+                                "desc": "parte visual principal"
+                            },
+                            {
+                                "title": "SwiperJs y TsParticles",
+                                "iconName": "SiSwiper",
+                                "version": "",
+                                "desc": "parte visual interactiva"
+                            }
+                        ],
+                        "backend": [
+                            {
+                                "title": "NextJS",
+                                "iconName": "TbBrandNextjs",
+                                "version": "v14",
+                                "desc": "parte principal"
+                            }
+                        ]
+                    },
+                    "image": "/ceo/image-3.png",
+                    "urlGithub": "https://github.com/SKRTEEEEEE/profile-page",
+                    "urlDemo": "",
+                    "operative": true,
+                    "ejemplo": true
+                },
+                {
+                    "id": 3,
+                    "title": "Blockchain para empresas",
+                    "description": "Pagina de presentación blockchain para empresas",
+                    "main_objetive": "Mostrar las posibilidades que ofrece la blockchain para empresas",
+                    "objetives": [
+                        "conceptos teóricos",
+                        "frontend y visual",
+                        "auto-realización",
+                        "atraer inversiones"
+                    ],
+                    "technologies": {
+                        "frontend": [
+                            {
+                                "title": "NextJS",
+                                "iconName": "TbBrandNextjs",
+                                "version": "v14",
+                                "desc": "parte principal"
+                            },
+                            {
+                                "title": "TailwindCSS",
+                                "iconName": "SiTailwindcss",
+                                "version": "v3",
+                                "desc": "parte visual principal"
+                            },
+                            {
+                                "title": "SwiperJs y TsParticles",
+                                "iconName": "SiSwiper",
+                                "version": "",
+                                "desc": "parte visual interactiva"
+                            }
+                        ]
+                    },
+                    "image": "/ceo/image-2.png",
+                    "urlGithub": "https://github.com/SKRTEEEEEE/blockchain-presentation",
+                    "urlDemo": "https://blockchain-presentation-eta.vercel.app/",
+                    "operative": true,
+                    "ejemplo": true
+                },
+                {
+                    "id": 4,
+                    "title": "Ejemplos Aplicaciones Descentralizadas",
+                    "description": "Ejemplos de aplicaciones descentralizadas que se pueden personalizar posteriormente",
+                    "main_objetive": "Mostrar mis habilidades como desarrollador Fullstack blockchain",
+                    "objetives": [
+                        "Smart-Contracts",
+                        "integración web3/web",
+                        "compatibilidad frontend",
+                        "uso blockchain"
+                    ],
+                    "technologies": {
+                        "frontend": [
+                            {
+                                "title": "NextJS",
+                                "iconName": "TbBrandNextjs",
+                                "version": "v14",
+                                "desc": "parte principal"
+                            },
+                            {
+                                "title": "TailwindCSS",
+                                "iconName": "SiTailwindcss",
+                                "version": "v3",
+                                "desc": "parte visual principal"
+                            },
+                            {
+                                "title": "Styled Components",
+                                "iconName": "SiStyledcomponents",
+                                "version": "",
+                                "desc": "parte visual principal"
+                            },
+                            {
+                                "title": "ChakraUI",
+                                "iconName": "SiChakraui",
+                                "version": "",
+                                "desc": "parte visual interactiva"
+                            },
+                            {
+                                "title": "ThreeJS",
+                                "iconName": "TbBrandThreejs",
+                                "version": "",
+                                "desc": "parte visual interactiva"
+                            }
+                        ],
+                        "backend": [
+                            {
+                                "title": "NextJS",
+                                "iconName": "TbBrandNextjs",
+                                "version": "v14",
+                                "desc": "parte principal"
+                            },
+                            {
+                                "title": "Thirdweb SDK",
+                                "iconName": "SiThirdweb",
+                                "version": "v4",
+                                "desc": "conectividad web/blockchain"
+                            },
+                            {
+                                "title": "Thirdweb CLI",
+                                "iconName": "SiThirdweb",
+                                "version": "",
+                                "desc": "despliegue Smart Contracts"
+                            },
+                            {
+                                "title": "Solidity",
+                                "iconName": "SiSolidity",
+                                "version": "",
+                                "desc": "creación Smart Contracts"
+                            }
+                        ]
+                    },
+                    "image": "/ceo/image-4.png",
+                    "urlGithub": "https://github.com/SKRTEEEEEE/ejemplos-dApps",
+                    "urlDemo": "http://ejemplos-d-apps.vercel.app/",
+                    "operative": true,
+                    "ejemplo": true
+                },
+                {
+                    "id": 5,
+                    "title": "Web Perfil v2",
+                    "description": "Pagina de perfil como desarrollador mejorada",
+                    "main_objetive": "Mejorar la parte del Backend para automatizar procesos",
+                    "objetives": [
+                        "SCRUM",
+                        "proyecto 'propio 100%'",
+                        "compatibilidad tecnologías",
+                        "añadir backend"
+                    ],
+                    "technologies": {
+                        "frontend": [
+                            {
+                                "title": "NextJS",
+                                "iconName": "TbBrandNextjs",
+                                "version": "v14",
+                                "desc": "parte principal"
+                            },
+                            {
+                                "title": "TailwindCSS",
+                                "iconName": "SiTailwindcss",
+                                "version": "v3",
+                                "desc": "parte visual principal"
+                            },
+                            {
+                                "title": "SwiperJs y TsParticles",
+                                "iconName": "SiSwiper",
+                                "version": "",
+                                "desc": "parte visual interactiva"
+                            }
+                        ],
+                        "backend": [
+                            {
+                                "title": "NextJS",
+                                "iconName": "TbBrandNextjs",
+                                "version": "v14",
+                                "desc": "parte principal"
+                            }
+                        ]
+                    },
+                    "image": "/ceo/image-3.jpg",
+                    "urlGithub": "https://github.com/SKRTEEEEEE/profile-page/tree/v01.02/",
+                    "urlDemo": "",
+                    "operative": false,
+                    "ejemplo": true
+                }
+            ]
+        }
+    }
+}

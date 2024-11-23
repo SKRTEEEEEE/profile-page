@@ -2,38 +2,38 @@
     "ceo": {
         "main": {
             "introduction": {
-                "greeting": "Hola",
-                "introduction": "soy",
-                "developer_title": "Desarrollador",
+                "greeting": "Hallo",
+                "introduction": "ich bin",
+                "developer_title": "Entwickler",
                 "type_animation": {
-                    "1": "de la nueva generación web descentralizada",
-                    "2": "de branding web para proyectos innovadores",
-                    "3": "de interacción entre mundo real y web3",
-                    "4": "utilizando tecnologías web actuales e eficientes."
+                    "1": "der nächsten Generation der dezentralisierten Webentwicklung",
+                    "2": "für Web-Branding innovativer Projekte",
+                    "3": "für die Interaktion zwischen der realen Welt und Web3",
+                    "4": "unter Nutzung aktueller und effizienter Web-Technologien."
                 },
-                "description": "Fullstack especializado en tecnologías escalables y descentralizadas, enfocado en ofrecer una experiencia de usuario agradable a través de funcionalidad interactiva y segura.",
+                "description": "Fullstack-Entwickler, spezialisiert auf skalierbare und dezentralisierte Technologien, mit Fokus auf ein angenehmes Benutzererlebnis durch interaktive und sichere Funktionalitäten.",
                 "buttons": {
-                    "view_projects": "Ver proyectos",
-                    "contact_me": "Contacta conmigo"
+                    "view_projects": "Projekte ansehen",
+                    "contact_me": "Kontaktiere mich"
                 }
             }
         },
         "proyectos": {
             "main": {
-                "h1": "Mis proyectos web de muestra desplegados:",
+                "h1": "Meine veröffentlichten Beispiel-Webprojekte:",
                 "ul": {
                     "buttons": {
                         "url_demo": [
-                            "Ir",
-                            "al proyecto"
+                            "Gehe",
+                            "zum Projekt"
                         ],
                         "url_github": [
-                            "Ver",
-                            "Código"
+                            "Sieh dir",
+                            "den Code an"
                         ],
                         "url_project": [
                             "Info",
-                            "del proyecto"
+                            "zum Projekt"
                         ]
                     }
                 }
@@ -41,14 +41,14 @@
             "id": [
                 {
                     "id": 2,
-                    "title": "Perfil Web del Desarrollador",
-                    "description": "Mi pagina de perfil como desarrollador",
-                    "main_objetive": "Mostrar mis habilidades como desarrollador Fullstack",
+                    "title": "Web-Entwickler-Profil",
+                    "description": "Meine Profilseite als Entwickler",
+                    "main_objetive": "Meine Fähigkeiten als Fullstack-Entwickler zeigen",
                     "objetives": [
                         "SCRUM",
-                        "buena documentación",
-                        "autorrealización",
-                        "compatibilidad frontend"
+                        "gute Dokumentation",
+                        "Selbstverwirklichung",
+                        "Frontend-Kompatibilität"
                     ],
                     "technologies": {
                         "frontend": [
@@ -56,19 +56,19 @@
                                 "title": "NextJS",
                                 "iconName": "TbBrandNextjs",
                                 "version": "v14",
-                                "desc": "parte principal"
+                                "desc": "Hauptteil"
                             },
                             {
                                 "title": "TailwindCSS",
                                 "iconName": "SiTailwindcss",
                                 "version": "v3",
-                                "desc": "parte visual principal"
+                                "desc": "Hauptsichtbarkeit"
                             },
                             {
-                                "title": "SwiperJs y TsParticles",
+                                "title": "SwiperJs und TsParticles",
                                 "iconName": "SiSwiper",
                                 "version": "",
-                                "desc": "parte visual interactiva"
+                                "desc": "Interaktive visuelle Darstellung"
                             }
                         ],
                         "backend": [
@@ -76,7 +76,7 @@
                                 "title": "NextJS",
                                 "iconName": "TbBrandNextjs",
                                 "version": "v14",
-                                "desc": "parte principal"
+                                "desc": "Hauptteil"
                             }
                         ]
                     },
@@ -88,14 +88,14 @@
                 },
                 {
                     "id": 3,
-                    "title": "Blockchain para empresas",
-                    "description": "Pagina de presentación blockchain para empresas",
-                    "main_objetive": "Mostrar las posibilidades que ofrece la blockchain para empresas",
+                    "title": "Blockchain für Unternehmen",
+                    "description": "Blockchain-Präsentationsseite für Unternehmen",
+                    "main_objetive": "Die Möglichkeiten der Blockchain für Unternehmen zeigen",
                     "objetives": [
-                        "conceptos teóricos",
-                        "frontend y visual",
-                        "auto-realización",
-                        "atraer inversiones"
+                        "Theoretische Konzepte",
+                        "Frontend und visuelle Darstellung",
+                        "Selbstverwirklichung",
+                        "Investitionen anziehen"
                     ],
                     "technologies": {
                         "frontend": [
@@ -103,19 +103,19 @@
                                 "title": "NextJS",
                                 "iconName": "TbBrandNextjs",
                                 "version": "v14",
-                                "desc": "parte principal"
+                                "desc": "Hauptteil"
                             },
                             {
                                 "title": "TailwindCSS",
                                 "iconName": "SiTailwindcss",
                                 "version": "v3",
-                                "desc": "parte visual principal"
+                                "desc": "Hauptsichtbarkeit"
                             },
                             {
-                                "title": "SwiperJs y TsParticles",
+                                "title": "SwiperJs und TsParticles",
                                 "iconName": "SiSwiper",
                                 "version": "",
-                                "desc": "parte visual interactiva"
+                                "desc": "Interaktive visuelle Darstellung"
                             }
                         ]
                     },
@@ -127,14 +127,14 @@
                 },
                 {
                     "id": 4,
-                    "title": "Ejemplos Aplicaciones Descentralizadas",
-                    "description": "Ejemplos de aplicaciones descentralizadas que se pueden personalizar posteriormente",
-                    "main_objetive": "Mostrar mis habilidades como desarrollador Fullstack blockchain",
+                    "title": "Beispiel für dezentrale Anwendungen",
+                    "description": "Beispiele für dezentrale Anwendungen, die später angepasst werden können",
+                    "main_objetive": "Meine Fähigkeiten als Fullstack-Blockchain-Entwickler zeigen",
                     "objetives": [
                         "Smart-Contracts",
-                        "integración web3/web",
-                        "compatibilidad frontend",
-                        "uso blockchain"
+                        "Web3/Web-Integration",
+                        "Frontend-Kompatibilität",
+                        "Blockchain-Nutzung"
                     ],
                     "technologies": {
                         "frontend": [
@@ -142,31 +142,31 @@
                                 "title": "NextJS",
                                 "iconName": "TbBrandNextjs",
                                 "version": "v14",
-                                "desc": "parte principal"
+                                "desc": "Hauptteil"
                             },
                             {
                                 "title": "TailwindCSS",
                                 "iconName": "SiTailwindcss",
                                 "version": "v3",
-                                "desc": "parte visual principal"
+                                "desc": "Hauptsichtbarkeit"
                             },
                             {
                                 "title": "Styled Components",
                                 "iconName": "SiStyledcomponents",
                                 "version": "",
-                                "desc": "parte visual principal"
+                                "desc": "Hauptsichtbarkeit"
                             },
                             {
                                 "title": "ChakraUI",
                                 "iconName": "SiChakraui",
                                 "version": "",
-                                "desc": "parte visual interactiva"
+                                "desc": "Interaktive visuelle Darstellung"
                             },
                             {
                                 "title": "ThreeJS",
                                 "iconName": "TbBrandThreejs",
                                 "version": "",
-                                "desc": "parte visual interactiva"
+                                "desc": "Interaktive visuelle Darstellung"
                             }
                         ],
                         "backend": [
@@ -174,25 +174,25 @@
                                 "title": "NextJS",
                                 "iconName": "TbBrandNextjs",
                                 "version": "v14",
-                                "desc": "parte principal"
+                                "desc": "Hauptteil"
                             },
                             {
                                 "title": "Thirdweb SDK",
                                 "iconName": "SiThirdweb",
                                 "version": "v4",
-                                "desc": "conectividad web/blockchain"
+                                "desc": "Web/Blockchain-Konnektivität"
                             },
                             {
                                 "title": "Thirdweb CLI",
                                 "iconName": "SiThirdweb",
                                 "version": "",
-                                "desc": "despliegue Smart Contracts"
+                                "desc": "Smart Contracts bereitstellen"
                             },
                             {
                                 "title": "Solidity",
                                 "iconName": "SiSolidity",
                                 "version": "",
-                                "desc": "creación Smart Contracts"
+                                "desc": "Smart Contracts erstellen"
                             }
                         ]
                     },
@@ -204,14 +204,14 @@
                 },
                 {
                     "id": 5,
-                    "title": "Web Perfil v2",
-                    "description": "Pagina de perfil como desarrollador mejorada",
-                    "main_objetive": "Mejorar la parte del Backend para automatizar procesos",
+                    "title": "Web Profil v2",
+                    "description": "Verbesserte Profilseite als Entwickler",
+                    "main_objetive": "Verbesserung des Backend-Teils zur Automatisierung von Prozessen",
                     "objetives": [
                         "SCRUM",
-                        "proyecto 'propio 100%'",
-                        "compatibilidad tecnologías",
-                        "añadir backend"
+                        "100% eigenes Projekt",
+                        "Technologiekompatibilität",
+                        "Backend hinzufügen"
                     ],
                     "technologies": {
                         "frontend": [
@@ -219,19 +219,19 @@
                                 "title": "NextJS",
                                 "iconName": "TbBrandNextjs",
                                 "version": "v14",
-                                "desc": "parte principal"
+                                "desc": "Hauptteil"
                             },
                             {
                                 "title": "TailwindCSS",
                                 "iconName": "SiTailwindcss",
                                 "version": "v3",
-                                "desc": "parte visual principal"
+                                "desc": "Hauptsichtbarkeit"
                             },
                             {
-                                "title": "SwiperJs y TsParticles",
+                                "title": "SwiperJs und TsParticles",
                                 "iconName": "SiSwiper",
                                 "version": "",
-                                "desc": "parte visual interactiva"
+                                "desc": "Interaktive visuelle Darstellung"
                             }
                         ],
                         "backend": [
@@ -239,7 +239,7 @@
                                 "title": "NextJS",
                                 "iconName": "TbBrandNextjs",
                                 "version": "v14",
-                                "desc": "parte principal"
+                                "desc": "Hauptteil"
                             }
                         ]
                     },
@@ -251,9 +251,5 @@
                 }
             ]
         }
-    },
-    "common": {
-        "previous": "Anterior",
-        "next": "Siguiente"
     }
 }
