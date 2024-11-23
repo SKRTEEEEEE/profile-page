@@ -250,6 +250,29 @@
                     "ejemplo": true
                 }
             ]
+        },
+        "info": {
+            "section": {
+                "skills": {
+                    "h1": ["Mis", "habilidades"],
+                    "h2": "Mi perfil profesional",
+                    "buttons": {
+                        "tech": "Lista completa de tecnologías utilizadas",
+                        "admin": "Ver página de administración"
+                    }
+                },
+                "slider": {
+                    "h2": "Principales lenguajes utilizados"
+                }
+            }
+        },
+        "images": {
+            "circular": "Imagen circular de un poblado futurista",
+            "tablet_office": "Superhéroe tecnológico con una tableta en la mano",
+            "tablet": "Avatar con una tableta en la mano",
+            "hero": "Avatar de perfil",
+            "office": "Programador en la oficina programando",
+            "pixel": "Imagen de avatar pixelada"
         }
     }
 }

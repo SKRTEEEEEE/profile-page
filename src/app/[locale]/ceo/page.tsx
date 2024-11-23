@@ -8,7 +8,7 @@ export default function CeoPage() {
     return (
       <main>
         <TransitionPage />
-        <div className="flex min-h-[100vh] bg-no-repeat bg-gradient-cover">
+        <div className="flex w-full min-h-dvh bg-no-repeat bg-gradient-cover">
           <CoverParticles />
           <Introduction />
         </div>

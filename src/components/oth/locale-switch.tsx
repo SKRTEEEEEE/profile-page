@@ -1,18 +1,20 @@
 'use client';
 
+import { usePathname, useRouter } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { ChangeEvent, useTransition } from 'react';
 
 export default function LocalSwitcher() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const localActive = useLocale();
+  const pathname = usePathname()
 
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const nextLocale = e.target.value;
     startTransition(() => {
-      router.replace(`/${nextLocale}`);
+      router.replace(pathname as any,{locale:nextLocale});
     });
   };
   return (
@@ -27,6 +29,7 @@ export default function LocalSwitcher() {
         <option value='en'>English</option>
         <option value='es'>Español</option>
         <option value='de'>Alemán</option>
+        <option value="ca">Catalán</option>
       </select>
     </label>
   );

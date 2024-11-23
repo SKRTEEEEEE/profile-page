@@ -28,53 +28,75 @@ export const socialNetworks = [
     },
 
 ];
-
 export const itemsNavbar = [
     {
         id: 1,
         title: "Home",
-        icon: <HomeIcon size={25} color="#fff" strokeWidth={1} aria-describedby="Home"/>,
+        icon: <HomeIcon size={25} color="#fff" strokeWidth={1} aria-describedby="Home" />,
         link: "/",
-        desc: "Volver al inicio"
+        desc: {
+            es: "Volver al inicio",
+            de: "Zur Startseite zurückkehren",
+            en: "Go to start"
+        }
     },
     {
         id: 2,
         title: "Perfil",
-        icon: <UserRound size={25} color="#fff" strokeWidth={1} aria-describedby="Perfil"/>,
+        icon: <UserRound size={25} color="#fff" strokeWidth={1} aria-describedby="Perfil" />,
         link: "/ceo",
-        desc: "Presentación perfil"
+        desc: {
+            es: "Presentación perfil",
+            de: "Profilpräsentation",
+            en: "Profile presentation"
+        }
     },
     {
         id: 3,
         title: "Información",
-        icon: <Info  size={25} color="#fff" strokeWidth={1} aria-describedby="Información"/>,
+        icon: <Info size={25} color="#fff" strokeWidth={1} aria-describedby="Información" />,
         link: "/ceo/info",
-        desc: "Principal Información tecnológica"
-        
+        desc: {
+            es: "Principal Información tecnológica",
+            de: "Wichtige technologische Informationen",
+            en: "Main technological information"
+        }
     },
     {
         id: 4,
         title: "Portafolio",
-        icon: <CodeSquare size={25} color="#fff" strokeWidth={1} aria-describedby="Portafolio"/>,
+        icon: <CodeSquare size={25} color="#fff" strokeWidth={1} aria-describedby="Portafolio" />,
         link: "/ceo/portafolio",
-        desc: "Principales proyectos de código abierto"
-        
+        desc: {
+            es: "Principales proyectos de código abierto",
+            de: "Wichtigste Open-Source-Projekte",
+            en: "Main open-source projects"
+        }
     },
     {
         id: 5,
         title: "Estudios",
-        icon: <BookText  size={25} color="#fff" strokeWidth={1} aria-describedby="Estudios"/>,
+        icon: <BookText size={25} color="#fff" strokeWidth={1} aria-describedby="Estudios" />,
         link: "/ceo/estudios",
-        desc: "Estudios certificados oficiales"
+        desc: {
+            es: "Estudios certificados oficiales",
+            de: "Offizielle zertifizierte Studien",
+            en: "Official certified studies"
+        }
     },
     {
         id: 6,
         title: "Code",
-        icon: <Link  size={25} color="#fff" strokeWidth={1} aria-describedby="Code"/>,
+        icon: <Link size={25} color="#fff" strokeWidth={1} aria-describedby="Code" />,
         link: "/ceo/code",
-        desc: "Información sobre proyectos de código abierto web3"
+        desc: {
+            es: "Información sobre proyectos de código abierto web3",
+            de: "Informationen zu Open-Source-Web3-Projekten",
+            en: "Information about open-source web3 projects"
+        }
     },
 ];
+
 // De aquí, para abajo, se ha de recoger/guardar en la bdd
 export const dataStudiesPage = [
     {

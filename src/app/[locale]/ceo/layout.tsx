@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 
 // El thirdweb provider lo he de usar en el Layout de mas al fondo NO EN ESTE
-export default function RootLayout({
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -29,11 +29,11 @@ export default function RootLayout({
   return (
       <div className={urbanist.className}>
         <CThemeProvider defaultTheme="dark-soft" disableTransitionOnChange>
-      <ThirdwebProvider>
+        <ThirdwebProvider>
         <Navbar />
         <Header />
         {children}
-      </ThirdwebProvider>
+        </ThirdwebProvider>
       </CThemeProvider>
 
       </div>
