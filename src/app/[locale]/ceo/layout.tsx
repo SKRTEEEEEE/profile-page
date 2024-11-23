@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
       <div className={urbanist.className}>
-        <CThemeProvider  disableTransitionOnChange>
+        <CThemeProvider defaultTheme="dark-soft" disableTransitionOnChange>
       <ThirdwebProvider>
         <Navbar />
         <Header />

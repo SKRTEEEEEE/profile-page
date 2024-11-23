@@ -144,17 +144,11 @@ export const dataCounter = [
     // },
 ];
 
+// READY FOR DELETE ⬇️🚫
+
 
 export const dataPortfolio = [
 
-    // {
-    //     id: 1,
-    //     title: "Presentación responsiva",
-    //     image: "/image-1.png",
-    //     urlGithub: "https://github.com/SKRTEEEEEE",
-    //     urlDemo: "https://tokenizacion.my.canva.site/ventajas-tecnologicas-3",
-    //     operative: true,
-    // },
     {
         id: 2,
         title: "Perfil Web del Desarrollador",
@@ -343,62 +337,6 @@ export const dataPortfolio = [
         operative: false,
         ejemplo: true,
     },
-    // {
-    //     id: 6,
-    //     title: "Web Dinámica",
-    // description: "Mi pagina de perfil como desarrollador",
-    // objetivo: "Mostrar mis habilidades como desarrollador Fullstack",
-    //     objetivos:[ "SCRUM", "buena documentación", "proyecto 'propio 100%'", "compatibilidad tecnologías"],
-    //     technologies: {
-    //         frontend: [{
-    //             title: "NextJS",
-    //             icon: <TbBrandNextjs />,
-    //             version: "v14",
-    //             desc: "parte principal"
-    //         },
-    //         {
-    //             title: "TailwindCSS",
-    //             icon: <SiTailwindcss />,
-    //             version: "v3",
-    //             desc: "parte visual principal"
-    //         },
-    //         {
-    //             title: "SwiperJs y TsParticles",
-    //             icon: <SiSwiper />,
-    //             version: "",
-    //             desc: "parte visual interactiva"
-    //         }
-    //         ],
-    //         backend:[{
-    //             title: "NextJS",
-    //             icon: <TbBrandNextjs />,
-    //             version: "v14",
-    //             desc: "parte principal"
-    //         },
-    //         ]
-            
-    //     },
-    //     image: "/image-6.jpg",
-    //     urlGithub: "#!",
-    //     urlDemo: "#!",
-    //     operative: false,
-    // },
-    // {
-    //     id: 7,
-    //     title: "Dark Web ",
-    //     image: "/image-7.jpg",
-    //     urlGithub: "#!",
-    //     urlDemo: "#!",
-    //     operative: false,
-    // },
-    // {
-    //     id: 8,
-    //     title: "E-commerce web",
-    //     image: "/image-8.jpg",
-    //     urlGithub: "#!",
-    //     urlDemo: "#!",
-    //     operative: false,
-    // }
 ];
 
 export const admins = [

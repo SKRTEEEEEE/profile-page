@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MotionTransition } from "../oth/transition-component";
 import { Languages } from "lucide-react";
+import LocalSwitcher from "../oth/locale-switch";
 
 const Header = () => {
     return (
@@ -34,6 +35,7 @@ const Header = () => {
                         ))}
                     </div>
                     <Languages className="transition-all duration-300 hover:text-secondary-ceo" />
+                    <LocalSwitcher />
                     </div>
                 </div>
             </header>

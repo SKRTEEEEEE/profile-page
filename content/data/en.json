@@ -1,0 +1,22 @@
+{
+  "ceo": {
+    "main": {
+      "introduction": {
+        "greeting": "Hello",
+        "introduction": "I am",
+        "developer_title": "Developer",
+        "type_animation": {
+          "1": "of the next decentralized web generation",
+          "2": "of web branding for innovative projects",
+          "3": "of interaction between the real world and web3",
+          "4": "using current and efficient web technologies."
+        },
+        "description": "Fullstack developer specializing in scalable and decentralized technologies, focused on providing a pleasant user experience through interactive and secure functionality.",
+        "buttons": {
+          "view_projects": "View projects",
+          "contact_me": "Contact me"
+        }
+      }
+    }
+  }
+}

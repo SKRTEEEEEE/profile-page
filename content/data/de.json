@@ -1,0 +1,22 @@
+{
+  "ceo": {
+    "main": {
+      "introduction": {
+        "greeting": "Hallo",
+        "introduction": "ich bin",
+        "developer_title": "Entwickler",
+        "type_animation": {
+          "1": "der nächsten Generation der dezentralisierten Webentwicklung",
+          "2": "für Web-Branding innovativer Projekte",
+          "3": "für die Interaktion zwischen der realen Welt und Web3",
+          "4": "unter Nutzung aktueller und effizienter Web-Technologien."
+        },
+        "description": "Fullstack-Entwickler, spezialisiert auf skalierbare und dezentralisierte Technologien, mit Fokus auf ein angenehmes Benutzererlebnis durch interaktive und sichere Funktionalitäten.",
+        "buttons": {
+          "view_projects": "Projekte ansehen",
+          "contact_me": "Kontaktiere mich"
+        }
+      }
+    }
+  }
+}
