@@ -257,7 +257,15 @@
                     "operative": false,
                     "ejemplo": true
                 }
-            ]
+            ],
+            "id_static": {
+                "main_objetive": "Objetivo",
+                "buttons": {
+                    "back": ["Volver", "a proyectos"],
+                    "code": ["Ver", "Código"],
+                    "project": ["Ir", "a la web"] 
+                }
+            }
         },
         "info": {
             "section": {

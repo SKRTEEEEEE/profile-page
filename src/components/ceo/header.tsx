@@ -13,7 +13,7 @@ const Header = () => {
             <header>
                 <div className="container justify-between max-w-6xl mx-auto md:flex">
                     <Link href='/' aria-describedby="link-header-title" className="flex items-center justify-center gap-4">
-                        <Image alt="logo del desarrollador" width={60} height={5} src="/ceo/skrt-white.png"/>
+                        <Image alt="logo del desarrollador" width={60} height={60} src="/ceo/skrt-white.png" />
                         <h1 className="text-4xl font-bold text-center md:text-left">
                             SKRTEEEEEE
                             <span className="text-secondary-ceo">Dev</span>

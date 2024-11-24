@@ -1,14 +1,15 @@
 import PortfolioBox from "@/components/ceo/portfolio-box";
 import { MotionTransition } from "@/components/oth/transition-component";
 import TransitionPage from "@/components/oth/transition-page";
-import { dataPortfolio } from "@/lib/data-ceo";
-import { useTranslations } from "next-intl";
+import { getProjects } from "@/lib/projects";
+import { getTranslations } from "next-intl/server";
 
 import Image from "next/image";
 
 
-const PortfolioPage = () => {
-    const t = useTranslations("ceo")
+const PortfolioPage = async () => {
+    const t = await getTranslations("ceo")
+    const dataPortfolio = await getProjects()
     return (
         <main className="w-full max-w-6xl px-4 pb-40 mx-auto mt-40 md:pb-0 md:px-6">
             <TransitionPage />

@@ -7,7 +7,7 @@ type PortfolioBoxProps = {
         title: string
         image: string
         urlGithub: string
-        urlDemo: string
+        urlDemo?: string
         operative: boolean
     }
 }
@@ -15,13 +15,14 @@ type PortfolioBoxProps = {
 const PortfolioBox = (props: PortfolioBoxProps) => {
     const { data } = props
     const { id, title, image, urlDemo, urlGithub, operative } = data
+    console.log("data: " ,{data})
 
     return (
         <div
             key={id}
             className={operative?"p-4 transition duration-150  bg-secondary-ceo/20 hover:bg-secondary-ceo/80 border border-teal-50 rounded-xl":"p-4 transition duration-150 rounded-lg bg-black/80 "}
         > <Link
-        href={operative?urlDemo:"#"}
+        href={operative?urlDemo?urlDemo:"#":"#"}
         target={operative?"_blank":"_self"}
         
     >
@@ -31,7 +32,7 @@ const PortfolioBox = (props: PortfolioBoxProps) => {
             <Image
                 src={image}
                 alt={`Imagen de la web ${title}`}
-                width={200} height={200} className="w-full md:w-[200px] rounded-2xl h-auto"
+                width={400} height={200} className="w-full md:w-[200px] rounded-2xl h-auto"
             /></Link>
 
             <div className="flex gap-5 mt-5">      

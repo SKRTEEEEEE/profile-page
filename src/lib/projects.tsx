@@ -42,7 +42,7 @@ export type Project = {
     };
     return iconMap[techName] || null;
   };
-  
+
 export async function getProjects(): Promise<Project[]> {
   const t = await getTranslations()
 
@@ -51,7 +51,7 @@ export async function getProjects(): Promise<Project[]> {
     const frontends = project.technologies?.frontend || [];
     const backends = project.technologies?.backend || [];
     return {
-      id: index,
+      id: project.id,
       title: project.title || '',
       description: project.description || '',
       objetivo: project.main_objetive || '',
@@ -66,11 +66,13 @@ export async function getProjects(): Promise<Project[]> {
           icon: getIcon(tech.iconName)
         }))
       },
+      image: project.image || "",
       urlDemo: project.urlDemo || '',
       urlGithub: project.urlGithub || '',
       operative: project.operative || false,
       ejemplo: project.ejemplo || false
     };
   });
+  console.log("mappedProjects: ", mappedProjects)
   return mappedProjects
 }

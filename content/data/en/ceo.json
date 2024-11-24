@@ -257,7 +257,15 @@
                     "operative": false,
                     "ejemplo": true
                 }
-            ]
+            ],
+            "id_static": {
+                "main_objetive": "Objective",
+                "buttons": {
+                    "back": ["Back","to projects"],
+                    "code": ["Code", "visit" ],
+                    "project": ["Go", "Website"]
+                }
+            }
         },
         "info": {
             "section": {
@@ -278,7 +286,11 @@
             }
         },
         "portafolio": {
-            "h1": ["Featured", "open-source", " examples"]
+            "h1": [
+                "Featured",
+                "open-source",
+                " examples"
+            ]
         },
         "estudios": {
             "h1": [

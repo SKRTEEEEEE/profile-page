@@ -14,8 +14,8 @@ const StudiesPage = () => {
 
         <TransitionPage />
             
-            <MotionTransition position="bottom" className="top-14 right-0 hidden md:inline-block md:absolute ">
-            <Image src="/ceo/avatar1.svg" width="550" height="550" className="" alt={t("images.office")}/>
+            <MotionTransition position="bottom" className="top-14 right-0 hidden xl:inline-block xl:absolute ">
+            <Image priority src="/ceo/avatar1.svg" width={"550"} height={"550"} className="" alt={t("images.office")}/>
                 </MotionTransition>
                 <h1 tabIndex={0} className="text-2xl leading-tight text-center md:text-left md:text-5xl md:mt-10">
                     <span className="font-bold text-secondary-ceo">
