@@ -1,5 +1,13 @@
 {
     "ceo": {
+        "images": {
+            "circular": "Circular image of a futuristic village",
+            "tablet_office": "Technological superhero with a tablet in hand",
+            "tablet": "Avatar holding a tablet",
+            "hero": "Profile avatar",
+            "office": "Programmer in the office coding",
+            "pixel": "Pixelated avatar image"
+        },
         "main": {
             "introduction": {
                 "greeting": "Hello",
@@ -254,7 +262,10 @@
         "info": {
             "section": {
                 "skills": {
-                    "h1": ["My", "skills"],
+                    "h1": [
+                        "My",
+                        "skills"
+                    ],
                     "h2": "My professional profile",
                     "buttons": {
                         "tech": "Full list of technologies used",
@@ -266,13 +277,33 @@
                 }
             }
         },
-        "images": {
-            "circular": "Circular image of a futuristic village",
-            "tablet_office": "Technological superhero with a tablet in hand",
-            "tablet": "Avatar holding a tablet",
-            "hero": "Profile avatar",
-            "office": "Programmer in the office coding",
-            "pixel": "Pixelated avatar image"
+        "portafolio": {
+            "h1": ["Featured", "open-source", " examples"]
+        },
+        "estudios": {
+            "h1": [
+                "Certified studies",
+                "highlighted"
+            ],
+            "list": {
+                "1": {
+                    "title": "Fullstack Grade 3 Course",
+                    "desc": "Course focused on learning to create interactive websites using HTML, CSS, Js on the client side, Node.js, PHP on the server side, MySQL to store data, and other web technologies."
+                },
+                "2": {
+                    "title": "Chainlink bootcamp 2024",
+                    "desc": "Official training to master the use of Chainlink oracle technology, covering blockchain concepts, Solidity, ERC20 tokens, NFTs, and Chainlink automation."
+                },
+                "3": {
+                    "title": "Big Data I",
+                    "desc": "Introductory course on using Python to handle large datasets, including statistics, processing, and data visualization."
+                }
+            },
+            "counter": {
+                "0": "Years of experience",
+                "1": "Features developed",
+                "2": "Projects on GitHub"
+            }
         }
     }
 }

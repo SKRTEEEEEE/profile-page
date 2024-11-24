@@ -1,5 +1,13 @@
 {
     "ceo": {
+        "images": {
+            "circular": "Imagen circular de un poblado futurista",
+            "tablet_office": "Superhéroe tecnológico con una tableta en la mano",
+            "tablet": "Avatar con una tableta en la mano",
+            "hero": "Avatar de perfil",
+            "office": "Programador en la oficina programando",
+            "pixel": "Imagen de avatar pixelada"
+        },
         "main": {
             "introduction": {
                 "greeting": "Hola",
@@ -254,7 +262,10 @@
         "info": {
             "section": {
                 "skills": {
-                    "h1": ["Mis", "habilidades"],
+                    "h1": [
+                        "Mis",
+                        "habilidades"
+                    ],
                     "h2": "Mi perfil profesional",
                     "buttons": {
                         "tech": "Lista completa de tecnologías utilizadas",
@@ -266,13 +277,33 @@
                 }
             }
         },
-        "images": {
-            "circular": "Imagen circular de un poblado futurista",
-            "tablet_office": "Superhéroe tecnológico con una tableta en la mano",
-            "tablet": "Avatar con una tableta en la mano",
-            "hero": "Avatar de perfil",
-            "office": "Programador en la oficina programando",
-            "pixel": "Imagen de avatar pixelada"
+        "portafolio":{
+            "h1": ["Ejemplos", "open-source ", "destacados"]
+        },
+        "estudios": {
+            "h1": [
+                "Estudios certificados",
+                "destacados"
+            ],
+            "list": {
+                "1": {
+                    "title": "Curso Fullstack Grado 3",
+                    "desc": "Curso centrado en aprender a crear sitios web interactivos utilizando HTML, CSS, Js en el lado cliente, Node.js, PHP en el lado servidor, MySQL para almacenar datos y otras tecnologías web."
+                },
+                "2": {
+                    "title": "Chainlink bootcamp 2024",
+                    "desc": "Entrenamiento oficial para dominar el uso de la tecnología del oráculo Chainlink, abarcando conceptos de blockchain, Solidity, tokens ERC20, NFTs y automatización de Chainlink."
+                },
+                "3": {
+                    "title": "Big Data I",
+                    "desc": "Curso introductorio sobre el uso de Python para manipular grandes conjuntos de datos, incluyendo estadísticas, procesamiento y visualización de datos."
+                }
+            },
+            "counter": {
+                "0": "Años de experiencia",
+                "1": "Funcionalidades desarrolladas",
+                "2": "Proyectos en github"
+            }
         }
     }
 }

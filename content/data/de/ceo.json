@@ -1,5 +1,13 @@
 {
     "ceo": {
+        "images": {
+            "circular": "Kreisförmiges Bild eines futuristischen Dorfes",
+            "tablet_office": "Technologischer Superheld mit einem Tablet in der Hand",
+            "tablet": "Avatar mit einem Tablet in der Hand",
+            "hero": "Profil-Avatar",
+            "office": "Programmierer im Büro beim Programmieren",
+            "pixel": "Pixeliertes Avatar-Bild"
+        },
         "main": {
             "introduction": {
                 "greeting": "Hallo",
@@ -254,7 +262,10 @@
         "info": {
             "section": {
                 "skills": {
-                    "h1": ["Meine", "Fähigkeiten"],
+                    "h1": [
+                        "Meine",
+                        "Fähigkeiten"
+                    ],
                     "h2": "Mein berufliches Profil",
                     "buttons": {
                         "tech": "Vollständige Liste der verwendeten Technologien",
@@ -266,13 +277,33 @@
                 }
             }
         },
-        "images": {
-            "circular": "Kreisförmiges Bild eines futuristischen Dorfes",
-            "tablet_office": "Technologischer Superheld mit einem Tablet in der Hand",
-            "tablet": "Avatar mit einem Tablet in der Hand",
-            "hero": "Profil-Avatar",
-            "office": "Programmierer im Büro beim Programmieren",
-            "pixel": "Pixeliertes Avatar-Bild"
+        "portafolio":{
+            "h1": ["Vorgestellte", "Open-Source","-Beispiele"]
+        },
+        "estudios": {
+            "h1": [
+                "Zertifizierte Studien",
+                "hervorgehoben"
+            ],
+            "list": {
+                "1": {
+                    "title": "Fullstack Kurs Grad 3",
+                    "desc": "Kurs, der sich darauf konzentriert, interaktive Websites mit HTML, CSS, Js auf der Client-Seite, Node.js, PHP auf der Server-Seite, MySQL zum Speichern von Daten und anderen Webtechnologien zu erstellen."
+                },
+                "2": {
+                    "title": "Chainlink Bootcamp 2024",
+                    "desc": "Offizielles Training zur Beherrschung der Chainlink-Oracle-Technologie, einschließlich Blockchain-Konzepte, Solidity, ERC20-Token, NFTs und Chainlink-Automatisierung."
+                },
+                "3": {
+                    "title": "Big Data I",
+                    "desc": "Einführungskurs zur Verwendung von Python für die Verarbeitung großer Datensätze, einschließlich Statistik, Verarbeitung und Datenvisualisierung."
+                }
+            },
+            "counter": {
+                "0": "Jahre Erfahrung",
+                "1": "Entwickelte Funktionen",
+                "2": "Projekte auf GitHub"
+            }
         }
     }
 }

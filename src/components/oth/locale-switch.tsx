@@ -1,20 +1,24 @@
 'use client';
 
-import { usePathname, useRouter } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
-// import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+// import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { ChangeEvent, useTransition } from 'react';
 
 export default function LocalSwitcher() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const localActive = useLocale();
-  const pathname = usePathname()
+  const route = usePathname()
+
+  
+  const pathname = route.split("/",-1).slice(2).join("/")
 
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const nextLocale = e.target.value;
     startTransition(() => {
-      router.replace(pathname as any,{locale:nextLocale});
+      router.push(`/${nextLocale}/${pathname}`);
     });
   };
   return (

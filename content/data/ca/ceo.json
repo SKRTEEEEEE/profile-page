@@ -1,5 +1,13 @@
 {
     "ceo": {
+        "images": {
+            "circular": "Imatge circular d'un poblat futurista",
+            "tablet_office": "Superheroi tecnologíc amb una tauleta a la mà",
+            "tablet": "Avatar amb una tauleta a la má",
+            "hero": "Avatar de perfil",
+            "office": "Programador a la oficina programant",
+            "pixel": "Imatge de avatar pixelada"
+        },
         "main": {
             "introduction": {
                 "greeting": "Hola",
@@ -254,9 +262,12 @@
         "info": {
             "section": {
                 "skills": {
-                    "h1": ["Les meves", "habilitats"],
+                    "h1": [
+                        "Les meves",
+                        "habilitats"
+                    ],
                     "h2": "El meu perfil professional",
-                    "buttons": { 
+                    "buttons": {
                         "tech": "Llista completa de tecnologies utilitzades",
                         "admin": "Veure pàgina d'administració"
                     }
@@ -266,13 +277,37 @@
                 }
             }
         },
-        "images": {
-            "circular": "Imatge circular d'un poblat futurista",
-            "tablet_office": "Superheroi tecnologíc amb una tauleta a la mà",
-            "tablet": "Avatar amb una tauleta a la má",
-            "hero":"Avatar de perfil",
-            "office": "Programador a la oficina programant",
-            "pixel":"Imatge de avatar pixelada"
+        "portafolio": {
+            "h1": [
+                "Exemples",
+                "open-source",
+                " destacats"
+            ]
+        },
+        "estudios": {
+            "h1": [
+                "Estudis certificats",
+                "destacats"
+            ],
+            "list": {
+                "1": {
+                    "title": "Curs Fullstack Grau 3",
+                    "desc": "Curs centrat en aprendre a crear llocs webs interactuis fent servir HTML, CSS, Js en el costat client, Node.js, PHP en el costat servidor, MySQL per emmagatzemar dades y altres tecnologies web"
+                },
+                "2": {
+                    "title": "Chainlink bootcamp 2024",
+                    "desc": "Entrenament oficial per dominar l'ús de la tecnologia de l'oracle Chainlink, abastant conceptes de blockchain, Solidity, tokens ERC20, NFTs i automatització de Chainlink."
+                },
+                "3": {
+                    "title": "Big Data I",
+                    "desc": "Curs introductori sobre l'ús de Python per manipular grans conjunts de dades, incloent-hi estadístiques, processament i visualització de dades."
+                }
+            },
+            "counter": {
+                "0": "Anys d'experiència",
+                "1": "Funcionalitats desenvolupades",
+                "2": "Projectes a GitHub"
+            }
         }
     }
 }

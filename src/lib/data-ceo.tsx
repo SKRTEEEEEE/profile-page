@@ -101,11 +101,8 @@ export const itemsNavbar = [
 export const dataStudiesPage = [
     {
         id: 1,
-        title: "Curso Fullstack Javascript",
         institution: "CIEF",
-        date: "Actualidad",
-        description: 
-            "Curso centrado en aprender a crear sitios web interactivos usando HTML, CSS y JavaScript en el lado del cliente, y Node.js en el servidor con MySQL para almacenar datos.",
+        date: "30/10/24",
         badges: [
             "JavaScript", "HTML", "CSS", "Node.js", "Express.js", "MySQL", "BDD", "OOP", "DOM"
         ],
@@ -113,10 +110,8 @@ export const dataStudiesPage = [
     },
     {
         id: 2,
-        title: "Chainlink bootcamp 2024",
         institution: "Chainlink",
         date: "20/01/24",
-        description: "Entrenamiento oficial para dominar el uso de la tecnología de Oracle Chainlink, abarcando conceptos de blockchain, Solidity, tokens ERC20, NFTs y automatización de Chainlink.",
         badges: [
             "Chainlink", "Blockchain", "Solidity", "ERC721", "ERC20", "Blockchain Oracles", "CCIP", "Chainlink Functions"
         ],
@@ -124,10 +119,8 @@ export const dataStudiesPage = [
     },
     {
         id: 3,
-        title: "Big Data I",
         institution: "Coliseum",
         date: "19/12/23",
-        description: "Curso introductorio sobre el uso de Python para manipular grandes conjuntos de datos, incluyendo estadísticas, procesamiento y visualización de datos.",
         badges: [
             "Python"
         ],
@@ -138,7 +131,7 @@ export const dataStudiesPage = [
 export const dataCounter = [
     {
         id: 0,
-        endCounter: 1,
+        endCounter: 2,
         text: "Año de experiencia",
         lineRight: true,
         lineRightMobile: true,
@@ -152,7 +145,7 @@ export const dataCounter = [
     },
     {
         id: 2,
-        endCounter: 20,
+        endCounter: 30,
         text: "Proyectos en github",
         lineRight: true,
         lineRightMobile: true,

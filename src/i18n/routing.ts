@@ -3,6 +3,7 @@ import {createNavigation} from 'next-intl/navigation';
 
 export type AllPathnamesType = keyof typeof routing.pathnames;
 
+
 export const routing = defineRouting({
   // A list of all locales that are supported
   locales: ['en', 'de', "es", "ca"],
@@ -48,7 +49,7 @@ export const routing = defineRouting({
       ca: "/academia"
     },
     "/academia/ejercicios":"academia/ejercicios",
-    "/academia/ejercicios/[...slug]":"academia/ejercicios/[./academia/ejercicios/[...slug]",
+    "/academia/ejercicios/[...slug]":"academia/ejercicios/[...slug]",
     "/academia/tarifas":"/academia/tarifas",
     "/academia/temas-ejercicios": "academia/temas-ejercicios",
     "/academia/temas-ejercicios/[tema]": "/academia/temas-ejercicios/[tema]",
