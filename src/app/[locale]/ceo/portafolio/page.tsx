@@ -13,7 +13,7 @@ const PortfolioPage = async () => {
     return (
         <main className="w-full max-w-6xl px-4 pb-40 mx-auto mt-40 md:pb-0 md:px-6">
             <TransitionPage />
-            <MotionTransition position='bottom' className="bottom-0 left-0 hidden md:inline-block md:absolute ">
+            <MotionTransition position='bottom' className="bottom-0 left-0 hidden xl:inline-block xl:absolute ">
                 <Image src="/ceo/avatar-works.png" width="200" height="300" className="w-full h-full " alt={t("images.tablet")} />
             </MotionTransition>
             <div className="bottom-0 right-0 hidden md:inline-block md:absolute">

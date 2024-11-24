@@ -23,7 +23,7 @@ const AboutMePage = async () => {
 
 
     return (
-        <main className="bg-opacity-90 mx-8">
+        <main className="bg-opacity-90 mx-8 mt-16 pb-8 md:pb-0 md:mt-0 sm:mt-12">
             <TransitionPage />
             <div className="bottom-0 right-0 hidden md:inline-block md:absolute">
                 <Image src="/ceo/circles.png" width="300" height="300" className="w-full h-full " alt={t("ceo.images.circular")} />

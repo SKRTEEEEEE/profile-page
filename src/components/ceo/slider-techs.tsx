@@ -17,7 +17,7 @@ const SliderTechs = ({data}: {data:FullTechData[]}) => {
                 },
                 768: {
                     slidesPerView: 2,
-                    spaceBetween: 15
+                    spaceBetween: 10
                 },
                 1024: {
                     slidesPerView: 3,
@@ -29,7 +29,7 @@ const SliderTechs = ({data}: {data:FullTechData[]}) => {
                 clickable: true
             }}
             modules={[Pagination]}
-            className="h-[220px] md:h-[340px] w-[270px] lg:w-[500px] md:w-[400px]"
+            className="h-[220px] md:h-[340px] w-[270px] lg:w-[500px] md:w-[360px]"
         >
 
             <ul>
