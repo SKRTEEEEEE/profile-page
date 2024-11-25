@@ -261,9 +261,18 @@
             "id_static": {
                 "main_objetive": "Objetivo",
                 "buttons": {
-                    "back": ["Volver", "a proyectos"],
-                    "code": ["Ver", "Código"],
-                    "project": ["Ir", "a la web"] 
+                    "back": [
+                        "Volver",
+                        "a proyectos"
+                    ],
+                    "code": [
+                        "Ver",
+                        "Código"
+                    ],
+                    "project": [
+                        "Ir",
+                        "a la web"
+                    ]
                 }
             }
         },
@@ -285,8 +294,12 @@
                 }
             }
         },
-        "portafolio":{
-            "h1": ["Ejemplos", "open-source ", "destacados"]
+        "portafolio": {
+            "h1": [
+                "Ejemplos",
+                "open-source ",
+                "destacados"
+            ]
         },
         "estudios": {
             "h1": [
@@ -311,6 +324,77 @@
                 "0": "Años de experiencia",
                 "1": "Funcionalidades desarrolladas",
                 "2": "Proyectos en github"
+            }
+        },
+        "code": {
+            "h1": [
+                "Ejemplos de proyectos",
+                "de desarrollo web3"
+            ],
+            "slider_list_tittle": "Principales usos",
+            "slider": [
+                {
+                    "id": 1,
+                    "h2": "Lotería",
+                    "desc": "Programa de sorteo de NFT de membresía, utilizando una blockchain existente y su seguridad para gestionar el sorteo",
+                    "list": [
+                        "Acceso a contenido exclusivo para los participantes",
+                        "Seguridad en el intercambio y uso del NFT",
+                        "Ventajas asociadas a los tokens ERC1155"
+                    ],
+                    "instructions": [
+                        "Conectar una billetera",
+                        "Conseguir tokens de prueba SepoliaETH",
+                        "Especificar la cantidad de tokens deseados",
+                        "Aceptar la compra con la billetera",
+                        "Comprobar a final de mes si has sido premiado",
+                        "Podrás comprobarlo en Opensea o en otras plataformas NFT",
+                        "O en la página de la rifa, en la sección de ganadores"
+                    ]
+                },
+                {
+                    "id": 2,
+                    "h2": "NFT de membresía",
+                    "desc": "Programa de membresía con NFT asociado, utilizando blockchain para gestionar la membresía",
+                    "list": [
+                        "Acceso a contenido exclusivo para los poseedores",
+                        "Seguridad en el intercambio y uso del NFT",
+                        "Ventajas asociadas a los tokens ERC1155"
+                    ],
+                    "instructions": [
+                        "Conectar una billetera",
+                        "Conseguir tokens de prueba SepoliaETH",
+                        "Clic en el botón de comprar el NFT",
+                        "Aceptar la compra con la billetera",
+                        "Comprobar en Opensea o en otras plataformas NFT",
+                        "O en la página donde acabas de comprar el NFT",
+                        "Ahora podrás acceder a la página de membresía y a su contenido exclusivo"
+                    ]
+                },
+                {
+                    "id": 3,
+                    "h2": "Almacenamiento Seguro",
+                    "desc": "Programa de almacenamiento seguro, utilizando una blockchain existente y su inmutabilidad para almacenar datos",
+                    "list": [
+                        "Máxima seguridad en el almacenamiento de datos",
+                        "Acceso a los datos a través de tecnología web",
+                        "Ventajas asociadas a la seguridad blockchain"
+                    ],
+                    "instructions": [
+                        "Conectar una billetera",
+                        "Introducir un número a guardar",
+                        "Hacer clic en el botón de guardar",
+                        "Aceptar la interacción con el contrato",
+                        "Comprobar en la página cómo se ha actualizado el número"
+                    ]
+                }
+            ],
+            "buttons": {
+                "example": "Bereitgestelltes Beispiel",
+                "code": [
+                    "Github",
+                    "Blockchain-Code"
+                ]
             }
         }
     }

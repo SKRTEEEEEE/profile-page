@@ -316,6 +316,77 @@
                 "1": "Funcionalitats desenvolupades",
                 "2": "Projectes a GitHub"
             }
+        },
+        "code": {
+            "h1": [
+                "Exemples de projectes",
+                "de desenvolupament web3"
+            ],
+            "slider_list_tittle": "Principals usos",
+            "slider": [
+                {
+                    "id": 1,
+                    "h2": "Loteria",
+                    "desc": "Programa de sorteig de NFT de membresia, utilitzant una blockchain existent i la seva seguretat per gestionar el sorteig",
+                    "list": [
+                        "Accés a contingut exclusiu per als participants",
+                        "Seguretat en l'intercanvi i ús del NFT",
+                        "Avantatges associats als tokens ERC1155"
+                    ],
+                    "instructions": [
+                        "Connectar una cartera",
+                        "Obtenir tokens de prova SepoliaETH",
+                        "Indicar la quantitat de tokens desitjats",
+                        "Acceptar la compra amb la cartera",
+                        "Comprovar a final de mes si has estat premiat",
+                        "Podràs consultar-ho a Opensea o altres plataformes NFT",
+                        "O a la pàgina del sorteig, a la secció de guanyadors"
+                    ]
+                },
+                {
+                    "id": 2,
+                    "h2": "NFT de membresia",
+                    "desc": "Programa de membresia amb NFT associat, utilitzant blockchain per gestionar la membresia",
+                    "list": [
+                        "Accés a contingut exclusiu per als propietaris",
+                        "Seguretat en l'intercanvi i ús del NFT",
+                        "Avantatges associats als tokens ERC1155"
+                    ],
+                    "instructions": [
+                        "Connectar una cartera",
+                        "Obtenir tokens de prova SepoliaETH",
+                        "Clicar al botó de comprar el NFT",
+                        "Acceptar la compra amb la cartera",
+                        "Comprovar a Opensea o altres plataformes NFT",
+                        "O a la pàgina on acabes de comprar el NFT",
+                        "Ara podràs accedir a la pàgina de membresia i al seu contingut exclusiu"
+                    ]
+                },
+                {
+                    "id": 3,
+                    "h2": "Safe Storage",
+                    "desc": "Programa d'emmagatzematge segur, utilitzant una blockchain existent i la seva immutabilitat per emmagatzemar dades",
+                    "list": [
+                        "Màxima seguretat en l'emmagatzematge de dades",
+                        "Accés a les dades a través de tecnologia web",
+                        "Avantatges associats a la seguretat blockchain"
+                    ],
+                    "instructions": [
+                        "Connectar una cartera",
+                        "Introduir un número per guardar",
+                        "Clicar al botó de guardar",
+                        "Acceptar la interacció amb el contracte",
+                        "Comprovar a la pàgina com s'ha modificat el número"
+                    ]
+                }
+            ],
+            "buttons": {
+                "example": "Exemple desplegat",
+                "code": [
+                    "Github",
+                    "Blockchain Codig"
+                ]
+            }
         }
     }
 }

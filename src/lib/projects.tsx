@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { JSX } from 'react';
 import { SiChakraui, SiSolidity, SiStyledcomponents, SiSwiper, SiTailwindcss, SiThirdweb } from 'react-icons/si';
-import { TbBrandNextjs } from 'react-icons/tb';
+import { TbBrandNextjs, TbBrandThreejs } from 'react-icons/tb';
 
 export type Tech = {
 
@@ -38,7 +38,8 @@ export type Project = {
       "SiStyledcomponents": <SiStyledcomponents size={40} />,
       "SiChakraui": <SiChakraui size={40} />,
       "SiThirdweb": <SiThirdweb size={40} />,
-      "SiSolidity": <SiSolidity size={40} />
+      "SiSolidity": <SiSolidity size={40} />,
+      "TbBrandThreejs": <TbBrandThreejs size={40} />
     };
     return iconMap[techName] || null;
   };

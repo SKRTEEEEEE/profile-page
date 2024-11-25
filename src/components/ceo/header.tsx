@@ -4,7 +4,6 @@ import { socialNetworks } from "@/lib/data-ceo";
 import Link from "next/link";
 import Image from "next/image";
 import { MotionTransition } from "../oth/transition-component";
-import { Languages } from 'lucide-react';
 import LocalSwitcher from "../oth/locale-switch";
 
 const Header = () => {

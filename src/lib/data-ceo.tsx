@@ -126,21 +126,18 @@ export const dataCounter = [
     {
         id: 0,
         endCounter: 2,
-        text: "Año de experiencia",
         lineRight: true,
         lineRightMobile: true,
     },
     {
         id: 1,
         endCounter: 80,
-        text: "Funcionalidades desarrolladas",
         lineRight: true,
         lineRightMobile: false,
     },
     {
         id: 2,
         endCounter: 30,
-        text: "Proyectos en github",
         lineRight: true,
         lineRightMobile: true,
     },

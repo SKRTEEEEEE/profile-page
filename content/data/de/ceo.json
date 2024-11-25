@@ -261,9 +261,18 @@
             "id_static": {
                 "main_objetive": "Ziel",
                 "buttons": {
-                    "back": ["Zurück", "zu Projekten"],
-                    "code": ["Anzeigen","Code"],
-                    "project": ["Website","besuchen"]
+                    "back": [
+                        "Zurück",
+                        "zu Projekten"
+                    ],
+                    "code": [
+                        "Anzeigen",
+                        "Code"
+                    ],
+                    "project": [
+                        "Website",
+                        "besuchen"
+                    ]
                 }
             }
         },
@@ -315,6 +324,74 @@
                 "0": "Jahre Erfahrung",
                 "1": "Entwickelte Funktionen",
                 "2": "Projekte auf GitHub"
+            }
+        },
+        "code": {
+            "h1": [
+                "Projektbeispiele",
+                "für Web3-Entwicklung"
+            ],
+            "slider_list_tittle": "Hauptanwendungen",
+            "slider": [
+                {
+                    "id": 1,
+                    "h2": "Lotterie",
+                    "desc": "Mitgliedschafts-NFT-Lotterieprogramm, das eine bestehende Blockchain und deren Sicherheit zur Verwaltung der Lotterie nutzt",
+                    "list": [
+                        "Zugang zu exklusiven Inhalten für Teilnehmer",
+                        "Sicherheit beim Austausch und der Nutzung des NFT",
+                        "Vorteile im Zusammenhang mit ERC1155-Token"
+                    ],
+                    "instructions": [
+                        "Eine Wallet verbinden",
+                        "SepoliaETH-Testtokens erhalten",
+                        "Die gewünschte Anzahl von Tokens angeben",
+                        "Den Kauf mit der Wallet akzeptieren",
+                        "Am Monatsende prüfen, ob Sie gewonnen haben",
+                        "Sie können es auf Opensea oder anderen NFT-Plattformen überprüfen",
+                        "Oder auf der Raffle-Seite im Abschnitt der Gewinner"
+                    ]
+                },
+                {
+                    "id": 2,
+                    "h2": "Mitgliedschafts-NFT",
+                    "desc": "Mitgliedschaftsprogramm mit zugehörigem NFT, das Blockchain zur Verwaltung der Mitgliedschaft verwendet",
+                    "list": [
+                        "Zugang zu exklusiven Inhalten für Inhaber",
+                        "Sicherheit beim Austausch und der Nutzung des NFT",
+                        "Vorteile im Zusammenhang mit ERC1155-Token"
+                    ],
+                    "instructions": [
+                        "Eine Wallet verbinden",
+                        "SepoliaETH-Testtokens erhalten",
+                        "Auf die Schaltfläche 'NFT kaufen' klicken",
+                        "Den Kauf mit der Wallet akzeptieren",
+                        "Auf Opensea oder anderen NFT-Plattformen prüfen",
+                        "Oder auf der Seite, auf der Sie das NFT gerade gekauft haben",
+                        "Jetzt können Sie auf die Mitgliedschaftsseite und deren exklusive Inhalte zugreifen"
+                    ]
+                },
+                {
+                    "id": 3,
+                    "h2": "Sichere Speicherung",
+                    "desc": "Programm für sichere Speicherung, das eine bestehende Blockchain und deren Unveränderlichkeit zur Datenspeicherung nutzt",
+                    "list": [
+                        "Maximale Sicherheit bei der Datenspeicherung",
+                        "Zugriff auf die Daten über Webtechnologie",
+                        "Vorteile im Zusammenhang mit Blockchain-Sicherheit"
+                    ],
+                    "instructions": [
+                        "Eine Wallet verbinden",
+                        "Eine zu speichernde Zahl eingeben",
+                        "Auf die Schaltfläche 'Speichern' klicken",
+                        "Die Interaktion mit dem Vertrag akzeptieren",
+                        "Auf der Seite überprüfen, wie die Zahl aktualisiert wurde"
+                    ]
+                }
+            ],
+            "buttons": {
+                "example": "",
+                "code": ""
             }
         }
     }
