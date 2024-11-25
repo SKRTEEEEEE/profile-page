@@ -290,7 +290,16 @@
                     }
                 },
                 "slider": {
-                    "h2": "Main languages used"
+                    "h2": "Main languages used",
+                    "affinity": "Affinity",
+                    "exp": "Experience",
+                    "values": {
+                        "max": "Maximum",
+                        "high": "High",
+                        "neut": "Moderate",
+                        "low": "Low",
+                        "min": "Minimum"
+                    }
                 }
             }
         },

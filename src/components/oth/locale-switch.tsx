@@ -26,10 +26,10 @@ export default function LocalSwitcher() {
   };
 
   const languages = [
-    { value: 'es', label: 'Español', flagSrc: '/flags/es.png' },
-    { value: 'ca', label: 'Català', flagSrc: '/flags/ca.png' },
-    { value: 'en', label: 'English', flagSrc: '/flags/gb.png' },
-    { value: 'de', label: 'Deutsch', flagSrc: '/flags/de.png' },
+    { value: 'es', label: 'Español' },
+    { value: 'ca', label: 'Català' },
+    { value: 'en', label: 'English' },
+    { value: 'de', label: 'Deutsch' },
   ];
 
   return (
@@ -48,7 +48,7 @@ export default function LocalSwitcher() {
       <PopoverContent className="w-[200px] p-0" align="end">
         <Command>
           <CommandGroup>
-            {languages.map(({ value, label, flagSrc }) => (
+            {languages.map(({ value, label }) => (
               <CommandItem
                 key={value}
                 onSelect={() => onSelectChange(value)}
@@ -56,7 +56,7 @@ export default function LocalSwitcher() {
                 disabled={isPending}
               >
                 <Avatar className="h-6 w-6">
-                  <AvatarImage src={flagSrc} alt={`${label} flag`} />
+                  <AvatarImage src={`/comm/logo-${value}.png`} alt={`${label} flag`} />
                   <AvatarFallback>{value.toUpperCase()}</AvatarFallback>
                 </Avatar>
                 <span>{label}</span>

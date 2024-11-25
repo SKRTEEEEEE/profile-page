@@ -290,7 +290,16 @@
                     }
                 },
                 "slider": {
-                    "h2": "Hauptsächlich verwendete Sprachen"
+                    "h2": "Hauptsächlich verwendete Sprachen",
+                    "affinity": "Affinität",
+                    "exp": "Erfahrung",
+                    "values": {
+                        "max": "Maximal",
+                        "high": "Hoch",
+                        "neut": "Mittelmäßig",
+                        "low": "Niedrig",
+                        "min": "Minimal"
+                    }
                 }
             }
         },
@@ -390,8 +399,11 @@
                 }
             ],
             "buttons": {
-                "example": "",
-                "code": ""
+                "example": "Bereitgestelltes Beispiel",
+                "code": [
+                    "Github",
+                    "Blockchain-Code"
+                ]
             }
         }
     }

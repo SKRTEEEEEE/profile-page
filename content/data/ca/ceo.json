@@ -281,7 +281,16 @@
                     }
                 },
                 "slider": {
-                    "h2": "Principals llenguatges utilitzats"
+                    "h2": "Principals llenguatges utilitzats",
+                    "affinity": "Afinitat",
+                    "exp": "Experiència",
+                    "values": {
+                        "max": "Màxima",
+                        "high": "Alta",
+                        "neut": "Moderada",
+                        "low": "Baixa",
+                        "min": "Mínima"
+                    }
                 }
             }
         },

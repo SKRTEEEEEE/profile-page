@@ -6,8 +6,10 @@ import { Pagination } from 'swiper/modules';
 // import { lenguajesResources } from '@/lib/data-ceo';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { FullTechData } from '@/core/domain/entities/Tech';
+import { useTranslations } from 'next-intl';
 
 const SliderTechs = ({data}: {data:FullTechData[]}) => {
+    const t = useTranslations("ceo.info.section.slider")
     return (
         <Swiper
             breakpoints={{
@@ -47,11 +49,11 @@ const SliderTechs = ({data}: {data:FullTechData[]}) => {
                                 </Avatar>
                                </div>
                                <div className="flex sm:flex-col w-full justify-between items-center">
-                                <h4>Afinidad  </h4>
-                                <p className="text-xs">{item.value}: {item.afinidad} %</p></div>
+                                <h4>{t("affinity")}  </h4>
+                                <p className="text-xs">{t(`values.${item.value}`)}: {item.afinidad} %</p></div>
                                 <div className="flex sm:flex-col w-full justify-between items-center">
-                                <h4>Experiencia </h4>
-                                <p className="text-xs">{item.valueexp}: {item.experiencia} %</p></div>
+                                <h4>{t("exp")} </h4>
+                                <p className="text-xs">{t(`values.${(item.valueexp)}`)}: {item.experiencia} %</p></div>
                             </div>
                         </li>
                     </SwiperSlide>

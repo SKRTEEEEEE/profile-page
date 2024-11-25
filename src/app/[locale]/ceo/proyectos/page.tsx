@@ -9,12 +9,11 @@ type SearchParams = Promise<{
 }>
 
 export default async function ProjectsPage({ searchParams }: { searchParams: SearchParams }) {
-  const projectsPerPage = 2;
+  const projectsPerPage = 4;
   // const [currentPage, setCurrentPage] = useState(1);
   const sp = (await searchParams).page
   const t = await getTranslations()
   const mappedProjects = await getProjects()
-  const locale = await getLocale()
   const currentPage = sp ? parseInt(sp) : 1;
 
   const indexOfLastProject = currentPage * projectsPerPage;
@@ -40,8 +39,7 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Sea
                     href={data.urlDemo}
                     target='_blank'>
                     {t("ceo.proyectos.main.ul.buttons.url_demo.0")}
-                    <span className="hidden xl:inline">
-                      {t("ceo.proyectos.main.ul.buttons.url_demo.1")}
+                    <span className="hidden xl:inline"> {t("ceo.proyectos.main.ul.buttons.url_demo.1")}
                     </span>🧑‍💻
                   </Link>
                 }
@@ -85,15 +83,17 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Sea
                 {t("common.previous")}</LinkLocale> : t("common.previous")}
         </button>
 
-        <button type='submit'
+        <button
           className={`px-4 py-2 rounded ${currentPage === totalPages ? 'bg-danger/10 text-primary-ceo-100/30 cursor-not-allowed' : 'border-secondary-ceo-200/80 hover:border-secondary-ceo-300 border-2 bg-primary-ceo-500/40 hover:bg-primary-ceo-800/80 text-primary-ceo-100'
             }`}
           disabled={currentPage === totalPages}
-        ><Link className={currentPage === totalPages ? "cursor-not-allowed" : ""} href={
-          currentPage === totalPages ? "#" :
-            `/${locale}/ceo/proyectos?page=${currentPage + 1}`
-        }>
-            {t("common.next")}</Link>
+        >
+          {
+            currentPage !== totalPages ?
+              <LinkLocale
+                className={currentPage === 1 ? "cursor-not-allowed" : ""}
+                href={{ pathname: `/ceo/proyectos`, query: { page: (currentPage + 1) } }}>
+                {t("common.next")}</LinkLocale> : t("common.next")}
         </button>
       </div>
     </main >
