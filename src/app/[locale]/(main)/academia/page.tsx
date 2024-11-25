@@ -5,9 +5,9 @@ import { buttonVariants } from "@/components/ui/button";
 import { routesConfig } from "@/config/routes";
 import { getCookiesUC } from "@/core/application/usecases/services/auth";
 import { userInCookiesUC } from "@/core/interface-adapters/controllers/user";
+import { Link } from "@/i18n/routing";
 import { cn, sortPosts } from "@/lib/utils";
 import { Metadata } from "next";
-import Link from "next/link";
 export const metadata: Metadata = {
   title: routesConfig.academia.title,
   description: routesConfig.academia.description
