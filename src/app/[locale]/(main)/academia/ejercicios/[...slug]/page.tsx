@@ -9,22 +9,17 @@ import { Tag } from "@/components/academia/tag"
 import { MDXContent } from "@/components/academia/mdx-components"
 
 interface PostPageProps{
-    params: {
+    params: Promise<{
         slug: string[]
-    }
+    }>
 }
 
-async function getPostFromParams(params:PostPageProps["params"]){
-    const slug = (await params)?.slug.join("/")
+
+
+export async function generateMetadata({params}: PostPageProps): Promise<Metadata> {
+    const sP = await params;
+    const slug = sP.slug.join("/")
     const post = ejercicios.find(post => post.slugAsParams === slug)
-
-    return post
-}
-
-export async function generateMetadata(props: PostPageProps): Promise<Metadata> {
-    const params = props.params;
-    const post = await getPostFromParams(params)
-
     if(!post){
         return {}
     }
@@ -58,13 +53,12 @@ export async function generateMetadata(props: PostPageProps): Promise<Metadata> 
     }
 }
 
-export async function generateStaticParams(): Promise<PostPageProps["params"][]>{
-    return ejercicios.map(post => ({slug: post.slugAsParams.split("/")}))
-}
+
 
 export default async function PostPage(props: PostPageProps) {
-    const params = await props.params;
-    const post = await getPostFromParams(params)
+    const sP = await props.params;
+    const slug = sP.slug.join("/")
+    const post = ejercicios.find(post => post.slugAsParams === slug)
     if(!post || !post.published){
         notFound()
     }
