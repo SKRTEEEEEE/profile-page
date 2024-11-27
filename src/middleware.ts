@@ -19,11 +19,7 @@ const middleware = async (request: NextRequest) => {
     if (response){
       return response
     }
-    else{
-      await deleteCookie("visits")
-      return i18nMiddleware
-    }
-  
+    return i18nMiddleware
   }
 
   // Ejecutar el middleware de internacionalización
