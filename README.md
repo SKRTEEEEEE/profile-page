@@ -26,7 +26,7 @@ Test de arquitectura hexagonal con NextJs 14
 
 ### [🏃‍♂️‍➡️🛣️ Proceso](./docs/process.md)
 #### [⏱️💼 ToDo](./docs/process.md#actualidad)
-### [🖊️🧑‍💻 Project rules - **🏗️ _working.._**](/docs/hexa-rulez.md)
+<!-- ### [🖊️🧑‍💻 Project rules - **🏗️ _working.._**](/docs/hexa-rulez.md) -->
 ## [Recursos](https://github.com/SKRTEEEEEE/markdowns)
 ### Documentación utilizada
 - [mdxjs components](https://mdxjs.com/table-of-components/): <br/> Tabla de cambio de componentes.
