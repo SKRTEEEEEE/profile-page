@@ -1,0 +1,8 @@
+{
+    "version": 2,
+    "buildCommand": "next build",
+    "installCommand": "npm install --force",
+    "devCommand": "next dev --turbopack",
+    "outputDirectory": ".next",
+    "framework": "nextjs"
+  }

@@ -1,0 +1,18 @@
+{
+    "common": {
+        "previous": "Anterior",
+        "next": "Siguiente"
+    },
+    "root": {
+        "h1": "Estas en la pagina ruta",
+        "links": {
+            "admin": "Ir a admin",
+            "academia": "Ir a academia",
+            "ceo": "Ir a sobre mi"
+        },
+        "manage-root": {
+            "title": "Página en construcción",
+            "desc": "Se redirige las primeras visitas de la página raíz '/' a 'Sobre mi', ya que esta (página raíz) actualmente se encuentra en desarrollo.\n\n A partir de ahora ya no seras redirigido, pero puedes seguir accediendo a 'Sobre mi'."
+        }
+    }
+}
