@@ -1,8 +1,8 @@
 "use server"
 
-import { getLocale } from 'next-intl/server';
+import { routing } from '@/i18n/routing';
 import { cookies, headers } from 'next/headers';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function setCookie(name: string, value:string) {
   const cookieStore = await cookies();
@@ -14,27 +14,33 @@ export async function setCookie(name: string, value:string) {
 }
 
 export async function deleteCookie(name:string) {
+  console.log(`Deleting cookies: ${name}`)
   const cookieStore = await cookies();
   cookieStore.delete(name);
 }
-export async function manageRoot(visits: number){
+export async function manageRoot(request: NextRequest){
+  const cookieStore = await cookies();
+    const visits = parseInt((cookieStore.get("visits")?.value) || "0", 10);
     if (visits <= 3) {
-        console.log("visits b set: ", visits)
-        // Increment the visits count and redirect
         await setCookie("visits", (visits + 1).toString());
-        const locale = await getLocale();
+        // ⬇️🧠💡 -> No devuelve lo que has guardado (locale) porque devuelve accept-language o el default ya que en la ruta raíz no sabe cual es el escogido
+        const locale = request.headers.get('accept-language')?.split(',')[0].split('-')[0] || routing.defaultLocale;
+
+        // const locale = await getLocale();
+        
+
         if(visits === 3){
-            return NextResponse.redirect(new URL(`/${locale}/ceo?redirect=manageRoot`, 'http://' + (await headers()).get('host')));
+            return NextResponse.redirect(new URL(`/${locale}?redirect=manageRoot`, 'http://' + (await headers()).get('host')));
         }else{
         return NextResponse.redirect(new URL(`/${locale}/ceo`, 'http://' + (await headers()).get('host')));}
       } 
-//       else {
-//         const cookieStore = await cookies();
-//         console.log("visits a set: ", cookieStore.get("visits")?.value)
-//         // Delete the visits cookie and render the page
-//         if (cookieStore.get("visits")) {
-//           await deleteCookie("visits");
-//         }
-//         return NextResponse.next();
-// }
-}
+    }
+    //       else {
+    //         const cookieStore = await cookies();
+    //         console.log("visits a set: ", cookieStore.get("visits")?.value)
+    //         // Delete the visits cookie and render the page
+    //         if (cookieStore.get("visits")) {
+    //           await deleteCookie("visits");
+    //         }
+    //         return NextResponse.next();
+    // }

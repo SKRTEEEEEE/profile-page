@@ -9,6 +9,11 @@
             "admin": "Anar a administració",
             "academia": "Anar a academia",
             "ceo": "Anar a sobre mi"
+        },
+        "manage-root": {
+            "title": "Pàgina en construcció",
+            "desc": "Es redirigeixen les primeres visites de la pàgina arrel '/' a 'Sobre mi', ja que aquesta (pàgina arrel) es troba actualment en desenvolupament.\n\n A partir d'ara ja no seràs redirigit, però pots continuar accedint a 'Sobre mi'."
+
         }
     }
 }

@@ -1,25 +1,18 @@
+// components/ManageRootToast.tsx
 "use client"
 
-import { useToast } from "../hooks/use-toast"
-import { Button } from "../ui/button"
+import { useEffect } from 'react'
+import { useToast } from '../hooks/use-toast'
 
-export const ToastTest = () => {
+export function ToastTest({ show, data }: { show: boolean, data: {title: string, description?: string, duration?:number, [key: string]: any} }) {
   const { toast } = useToast()
 
-  return (
-    <Button
-      onClick={() => {
-        toast({
-          title: "Scheduled: Catch up",
-          description: "Friday, February 10, 2023 at 5:57 PM",
-          duration: 5000,
-          onSwipeEnd(event) {},
-          className: "",
-       
-        })
-      }}
-    >
-      Show Toast
-    </Button>
-  )
+  useEffect(() => {
+    if (show) {
+      toast({...data, duration: data.duration || 3000})
+    }
+  }, [show, toast, data])
+
+  return null
 }
+
