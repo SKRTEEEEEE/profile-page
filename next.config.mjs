@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
-=======
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const isDev = process.argv.indexOf('dev') !== -1
@@ -30,4 +24,3 @@ const nextConfig = {
 export default withNextIntl(nextConfig);
 
 
->>>>>>> next15-comp
