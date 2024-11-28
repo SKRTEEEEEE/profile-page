@@ -6,10 +6,10 @@ import TransitionPage from "@/components/oth/transition-page";
 import { Button } from "@/components/ui/button";
 import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
 import { FullTechData, Leng } from "@/core/domain/entities/Tech";
+import { Link } from "@/i18n/routing";
 import { flattenTechs } from "@/lib/techs";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
-import Link from "next/link";
 
 const AboutMePage = async () => {
     const lenguajes = await readAllTechsUC()
@@ -44,7 +44,7 @@ const AboutMePage = async () => {
                         <li className="p-1 px-4 mb-2 border-secondary-ceo/10 border-4 rounded-md"><span className="text-3xl" tabIndex={0}>Fullstack dApp <i>EVM</i></span><br />Solidity, Ether.js, Thirdweb, Hardhat, Forge, Chainlink, etc... </li>
                     </ul>
                     <div className="space-y-2 flex flex-col w-full">
-                        <Button className="w-full" variant={"secondary"}><Link href={"/ceo/docs/techs"}>{t("ceo.info.section.skills.buttons.tech")}</Link></Button>
+                        <Button className="w-full" variant={"secondary"}><Link href={"/ceo/docs/techs" as any}>{t("ceo.info.section.skills.buttons.tech")}</Link></Button>
                         <Button variant={"outline"} className="w-full"><Link href={"/admin/techs"}>{t("ceo.info.section.skills.buttons.admin")}</Link></Button>
                     </div>
 

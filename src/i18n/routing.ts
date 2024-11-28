@@ -58,6 +58,7 @@ export const routing = defineRouting({
     "/admin/techs":"/admin/techs",
     "/admin/users":"/admin/users",
 
+
   }
 });
  

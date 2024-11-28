@@ -21,6 +21,7 @@ import { CConectButton } from "../oth/custom-connect-button"
 import Image from "next/image"
 import { updateImg, uploadImg } from "@/actions/img"
 import {  FullTechData, TechForm, techSchema } from "@/core/domain/entities/Tech"
+import { useLocale } from "next-intl";
 
 
 
@@ -111,6 +112,8 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
       console.error("Error al subir la imagen:", error);
     }
   }
+  const locale = useLocale()
+
   async function onSubmit(baseData: TechForm) {
     //Esto esta por hacer
     console.log(baseData)
@@ -170,7 +173,7 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
         console.log("response: ", response);
         if (response.success) {
             alert(`¡Felicidades! ${response.message}`);
-            rvrd("/admin/techs");
+            rvrd(`${locale}/admin/techs`);
             
         } else {
             alert(`Oops! ${response.message}`);

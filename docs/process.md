@@ -149,9 +149,12 @@ npm i react-countup
 #### EXTRA(dep)
 - [**NOT REALIZED**] Tratar de automatizar mínimamente la gestión de las dos versiones, tanto de Nextjs como React - o a falta de, documentar proceso.  
 ### Internalization (en/es/de/ca) `i18n`
-- [ ] Pasar la parte de web3 a la i18n (asi eliminamos la parte de bdd que no tiene clean arch)
-- [ ] Hay que arreglar los links de academia y admin page-parts
+- [x] Pasar la parte de web3 a la i18n (asi eliminamos la parte de bdd que no tiene clean arch)
+- [x] Hay que arreglar los links de academia y admin page-parts
 
+## Fix
+- [❓] En '/ceo/info' -> Botones no llevan al link correcto
+- [x] En '/ceo/proyectos/[id]' -> no funciona el intl de **catalá** de los botones
 
 ## 1x. Reestructurar clean arch v3 p2 (back)
 ### Revisar connectors

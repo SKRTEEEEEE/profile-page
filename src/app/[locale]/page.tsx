@@ -21,7 +21,7 @@ export default async function Home({searchParams}:RootProps) {
         <Link href={"/ceo"}>{t("links.ceo")}</Link>
         <ToastTest show={show} data={{
           title: `${t("manage-root.title")} 🏗️`, 
-          description: t("manage-root.description"), 
+          description: t("manage-root.desc"), 
           duration: 10000}}/>
         
       </div>

@@ -261,9 +261,9 @@
             "id_static": {
                 "main_objetive": "Objectiu",
                 "buttons": {
-                    "back": "Tornar als projectes",
-                    "code": "Veure Codi",
-                    "project": "Anar al lloc web"
+                    "back": ["Tornar","als projectes"],
+                    "code": ["Veure","Codi"],
+                    "project": ["Anar","al lloc web"]
                 }
             }
         },
