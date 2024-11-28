@@ -1,4 +1,4 @@
-# Información
+# Información detallada
 
 ## Propósito general
 
@@ -27,13 +27,23 @@ Crear tres _badges_ interactivos (sobre las tecnologías utilizadas), que al mod
 >   2. Tres _graphics cards_ 
 >   3. Una _graphic card_ para toda la información
 
-#### v01.01 -> test afinidad y experiencia
+#### v01.01 -> test/create afinidad y experiencia
 
 Creación del test del badge con la info de la afinidad y la experiencia. Y tratar de enviar-lo a un repositorio de prueba en Github a traves de la api rest.
 
-## Esquemas
+##### CRUD "techs" -> cambios en markdown y bdd
+#### v01.02 -> fix revalidate refresh
+##### Searching the bug
+##### Clean code and better docs
+#### v01.03 -> test/create users y admins
+Creación de la lógica de autentificación usando JWT, blockchain y bdd. Principalmente para limitar las acciones para los administradores.
+- thirdweb sdk5 -> for login with blockchain(embadded wallet incl. using FB, email, GOOGLE, APPLE)
+- useIsAdmin() -> personalized hook for manage blockchain and bdd users/admins, in the CLIENT
+- adminOnlyAction() -> personalized function for limit actions (SSR) to admins, using blockchain validation and bdd validation
+##### JWT with Thirdweb auth
+##### CRUD "admins" 
+##### CRUD "users"
 
-### Esquema arquitectura web
 
-> #### v01
-> ![ProjectCief](/markdown/img/arqProfile.jpg)
+## [Esquemas](resum.md)
+### [Esquema arquitectura web](resum.md/#arquitectura-web)

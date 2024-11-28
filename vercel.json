@@ -1,8 +1,12 @@
-{
-    "version": 2,
-    "buildCommand": "next build",
-    "installCommand": "npm install --force",
-    "devCommand": "next dev --turbopack",
-    "outputDirectory": ".next",
-    "framework": "nextjs"
+{"functions": {
+    "app/**/*": {
+      "maxDuration": 60
+    }
+  },
+    "crons": [
+      {
+        "path": "/api/cron",
+        "schedule": "0 0 1,8,15,23 * *"
+      }
+    ]
   }

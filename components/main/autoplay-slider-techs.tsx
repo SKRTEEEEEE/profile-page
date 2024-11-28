@@ -12,10 +12,10 @@ import styles from './autoplay-slider-techs.module.css';
 
 // import required modules
 import  { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import { TechLenguajeItem } from '@/types';
+import { TechLenguajeItem } from '@/types/ui';
 
 
-interface AutoplaySliderProps {
+type AutoplaySliderProps = {
     delay?: number;
     disableOnInteraction?: boolean;
     data: TechLenguajeItem[];

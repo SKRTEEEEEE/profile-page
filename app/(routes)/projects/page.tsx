@@ -28,15 +28,16 @@ export default function ProjectsPage() {
   
 
   return (
-    <main className="w-full min-h-screen flex flex-col items-center justify-center">
-      <h1 className="p-4 text-3xl xl:text-4xl font-bold mb-8">Mis proyectos web de muestra:</h1>
-      <ul className="w-11/12 xl:9/12 flex flex-col gap-4">
+  <main className="w-full min-h-screen flex flex-col items-center justify-center">
+      <h1 className="p-4 text-3xl xl:text-4xl font-bold mb-8">Mis proyectos web de muestra desplegados:</h1>
+      <ul className="w-11/12 xl:w-9/12 flex flex-col gap-4">
         {currentProjects.map((data) => (
           <li className="flex justify-between" key={data.id}>
             <h2 className='text-md xl:text-2xl'>{data.title}</h2>
-            <div>
-            <Link className='mx-4 px-2 py-1 border-2 border-primary-200 rounded-md bg-secondary-300/50 hover:bg-secondary-600 hover:border-primary-400/80 xl:inline hidden' href={data.urlDemo}>Ir <span className="mr-4">al proyecto</span>🧑‍💻</Link>
-            <Link className='px-2 py-1 border-2 border-primary-200 rounded-md bg-secondary-400/30 hover:bg-secondary-600 hover:border-primary-400/80' href={`projects/${data.id}`}>Info <span className="hidden sm:inline mr-4">del proyecto</span>➡️</Link></div>
+            <div className='flex'> 
+            {data?.urlDemo&&<Link className='mr-4 px-2 py-1 border-2 border-primary-200 rounded-md bg-secondary-300/50 hover:bg-secondary-600 hover:border-primary-400/80 sm:inline hidden' href={data.urlDemo} target='_blank'>Ir <span className="hidden xl:inline">al proyecto</span>🧑‍💻</Link>}
+            {data?.urlGithub&&<Link className='mr-4 px-2 py-1 border-2 border-primary-200 rounded-md bg-secondary-300/50 hover:bg-secondary-600 hover:border-primary-400/80 sm:inline hidden' href={data.urlGithub} target='_blank'><span className="hidden xl:inline">Ver </span>Código📄</Link>} 
+            <Link className='px-2 py-1 border-2 border-primary-200 rounded-md bg-secondary-400/30 hover:bg-secondary-600 hover:border-primary-400/80' href={`projects/${data.id}`}>Info <span className="hidden lg:inline mr-4">del proyecto</span>➡️</Link></div>
           </li>
         ))}
       </ul>

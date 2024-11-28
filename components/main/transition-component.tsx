@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { fadeIn } from "@/utils/motion-transitions";
 
-export type MotionTransitionProps = {
+type MotionTransitionProps = {
     children: React.ReactNode;
     className?: string;
     position: 'right' | 'bottom'

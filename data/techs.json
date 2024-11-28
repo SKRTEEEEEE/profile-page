@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Javascript",
+    "afinidad": 90,
+    "value": "Máxima",
+    "experiencia": 80,
+    "valueexp": "Alta",
+    "usogithub": 3.71,
+    "valueuso": "Notable",
+    "iconsuso": "%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%94%98"
+  },
+  {
+    "name": "Typescript",
+    "afinidad": 60,
+    "value": "Moderada",
+    "experiencia": 65,
+    "valueexp": "Alta",
+    "usogithub": 12.25,
+    "valueuso": "Superior",
+    "iconsuso": "%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1"
+  },
+  {
+    "name": "Node.js",
+    "afinidad": 75,
+    "value": "Alta",
+    "experiencia": 70,
+    "valueexp": "Alta",
+    "usogithub": 3.58,
+    "valueuso": "Notable",
+    "iconsuso": "%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%94%98"
+  },
+  {
+    "name": "Markdown",
+    "afinidad": 100,
+    "value": "Máxima",
+    "experiencia": 90,
+    "valueexp": "Máxima",
+    "usogithub": 2.95,
+    "valueuso": "Notable",
+    "iconsuso": "%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%9F%A1%F0%9F%94%98"
+  }
+]

@@ -1,6 +1,6 @@
 import mongoose, { Connection } from 'mongoose';
 
-interface DBConnection {
+type DBConnection = {
     isConnected: boolean;
     //connection?: Connection;-es necesario?-   Para almacenar la conexión una vez establecida
   }

@@ -1,61 +1,16 @@
-import type { Config } from "tailwindcss"
-import {fontFamily} from "tailwindcss/defaultTheme"
+import { nextui } from "@nextui-org/react";
+import type { Config } from "tailwindcss";
 
-
-const config = {
-  darkMode: ["class"],
+const config: Config = {
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
-	],
-  prefix: "",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        //here start ceo parts
         success: {
           DEFAULT: '#7eea0b',
         },
@@ -68,7 +23,7 @@ const config = {
         info: {
           DEFAULT: '#3585d4',
         },
-        "primary-ceo": {
+        "primary": {
           DEFAULT: '#75f4f4',
           50: "#f6fefe",
           100: "#e7fdfd",
@@ -82,7 +37,7 @@ const config = {
           900: "#032121",
           950: "#021313"
         },
-        "secondary-ceo": {
+        "secondary": {
           DEFAULT: '#af2bbf',
           50: "#fcf7fd",
           100: "#f9eafa",
@@ -110,28 +65,7 @@ const config = {
           900: "#0c0d17",
           950: "#07070d"
         },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
-      fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans]
+       
       },
       backgroundImage: {
         "gradient-cover":
@@ -139,7 +73,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-} satisfies Config
-
-export default config
+  darkMode: "class",
+  plugins: [nextui()],
+};
+export default config;
