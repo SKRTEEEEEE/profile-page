@@ -10,6 +10,7 @@ import { fetchFileSha, updateFileContent } from "../../../../actions/techs/utils
 import { LengFull } from "@/core/domain/entities/Tech";
 import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
 import { DatabaseFindError } from "@/core/domain/errors/main";
+import { getTranslations } from "next-intl/server";
 
 
 type RepoDetails = {
@@ -87,6 +88,7 @@ async function peticionRepos() {
 
 export async function actualizarJson() {
     await connectToDB();
+    const t = await getTranslations("ceo.info.section.slider")
     const proyectosDB: LengFull[]|null = await readAllTechsUC();
     if(!proyectosDB) throw new DatabaseFindError("read all techs -> in: actualizarJson utils")
     const jsonSha = await fetchFileSha(path.json);
@@ -128,12 +130,14 @@ export async function actualizarJson() {
         // Crear el objeto con los datos correspondientes
         const languageData: TechJsonData = {
             name: lenguajeName,
-            afinidad: proyecto.afinidad,  // Asegúrate de que 'afinidad' esté presente en `proyecto`
-            value: proyecto.value,  // Si 'value' es parte de 'proyecto'
-            experiencia: proyecto.experiencia,  // Asegúrate de que 'experiencia' esté en `proyecto`
-            valueexp: proyecto.valueexp,  // Si 'valueexp' es parte de 'proyecto'
-            usogithub: porcentajeGithub,  // Porcentaje calculado de GitHub
-            valueuso: getGithubUsoByRange(porcentajeGithub).value  // Esto mapea el porcentaje a un nivel
+            afinidad: proyecto.afinidad,  
+            value:t(`values.${proyecto.value}`),  
+            // value: proyecto.value,  
+            experiencia: proyecto.experiencia,  
+            valueexp: t(`values.${(proyecto.valueexp)}`),  
+            // valueexp: proyecto.valueexp,  
+            usogithub: porcentajeGithub,  
+            valueuso: getGithubUsoByRange(porcentajeGithub).value  
         };
     
         // Asigna el objeto al acumulador utilizando el nombre del lenguaje como clave

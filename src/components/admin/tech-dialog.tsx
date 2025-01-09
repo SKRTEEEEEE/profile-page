@@ -14,7 +14,7 @@ import {  SearchCombobox } from "../oth/search-combobox"
 import techBadges from "@/lib/data-slugs"
 import { useActiveAccount } from "thirdweb/react"
 import { createTech, updateTech } from "@/actions/tech"
-import {  rvrd } from "@/actions/revrd"
+import {  rv } from "@/actions/revrd"
 import { FaSpinner } from "react-icons/fa"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import { CConectButton } from "../oth/custom-connect-button"
@@ -173,7 +173,7 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
         console.log("response: ", response);
         if (response.success) {
             alert(`¡Felicidades! ${response.message}`);
-            rvrd(`${locale}/admin/techs`);
+            rv(`/${locale}/admin/techs`);
             
         } else {
             alert(`Oops! ${response.message}`);
