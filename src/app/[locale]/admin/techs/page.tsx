@@ -1,14 +1,15 @@
 import AdminTechTable from "@/components/admin/tech-table"
+import { readRoleUC } from "@/core/application/usecases/entities/role"
 import { readAllTechsUC } from "@/core/application/usecases/entities/tech"
 import { getCookiesUC } from "@/core/application/usecases/services/auth"
 // import { JWTContext } from "@/core/application/services/auth"
-import { fetchAdmins } from "@/lib/fetch"
 import { flattenTechs } from "@/lib/techs"
 
 const TechsAdminPage = async( ) =>{
     const lenguajes = await readAllTechsUC()
     const session = await getCookiesUC()
-    const admins = await fetchAdmins();
+    const roles = await readRoleUC()
+    const admins = roles?.filter(role => role.permissions === "ADMIN")
     const cleanAdmins = admins?.map(admin => ({
         ...JSON.parse(JSON.stringify(admin))
         }));
