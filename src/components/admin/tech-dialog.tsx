@@ -165,13 +165,6 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
       let response;
       if (isAdmin) {
         if (isUpdating) {
-          console.log("Tech original:", tech);
-          console.log("Category:", selectedCat);
-          console.log("Is updating:", isUpdating);
-          console.log("Tech.isFw:", tech?.isFw);
-          console.log("Tech.isLib:", tech?.isLib);
-          console.log("Data before transform:", data);
-          console.log("Transformed data:", transformedData);
           response = await updateTech(transformedData);
         } else {
           response = await createTech(transformedData)

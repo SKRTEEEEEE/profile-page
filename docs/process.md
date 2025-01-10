@@ -129,7 +129,7 @@ npm i react-countup
 - [x] Solucionar el error de re-hidratación de third-web 
 
 
-## 1x. Frontend
+## 14. Frontend & fix
 ### next-themes
 - [x] Cuando se modifique next-themes: 
     - [x] **Hay que fijar-se/solucionar en el error de re-hidratación**
@@ -139,21 +139,22 @@ npm i react-countup
 - [x] Traducir todo a Español
 - [ ] Unificar lógica del main(grid-layout)
     - [x] mínimo: Las partes que utilizan el `site-header` component
-##### **ACTUALIDAD**
 ### Oth
 #### Tech table
 - [x] Terminar parte mobile
 #### Migración 15.1
 - [x] Migrar Nextjs a la version 15.1 con React en version estable
 #### Tech dialog
-- [ ] Tratar de encontrar el causante del problema del id
+- [x] Tratar de encontrar el causante del problema del id
+    - Era un error de un elemento vacío (<></>) que envuelve una función componente 
 - [x] Responder acciones del servidor con `toast()`
 ### Internalization (en/es/de/ca) `i18n`
 - [x] Pasar la parte de web3 a la i18n (asi eliminamos la parte de bdd que no tiene clean arch)
 - [x] Hay que arreglar los links de academia y admin page-parts
 ## Fix
-- [ ] Arreglar error estructura md
+- [x] Arreglar error estructura md
     - [Para ello seguir el patron de este md](https://github.com/SKRTEEEEEE/markdowns/blob/main/about/techs.md?plain=1)
+##### **ACTUALIDAD**
 ## 15. Reestructurar techs
 **Tener en cuenta los siguientes puntos(clean arch v3 p2)**
 - [ ] Adoptar enfoque DB/Redis, para recuperar la lista de techs-simpleicons -> creando SimpleIconsTechRepository etc, con getTechList y updateTechList
