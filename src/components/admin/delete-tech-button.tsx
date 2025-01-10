@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { FaSpinner } from "react-icons/fa";
+import { toast } from "../hooks/use-toast";
 
 
 type DeleteTechButtonProps = {
@@ -31,7 +32,7 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
         const response = await adminOnlyAction()
         if (response) {
           const res = await deleteTech(name);
-          console.log("Deleted:", res);
+          // console.log("Deleted:", res);
           if (res) {
             onError(`Eliminación de ${name} completada.`);
           } else {
@@ -48,6 +49,7 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
         onError("Error al eliminar la tecnología. Por favor, inténtelo de nuevo.");
       }
     } finally {
+      toast({ title: "Eliminación de tecnología", description: `Eliminación de ${name} completada.`, duration: 5000 })
       setIsLoading(false);
     }
   };

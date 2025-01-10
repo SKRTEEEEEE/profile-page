@@ -22,6 +22,7 @@ import Image from "next/image"
 import { updateImg, uploadImg } from "@/actions/img"
 import {  FullTechData, TechForm, techSchema } from "@/core/domain/entities/Tech"
 import { useLocale } from "next-intl";
+import { toast } from "../hooks/use-toast";
 
 
 
@@ -47,8 +48,8 @@ const useIsAdmin = (admins: FlattenAdmin[]) => {
               if (account?.address) {
                   const isAdminUser = admins.some(admin => admin.address === account.address);
                   setIsAdmin(isAdminUser);
-                  console.log("isAdmin (TechTable): ", isAdminUser);
-                  console.log("address: ", account.address);
+                  // console.log("isAdmin (TechTable): ", isAdminUser);
+                  // console.log("address: ", account.address);
               }
           } catch (error) {
               console.error('Error al verificar si la cuenta es administrador', error);
@@ -172,11 +173,13 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
         {response={success:false, message: "User not admin"}}
         console.log("response: ", response);
         if (response.success) {
-            alert(`¡Felicidades! ${response.message}`);
+            // alert(`¡Felicidades! ${response.message}`);
+            toast({title: ` 🎉 ¡Felicidades!`, description: `${response.message}`, duration: 5000})
             rv(`/${locale}/admin/techs`);
             
         } else {
-            alert(`Oops! ${response.message}`);
+            // alert(`Oops! ${response.message}`);
+            toast({title: ` ❌ Oops!`, description: `${response.message}`, duration: 5000})
         }
     } catch (error) {
       console.error(error);

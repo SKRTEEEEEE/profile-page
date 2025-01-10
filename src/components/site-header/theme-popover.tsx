@@ -32,7 +32,7 @@ const themes: ThemeType = {
 
 export default function ThemePopover() {
   const resolvedTheme = useTheme().resolvedTheme
-  console.log("resolvedTheme: ", resolvedTheme)
+  // console.log("resolvedTheme: ", resolvedTheme)
   const [mode, setMode] = useState<"light" | "dark">(resolvedTheme?.split("-")[0] as "light"|"dark"||"dark")
   // const [selectedColor, setSelectedColor] = useState("grays")
   const { theme, setTheme } = useTheme()

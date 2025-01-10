@@ -1,4 +1,4 @@
-import { ToastTest } from "@/components/oth/toast-test";
+import { ToastTriggered } from "@/components/oth/toast-triggered";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 //Hay que recojer por searchParams, si el usuario entra por primera vez redirigido del middleware, se le mostrara toast()
@@ -19,7 +19,7 @@ export default async function Home({searchParams}:RootProps) {
         <Link href={"/admin"}>{t("links.admin")}</Link>
         <Link href={"/academia"}>{t("links.academia")}</Link>
         <Link href={"/ceo"}>{t("links.ceo")}</Link>
-        <ToastTest show={show} data={{
+        <ToastTriggered show={show} data={{
           title: `${t("manage-root.title")} 🏗️`, 
           description: t("manage-root.desc"), 
           duration: 10000}}/>
