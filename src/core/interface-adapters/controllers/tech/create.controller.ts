@@ -17,6 +17,11 @@ export async function createTechC(data: TechForm): Promise<{success: boolean, me
     };
 
     try {
+        // 1. Obtener el estado actual de la BD
+        const proyectosDB = await readAllTechsUC();
+        
+
+        // 2. Guardar en la base de datos
         let success = false;
         let message = '';
 
@@ -58,15 +63,11 @@ export async function createTechC(data: TechForm): Promise<{success: boolean, me
                 message = `Librería ${name} agregada correctamente al framework ${frameworkTo} del lenguaje ${lenguajeTo}.`;
             }
         }
-
-        if (success) {
-            // Solo actualizamos los archivos si la operación en BDD fue exitosa
-            const proyectosDB = await readAllTechsUC();
-            await Promise.all([
-                actualizarMd(proyectosDB, { name, badge, colorhash: color }),
-                actualizarJson()
-            ]);
-        }
+        // 3. Actualizar MD (con los datos fetch antes de actualizar bdd) y JSON
+        await Promise.all([
+            actualizarMd(proyectosDB, { name, badge, colorhash: color }),
+            actualizarJson()
+        ]);
 
         return { success, message };
 

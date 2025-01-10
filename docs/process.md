@@ -155,6 +155,10 @@ npm i react-countup
 ## Fix
 - [❓] En '/ceo/info' -> Botones no llevan al link correcto
 - [x] En '/ceo/proyectos/[id]' -> no funciona el intl de **catalá** de los botones
+## 15. Reestructurar techs
+**Tener en cuenta los siguientes puntos(clean arch v3 p2)**
+- [ ] Adoptar enfoque DB/Redis, para recuperar la lista de techs-simpleicons -> creando SimpleIconsTechRepository etc, con getTechList y updateTechList
+
 
 ## 1x. Reestructurar clean arch v3 p2 (back)
 ### Revisar connectors
