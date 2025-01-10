@@ -14,7 +14,8 @@ export const techSchema = z.object({
     afinidad: z.number().min(0, "No puede ser negativo").max(100, "No puede ser mayor a 100"),
     lenguajeTo: z.string().optional(),
     frameworkTo: z.string().optional(),
-    img: z.string().regex(/https:\/\/utfs\.io\/f\/([a-f0-9\-]+)-([a-z0-9]+)\.(jpg|webp|png)/, "URL invalida").nullable().default(null)
+    img: z.string().regex(/https:\/\/(?:utfs\.io|[a-z0-9]+\.ufs\.sh)\/f\/([a-f0-9\-]+)-([a-z0-9]+)\.(jpg|webp|png)/, "URL invalida").nullable().default(null)
+    // img: z.string().regex(/https:\/\/utfs\.io\/f\/([a-f0-9\-]+)-([a-z0-9]+)\.(jpg|webp|png)/, "URL invalida").nullable().default(null)
   })
 export type UpdateTechForm = LengDocument | FwDocument | LibDocument;  
 export interface FullTechData extends TechBase {

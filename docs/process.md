@@ -147,16 +147,11 @@ npm i react-countup
 - [x] Migrar Nextjs a la version 15.1 con React en version estable
 #### Tech dialog
 - [ ] Tratar de encontrar el causante del problema del id
-- [ ] Responder acciones del servidor con `toast()`
-#### EXTRA(dep)
-- [**NOT REALIZED**] Tratar de automatizar mínimamente la gestión de las dos versiones, tanto de Nextjs como React - o a falta de, documentar proceso.  
+- [x] Responder acciones del servidor con `toast()`
 ### Internalization (en/es/de/ca) `i18n`
 - [x] Pasar la parte de web3 a la i18n (asi eliminamos la parte de bdd que no tiene clean arch)
 - [x] Hay que arreglar los links de academia y admin page-parts
-
 ## Fix
-- [❓] En '/ceo/info' -> Botones no llevan al link correcto
-- [x] En '/ceo/proyectos/[id]' -> no funciona el intl de **catalá** de los botones
 - [ ] Arreglar error estructura md
     - [Para ello seguir el patron de este md](https://github.com/SKRTEEEEEE/markdowns/blob/main/about/techs.md?plain=1)
 ## 15. Reestructurar techs
