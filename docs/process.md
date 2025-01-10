@@ -143,6 +143,8 @@ npm i react-countup
 ### Oth
 #### Tech table
 - [x] Terminar parte mobile
+#### Migración 15.1
+- [x] Migrar Nextjs a la version 15.1 con React en version estable
 #### Tech dialog
 - [ ] Tratar de encontrar el causante del problema del id
 - [ ] Responder acciones del servidor con `toast()`
