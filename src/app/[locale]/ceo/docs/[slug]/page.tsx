@@ -16,7 +16,8 @@ const GITHUB_RAW_TECHS_URL =
   "https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/profile-page/about/techs.md";
   // "https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/main/about/techs.md";
 const GITHUB_RAW_TECHS_BASE = 
-  "https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/main/about/"
+  "https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/profile-page/about/"
+  // "https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/main/about/"
 
 
 async function fetchMarkdownFile(filename?: string): Promise<string | null> {
