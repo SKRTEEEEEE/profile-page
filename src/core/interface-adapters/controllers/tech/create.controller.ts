@@ -1,29 +1,30 @@
 import { createTechUC, readAllTechsUC, readOneTechUC, updateTechUC } from "@/core/application/usecases/entities/tech";
 import { actualizarMd } from "../../utils/tech/actualizarMd";
 import { actualizarJson } from "../../utils/tech/actualizarJson";
-import { TechBase, TechForm } from "@/core/domain/entities/tech";
+import {  TechBase, TechForm } from "@/core/domain/entities/tech";
 
 export async function createTechC(data: TechForm): Promise<{success: boolean, message: string}> {
-    const { nameId,nameBadge,web, usoGithub,desc, afinidad,  preferencia, color, experiencia, img, lengTo, fwTo } = data;
+    const { nameId,nameBadge,web, desc, afinidad,   color, experiencia, img, lengTo, fwTo } = data;
     
-    const nuevoItem: TechBase = {
-        nameId,
-        nameBadge,
-        color,
-        web,
-        usoGithub,
-        desc,
-        afinidad,
-        preferencia,
-        experiencia,
-        img
-    };
+   
 
     try {
         // 1. Obtener el estado actual de la BD
+        // - HAY QUE IMPLEMENTAR -> auto-incremental, preferencia
         const proyectosDB = await readAllTechsUC();
         
-
+        const nuevoItem: TechBase = {
+            nameId,
+            nameBadge,
+            color,
+            web,
+            usoGithub: 0.4,
+            desc,
+            afinidad,
+            experiencia,
+            preferencia: 1,
+            img
+        };
         // 2. Guardar en la base de datos
         let success = false;
         let message = '';

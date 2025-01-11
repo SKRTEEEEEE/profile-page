@@ -100,13 +100,18 @@ export class MongoosePreTechRepository<TBase> extends MongoosePreTechPattern<TBa
     //         {nameBadge: { $regex: name, $options: 'i' }}
     //     ]
     // })
+
     await this.connect()
-    const res = await this.Model.find({
-      $or: [
-        { nameId: { $regex: name, $options: 'i' } },
-        { nameBadge: { $regex: name, $options: 'i' } }
-      ]
-    }).limit(50).lean()
+    const filter = {
+      "nameId": name
+    }
+    const res = await this.read({filter})
+    // const res = await this.Model.find({
+    //   $or: [
+    //     { nameId: { $regex: name, $options: 'i' } },
+    //     { nameBadge: { $regex: name, $options: 'i' } }
+    //   ]
+    // }).limit(50).lean()
     return this.documentToPrimary(res as TBase & MongooseDocument)
   }
 

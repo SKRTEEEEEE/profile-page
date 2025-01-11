@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 "use client"
 
 import { useEffect, useState, type JSX } from "react";
@@ -291,10 +293,10 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
                     </FormItem>
                   )}
                 />
-                {form.watch("category") !== "lenguaje" && (
+                {form.watch("category") !== "leng" && (
                   <SearchCombobox name="lenguajeTo" title="lenguaje" data={dispoLeng} form={form} />
                 )}
-                {form.watch("category") === "libreria" && (
+                {form.watch("category") === "lib" && (
                   <SearchCombobox name="frameworkTo" title="framework" data={dispoFw} form={form} />
                 )}
               </TabsContent>

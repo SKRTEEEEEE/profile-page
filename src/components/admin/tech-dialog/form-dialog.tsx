@@ -1,0 +1,150 @@
+"use client"
+import { rv } from "@/actions/revrd";
+import { createTech, updateTech } from "@/actions/tech";
+import { toast } from "@/components/hooks/use-toast";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { TechForm, techSchema } from "@/core/domain/entities/tech";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useLocale } from "next-intl";
+import { JSX, useEffect, useState } from "react"
+import { useForm, UseFormReturn } from "react-hook-form";
+import { useActiveAccount } from "thirdweb/react";
+import { StepOne } from "./step-one";
+import { DispoTechs } from "@/app/[locale]/admin/techs/page";
+import { StepTwo } from "./step-two";
+
+
+/*
+# HAY QUE HACER LA PARTE DEL lengTo, fwTo, etc....
+
+
+
+*/
+
+export type StepTechProps = {
+    onComplete: (data:number) => void
+    onError: (errors: string[]) => void
+    form: UseFormReturn<any, any, undefined>;
+}
+
+type FlattenAdmin = {
+    id: string;
+    address: string;
+  }
+type TechDialogProps = {
+    renderButton: JSX.Element
+    admins: FlattenAdmin[]
+    tech?: any; //TODO
+    dispo: DispoTechs
+}
+const useIsAdmin = (admins: FlattenAdmin[]) => {
+    const [isAdmin, setIsAdmin] = useState(false);
+    const account = useActiveAccount();
+  
+    useEffect(() => {
+      const checkIsAdmin = async () => {
+        try {
+          if (account?.address) {
+            const isAdminUser = admins.some(admin => admin.address === account.address);
+            setIsAdmin(isAdminUser);
+            // console.log("isAdmin (TechTable): ", isAdminUser);
+            // console.log("address: ", account.address);
+          }
+        } catch (error) {
+          console.error('Error al verificar si la cuenta es administrador', error);
+        }
+      };
+  
+      checkIsAdmin();
+    }, [admins, account]);
+  
+    return { isAdmin, account };
+  };
+export default function TechDialog ({renderButton, admins, tech, dispo}: TechDialogProps)  {
+    const [open, setOpen] = useState<boolean>(false)
+    const [currentStep, setCurrentStep] = useState<number>(1)
+
+    const [selectedTech, setSelectedTech] = useState<string>("")
+
+    const [errors, setErrors] = useState<string[]>([])
+    const { isAdmin } = useIsAdmin(admins)
+  const locale = useLocale()
+
+  const form = useForm<TechForm>({
+    resolver: zodResolver(techSchema),
+    defaultValues: tech || {
+      nameId: "",
+      nameBadge: "",
+      color: "#000000",
+      web: "",
+      experiencia: 0,
+      afinidad: 0,
+      img: null,
+      desc: { es: "", en: "", ca: "", de: "" },
+      category: "leng",
+    },
+  })
+
+  const handleStepComplete = (step: number) => {
+    if(currentStep === 1){
+        setSelectedTech(form.watch("nameId"))
+    }
+    setCurrentStep(step + 1)
+    setErrors([])
+  }
+
+  const handlePreviousStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1)
+      setErrors([])
+    }
+  }
+
+  const handleError = (error: string[]) => {
+    setErrors(error)
+  }
+
+  const onSubmit = async (data: TechForm) => {
+    if (!isAdmin) {
+      toast({ title: "Error", description: "No tienes permisos para realizar esta acción", variant: "destructive" })
+      return
+    }
+
+    try {
+      const response = tech ? await updateTech(data) : await createTech(data)
+      if (response.success) {
+        toast({ title: "Éxito", description: response.message })
+        rv(`/${locale}/admin/techs`)
+        setOpen(false)
+      } else {
+        toast({ title: "Error", description: response.message, variant: "destructive" })
+      }
+    } catch (error) {
+      console.error(error)
+      toast({ title: "Error", description: "Ocurrió un error al procesar la solicitud", variant: "destructive" })
+    }
+  }
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>{renderButton}</DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>{tech ? "Editar" : "Añadir"} tecnología {selectedTech}</DialogTitle>
+          <DialogDescription>Ingresa los datos de la tecnología.</DialogDescription>
+        </DialogHeader>
+        {errors.length > 0 && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <ul className="list-disc list-inside">
+              {errors.map((error, index) => (
+                <li key={index}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {currentStep === 1 && <StepOne form={form} onComplete={() => handleStepComplete(1)} onError={handleError} />}
+        {currentStep === 2 && <StepTwo form={form} onComplete={() => handleStepComplete(2)} onError={handleError} onPrevious={handlePreviousStep} dispo={dispo}/>}
+ç        {currentStep === 4 && <LastStep form={form} onSubmit={onSubmit} onPrevious={handlePreviousStep} />}
+      </DialogContent>
+    </Dialog>
+  )
+}

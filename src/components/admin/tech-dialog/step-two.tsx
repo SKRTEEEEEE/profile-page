@@ -1,0 +1,241 @@
+// Aqui ira -> user introduced and calculated data & expe, afini, img
+
+import { useState } from "react";
+import { StepTechProps } from "./form-dialog";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { SearchCombobox } from "@/components/oth/search-combobox";
+import { HandleOperationError } from "@/core/domain/errors/main";
+import { DialogFooter } from "@/components/ui/dialog";
+import { DispoTechs } from "@/app/[locale]/admin/techs/page";
+import { Slider } from "@radix-ui/react-slider";
+
+
+
+type StepTwoTechProps = StepTechProps & {
+    dispo: DispoTechs
+    onPrevious: ()=>void
+}
+export function StepTwo({
+    onComplete,
+    onError,
+    onPrevious,
+    form,
+    dispo
+}: StepTwoTechProps){
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [previewImage, setPreviewImage] = useState<string | null>(form.watch("img") ? form.watch("img") : null)
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const {dispoLeng, dispoFw} = dispo
+
+    const handleFileChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        //Falta comprobar
+        const file = ev.target.files?.[0]
+        if(!file){
+            onError(["Error at select file"])
+            throw new HandleOperationError("Error at select file")
+        }
+        setSelectedFile(file)
+        const imgUrl = URL.createObjectURL(file)
+        setPreviewImage(imgUrl)
+    }
+
+    const handleContinue = async () => {
+        setIsLoading(true)
+        try {
+        // setData -> Guardar la imagen en el storage, y si todo ok en el form
+        // hacer check de secondStepTechSchema
+        // Validación de los campos del formulario
+        const isValid = await form.trigger(["img", "category", "lenguajeTo", "frameworkTo", "experiencia", "afinidad"])
+        if (isValid) {
+            onComplete(3)
+        } else {
+            onError(["Por favor, completa todos los campos correctamente"])
+        }
+        // continuar
+        } catch (error) {
+            onError(["Error al procesar la imagen"])
+        } finally{
+            setIsLoading(false)
+        }
+ 
+    }
+
+    return(
+        <div className="space-y-4">
+            <section>
+                <h3>bla bla bla</h3>
+                <FormField
+                  control={form.control}
+                  name="img"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="flex items-center space-x-4 justify-between w-full">
+                        <FormLabel className="top-0">Logo tecnología</FormLabel>
+                        <FormControl>
+                          {previewImage ? (
+                            <div className="space-y-2">
+                              <Image src={previewImage} alt="Logo de tecnología" width={60} height={60} className="rounded-xl" />
+                              <Button
+                                variant="secondary"
+                                className="my-auto"
+                                onClick={() => {
+                                  setPreviewImage(null);
+                                  setSelectedFile(null);
+                                  form.setValue("img", null);
+                                }}
+                              >
+                                Modificar imagen
+                              </Button>
+                            </div>
+                          ) : (
+                            <Input
+                              type="file"
+                              placeholder="Click para cargar una imagen"
+                              onChange={handleFileChange}
+                            />
+                          )}
+                        </FormControl>
+                      </div>
+                      <FormDescription>Imagen para usar como logo de la tecnología</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                  <FormField
+                  control={form.control}
+                  name="experiencia"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="flex space-x-4 mt-4 items-center">
+                        <div className="w-full">
+                          <div className="flex items-center justify-between w-full gap-x-4">
+                            <FormLabel>Experiencia</FormLabel>
+                            <FormControl>
+                              <Slider
+                                min={0}
+                                max={100}
+                                step={2.5}
+                                value={[field.value]}
+                                onValueChange={(value) => field.onChange(value[0])}
+                              />
+                            </FormControl>
+                          </div>
+                          <FormDescription>
+                            Nivel de experiencia (0-100)
+                          </FormDescription>
+                          <FormMessage />
+                        </div>
+                        <div className="text-2xl">{field.value}</div>
+                      </div>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="afinidad"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="flex space-x-4 mt-4 items-center">
+                        <div className="w-full">
+                          <div className="flex items-center justify-between w-full gap-x-4">
+                            <FormLabel>Afinidad</FormLabel>
+                            <FormControl>
+                              <Slider
+                                min={0}
+                                max={100}
+                                step={5}
+                                value={[field.value]}
+                                onValueChange={(value) => field.onChange(value[0])}
+                              />
+                            </FormControl>
+                          </div>
+                          <FormDescription>
+                            Nivel de afinidad (0-100)
+                          </FormDescription>
+                          <FormMessage />
+                        </div>
+                        <div className="text-2xl">{field.value}</div>
+                      </div>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}               
+                  name="category"
+                  render={({ field }) => (
+                    <FormItem className="space-y-3">
+                      <FormLabel>Categoría</FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          className="flex items-center text-sm space-x-3"
+                        >
+                          <FormItem className="flex items-center space-x-1 space-y-0">
+                            <FormControl>
+                              <RadioGroupItem value="lenguaje" />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              Lenguaje
+                            </FormLabel>
+                          </FormItem>
+                          <FormItem className="flex items-center space-x-3 space-y-0">
+                            <FormControl>
+                              <RadioGroupItem value="framework" />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              Framework
+                            </FormLabel>
+                          </FormItem>
+                          <FormItem className="flex items-center space-x-3 space-y-0">
+                            <FormControl>
+                              <RadioGroupItem value="libreria" />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              Librería
+                            </FormLabel>
+                          </FormItem>
+                        </RadioGroup>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                {form.watch("category") !== "leng" && (
+                  <SearchCombobox name="lenguajeTo" title="lenguaje" data={dispoLeng} form={form} />
+                )}
+                {form.watch("category") === "lib" && (
+                  <SearchCombobox name="frameworkTo" title="framework" data={dispoFw} form={form} />
+                )}
+            </section>
+            <DialogFooter className='w-full '>
+            <Button
+             className="h-full w-full rounded-lg bg-violet-500/15 hover:bg-violet-800 shadow-violet-400/30 hover:shadow-violet-300 text-white font-semibold shadow-md hover:shadow-md transition-all duration-300 ease-in-out mb-1"
+             variant="default"
+             onClick={onPrevious}
+         >
+             {/* {isListed ? t("first.button.0") : t("first.button.1")} */}
+             {"Anterior"}
+         </Button>
+         <Button
+             className="h-full w-full rounded-lg bg-violet-500/15 hover:bg-violet-800 shadow-violet-400/30 hover:shadow-violet-300 text-white font-semibold shadow-md hover:shadow-md transition-all duration-300 ease-in-out mb-1"
+             variant="default"
+             onClick={handleContinue}
+             disabled={isLoading}
+         >
+             {/* {isListed ? t("first.button.0") : t("first.button.1")} */}
+             {isLoading? "Loading...": "Continuar"}
+         </Button>
+
+
+ 
+</DialogFooter>
+        </div>
+    )
+
+}
