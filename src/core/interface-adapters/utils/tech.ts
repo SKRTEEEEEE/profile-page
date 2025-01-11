@@ -1,6 +1,5 @@
 // ⚠️ HAY QUE TERMINAR ❗ - 11.01.2025
 
-"use server"
 
 import { Octokit } from "@octokit/rest";
 
@@ -32,6 +31,7 @@ const owner = "SKRTEEEEEE";
 const path = { md: "sys/techs-test.md", json: "sys/techs-test.json" };
 
 async function getRepoDetails() {
+    "use server"
     const { data: repos } = await octokit.repos.listForUser({
         username: owner,
         per_page: 100,
@@ -80,6 +80,7 @@ function calculateLanguagePercentages(reposDetails: RepoDetails[]): LanguagePerc
 
 
 export const getGithubPercentage = async (name: string): Promise<number> => {
+    "use server"
     const reposDetails = await getRepoDetails();
     const lengPor = calculateLanguagePercentages(reposDetails);
     const replaceDashWithDot = (str: string) => str.replace(/-/g, '.');
@@ -104,6 +105,7 @@ type TechJsonData = {
 };
 //AQUI EMPIEZA
 export async function actualizarJson(proyectosDB: Leng[]) {
+    "use server"
     const t = await getTranslations("ceo.info.section.slider")
     const jsonSha = await fetchFileSha(path.json);
     if (!jsonSha) {
@@ -151,6 +153,8 @@ const ref = "profile-page";
 
 
 export async function actualizarMd(proyectosDB: Leng[]|null, create?:{name: string, badge: string, colorhash: string}) {
+    "use server3
+    "
     const color = create?.colorhash.slice(1)
     try {
         const mdSha = await fetchFileSha(path.md);

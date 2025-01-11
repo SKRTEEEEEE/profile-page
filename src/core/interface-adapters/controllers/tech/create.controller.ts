@@ -1,8 +1,7 @@
 import { createTechUC, readAllTechsUC, readOneTechUC, updateTechUC } from "@/core/application/usecases/entities/tech";
-import { actualizarMd } from "../../utils/tech/actualizarMd";
-import { actualizarJson } from "../../utils/tech/actualizarJson";
+
 import {  TechBase, TechForm } from "@/core/domain/entities/tech";
-import { getGithubPercentage } from "../../utils/tech";
+import { actualizarJson, actualizarMd, getGithubPercentage } from "../../utils/tech";
 
 export async function createTechC(data: TechForm): Promise<{success: boolean, message: string}> {
     const { nameId,nameBadge,web, desc, afinidad,   color, experiencia, img, lengTo, fwTo } = data;

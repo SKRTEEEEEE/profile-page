@@ -3,8 +3,7 @@ import { revalidatePath } from "next/cache";
 import { deleteImageUC } from "@/core/application/usecases/services/img";
 import {  deleteTechUC, readAllTechsUC, readOneTechUC } from "@/core/application/usecases/entities/tech";
 import { FwDocument, LibDocument } from "@/core/domain/entities/tech";
-import { actualizarJson } from "../../utils/tech/actualizarJson";
-import { actualizarMd } from "../../utils/tech/actualizarMd";
+import { actualizarJson, actualizarMd } from "../../utils/tech";
 
 
 
