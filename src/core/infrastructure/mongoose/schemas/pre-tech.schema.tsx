@@ -1,4 +1,4 @@
-import { PreTechDocument } from "@/core/domain/entities/PreTech";
+import { PreTechDocument } from "@/core/domain/entities/pre-tech";
 import mongoose, { Schema } from "mongoose";
 
 const preTechSchema = new Schema<PreTechDocument>({

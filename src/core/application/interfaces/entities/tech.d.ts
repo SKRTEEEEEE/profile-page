@@ -1,4 +1,4 @@
-import { Fw, Leng, Lib } from "@/core/domain/entities/Tech";
+import { Fw, Leng, Lib } from "@/core/domain/entities/tech";
 import { MongooseBaseI, MongooseCRUI, MongooseDeleteI, MongooseReadI, MongooseUpdateI } from "@/core/infrastructure/mongoose/types/implementations";
 import {  MongooseCRRUUD2 } from "@/core/infrastructure/mongoose/types/patterns";
 

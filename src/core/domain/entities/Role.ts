@@ -1,4 +1,4 @@
-import { MongooseBase, TimestampBase } from "@/core/infrastructure/mongoose/types/index";
+import { MongooseBase, MongooseTimestamps } from "@/core/infrastructure/mongoose/types/index";
 import mongoose from "mongoose";
 
 export enum RoleType {
@@ -12,7 +12,7 @@ export enum RoleType {
     // Añade aquí más tipos de roles según sea necesario
   }
 
-  export interface RoleDocument extends RoleBase, TimestampBase, mongoose.Document {
+  export interface RoleDocument extends RoleBase, MongooseTimestamps, mongoose.Document {
     _id: mongoose.Types.ObjectId
   }
   export type Role = MongooseBase & RoleBase

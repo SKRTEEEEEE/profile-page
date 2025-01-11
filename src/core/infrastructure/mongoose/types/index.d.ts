@@ -6,7 +6,7 @@ export type MongooseBase = {
   createdAt: string
   updatedAt: string
 }
-export type TimestampBase = {
+export type MongooseTimestamps = {
   createdAt: Date;
   updatedAt: Date;
 }

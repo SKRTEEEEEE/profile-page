@@ -1,50 +1,55 @@
-import { MongooseBase, MongooseDocument, TimestampBase } from "@/core/infrastructure/mongoose/types/index"
-import mongoose from "mongoose"
-import { z } from "zod"
+import { MongooseBase, MongooseTimestamps } from "@/core/infrastructure/mongoose/types";
+import { Document } from "mongoose";
+import { z } from "zod";
 
 export const techSchema = z.object({
-    name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
-    category: z.enum(["lenguaje", "framework", "libreria"], {
-      required_error: "Debes seleccionar una categoría",
-    }),
-    badge: z.string().min(2, "El badge debe tener al menos 2 caracteres"),
+    nameId: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
+    // from pre-tech
+    nameBadge: z.string(),
     color: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, "Color inválido"),
-    preferencia: z.number().int().min(1, "Debe ser al menos 1").max(100, "No puede ser mayor a 100"),
+    web: z.string().url(),
+    // user introduced data
+    preferencia: z.number().int().min(1, "Debe ser al menos 1"),
     experiencia: z.number().min(0, "No puede ser negativo").max(100, "No puede ser mayor a 100"),
     afinidad: z.number().min(0, "No puede ser negativo").max(100, "No puede ser mayor a 100"),
-    lenguajeTo: z.string().optional(),
-    frameworkTo: z.string().optional(),
-    img: z.string().regex(/https:\/\/(?:utfs\.io|[a-z0-9]+\.ufs\.sh)\/f\/([a-f0-9\-]+)-([a-z0-9]+)\.(jpg|webp|png)/, "URL invalida").nullable().default(null)
-    // img: z.string().regex(/https:\/\/utfs\.io\/f\/([a-f0-9\-]+)-([a-z0-9]+)\.(jpg|webp|png)/, "URL invalida").nullable().default(null)
-  })
-export type UpdateTechForm = LengDocument | FwDocument | LibDocument;  
-export interface FullTechData extends TechBase {
-    value: string; 
-    valueexp: string; 
-    isFw?: boolean|string; 
-    isLib?: boolean|string; 
-    usogithub?: number; 
-    
-  }
-export type TechForm = z.infer<typeof techSchema>
-export type Tech = MongooseBase & TechBase
-export interface TechDocument extends TechBase, TimestampBase, MongooseDocument{
-    _id: mongoose.Types.ObjectId
+    img: z.string().regex(/https:\/\/(?:utfs\.io|[a-z0-9]+\.ufs\.sh)\/f\/([a-f0-9\-]+)-([a-z0-9]+)\.(jpg|webp|png)/, "URL invalida").nullable().default(null),
+    desc: z.object({
+        es: z.string().min(2, "La descripción debe tener al menos 2 caracteres"),
+        en: z.string().min(2, "La descripción debe tener al menos 2 caracteres"),
+        ca: z.string().min(2, "La descripción debe tener al menos 2 caracteres"),
+        de: z.string().min(2, "La descripción debe tener al menos 2 caracteres"),
+    }),
+    // auto calculated data
+    usoGithub: z.number().int().min(0, "No puede ser negativo").max(100, "No puede ser mayor a 100"),
+    // user introduced special data
+    lengTo: z.string().optional(),
+    fwTo: z.string().optional(),
+    category: z.enum(["leng", "fw", "lib"], {
+        required_error: "Debes seleccionar una categoría",
+      }),
+})
+export type TechForm = z.infer<typeof techSchema>;
+export type TechBase = Omit<TechForm, "lengTo" | "fwTo" | "category">;
+export type Tech = TechBase & MongooseBase;
+type TechDocument = TechBase & MongooseTimestamps & Document;
+
+
+
+//tipos heredados(lenguaje, framework, librería)
+// document types (for mongoose/backend)
+export type LibDocument = TechDocument;
+export type FwDocument = TechDocument & {
+    librerias?: LibDocument[];
 }
-export type Lib = Tech
-export type Fw = Tech&{
+export type LengDocument = TechDocument & {
+    frameworks?: FwDocument[];
+}
+
+// ui types (for frontend/backend)
+export type Lib = Tech;
+export type Fw = Tech &{
     librerias?: Lib[]
 }
-export type LengFull = Leng & MongooseBase
-export type Leng = TechBase&{
+export type Leng = Tech & {
     frameworks?: Fw[]
 }
-export interface LibDocument extends TechDocument {}
-export interface FwDocument extends TechDocument{
-    librerias?: LibDocument[]
-}
-export interface LengDocument extends TechDocument{
-    frameworks: FwDocument[]
-}
-export type TechBase = Omit<TechForm, "lenguajeTo" | "frameworkTo" | "category">
-  

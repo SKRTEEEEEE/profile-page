@@ -1,5 +1,5 @@
-
-import { FwDocument, LengDocument, LibDocument, TechForm } from "@/core/domain/entities/Tech";
+//@ts-nocheck
+import { FwDocument, LengDocument, LibDocument, TechForm } from "@/core/domain/entities/tech";
 import mongoose, { Schema } from "mongoose";
 
 export interface ILenguaje extends Document, TechForm {

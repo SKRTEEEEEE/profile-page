@@ -21,7 +21,7 @@ import {
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { UseFormReturn } from "react-hook-form"
 import { readByQueryPreTech } from "@/actions/pre-tech"
-import { PreTechBase } from "@/core/domain/entities/PreTech"
+import { PreTechBase } from "@/core/domain/entities/pre-tech"
 import { MongooseBase } from "@/core/infrastructure/mongoose/types"
 
 type SearchComboboxProps = {

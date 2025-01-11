@@ -1,6 +1,6 @@
 import { actualizarJson } from "@/core/interface-adapters/utils/tech/actualizarJson";
 import { updateTechUC } from "@/core/application/usecases/entities/tech";
-import { TechForm } from "@/core/domain/entities/Tech";
+import { TechForm } from "@/core/domain/entities/tech";
 
 
 

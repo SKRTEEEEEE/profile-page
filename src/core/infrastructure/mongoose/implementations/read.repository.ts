@@ -1,4 +1,4 @@
-import { FilterQuery, Query } from "mongoose";
+import { FilterQuery } from "mongoose";
 import { MongooseBaseRepository } from "./base.repository";
 import { ProjectionType } from "mongoose";
 import { QueryOptions } from "mongoose";

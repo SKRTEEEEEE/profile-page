@@ -1,9 +1,9 @@
-
+// ⚠️ HAY QUE TERMINAR ❗ - 11.01.2025
 "use server"
 
 import { fetchFileSha, updateFileContent } from "../../../../actions/techs/utils";
 import { createBadgeTech } from "@/lib/techs";
-import { LengFull } from "@/core/domain/entities/Tech";
+import { Leng } from "@/core/domain/entities/tech";
 
 const owner = "SKRTEEEEEE";
 
@@ -14,7 +14,7 @@ const path = { md: "sys/techs-test.md", json: "sys/techs-test.json" };
 const ref = "profile-page";
 
 
-export async function actualizarMd(proyectosDB: LengFull[]|null, create?:{name: string, badge: string, colorhash: string}) {
+export async function actualizarMd(proyectosDB: Leng[]|null, create?:{name: string, badge: string, colorhash: string}) {
     const color = create?.colorhash.slice(1)
     try {
         const mdSha = await fetchFileSha(path.md);

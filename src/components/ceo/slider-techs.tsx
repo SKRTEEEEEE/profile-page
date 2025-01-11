@@ -5,7 +5,7 @@ import { Pagination } from 'swiper/modules';
 
 // import { lenguajesResources } from '@/lib/data-ceo';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { FullTechData } from '@/core/domain/entities/Tech';
+import { FullTechData } from '@/core/domain/entities/tech';
 import { useTranslations } from 'next-intl';
 
 const SliderTechs = ({data}: {data:FullTechData[]}) => {

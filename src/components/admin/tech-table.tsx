@@ -21,7 +21,7 @@ import DeleteTechButton from "./delete-tech-button"
 import { TechDialog } from "./tech-dialog"
 import { Tooltip } from "@radix-ui/react-tooltip"
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
-import { FullTechData } from "@/core/domain/entities/Tech"
+import { FullTechData } from "@/core/domain/entities/tech"
 
 // - [ ] Falta mostrar el error del delete, y mejorar...
 // - [ ] Falta terminar la parte del mobile

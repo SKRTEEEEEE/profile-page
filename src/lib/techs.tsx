@@ -1,4 +1,4 @@
-import { FullTechData, Fw, Leng, LengFull, Lib } from "@/core/domain/entities/Tech";
+import { FullTechData, Fw, Leng,  Lib } from "@/core/domain/entities/tech";
 
 type BadgeAndValue = {
     badge: string;
@@ -88,7 +88,7 @@ export function getGithubUsoByRange(numValue:number):BadgeAndValue{
     return { badge, value };
 }
 
-export const flattenTechs = (proyectos: LengFull[]|Leng[]) => {
+export const flattenTechs = (proyectos: Leng[]) => {
     let flattenedArray: FullTechData[] = [];
 
     proyectos.forEach((proyecto) => {

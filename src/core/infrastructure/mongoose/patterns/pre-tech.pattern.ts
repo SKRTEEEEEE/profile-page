@@ -1,8 +1,7 @@
 import { Model, Mongoose } from "mongoose";
 import { MongooseBaseRepository } from "../implementations/base.repository";
 import { MongooseReadProps, MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
-import { MongooseBase } from "../types";
-import { MongoosePopulateRepository } from "../implementations/populate.repository";
+import { MongoosePopulateProps, MongoosePopulateRepository, MongoosePopulateResponse } from "../implementations/populate.repository";
 
 /* 
 primario, proviene de las implementaciones
@@ -25,7 +24,7 @@ export abstract class MongoosePreTechPattern<
     ): MongooseReadResponse<TBase> {
         return await this.readRepo.read(props);
     }
-    async populate(docs: Array<TBase>): Promise<(TBase & MongooseBase)[]> {
+    async populate(docs: MongoosePopulateProps<TBase>): MongoosePopulateResponse<TBase> {
         return await this.populateRepo.populate(docs);
     }
 

@@ -1,4 +1,4 @@
-
+// ⚠️ HAY QUE TERMINAR ❗ - 11.01.2025
 
 "use server"
 
@@ -7,7 +7,7 @@ import { Octokit } from "@octokit/rest";
 import { flattenTechs, getGithubUsoByRange } from "@/lib/techs";
 import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { fetchFileSha, updateFileContent } from "../../../../actions/techs/utils";
-import { LengFull } from "@/core/domain/entities/Tech";
+import { Leng } from "@/core/domain/entities/tech";
 import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
 import { DatabaseFindError } from "@/core/domain/errors/main";
 import { getTranslations } from "next-intl/server";
@@ -89,7 +89,7 @@ async function peticionRepos() {
 export async function actualizarJson() {
     await connectToDB();
     const t = await getTranslations("ceo.info.section.slider")
-    const proyectosDB: LengFull[]|null = await readAllTechsUC();
+    const proyectosDB: Leng[]|null = await readAllTechsUC();
     if(!proyectosDB) throw new DatabaseFindError("read all techs -> in: actualizarJson utils")
     const jsonSha = await fetchFileSha(path.json);
     if (!jsonSha) {

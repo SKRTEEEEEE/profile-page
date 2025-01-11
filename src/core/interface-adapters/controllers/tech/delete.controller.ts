@@ -2,7 +2,7 @@
 import { revalidatePath } from "next/cache";
 import { deleteImageUC } from "@/core/application/usecases/services/img";
 import {  deleteTechUC, readAllTechsUC, readOneTechUC } from "@/core/application/usecases/entities/tech";
-import { FwDocument, LibDocument } from "@/core/domain/entities/Tech";
+import { FwDocument, LibDocument } from "@/core/domain/entities/tech";
 import { actualizarJson } from "../../utils/tech/actualizarJson";
 import { actualizarMd } from "../../utils/tech/actualizarMd";
 
@@ -28,9 +28,9 @@ export async function deleteTechC(name: string) {
         // Buscar en librerías
         let lenguaje = await readOneTechUC({ "frameworks.librerias.name": name });
         if (lenguaje) {
-            const frameworkIndex = lenguaje.frameworks.findIndex((fw:FwDocument) => fw.librerias?.some((lib:LibDocument) => lib.name === name));
-            const libreriaIndex = lenguaje.frameworks[frameworkIndex].librerias.findIndex((lib:LibDocument) => lib.name === name);
-            const libreria = lenguaje.frameworks[frameworkIndex].librerias.find((lib:LibDocument) => lib.name === name);
+            const frameworkIndex = lenguaje.frameworks.findIndex((fw:FwDocument) => fw.librerias?.some((lib:LibDocument) => lib.nameId === name));
+            const libreriaIndex = lenguaje.frameworks[frameworkIndex].librerias.findIndex((lib:LibDocument) => lib.nameId === name);
+            const libreria = lenguaje.frameworks[frameworkIndex].librerias.find((lib:LibDocument) => lib.nameId === name);
 
             // Eliminar la librería
             lenguaje.frameworks[frameworkIndex].librerias.splice(libreriaIndex, 1);
@@ -44,8 +44,8 @@ export async function deleteTechC(name: string) {
         // Buscar en frameworks
         lenguaje = await readOneTechUC({ "frameworks.name": name });
         if (lenguaje) {
-            const frameworkIndex = lenguaje.frameworks.findIndex((fw:FwDocument) => fw.name === name);
-            const framework = lenguaje.frameworks.find((fw:FwDocument) => fw.name === name);
+            const frameworkIndex = lenguaje.frameworks.findIndex((fw:FwDocument) => fw.nameId === name);
+            const framework = lenguaje.frameworks.find((fw:FwDocument) => fw.nameId === name);
 
 
             // Eliminar el framework
@@ -59,7 +59,7 @@ export async function deleteTechC(name: string) {
         }
 
         // Buscar en lenguajes
-        const lenguajeEliminado = await deleteTechUC({ name: name });
+        const lenguajeEliminado = await deleteTechUC({ nameId: name });
         if (lenguajeEliminado) {
             const res = await doDelete("Lenguaje", name, lenguajeEliminado.img);
             return res;

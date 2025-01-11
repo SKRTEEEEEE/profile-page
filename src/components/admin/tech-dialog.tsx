@@ -19,7 +19,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/
 import { CConectButton } from "../oth/custom-connect-button"
 import Image from "next/image"
 import { updateImg, uploadImg } from "@/actions/img"
-import { FullTechData, TechForm, techSchema } from "@/core/domain/entities/Tech"
+import { FullTechData, TechForm, techSchema } from "@/core/domain/entities/tech"
 import { useLocale } from "next-intl";
 import { toast } from "../hooks/use-toast";
 import {  SearchPreTechCombobox } from "./search-pretech-combobox";
