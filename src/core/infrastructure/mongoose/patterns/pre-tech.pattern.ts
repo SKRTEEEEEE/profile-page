@@ -22,7 +22,8 @@ export abstract class MongoosePreTechPattern<
     ): Promise<any> {
         return await this.readRepo.read(filter, projection, options);
     }
-    async readByName(name: string)
+        // not used
+        async readByName(name: string)
         : Promise<TBase & MongooseBase> {
         // return await this.readRepo.read({
         //     $or: [
@@ -36,8 +37,21 @@ export abstract class MongoosePreTechPattern<
                 { nameId: { $regex: name, $options: 'i' } },
                 { nameBadge: { $regex: name, $options: 'i' } }
             ]
-        }).limit(10).lean()
+        }).limit(50).lean()
         return this.documentToPrimary(res as TBase & MongooseDocument)
+    }
+    async readByQuery (query:string): Promise<(TBase & MongooseBase)[]>{
+        await this.connect()
+        const res = await this.Model.find({
+            $or: [
+                { nameId: { $regex: query, $options: 'i' } },
+                { nameBadge: { $regex: query, $options: 'i' } }
+            ]
+        }).limit(50)
+        return res.map((doc: any) => {
+            console.log("doc in pretech pattern: ", doc)
+            return this.documentToPrimary(doc)}
+        )
     }
     async updatePreTech(): Promise<void> {
 
@@ -72,21 +86,22 @@ export abstract class MongoosePreTechPattern<
                 return null;
             }).filter(item => item !== null);
             // console.log('Combined PreTech data:', combinedData);
-            //Get existing nameIds from the database
+            // 4. For the first time only ❗-> Populate PreTech collection
+            // await this.populatePreTech(combinedData);
+            
+            // 4. Get existing nameIds from the database
             const existingNameIds = new Set(await this.Model.distinct('nameId'));
 
-            // 4. Filter out only the new technologies
+            // 5. Filter out only the new technologies
             const newTechs = combinedData.filter(item => !existingNameIds.has(item.nameId));
 
-            // 5. Insert only the new technologies
+            // 6. Insert only the new technologies
             if (newTechs.length > 0) {
                 await this.Model.insertMany(newTechs);
                 console.log(`Inserted ${newTechs.length} new technologies`);
             } else {
                 console.log('No new technologies to insert');
             }
-            // For the first time only ❗
-            // await this.populatePreTech(combinedData);
 
 
         } catch (error) {

@@ -155,10 +155,12 @@ npm i react-countup
 - [x] Arreglar error estructura md
     - [Para ello seguir el patron de este md](https://github.com/SKRTEEEEEE/markdowns/blob/main/about/techs.md?plain=1)
 ##### **ACTUALIDAD**
-## 15. Reestructurar techs
+- [ ] Arreglar mal performance en tech-dialog, que cuando el usuario introduce un dato incorrecto solo se muestra en la pantalla correspondiente y debería aparecer en la parte común también
+## 15. Reestructurar techs (full)
 **Tener en cuenta los siguientes puntos(clean arch v3 p2)**
-- [ ] Adoptar enfoque DB/Redis, para recuperar la lista de techs-simpleicons -> creando SimpleIconsTechRepository etc, con getTechList y updateTechList
+- [x] Adoptar enfoque DB/Redis, para recuperar la lista de techs-simpleicons -> creando SimpleIconsTechRepository etc, con getTechList y updateTechList
 - [ ] Reestructurar el modelo de la bdd para en la futura UI y mejorar UX
+- [ ] Rehacer el tech-dialog
 
 ## 1x. Reestructurar clean arch v3 p2 (back)
 ### Revisar connectors

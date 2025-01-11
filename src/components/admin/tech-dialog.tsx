@@ -10,8 +10,7 @@ import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Slider } from "@/components/ui/slider"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { SearchCombobox } from "../oth/search-combobox"
-import techBadges from "@/lib/data-slugs"
+// import techBadges from "@/lib/data-slugs"
 import { useActiveAccount } from "thirdweb/react"
 import { createTech, updateTech } from "@/actions/tech"
 import { rv } from "@/actions/revrd"
@@ -23,6 +22,8 @@ import { updateImg, uploadImg } from "@/actions/img"
 import { FullTechData, TechForm, techSchema } from "@/core/domain/entities/Tech"
 import { useLocale } from "next-intl";
 import { toast } from "../hooks/use-toast";
+import {  SearchPreTechCombobox } from "./search-pretech-combobox";
+import { SearchCombobox } from "../oth/search-combobox";
 
 
 
@@ -210,7 +211,7 @@ export function TechDialog({ dispoLeng, dispoFw, renderButton, tech, admins }: T
                 <TabsTrigger value="details">Detalles</TabsTrigger>
               </TabsList>
               <TabsContent value="general" className="space-y-4">
-                <SearchCombobox name="name" title="nombre" form={form} data={techBadges} />
+                <SearchPreTechCombobox name="name" title="nombre" form={form} />
                 <FormField
                   control={form.control}
                   name="img"
