@@ -7,5 +7,4 @@ export class MongoosePreTechRepository extends MongoosePreTechPattern<PreTechBas
     constructor() {
       super(PreTechModel);
     }
-
   }

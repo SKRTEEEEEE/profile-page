@@ -54,6 +54,7 @@ export abstract class MongoosePreTechPattern<
         )
     }
     async updatePreTech(): Promise<void> {
+        this.connect();
 
         try {
             // 1. Fetch data from md file

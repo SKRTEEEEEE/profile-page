@@ -26,7 +26,6 @@ import { MongooseBase } from "@/core/infrastructure/mongoose/types"
 
 type SearchComboboxProps = {
   title: string;
-
   name: string;
   form: UseFormReturn<any, any, undefined>;
 }
