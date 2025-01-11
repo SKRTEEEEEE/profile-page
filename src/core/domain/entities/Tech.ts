@@ -47,7 +47,7 @@ export const techSchema = z.object({
 }).merge(firstStepTechSchema).merge(secondStepTechSchema)
 
 export type TechForm = z.infer<typeof techSchema>;
-export type TechBase = Omit<TechForm, "lengTo" | "fwTo" | "category"> & {
+export type TechBase = (Omit<TechForm, "lengTo" | "fwTo" | "category">) & {
     preferencia: number
     usoGithub: number
 }; 
@@ -73,4 +73,13 @@ export type Fw = Tech &{
 }
 export type Leng = Tech & {
     frameworks?: Fw[]
+}
+
+//flatten techs(for frontend)
+export type FullTechData = TechBase & {
+    valueAfin: string;
+    valueExp: string;
+    isFw?: string;
+    isLib?: string;
+    valueUso: string;
 }

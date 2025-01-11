@@ -10,8 +10,9 @@ import { JSX, useEffect, useState } from "react"
 import { useForm, UseFormReturn } from "react-hook-form";
 import { useActiveAccount } from "thirdweb/react";
 import { StepOne } from "./step-one";
-import { DispoTechs } from "@/app/[locale]/admin/techs/page";
 import { StepTwo } from "./step-two";
+import { DispoTechs } from "@/lib/types";
+import { LastStep } from "./last-step";
 
 
 /*
@@ -22,52 +23,52 @@ import { StepTwo } from "./step-two";
 */
 
 export type StepTechProps = {
-    onComplete: (data:number) => void
-    onError: (errors: string[]) => void
-    form: UseFormReturn<any, any, undefined>;
+  onComplete: (data: number) => void
+  onError: (errors: string[]) => void
+  form: UseFormReturn<any, any, undefined>;
 }
 
 type FlattenAdmin = {
-    id: string;
-    address: string;
-  }
+  id: string;
+  address: string;
+}
 type TechDialogProps = {
-    renderButton: JSX.Element
-    admins: FlattenAdmin[]
-    tech?: any; //TODO
-    dispo: DispoTechs
+  renderButton: JSX.Element
+  admins: FlattenAdmin[]
+  tech?: any; //TODO
+  dispo: DispoTechs
 }
 const useIsAdmin = (admins: FlattenAdmin[]) => {
-    const [isAdmin, setIsAdmin] = useState(false);
-    const account = useActiveAccount();
-  
-    useEffect(() => {
-      const checkIsAdmin = async () => {
-        try {
-          if (account?.address) {
-            const isAdminUser = admins.some(admin => admin.address === account.address);
-            setIsAdmin(isAdminUser);
-            // console.log("isAdmin (TechTable): ", isAdminUser);
-            // console.log("address: ", account.address);
-          }
-        } catch (error) {
-          console.error('Error al verificar si la cuenta es administrador', error);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const account = useActiveAccount();
+
+  useEffect(() => {
+    const checkIsAdmin = async () => {
+      try {
+        if (account?.address) {
+          const isAdminUser = admins.some(admin => admin.address === account.address);
+          setIsAdmin(isAdminUser);
+          // console.log("isAdmin (TechTable): ", isAdminUser);
+          // console.log("address: ", account.address);
         }
-      };
-  
-      checkIsAdmin();
-    }, [admins, account]);
-  
-    return { isAdmin, account };
-  };
-export default function TechDialog ({renderButton, admins, tech, dispo}: TechDialogProps)  {
-    const [open, setOpen] = useState<boolean>(false)
-    const [currentStep, setCurrentStep] = useState<number>(1)
+      } catch (error) {
+        console.error('Error al verificar si la cuenta es administrador', error);
+      }
+    };
 
-    const [selectedTech, setSelectedTech] = useState<string>("")
+    checkIsAdmin();
+  }, [admins, account]);
 
-    const [errors, setErrors] = useState<string[]>([])
-    const { isAdmin } = useIsAdmin(admins)
+  return { isAdmin, account };
+};
+export default function TechDialog({ renderButton, admins, tech, dispo }: TechDialogProps) {
+  const [open, setOpen] = useState<boolean>(false)
+  const [currentStep, setCurrentStep] = useState<number>(1)
+
+  const [selectedTech, setSelectedTech] = useState<string>("")
+
+  const [errors, setErrors] = useState<string[]>([])
+  const { isAdmin } = useIsAdmin(admins)
   const locale = useLocale()
 
   const form = useForm<TechForm>({
@@ -86,8 +87,8 @@ export default function TechDialog ({renderButton, admins, tech, dispo}: TechDia
   })
 
   const handleStepComplete = (step: number) => {
-    if(currentStep === 1){
-        setSelectedTech(form.watch("nameId"))
+    if (currentStep === 1) {
+      setSelectedTech(form.watch("nameId"))
     }
     setCurrentStep(step + 1)
     setErrors([])
@@ -142,8 +143,8 @@ export default function TechDialog ({renderButton, admins, tech, dispo}: TechDia
           </div>
         )}
         {currentStep === 1 && <StepOne form={form} onComplete={() => handleStepComplete(1)} onError={handleError} />}
-        {currentStep === 2 && <StepTwo form={form} onComplete={() => handleStepComplete(2)} onError={handleError} onPrevious={handlePreviousStep} dispo={dispo}/>}
-ç        {currentStep === 4 && <LastStep form={form} onSubmit={onSubmit} onPrevious={handlePreviousStep} />}
+        {currentStep === 2 && <StepTwo form={form} onComplete={() => handleStepComplete(2)} onError={handleError} onPrevious={handlePreviousStep} dispo={dispo} />}
+        {currentStep === 3 && <LastStep form={form} onSubmit={onSubmit} onError={handleError} onPrevious={handlePreviousStep} />}
       </DialogContent>
     </Dialog>
   )

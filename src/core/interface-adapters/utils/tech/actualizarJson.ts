@@ -5,11 +5,8 @@
 import { Octokit } from "@octokit/rest";
 
 import { flattenTechs, getGithubUsoByRange } from "@/lib/techs";
-import { connectToDB } from "@/core/infrastructure/connectors/mongo-db";
 import { fetchFileSha, updateFileContent } from "../../../../actions/techs/utils";
 import { Leng } from "@/core/domain/entities/tech";
-import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
-import { DatabaseFindError } from "@/core/domain/errors/main";
 import { getTranslations } from "next-intl/server";
 
 
@@ -85,59 +82,58 @@ async function peticionRepos() {
     const reposDetails = await getRepoDetails();
     return calculateLanguagePercentages(reposDetails);
 }
+const getGithubPercentage = (name: string, lengPor: LanguagePercentage[]): number => {
+    const replaceDashWithDot = (str: string) => str.replace(/-/g, '.');
+    const usogithubString = lengPor.find(lenguaje => {
+        const normalizedName = name.toLowerCase();
+        const modifiedName = replaceDashWithDot(normalizedName);
+        const searchedName = replaceDashWithDot(lenguaje.name.toLowerCase());
+        return modifiedName === searchedName;
+    })?.percentage.toFixed(2);
+    return usogithubString !== undefined ? parseFloat(usogithubString) : 0;
+};
 
-export async function actualizarJson() {
-    await connectToDB();
+
+type TechJsonData = {
+    name: string;
+    afinidad: number;
+    value: string;
+    experiencia: number;
+    valueexp: string;
+    usogithub: number;
+    valueuso: string;
+};
+//AQUI EMPIEZA
+export async function actualizarJson(proyectosDB: Leng[]) {
     const t = await getTranslations("ceo.info.section.slider")
-    const proyectosDB: Leng[]|null = await readAllTechsUC();
-    if(!proyectosDB) throw new DatabaseFindError("read all techs -> in: actualizarJson utils")
     const jsonSha = await fetchFileSha(path.json);
     if (!jsonSha) {
         console.error("El archivo .json no se encuentra en el repositorio");
         return;
     }
-    const lenguajePorcentaje = await peticionRepos();
-    const getGithubPercentage = (name: string): number => {
-        const replaceDashWithDot = (str: string) => str.replace(/-/g, '.');
-        const usogithubString = lenguajePorcentaje.find(lenguaje => {
-            const normalizedName = name.toLowerCase();
-            const modifiedName = replaceDashWithDot(normalizedName);
-            const searchedName = replaceDashWithDot(lenguaje.name.toLowerCase());
-            return modifiedName === searchedName;
-        })?.percentage.toFixed(2);
-        return usogithubString !== undefined ? parseFloat(usogithubString) : 0;
-    };
+    // const lenguajePorcentaje = await peticionRepos();
+
     // const newJsonData = flattenTechs(proyectosDB).map(proyecto => {
     //     const { badge, color, isFw, isLib, preferencia, ...remainingProps } = proyecto;
     //     const porcentajeGithub = getGithubPercentage(proyecto.name);
     //     return { ...remainingProps, usogithub: porcentajeGithub, valueuso: getGithubUsoByRange(porcentajeGithub).value };
     // });
-    type TechJsonData = {
-        name: string;
-        afinidad: number;
-        value: string;
-        experiencia: number;
-        valueexp: string;
-        usogithub: number;
-        valueuso: string;
-    };
     
     const newJsonData = flattenTechs(proyectosDB).reduce<{ [key: string]: TechJsonData }>((acc, proyecto) => {
-        const { badge, color, isFw, isLib, preferencia, ...remainingProps } = proyecto;
-        const porcentajeGithub = getGithubPercentage(proyecto.name);
-        const lenguajeName = proyecto.name; // Nombre del lenguaje como clave
+        // const porcentajeGithub = getGithubPercentage(proyecto.nameId, lenguajePorcentaje);
+        const lenguajeName = proyecto.nameId; // Nombre del lenguaje como clave
         
         // Crear el objeto con los datos correspondientes
         const languageData: TechJsonData = {
             name: lenguajeName,
             afinidad: proyecto.afinidad,  
-            value:t(`values.${proyecto.value}`),  
+            value:t(`values.${proyecto.valueAfin}`),  
             // value: proyecto.value,  
             experiencia: proyecto.experiencia,  
-            valueexp: t(`values.${(proyecto.valueexp)}`),  
+            valueexp: t(`values.${(proyecto.valueExp)}`),  
             // valueexp: proyecto.valueexp,  
-            usogithub: porcentajeGithub,  
-            valueuso: getGithubUsoByRange(porcentajeGithub).value  
+            usogithub: proyecto.usoGithub,  
+            valueuso: getGithubUsoByRange(proyecto.usoGithub).value  
         };
     
         // Asigna el objeto al acumulador utilizando el nombre del lenguaje como clave

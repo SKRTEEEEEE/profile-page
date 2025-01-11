@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { FwDocument, LengDocument, LibDocument } from "@/core/domain/entities/tech";
 import mongoose, { Schema } from "mongoose";
 

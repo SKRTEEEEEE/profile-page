@@ -20,3 +20,9 @@ export type DataSiteConfig = {
     blank: boolean;
 }[];
 }
+
+export type DispoTechs = {
+    dispoLeng?: {name:string}[]
+    dispoFw?: {name:string}[]
+  }
+  

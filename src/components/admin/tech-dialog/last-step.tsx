@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button"
 import { DialogFooter } from "@/components/ui/dialog"
 import { Textarea } from "@/components/ui/textarea"
 
-type LastStepTechProps = StepTechProps & {
+type LastStepTechProps = Omit<StepTechProps,"onComplete"> & {
     onSubmit: (data: TechForm) => Promise<void>
     onPrevious: () => void
+
 }
 
 export function LastStep({

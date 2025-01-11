@@ -2,6 +2,7 @@ import { createTechUC, readAllTechsUC, readOneTechUC, updateTechUC } from "@/cor
 import { actualizarMd } from "../../utils/tech/actualizarMd";
 import { actualizarJson } from "../../utils/tech/actualizarJson";
 import {  TechBase, TechForm } from "@/core/domain/entities/tech";
+import { getGithubPercentage } from "../../utils/tech";
 
 export async function createTechC(data: TechForm): Promise<{success: boolean, message: string}> {
     const { nameId,nameBadge,web, desc, afinidad,   color, experiencia, img, lengTo, fwTo } = data;
@@ -11,14 +12,16 @@ export async function createTechC(data: TechForm): Promise<{success: boolean, me
     try {
         // 1. Obtener el estado actual de la BD
         // - HAY QUE IMPLEMENTAR -> auto-incremental, preferencia
+        // - HAY QUE CALCULAR EL USO DE GITHUB
         const proyectosDB = await readAllTechsUC();
+        const usoGithub = await getGithubPercentage(nameId)
         
         const nuevoItem: TechBase = {
             nameId,
             nameBadge,
             color,
             web,
-            usoGithub: 0.4,
+            usoGithub,
             desc,
             afinidad,
             experiencia,
@@ -71,7 +74,7 @@ export async function createTechC(data: TechForm): Promise<{success: boolean, me
         await Promise.all([
             actualizarMd(proyectosDB, { name: nameId, badge: nameBadge, colorhash: color }),
             // actualizarMd(proyectosDB, { name: nameId, badge, colorhash: color }),
-            actualizarJson()
+            actualizarJson(proyectosDB)
         ]);
 
         return { success, message };

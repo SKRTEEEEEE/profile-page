@@ -10,10 +10,10 @@ import { actualizarMd } from "../../utils/tech/actualizarMd";
 
 async function doDelete (tipo:string, name:string, img: string) {
     console.log(`${tipo} ${name} eliminada correctamente`);
-    await deleteImageUC(img)
-    await actualizarJson();
-    console.log(`${tipo} ${name} eliminada correctamente del json`);
     const proyectosDB = await readAllTechsUC()
+    await deleteImageUC(img)
+    await actualizarJson(proyectosDB);
+    console.log(`${tipo} ${name} eliminada correctamente del json`);
     await actualizarMd(proyectosDB);
     console.log(`${tipo} ${name} eliminada correctamente del md`);
     //Hay que hacer bien esta parte de aquí!

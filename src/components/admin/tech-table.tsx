@@ -7,7 +7,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Pencil, Plus } from 'lucide-react'
-import Link from "next/link"
 import {
   Pagination,
   PaginationContent,
@@ -92,19 +91,19 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
    // <Button variant="ghost" size="icon" asChild>
               //   <div>
               //     <Pencil className="h-4 w-4" />
-              //     <span className="sr-only">Edit {tech.name}</span>
+              //     <span className="sr-only">Edit {tech.nameId}</span>
               //   </div>
               // </Button>;
 
               return(
-              <TableRow key={tech.name}>
+              <TableRow key={tech.nameId}>
                 <TableCell className="font-medium">
                   <div className="flex items-center space-x-3">
                     <Avatar>
-                      <AvatarImage src={tech.img ? tech.img : ""} alt={tech.name} />
-                      <AvatarFallback>{tech.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                      <AvatarImage src={tech.img ? tech.img : ""} alt={tech.nameId} />
+                      <AvatarFallback>{tech.nameId.substring(0, 2).toUpperCase()}</AvatarFallback>
                     </Avatar>
-                    <span>{tech.name.charAt(0).toUpperCase() + tech.name.slice(1).toLowerCase()}</span>
+                    <span>{tech.nameId.charAt(0).toUpperCase() + tech.nameId.slice(1).toLowerCase()}</span>
 
                   </div>
                 </TableCell>
@@ -122,8 +121,8 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end space-x-2">
-                    <TechDialog dispoLeng={dispoLeng} dispoFw={dispoFw} renderButton={renderButtonEdit(tech.name)} tech={tech} admins={admins}/>
-                    <DeleteTechButton isAdmin={isAdmin} name={tech.name} onError={(error) => setError(error)}/>
+                    <TechDialog dispoLeng={dispoLeng} dispoFw={dispoFw} renderButton={renderButtonEdit(tech.nameId)} tech={tech} admins={admins}/>
+                    <DeleteTechButton isAdmin={isAdmin} name={tech.nameId} onError={(error) => setError(error)}/>
                   </div>
                 </TableCell>
               </TableRow>
@@ -137,13 +136,13 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
       {/* Mobile view ⚠️⬇️ FALTA TERMINAR ⬇️⚠️ */}
       <div className="z-0 space-y-2 sm:hidden">
         {paginatedData.map((tech) => (
-          <Card key={tech.name}>
+          <Card key={tech.nameId}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 pt-2">
               <CardTitle className="text-sm font-medium">
                 <div className="flex items-center space-x-3">
                   <Avatar>
-                    <AvatarImage src={tech.img?tech.img:""} alt={tech.name} />
-                    <AvatarFallback>{tech.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                    <AvatarImage src={tech.img?tech.img:""} alt={tech.nameId} />
+                    <AvatarFallback>{tech.nameId.substring(0, 2).toUpperCase()}</AvatarFallback>
                   </Avatar>
                   <Badge 
                     style={{ 
@@ -151,12 +150,12 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
                       color: parseInt(tech.color.split("#")[0], 16) > 0xffffff / 2 ? '#000' : '#fff'
                     }}
                     className="ml-2 text-xl px-4"
-                  >{tech.name}</Badge>
+                  >{tech.nameId}</Badge>
                 </div>
               </CardTitle>
               <div className="flex space-x-2">
-              <TechDialog dispoLeng={dispoLeng} dispoFw={dispoFw} renderButton={renderButtonEdit(tech.name)} tech={tech} admins={admins}/>
-                <DeleteTechButton isAdmin={isAdmin} name={tech.name} onError={(error) => setError(error)}/>
+              <TechDialog dispoLeng={dispoLeng} dispoFw={dispoFw} renderButton={renderButtonEdit(tech.nameId)} tech={tech} admins={admins}/>
+                <DeleteTechButton isAdmin={isAdmin} name={tech.nameId} onError={(error) => setError(error)}/>
               </div>
             </CardHeader>
             <CardContent className="pb-2">

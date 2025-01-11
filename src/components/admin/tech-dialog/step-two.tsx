@@ -10,8 +10,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SearchCombobox } from "@/components/oth/search-combobox";
 import { HandleOperationError } from "@/core/domain/errors/main";
 import { DialogFooter } from "@/components/ui/dialog";
-import { DispoTechs } from "@/app/[locale]/admin/techs/page";
 import { Slider } from "@radix-ui/react-slider";
+import { DispoTechs } from "@/lib/types";
 
 
 

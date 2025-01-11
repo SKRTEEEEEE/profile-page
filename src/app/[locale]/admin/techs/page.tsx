@@ -5,6 +5,7 @@ import { getCookiesUC } from "@/core/application/usecases/services/auth"
 // import { JWTContext } from "@/core/application/services/auth"
 import { flattenTechs } from "@/lib/techs"
 
+
 const TechsAdminPage = async( ) =>{
     const lenguajes = await readAllTechsUC()
     const session = await getCookiesUC()
@@ -20,10 +21,10 @@ const TechsAdminPage = async( ) =>{
     )
     const allLeng = flattenTechs(lenguajes)
     const isAdmin = session ? session.ctx.role === "ADMIN" : false;
-    const dispoLeng = lenguajes?.map((lenguaje: {name:string}) => ({ name: lenguaje.name }));
+    const dispoLeng = lenguajes?.map((lenguaje: {nameId:string}) => ({ name: lenguaje.nameId }));
   const dispoFw = lenguajes?.flatMap((lenguaje) => {
       if (Array.isArray(lenguaje.frameworks) && lenguaje.frameworks.length > 0) {
-        return lenguaje.frameworks.map((fw: {name:string}) => ({ name: fw.name }));
+        return lenguaje.frameworks.map((fw: {nameId:string}) => ({ name: fw.nameId }));
       }
       return [];
     });

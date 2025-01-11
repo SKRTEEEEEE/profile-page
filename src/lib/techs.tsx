@@ -88,53 +88,71 @@ export function getGithubUsoByRange(numValue:number):BadgeAndValue{
     return { badge, value };
 }
 
-export const flattenTechs = (proyectos: Leng[]) => {
+export const flattenTechs = (proyectos: Leng[]): FullTechData[] => {
     let flattenedArray: FullTechData[] = [];
 
     proyectos.forEach((proyecto) => {
         flattenedArray.push({
-            name: proyecto.name,
+            nameId: proyecto.nameId,
+            nameBadge: proyecto.nameBadge,
             afinidad: proyecto.afinidad,
-            value: getColorByRange(proyecto.afinidad).value,
+            valueAfin: getColorByRange(proyecto.afinidad).value,
             experiencia: proyecto.experiencia,
-            valueexp: getColorByRange(proyecto.experiencia).value,
+            valueExp: getColorByRange(proyecto.experiencia).value,
             color: proyecto.color,
-            badge: proyecto.badge,
-            isFw: false,
-            isLib: false,
+            isFw: undefined,
+            isLib: undefined,
             preferencia: proyecto.preferencia,
-            img: proyecto.img
+            img: proyecto.img,
+            web: proyecto.web,
+            desc: proyecto.desc,
+            usoGithub: proyecto.usoGithub,
+            valueUso: getGithubUsoByRange(proyecto.usoGithub).value
         });
 
         proyecto.frameworks?.forEach((framework) => {
             flattenedArray.push({
-                name: framework.name,
+                nameId: framework.nameId,
+                nameBadge: framework.nameBadge,
                 afinidad: framework.afinidad,
-                value: getColorByRange(framework.afinidad).value,
+                valueAfin: getColorByRange(framework.afinidad).value,
                 experiencia: framework.experiencia,
-                valueexp: getColorByRange(framework.experiencia).value,
+                valueExp: getColorByRange(framework.experiencia).value,
                 color: framework.color,
-            badge: framework.badge,
-            isFw: proyecto.name,
-            isLib: false,
+            isFw: proyecto.nameId,
+            isLib: undefined,
             preferencia: framework.preferencia,
-            img: framework.img
+            img: framework.img,
+            web: framework.web,
+            desc: framework.desc,
+            usoGithub: framework.usoGithub,
+            valueUso: getGithubUsoByRange(framework.usoGithub).value
             });
 
             framework.librerias?.forEach((libreria) => {
-                flattenedArray.push({
-                    name: libreria.name,
-                    afinidad: libreria.afinidad,
-                    value: getColorByRange(libreria.afinidad).value,
-                    experiencia: libreria.experiencia,
-                    valueexp: getColorByRange(libreria.experiencia).value,
-                    color: libreria.color,
-                    badge: libreria.badge,
-                    isFw: proyecto.name,
-                    isLib: framework.name,
-                    preferencia: libreria.preferencia,
-                    img: libreria.img
-                });
+                flattenedArray.push(
+                //     {
+                //     name: libreria.name,
+                //     afinidad: libreria.afinidad,
+                //     value: getColorByRange(libreria.afinidad).value,
+                //     experiencia: libreria.experiencia,
+                //     valueexp: getColorByRange(libreria.experiencia).value,
+                //     color: libreria.color,
+                //     badge: libreria.badge,
+                //     isFw: proyecto.name,
+                //     isLib: framework.name,
+                //     preferencia: libreria.preferencia,
+                //     img: libreria.img
+                // },
+                {
+                    valueAfin: getColorByRange(libreria.afinidad).value,
+                    valueExp: getColorByRange(libreria.experiencia).value,
+                    isFw: proyecto.nameId,
+                    isLib: framework.nameId,
+                    valueUso: getGithubUsoByRange(libreria.usoGithub).value,
+                    ...libreria
+                }
+            );
             });
         });
     });
@@ -142,10 +160,3 @@ export const flattenTechs = (proyectos: Leng[]) => {
     return flattenedArray;
 };
 
-export function createBadgeTech(tech: Lib | Leng | Fw) {
-    const color = tech.color.slice(1)
-    console.log("color: ", color)
-    return (
-        `${tech.badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$.${tech.name}.value&label=%F0%9F%92%97%20Afinidad&color=${color}&style=flat&logo=${tech.name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$.${tech.name}.afinidad&color=${color}&style=flat&label=%20&suffix=%25)\n![Experiencia](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$.${tech.name}.valueexp&label=%F0%9F%8F%85%20Experiencia&color=${color}&style=flat&logo=${tech.name})![Experiencia %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$.${tech.name}.experiencia&color=${color}&style=flat&label=%20&suffix=%25)\n![Uso En Github](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$.${tech.name}.valueuso&label=%F0%9F%98%BB%20Uso%20en%20github&color=${color}&style=flat&logo=${tech.name})![Uso en Github %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$.${tech.name}.usogithub&color=${color}&style=flat&label=%20&suffix=%25)`
-    )
-}
