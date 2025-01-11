@@ -8,7 +8,7 @@ import { MongooseRoleRepository } from "@/core/infrastructure/mongoose/entities/
 const roleRepository = new MongooseRoleRepository()
 
 export const readRoleUC = async () => {
-  return await roleRepository.read()
+  return await roleRepository.read({})
 }
 export const createRoleUC = async(newRole: Omit<RoleBase, "id">) => {
     return await roleRepository.create(newRole)

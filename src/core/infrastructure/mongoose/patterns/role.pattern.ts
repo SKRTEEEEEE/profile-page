@@ -1,7 +1,7 @@
 import { FilterQuery, Model, Query, QueryOptions, UpdateQuery } from "mongoose";
 import { MongooseBase } from "../types";
 import { MongooseBaseRepository } from "../implementations/base.repository";
-import { MongooseReadRepository } from "../implementations/read.repository";
+import { MongooseReadProps, MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
 import { ProjectionType } from "mongoose";
 import { MongooseDeleteByIdRepository, MongooseDeleteRepository } from "../implementations/delete.repository";
 import { MongooseUpdateRepository } from "../implementations/update.repository";
@@ -54,12 +54,9 @@ TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>
     
   }
   async read(
-    filter?: FilterQuery<TBase & MongooseBase>,
-    projection?: ProjectionType<any> | null,
-    options?: QueryOptions<any> | null
-  ): Promise<(TBase & MongooseBase)[] | null> {
-    // Asumiendo que tienes un método read en MongooseBaseRepository o necesitas implementarlo
-    return this.readRepo.read(filter, projection, options);
+    props: MongooseReadProps<TBase>
+  ): MongooseReadResponse<TBase> {
+    return await this.readRepo.read(props);
   }
   async delete(filter?: FilterQuery<any> | null | undefined, options?: QueryOptions<any> | null | undefined): Promise<Query<any, any, {}, any, "findOneAndDelete", {}>>{
     return this.deleteRepo.delete(filter, options)

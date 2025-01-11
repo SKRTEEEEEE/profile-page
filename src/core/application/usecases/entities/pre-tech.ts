@@ -1,9 +1,11 @@
+import { PreTechBase } from "@/core/domain/entities/PreTech";
 import { MongoosePreTechRepository } from "@/core/infrastructure/mongoose/entities/pre-tech.repository";
+import { MongooseReadProps } from "@/core/infrastructure/mongoose/implementations/read.repository";
 
-const preTechRepository = new MongoosePreTechRepository()
+const preTechRepository = new MongoosePreTechRepository<PreTechBase>()
 
-export const readPreTechUC = async (filter?: any, projection?: any, options?:any) => {
-  return await preTechRepository.read(filter, projection, options)
+export const readPreTechUC = async (props: MongooseReadProps<PreTechBase>) => {
+  return await preTechRepository.read(props)
 }
 export const readByNamePreTechUC = async (name:string) => {
   return await preTechRepository.readByName(name)

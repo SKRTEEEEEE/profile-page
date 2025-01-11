@@ -47,3 +47,9 @@ export type MongooseUpdateI<TBase> = {
   )
     : Query<(TBase & MongooseBase)[], any, {}, any, "find", {}>
 }
+export type MongoosePopulateI<TBase> = {
+  populate(
+    docs: Array<TBase>
+  )
+    : Promise<(TBase & MongooseBase)[]>
+}

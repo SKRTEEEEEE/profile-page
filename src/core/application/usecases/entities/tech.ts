@@ -5,7 +5,7 @@ import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 const lengRepository = new MongooseLenguajesRepository()
 
 export const readAllTechsUC=async()=>{
-    return await lengRepository.read()
+    return await lengRepository.read({})
 }
 // export const getLengModelUC = (data:Partial<Leng>): Model<any> => {
 //     return lengRepository.makeModel(data)
@@ -15,7 +15,7 @@ export const readLengUC = async (
     projection?: any | null,
     options?: any | null
 ) => {
-    return await lengRepository.read(filter, projection, options)
+    return await lengRepository.read({filter, projection, options})
 }
 
 export const readOneTechUC =  async (

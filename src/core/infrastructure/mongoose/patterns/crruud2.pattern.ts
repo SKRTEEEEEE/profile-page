@@ -1,8 +1,7 @@
 import { FilterQuery, Model, Query, QueryOptions, UpdateQuery } from "mongoose";
 import { MongooseBase } from "../types";
 import { MongooseBaseRepository } from "../implementations/base.repository";
-import { MongooseReadRepository } from "../implementations/read.repository";
-import { ProjectionType } from "mongoose";
+import { MongooseReadProps, MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
 import { MongooseCRURepository } from "../implementations/cru.repository";
 import { MongooseDeleteRepository } from "../implementations/delete.repository";
 import { MongooseUpdateRepository } from "../implementations/update.repository";
@@ -40,11 +39,9 @@ export abstract class MongooseCRRUUD2Pattern<
     return await this.cruRepo.readById(id)
   }
   async read(
-    filter?: FilterQuery<TBase & MongooseBase>,
-    projection?: ProjectionType<any> | null,
-    options?: QueryOptions<any> | null
-  ): Promise<(TBase & MongooseBase)[] | null> {
-    return this.readRepo.read(filter, projection, options);
+    props: MongooseReadProps<TBase>
+  ): MongooseReadResponse<TBase> {
+    return await this.readRepo.read(props);
   }
   async updateById(id: string,
     updateData?: UpdateQuery<TBase> | undefined,

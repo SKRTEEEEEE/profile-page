@@ -1,18 +1,23 @@
-import { FilterQuery } from "mongoose";
+import { FilterQuery, Query } from "mongoose";
 import { MongooseBaseRepository } from "./base.repository";
 import { ProjectionType } from "mongoose";
 import { QueryOptions } from "mongoose";
 import { MongooseBase } from "../types";
 import { MongooseReadI } from "../types/implementations";
 
+export type MongooseReadProps<TBase> = {
+  filter?: FilterQuery<TBase & MongooseBase> | undefined,
+  projection?: ProjectionType<any> | null | undefined,
+  options?: QueryOptions<any> | null | undefined
+}
+export type MongooseReadResponse<TBase> = Promise<(TBase & MongooseBase)[] | []>
+
 export class MongooseReadRepository<
 TBase,
 > extends MongooseBaseRepository<TBase> implements MongooseReadI<TBase>{
     // -> Read All
     async read(
-      filter?: FilterQuery<(TBase & MongooseBase)>,
-      projection?: ProjectionType<any> | null,
-      options?: QueryOptions<any> | null
+      {filter, projection, options}: MongooseReadProps<TBase> 
     ): Promise<(TBase & MongooseBase)[]> {
       try {
         await this.connect();

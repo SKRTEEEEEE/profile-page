@@ -1,7 +1,7 @@
 import { Model, ProjectionType, UpdateQuery } from "mongoose";
 import { MongooseBaseRepository } from "../implementations/base.repository";
 import { MongooseDeleteByIdRepository } from "../implementations/delete.repository";
-import { MongooseReadRepository } from "../implementations/read.repository";
+import { MongooseReadProps, MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
 import { MongooseUpdateRepository } from "../implementations/update.repository";
 import { FilterQuery } from "mongoose";
 import { QueryOptions } from "mongoose";
@@ -46,12 +46,9 @@ export abstract class MongooseCRRUUD1Pattern<
     return await this.cruRepo.readById(id)
   }
   async read(
-    filter?: FilterQuery<TBase & MongooseBase>,
-    projection?: ProjectionType<any> | null,
-    options?: QueryOptions<any> | null
-  ): Promise<(TBase & MongooseBase)[] | null> {
-    // Asumiendo que tienes un método read en MongooseBaseRepository o necesitas implementarlo
-    return await this.readRepo.read(filter, projection, options);
+    props: MongooseReadProps<TBase>
+  ): MongooseReadResponse<TBase> {
+    return await this.readRepo.read(props);
   }
   async updateById(id: string,
     updateData?: UpdateQuery<TBase> | undefined,
