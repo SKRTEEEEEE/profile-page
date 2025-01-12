@@ -21,26 +21,12 @@ export function StepOne({
     // const t = useTranslations('tech')
 
     const handleContinue = async () => {
+        console.log("clicked")
         setIsLoading(true)
         try {
-            const nameId = form.getValues('nameId')
-            const result = firstStepTechSchema.safeParse({ nameId })
-            
-            if (result.success) {
-                const preTechData = await readByNamePreTech(nameId)
-                
-                if (preTechData) {
-                    form.setValue('nameBadge', preTechData.nameBadge)
-                    form.setValue('color', preTechData.color)
-                    form.setValue('web', preTechData.web)
+       
                     onComplete(2)
-                } else {
-                    onError([`Error al cargar los datos de la tech: ${nameId}`])
-                    // onError([t('errors.preTechNotFound')])
-                }
-            } else {
-                onError(result.error.errors.map(err => err.message))
-            }
+                
         } catch (error) {
             console.error('Error fetching pre-tech data:', error)
             // onError([t('errors.fetchError')])

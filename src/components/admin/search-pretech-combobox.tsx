@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/popover"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { UseFormReturn } from "react-hook-form"
-import { readByQueryPreTech } from "@/actions/pre-tech"
+import { readByNamePreTech, readByQueryPreTech } from "@/actions/pre-tech"
 import { PreTechBase } from "@/core/domain/entities/pre-tech"
 import { MongooseBase } from "@/core/infrastructure/mongoose/types"
 
@@ -28,6 +28,7 @@ type SearchComboboxProps = {
   title: string;
   name: string;
   form: UseFormReturn<any, any, undefined>;
+  onErrors: (errors: string[])=>void;
 }
 
 export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps) {
@@ -35,6 +36,7 @@ export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps
   const [searchResults, setSearchResults] = React.useState<(PreTechBase & MongooseBase)[]| []>([])
   const [isPending, startTransition] = useTransition()
   const [isLoading, setIsLoading] = React.useState(false)
+  const [isLoadingFetch, setIsLoadingFetch] = React.useState(false)
   
   const timeoutRef = React.useRef<NodeJS.Timeout | undefined>(undefined)
 
@@ -125,9 +127,26 @@ export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps
                         <CommandItem
                           value={dat.nameId}
                           key={dat.nameId}
-                          onSelect={() => {
-                            form.setValue(name, dat.nameId)
+                          onSelect={async () => {
+                            setIsLoadingFetch(true)
+                            try {
+                              const preTechData = await readByNamePreTech(dat.nameId)
+                              if (preTechData) {
+                                form.setValue(name, dat.nameId)
+                                form.setValue('nameBadge', preTechData.nameBadge)
+                                form.setValue('color', preTechData.color)
+                                form.setValue('web', preTechData.web)
+                                console.log("preTechData in search pretech combobox: ", preTechData)
+                                // Aquí puedes añadir más campos si es necesario
+                              } else {
+                                console.error(`No se encontraron datos para la tech: ${dat.nameId}`)
+                              }
+                            } catch (error) {
+                              console.error('Error al cargar los datos de la tech:', error)
+                            }finally{
+                              setIsLoadingFetch(false)
                             setOpen(false)
+                            }
                           }}
                         >
                           {dat.nameId}

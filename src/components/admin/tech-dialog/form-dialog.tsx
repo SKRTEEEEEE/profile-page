@@ -7,7 +7,7 @@ import { TechForm, techSchema } from "@/core/domain/entities/tech";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocale } from "next-intl";
 import { JSX, useEffect, useState } from "react"
-import { useForm, UseFormReturn } from "react-hook-form";
+import { FormProvider, useForm, UseFormReturn } from "react-hook-form";
 import { useActiveAccount } from "thirdweb/react";
 import { StepOne } from "./step-one";
 import { StepTwo } from "./step-two";
@@ -61,7 +61,7 @@ const useIsAdmin = (admins: FlattenAdmin[]) => {
 
   return { isAdmin, account };
 };
-export default function TechDialog({ renderButton, admins, tech, dispo }: TechDialogProps) {
+export default function TechFormDialog({ renderButton, admins, tech, dispo }: TechDialogProps) {
   const [open, setOpen] = useState<boolean>(false)
   const [currentStep, setCurrentStep] = useState<number>(1)
 
@@ -78,8 +78,8 @@ export default function TechDialog({ renderButton, admins, tech, dispo }: TechDi
       nameBadge: "",
       color: "#000000",
       web: "",
-      experiencia: 0,
-      afinidad: 0,
+      experiencia: 10,
+      afinidad: 25,
       img: null,
       desc: { es: "", en: "", ca: "", de: "" },
       category: "leng",
@@ -142,9 +142,11 @@ export default function TechDialog({ renderButton, admins, tech, dispo }: TechDi
             </ul>
           </div>
         )}
+        <FormProvider {...form}>
         {currentStep === 1 && <StepOne form={form} onComplete={() => handleStepComplete(1)} onError={handleError} />}
         {currentStep === 2 && <StepTwo form={form} onComplete={() => handleStepComplete(2)} onError={handleError} onPrevious={handlePreviousStep} dispo={dispo} />}
         {currentStep === 3 && <LastStep form={form} onSubmit={onSubmit} onError={handleError} onPrevious={handlePreviousStep} />}
+        </FormProvider>
       </DialogContent>
     </Dialog>
   )

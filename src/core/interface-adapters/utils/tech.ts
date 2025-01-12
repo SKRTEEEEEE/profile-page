@@ -153,8 +153,7 @@ const ref = "profile-page";
 
 
 export async function actualizarMd(proyectosDB: Leng[]|null, create?:{name: string, badge: string, colorhash: string}) {
-    "use server3
-    "
+    "use server"
     const color = create?.colorhash.slice(1)
     try {
         const mdSha = await fetchFileSha(path.md);

@@ -10,8 +10,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SearchCombobox } from "@/components/oth/search-combobox";
 import { HandleOperationError } from "@/core/domain/errors/main";
 import { DialogFooter } from "@/components/ui/dialog";
-import { Slider } from "@radix-ui/react-slider";
 import { DispoTechs } from "@/lib/types";
+import { Slider } from "@/components/ui/slider";
 
 
 
@@ -178,7 +178,7 @@ export function StepTwo({
                         >
                           <FormItem className="flex items-center space-x-1 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="lenguaje" />
+                              <RadioGroupItem value="leng" />
                             </FormControl>
                             <FormLabel className="font-normal">
                               Lenguaje
@@ -186,7 +186,7 @@ export function StepTwo({
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="framework" />
+                              <RadioGroupItem value="fw" />
                             </FormControl>
                             <FormLabel className="font-normal">
                               Framework
@@ -194,7 +194,7 @@ export function StepTwo({
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
-                              <RadioGroupItem value="libreria" />
+                              <RadioGroupItem value="lib" />
                             </FormControl>
                             <FormLabel className="font-normal">
                               Librería

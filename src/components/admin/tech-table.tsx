@@ -21,6 +21,7 @@ import { TechDialog } from "./tech-dialog"
 import { Tooltip } from "@radix-ui/react-tooltip"
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import { FullTechData } from "@/core/domain/entities/tech"
+import TechFormDialog from "./tech-dialog/form-dialog"
 
 // - [ ] Falta mostrar el error del delete, y mejorar...
 // - [ ] Falta terminar la parte del mobile
@@ -68,7 +69,8 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
   return (
     <div className="w-full max-w-4xl mx-auto space-y-4 p-4">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sticky top-10 bg-none z-10 py-4">
-        <TechDialog dispoLeng={dispoLeng} dispoFw={dispoFw} renderButton={renderButtonNew} admins={admins}/>
+        <TechFormDialog dispo={{dispoLeng,dispoFw}} renderButton={renderButtonNew} admins={admins}/>
+        {/* <TechDialog dispoLeng={dispoLeng} dispoFw={dispoFw} renderButton={renderButtonNew} admins={admins}/> */}
       </div>
 
       {/* Desktop view */}
