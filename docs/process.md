@@ -161,7 +161,7 @@ npm i react-countup
 - [x] Reestructurar el modelo de la bdd para en la futura UI y mejorar UX
 ##### **ACTUALIDAD**
 - [ ] Rehacer el tech-dialog
-    - [ ] Hacer el auto-incremental de la preferencia (tech)
+    - [x] Hacer el auto-incremental de la preferencia (tech)
     - [ ] Comprobar el uso de update
     - [ ] Limitar la ultima acción al administrador
     - [ ] Terminar el updateTech

@@ -8,23 +8,26 @@ import { Trash2 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { FaSpinner } from "react-icons/fa";
 import { toast } from "../hooks/use-toast";
+import { useActiveAccount } from "thirdweb/react";
 
 
 type DeleteTechButtonProps = {
   name: string;
   onError: (error: string) => void;
-  isAdmin: boolean;
+  isAdmin: boolean
 }
 
 const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onError }) => {
+  const account = useActiveAccount()
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  
+  console.log("account delete tech button: ",account)
 
-
-  // console.log("isAdmin delete admin tech: ", isAdmin)
+  // console.log("account delete admin tech: ", account)
   const handleClick = async () => {
     setIsLoading(true);
     try {
-      if (!isAdmin) {
+      if (!account) {
         onError(`Administrador no válido`)
         return alert("Only admin can do")
       }
@@ -67,17 +70,17 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
 
             <TooltipTrigger asChild>
               <span>
-              <Button disabled={!isAdmin} type="submit" variant={"ghost"} onClick={handleClick}><Trash2 className="h-4 w-4 text-destructive" />
+              <Button disabled={account === undefined} type="submit" variant={"ghost"} onClick={handleClick}><Trash2 className="h-4 w-4 text-destructive" />
                 <span className="sr-only">Delete {name}</span></Button>
               </span>
             </TooltipTrigger>
             <TooltipContent className="bg-transparent border-none p-0">
-              <Button  variant={"destructive"} >{isAdmin ? `Eliminar ${name}` : "Solo Admin"}</Button>
+              <Button  variant={"destructive"} >{(account && isAdmin) ? `Eliminar ${name}` : "Solo Admin"}</Button>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
 
-      )}
+      )}  
     </>
   );
 };
