@@ -2,7 +2,7 @@ import { readAllTechsUC, updateTechUC } from "@/core/application/usecases/entiti
 import { TechForm } from "@/core/domain/entities/tech";
 import { actualizarJson } from "../../utils/tech";
 
-
+// FALTA TERMINAR EL UPDATE NUEVO - solo afinidad, experiencia, imagen, (web -futuro-) y descripciones
 
 export async function updateTechC(updateData: TechForm) {
     try {

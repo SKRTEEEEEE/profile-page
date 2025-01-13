@@ -154,19 +154,20 @@ npm i react-countup
 ## Fix
 - [x] Arreglar error estructura md
     - [Para ello seguir el patron de este md](https://github.com/SKRTEEEEEE/markdowns/blob/main/about/techs.md?plain=1)
-##### **ACTUALIDAD**
 - [x] Arreglar mal performance en tech-dialog, que cuando el usuario introduce un dato incorrecto solo se muestra en la pantalla correspondiente y debería aparecer en la parte común también
 ## 15. Reestructurar techs (full)
 **Tener en cuenta los siguientes puntos(clean arch v3 p2)**
 - [x] Adoptar enfoque DB/Redis, para recuperar la lista de techs-simpleicons -> creando SimpleIconsTechRepository etc, con getTechList y updateTechList
 - [x] Reestructurar el modelo de la bdd para en la futura UI y mejorar UX
+##### **ACTUALIDAD**
 - [ ] Rehacer el tech-dialog
     - [ ] Hacer el auto-incremental de la preferencia (tech)
     - [ ] Comprobar el uso de update
     - [ ] Limitar la ultima acción al administrador
+    - [ ] Terminar el updateTech
 ### fix
-- [ ] Arreglar updateMd
-- [ ] Comprobar el uso de nameBadge/nameId con los badges (actualizarJson)
+- [x] Arreglar updateMd
+- [x] Comprobar el uso de nameBadge/nameId con los badges (actualizarJson)
 ## 1x. Reestructurar clean arch v3 p2 (back)
 ### Revisar connectors
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
