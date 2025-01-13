@@ -1,7 +1,7 @@
 import { MongoosePreTechPattern } from "../patterns/pre-tech.pattern";
 import { PreTechRepository } from "@/core/application/interfaces/entities/pre-tech";
 import { PreTechModel } from "../schemas/pre-tech.schema";
-import { MongooseBase, MongooseDocument } from "../types";
+import { MongooseBase } from "../types";
 
 export class MongoosePreTechRepository<TBase> extends MongoosePreTechPattern<TBase> implements PreTechRepository<TBase> {
   private mdUrl = 'https://raw.githubusercontent.com/simple-icons/simple-icons/master/slugs.md';
@@ -21,16 +21,6 @@ export class MongoosePreTechRepository<TBase> extends MongoosePreTechPattern<TBa
     projections: {},
     options: { limit: 50 }
   }
-    // const res = await this.Model.find({
-    //     $or: [
-    //         { nameId: { $regex: query, $options: 'i' } },
-    //         { nameBadge: { $regex: query, $options: 'i' } }
-    //     ]
-    // }, {}, {limit: 50})
-    // return res.map((doc: any) => {
-    //     console.log("doc in pretech pattern: ", doc)
-    //     return this.documentToPrimary(doc)}
-    // )
     return await this.read(opt)
   }
   async updatePreTech(): Promise<void> {
@@ -53,7 +43,6 @@ export class MongoosePreTechRepository<TBase> extends MongoosePreTechPattern<TBa
       const jsonData = await jsonResponse.json();
 
       // 3. Process and combine data
-      // const combinedData = this.combineData(preTechData, jsonData);
       const combinedData = preTechData.map(mdItem => {
         const jsonItem = jsonData.find((item: any) => item.title === mdItem.nameId);
         if (jsonItem) {
@@ -66,7 +55,6 @@ export class MongoosePreTechRepository<TBase> extends MongoosePreTechPattern<TBa
         }
         return null;
       }).filter(item => item !== null);
-      // console.log('Combined PreTech data:', combinedData);
       // 4. For the first time only ❗-> Populate PreTech collection
       // await this.populatePreTech(combinedData);
 
@@ -94,42 +82,12 @@ export class MongoosePreTechRepository<TBase> extends MongoosePreTechPattern<TBa
   // not used
   async readByName(name: string)
     : Promise<TBase & MongooseBase> {
-    // return await this.readRepo.read({
-    //     $or: [
-    //         {nameId: { $regex: name, $options: 'i' }},
-    //         {nameBadge: { $regex: name, $options: 'i' }}
-    //     ]
-    // })
-
     await this.connect()
     const filter = {
       "nameId": name
     }
     return (await this.read({filter}))[0]
-    // const res = await this.Model.find({
-    //   $or: [
-    //     { nameId: { $regex: name, $options: 'i' } },
-    //     { nameBadge: { $regex: name, $options: 'i' } }
-    //   ]
-    // }).limit(50).lean()
   }
-
-
-  //Only first time
-  // private async populatePreTech(data: any) {
-  //     this.connect();
-  //     const batchSize = 1000;
-  //     for (let i = 0; i < data.length; i += batchSize) {
-  //         const batch = data.slice(i, i + batchSize);
-  //         try {
-  //             await this.Model.insertMany(batch, { ordered: false });
-  //         } catch (error) {
-  //             console.error('Error inserting batch:', error);
-  //         }
-  //     }
-  //     console.log('PreTech data population completed');
-  // }
-
 
 
   private parseMdContent(content: string): Array<{ nameId: string, nameBadge: string }> {
