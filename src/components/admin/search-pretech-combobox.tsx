@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/popover"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { UseFormReturn } from "react-hook-form"
-import { readByNamePreTech, readByQueryPreTech } from "@/actions/pre-tech"
+import { readByQueryPreTech } from "@/actions/pre-tech"
 import { PreTechBase } from "@/core/domain/entities/pre-tech"
 import { MongooseBase } from "@/core/infrastructure/mongoose/types"
 
@@ -28,7 +28,6 @@ type SearchComboboxProps = {
   title: string;
   name: string;
   form: UseFormReturn<any, any, undefined>;
-  onErrors: (errors: string[])=>void;
 }
 
 export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps) {
@@ -37,8 +36,28 @@ export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps
   const [isPending, startTransition] = useTransition()
   const [isLoading, setIsLoading] = React.useState(false)
   const [isLoadingFetch, setIsLoadingFetch] = React.useState(false)
+  const [selectedTech, setSelectedTech] = React.useState<PreTechBase & MongooseBase | null>(null)
   
   const timeoutRef = React.useRef<NodeJS.Timeout | undefined>(undefined)
+
+  // Cargar el valor inicial si existe
+  React.useEffect(() => {
+    const initialValue = form.getValues(name)
+    if (initialValue && !selectedTech) {
+      startTransition(async () => {
+        try {
+          const results = await readByQueryPreTech(initialValue)
+          const found = results.find(tech => tech.nameId === initialValue)
+          if (found) {
+            setSelectedTech(found)
+            setSearchResults([found])
+          }
+        } catch (error) {
+          console.error('Error fetching initial tech:', error)
+        }
+      })
+    }
+  }, [form, name, selectedTech])
 
   const handleSearch = React.useMemo(() => {
     return async (value: string) => {
@@ -60,12 +79,12 @@ export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps
               setIsLoading(false)
             }
           } else {
-            setSearchResults( [])
+            setSearchResults(selectedTech ? [selectedTech] : [])
           }
         })
       }, 300)
     }
-  }, [])
+  }, [selectedTech])
 
   React.useEffect(() => {
     return () => {
@@ -79,6 +98,14 @@ export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps
     searchResults.slice(0, 10),
     [searchResults]
   )
+
+  const displayValue = React.useMemo(() => {
+    if (selectedTech && selectedTech?.nameId === form.getValues(name)) {
+      return selectedTech.nameId
+    }
+    const foundInResults = searchResults.find(dat => dat.nameId === form.getValues(name))
+    return foundInResults?.nameId || form.getValues(name)
+  }, [selectedTech, searchResults, form, name])
 
   return (
     <FormField
@@ -102,11 +129,7 @@ export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps
                       !field.value && "text-muted-foreground"
                     )}
                   >
-                    {field.value
-                      ? searchResults.find(
-                          (dat) => dat.nameId === field.value
-                        )?.nameId
-                      : `Selecciona ${title}`}
+                    {field.value ? displayValue : `Selecciona ${title}`}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
                 </FormControl>
@@ -130,22 +153,16 @@ export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps
                           onSelect={async () => {
                             setIsLoadingFetch(true)
                             try {
-                              const preTechData = await readByNamePreTech(dat.nameId)
-                              if (preTechData) {
+                                setSelectedTech(dat)
                                 form.setValue(name, dat.nameId)
-                                form.setValue('nameBadge', preTechData.nameBadge)
-                                form.setValue('color', preTechData.color)
-                                form.setValue('web', preTechData.web)
-                                console.log("preTechData in search pretech combobox: ", preTechData)
-                                // Aquí puedes añadir más campos si es necesario
-                              } else {
-                                console.error(`No se encontraron datos para la tech: ${dat.nameId}`)
-                              }
+                                form.setValue("nameBadge", dat.nameBadge)
+                                form.setValue("color", dat.color)
+                                form.setValue("web", dat.web)
                             } catch (error) {
                               console.error('Error al cargar los datos de la tech:', error)
-                            }finally{
+                            } finally {
                               setIsLoadingFetch(false)
-                            setOpen(false)
+                              setOpen(false)
                             }
                           }}
                         >

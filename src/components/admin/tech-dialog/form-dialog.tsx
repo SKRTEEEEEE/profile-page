@@ -3,7 +3,7 @@ import { rv } from "@/actions/revrd";
 import { createTech, updateTech } from "@/actions/tech";
 import { toast } from "@/components/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { TechForm, techSchema } from "@/core/domain/entities/tech";
+import { FullTechData, secondStepTechSchema, TechForm, techSchema } from "@/core/domain/entities/tech";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocale } from "next-intl";
 import { JSX, useEffect, useState } from "react"
@@ -13,6 +13,8 @@ import { StepOne } from "./step-one";
 import { StepTwo } from "./step-two";
 import { DispoTechs } from "@/lib/types";
 import { LastStep } from "./last-step";
+import { updateImg, uploadImg } from "@/actions/img";
+import { InputParseError } from "@/core/domain/errors/main";
 
 
 /*
@@ -35,21 +37,19 @@ type FlattenAdmin = {
 type TechDialogProps = {
   renderButton: JSX.Element
   admins: FlattenAdmin[]
-  tech?: any; //TODO
+  tech?: FullTechData
   dispo: DispoTechs
 }
 const useIsAdmin = (admins: FlattenAdmin[]) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const account = useActiveAccount();
-
+  
   useEffect(() => {
     const checkIsAdmin = async () => {
       try {
         if (account?.address) {
           const isAdminUser = admins.some(admin => admin.address === account.address);
           setIsAdmin(isAdminUser);
-          // console.log("isAdmin (TechTable): ", isAdminUser);
-          // console.log("address: ", account.address);
         }
       } catch (error) {
         console.error('Error al verificar si la cuenta es administrador', error);
@@ -62,18 +62,15 @@ const useIsAdmin = (admins: FlattenAdmin[]) => {
   return { isAdmin, account };
 };
 export default function TechFormDialog({ renderButton, admins, tech, dispo }: TechDialogProps) {
-  const [open, setOpen] = useState<boolean>(false)
-  const [currentStep, setCurrentStep] = useState<number>(1)
-
-  const [selectedTech, setSelectedTech] = useState<string>("")
-
-  const [errors, setErrors] = useState<string[]>([])
-  const { isAdmin } = useIsAdmin(admins)
-  const locale = useLocale()
-
   const form = useForm<TechForm>({
     resolver: zodResolver(techSchema),
-    defaultValues: tech || {
+    defaultValues: tech ?
+    { 
+      category: tech.isLib ? "lib" : (tech.isFw ? "fw" : "leng") , 
+      lengTo: tech.isFw, 
+      fwTo: tech.isLib,
+      ...tech
+    } : {
       nameId: "",
       nameBadge: "",
       color: "#000000",
@@ -85,6 +82,18 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
       category: "leng",
     },
   })
+  const [open, setOpen] = useState<boolean>(false)
+  const [currentStep, setCurrentStep] = useState<number>(1)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  
+  const [selectedTech, setSelectedTech] = useState<string>(form.watch("nameId")||"")
+
+  const [errors, setErrors] = useState<string[]>([])
+  const { isAdmin } = useIsAdmin(admins)
+  const locale = useLocale()
+  const isUpdating = !!tech
+
+
 
   const handleStepComplete = (step: number) => {
     if (currentStep === 1) {
@@ -105,13 +114,44 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
     setErrors(error)
   }
 
-  const onSubmit = async (data: TechForm) => {
+  const onSubmit = async () => {
+    setIsLoading(true)
     if (!isAdmin) {
       toast({ title: "Error", description: "No tienes permisos para realizar esta acción", variant: "destructive" })
+      form.reset()  
+      setSelectedTech("")
+      setCurrentStep(1)
+      setIsLoading(false)
       return
     }
 
+    const imageFile = form.getValues("img")
     try {
+      if(!imageFile && !tech?.img)throw new InputParseError("No img set")
+      let imgUrl: string
+      if(imageFile){
+        const formData = new FormData
+        formData.append("img", imageFile)
+        if(tech&&tech.img){
+          imgUrl = await updateImg(formData, tech.img)
+
+        }else{
+          imgUrl = await uploadImg(formData)
+        }
+        const v = techSchema.shape.img.safeParse(imgUrl)
+        if (!v.success) {
+          form.reset()  
+          setSelectedTech("")
+          setCurrentStep(1)
+          setIsLoading(false)
+          throw new InputParseError("Error with img upload storage")
+        }
+        form.setValue("img", imgUrl)
+      }
+
+
+      const data = form.getValues()
+
       const response = tech ? await updateTech(data) : await createTech(data)
       if (response.success) {
         toast({ title: "Éxito", description: response.message })
@@ -123,6 +163,13 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
     } catch (error) {
       console.error(error)
       toast({ title: "Error", description: "Ocurrió un error al procesar la solicitud", variant: "destructive" })
+    }
+    finally
+    {
+      form.reset()
+      setSelectedTech("")
+      setCurrentStep(1)
+      setIsLoading(false)
     }
   }
   return (
@@ -145,7 +192,7 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
         <FormProvider {...form}>
         {currentStep === 1 && <StepOne form={form} onComplete={() => handleStepComplete(1)} onError={handleError} />}
         {currentStep === 2 && <StepTwo form={form} onComplete={() => handleStepComplete(2)} onError={handleError} onPrevious={handlePreviousStep} dispo={dispo} />}
-        {currentStep === 3 && <LastStep form={form} onSubmit={onSubmit} onError={handleError} onPrevious={handlePreviousStep} />}
+        {currentStep === 3 && <LastStep form={form} loading={isLoading} onSubmit={onSubmit}  onError={handleError} onPrevious={handlePreviousStep} />}
         </FormProvider>
       </DialogContent>
     </Dialog>

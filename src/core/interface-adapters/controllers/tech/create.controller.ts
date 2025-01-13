@@ -1,10 +1,11 @@
 import { createTechUC, readAllTechsUC, readOneTechUC, updateTechUC } from "@/core/application/usecases/entities/tech";
 
 import {  TechBase, TechForm } from "@/core/domain/entities/tech";
-import { actualizarJson, actualizarMd, getGithubPercentage } from "../../utils/tech";
+import { actualizarJson, actualizarMd, createBaseBadge, getGithubPercentage } from "../../utils/tech";
 
 export async function createTechC(data: TechForm): Promise<{success: boolean, message: string}> {
     const { nameId,nameBadge,web, desc, afinidad,   color, experiencia, img, lengTo, fwTo } = data;
+    console.log("data at createTechC: ", data)
     
    
 
@@ -40,7 +41,7 @@ export async function createTechC(data: TechForm): Promise<{success: boolean, me
                 : `No se ha podido guardar ${nameId} en la BDD.`;
 
         } else {
-            const lenguaje = await readOneTechUC({ name: lengTo });
+            const lenguaje = await readOneTechUC({ nameId: lengTo });
             if (!lenguaje) {
                 return { success: false, message: `Lenguaje no encontrado: ${lengTo}` };
             }
@@ -48,7 +49,7 @@ export async function createTechC(data: TechForm): Promise<{success: boolean, me
             if (!fwTo) {
                 // Caso 2: Agregar un framework a un lenguaje
                 lenguaje.frameworks.push(nuevoItem);
-                const res = await updateTechUC({name: lengTo}, lenguaje, {new: true});
+                const res = await updateTechUC({nameId: lengTo}, lenguaje, {new: true});
                 const frameworkAgregado = res?.frameworks?.some(fw => fw.nameId === nuevoItem.nameId);
                 
                 success = !!frameworkAgregado;
@@ -58,7 +59,7 @@ export async function createTechC(data: TechForm): Promise<{success: boolean, me
 
             } else {
                 // Caso 3: Agregar una librería a un framework
-                const framework = lenguaje.frameworks.find((fw: any) => fw.name === fwTo);
+                const framework = lenguaje.frameworks.find((fw: any) => fw.nameId === fwTo);
                 if (!framework) {
                     return { success: false, message: `Framework no encontrado: ${fwTo}` };
                 }
@@ -66,19 +67,21 @@ export async function createTechC(data: TechForm): Promise<{success: boolean, me
                 framework.librerias.push(nuevoItem);
                 await lenguaje.save();
                 success = true;
-                message = `Librería ${name} agregada correctamente al framework ${fwTo} del lenguaje ${lengTo}.`;
+                message = `Librería ${nameId} agregada correctamente al framework ${fwTo} del lenguaje ${lengTo}.`;
             }
         }
+        const newProyectosDB = await readAllTechsUC()
         // 3. Actualizar MD (con los datos fetch antes de actualizar bdd) y JSON
         await Promise.all([
-            actualizarMd(proyectosDB, { name: nameId, badge: nameBadge, colorhash: color }),
+            actualizarMd(proyectosDB, { name: nameBadge, badge: createBaseBadge(nameId, color, nameBadge, web), colorhash: color }),
             // actualizarMd(proyectosDB, { name: nameId, badge, colorhash: color }),
-            actualizarJson(proyectosDB)
+            actualizarJson(newProyectosDB)
         ]);
 
         return { success, message };
 
     } catch (error) {
+        //Antes, abría que eliminar la imagen del storage
         console.error("Error al publicar la tecnología:", error);
         return { success: false, message: "Error al publicar la tecnología" };
     }

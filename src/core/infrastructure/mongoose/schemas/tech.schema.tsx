@@ -15,7 +15,7 @@ const TechBaseSchema = {
     color: {
         type: String,
         required: true,
-        match: /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
+        match: /^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
     },
     web: {
         type: String,

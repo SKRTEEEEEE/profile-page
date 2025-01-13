@@ -6,21 +6,22 @@ import { DialogFooter } from "@/components/ui/dialog"
 import { Textarea } from "@/components/ui/textarea"
 
 type LastStepTechProps = Omit<StepTechProps,"onComplete"> & {
-    onSubmit: (data: TechForm) => Promise<void>
+    onSubmit: () => Promise<void>
     onPrevious: () => void
-
+    loading: boolean
 }
 
 export function LastStep({
     onSubmit,
     onPrevious,
     onError,
+    loading,
     form
 }: LastStepTechProps) {
     const handleSubmit = async () => {
         const isValid = await form.trigger(["desc.es", "desc.en", "desc.ca", "desc.de"])
         if (isValid) {
-            await onSubmit(form.getValues())
+            await onSubmit()
         } else {
             onError(["Por favor, completa todas las descripciones"])
         }
@@ -60,8 +61,9 @@ export function LastStep({
                 <Button
                     variant="default"
                     onClick={handleSubmit}
+                    disabled={loading}
                 >
-                    Guardar
+                    {!loading?"Guardar":"Guardando.."}
                 </Button>
             </DialogFooter>
         </div>

@@ -105,14 +105,13 @@ export class MongoosePreTechRepository<TBase> extends MongoosePreTechPattern<TBa
     const filter = {
       "nameId": name
     }
-    return await this.read({filter})
+    return (await this.read({filter}))[0]
     // const res = await this.Model.find({
     //   $or: [
     //     { nameId: { $regex: name, $options: 'i' } },
     //     { nameBadge: { $regex: name, $options: 'i' } }
     //   ]
     // }).limit(50).lean()
-    console.log("res at readByName repository: ", res)
   }
 
 

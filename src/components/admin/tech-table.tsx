@@ -17,7 +17,6 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import DeleteTechButton from "./delete-tech-button"
-import { TechDialog } from "./tech-dialog"
 import { Tooltip } from "@radix-ui/react-tooltip"
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import { FullTechData } from "@/core/domain/entities/tech"
@@ -123,7 +122,7 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end space-x-2">
-                    <TechDialog dispoLeng={dispoLeng} dispoFw={dispoFw} renderButton={renderButtonEdit(tech.nameId)} tech={tech} admins={admins}/>
+                    <TechFormDialog dispo={{dispoFw, dispoLeng}} renderButton={renderButtonEdit(tech.nameId)} tech={tech} admins={admins}/>
                     <DeleteTechButton isAdmin={isAdmin} name={tech.nameId} onError={(error) => setError(error)}/>
                   </div>
                 </TableCell>
@@ -156,7 +155,7 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
                 </div>
               </CardTitle>
               <div className="flex space-x-2">
-              <TechDialog dispoLeng={dispoLeng} dispoFw={dispoFw} renderButton={renderButtonEdit(tech.nameId)} tech={tech} admins={admins}/>
+              <TechFormDialog dispo={{dispoFw, dispoLeng}} renderButton={renderButtonEdit(tech.nameId)} tech={tech} admins={admins}/>
                 <DeleteTechButton isAdmin={isAdmin} name={tech.nameId} onError={(error) => setError(error)}/>
               </div>
             </CardHeader>

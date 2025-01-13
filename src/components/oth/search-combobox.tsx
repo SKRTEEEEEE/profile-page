@@ -33,15 +33,17 @@ type ComboboxDemoProps = {
 
 }
 export function SearchCombobox({title, data, name, form }:ComboboxDemoProps) {
+  const [open, setOpen] = React.useState<boolean>(false)
   return (
     <FormField
     control={form.control}
     name={name}
-    render={({ field }) => (
+    render={({ field }) => {
+      return(
       <FormItem>
         <div className="h-full flex justify-between items-center">
-        <FormLabel>{title.charAt(0).toUpperCase() + title.slice(1).toLowerCase()}: </FormLabel>
-        <Popover>
+        <FormLabel>{title.charAt(0).toUpperCase() + title.slice(1).toLowerCase()} perteneciente: </FormLabel>
+        <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <FormControl>
               <Button
@@ -73,6 +75,7 @@ export function SearchCombobox({title, data, name, form }:ComboboxDemoProps) {
                       key={dat.name}
                       onSelect={() => {
                         form.setValue(name, dat.name)
+                        setOpen(false)
                       }}
                     >
                       {dat.name}
@@ -96,7 +99,7 @@ export function SearchCombobox({title, data, name, form }:ComboboxDemoProps) {
         </FormDescription>
         <FormMessage />
       </FormItem>
-    )}
+    )}}
   />
   )
 }

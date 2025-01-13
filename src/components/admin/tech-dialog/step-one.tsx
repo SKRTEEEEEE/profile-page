@@ -2,8 +2,6 @@ import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { DialogFooter } from '@/components/ui/dialog'
 import { SearchPreTechCombobox } from '../search-pretech-combobox'
-import { firstStepTechSchema } from '@/core/domain/entities/tech'
-import { readByNamePreTech } from '@/actions/pre-tech'
 import { StepTechProps } from './form-dialog'
 
 // Aquí faltara mostrar el estado de la tech, como la web y el color para que el usuario pueda modificar la web.

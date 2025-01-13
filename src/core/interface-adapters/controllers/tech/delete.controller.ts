@@ -11,6 +11,7 @@ async function doDelete (tipo:string, name:string, img: string) {
     console.log(`${tipo} ${name} eliminada correctamente`);
     const proyectosDB = await readAllTechsUC()
     await deleteImageUC(img)
+    //Pasar esto al deleteTechC
     await actualizarJson(proyectosDB);
     console.log(`${tipo} ${name} eliminada correctamente del json`);
     await actualizarMd(proyectosDB);
@@ -25,7 +26,7 @@ export async function deleteTechC(name: string) {
         let proyectoActualizado = null;
 
         // Buscar en librerías
-        let lenguaje = await readOneTechUC({ "frameworks.librerias.name": name });
+        let lenguaje = await readOneTechUC({ "frameworks.librerias.nameId": name });
         if (lenguaje) {
             const frameworkIndex = lenguaje.frameworks.findIndex((fw:FwDocument) => fw.librerias?.some((lib:LibDocument) => lib.nameId === name));
             const libreriaIndex = lenguaje.frameworks[frameworkIndex].librerias.findIndex((lib:LibDocument) => lib.nameId === name);
@@ -41,7 +42,7 @@ export async function deleteTechC(name: string) {
         }
 
         // Buscar en frameworks
-        lenguaje = await readOneTechUC({ "frameworks.name": name });
+        lenguaje = await readOneTechUC({ "frameworks.nameId": name });
         if (lenguaje) {
             const frameworkIndex = lenguaje.frameworks.findIndex((fw:FwDocument) => fw.nameId === name);
             const framework = lenguaje.frameworks.find((fw:FwDocument) => fw.nameId === name);
@@ -52,6 +53,7 @@ export async function deleteTechC(name: string) {
 
             proyectoActualizado = await lenguaje.save();
             if (proyectoActualizado) {
+                //Aqui hay que hacer el doDelete, por cada lib que tubiere si las tubiere
                 const res = await doDelete("Framework", name, framework.img);
                 return res;
             }
@@ -60,6 +62,7 @@ export async function deleteTechC(name: string) {
         // Buscar en lenguajes
         const lenguajeEliminado = await deleteTechUC({ nameId: name });
         if (lenguajeEliminado) {
+            //Aqui hay que hacer el doDelete, por cada lib y fw que tubiere, si los tubiere
             const res = await doDelete("Lenguaje", name, lenguajeEliminado.img);
             return res;
         }

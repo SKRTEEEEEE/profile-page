@@ -1,13 +1,13 @@
-import {  LenguajesModel } from "@/core/infrastructure/mongoose/schemas/tech-schema";
 import { LengRepository } from "@/core/application/interfaces/entities/tech";
 import { FilterQuery } from "mongoose";
 import { MongooseCRRUUD2Pattern } from "../patterns/crruud2.pattern";
 import { Leng, TechBase } from "@/core/domain/entities/tech";
+import { LengsModel } from "../schemas/tech.schema";
 
   
   export class MongooseLenguajesRepository extends MongooseCRRUUD2Pattern<Omit<Leng, "id" | "createdAt" | "updatedAt">> implements LengRepository<TechBase> {
     constructor() {
-      super(LenguajesModel);
+      super(LengsModel);
     }
     async readOne(
       filter?: FilterQuery<Leng> | undefined, 

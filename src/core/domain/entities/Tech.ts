@@ -6,7 +6,7 @@ export const firstStepTechSchema = z.object({
     nameId: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
     // from pre-tech
     nameBadge: z.string(),
-    color: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, "Color inválido"),
+    color: z.string().regex(/^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, "Color inválido"),
     web: z.string().url(),
 })
 export const secondStepTechSchema = z.object({
