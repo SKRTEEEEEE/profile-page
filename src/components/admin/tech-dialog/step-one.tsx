@@ -1,111 +1,164 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { DialogFooter } from '@/components/ui/dialog'
 import { SearchPreTechCombobox } from '../search-pretech-combobox'
 import { StepTechProps } from './form-dialog'
-
-// Aquí faltara mostrar el estado de la tech, como la web y el color para que el usuario pueda modificar la web.
-// En el futuro, permitir poner badges con logos personalizados -> ver en docs/utils
-
-
+import { PreTechBase } from '@/core/domain/entities/pre-tech'
+import { Badge } from '@/components/ui/badge'
+import Link from 'next/link'
+import { Checkbox } from "@/components/ui/checkbox"
+import { Input } from "@/components/ui/input"
+import { FormField, FormItem, FormControl, FormLabel } from "@/components/ui/form"
 
 export function StepOne({
     onComplete,
     onError,
     form
 }: StepTechProps) {
-
     const [isLoading, setIsLoading] = useState(false)
-    // const t = useTranslations('tech')
+    const [selectedTech, setSelectedTech] = useState<PreTechBase | null>(null)
+    const [isFormReady, setIsFormReady] = useState(false)
+    const [editWeb, setEditWeb] = useState(false)
+    const [isUpdate, setIsUpdate] = useState(false)
+
+    // Efecto inicial para detectar si es un update
+    useEffect(() => {
+        const initialValues = form.getValues()
+        if (initialValues.nameId && initialValues.web && initialValues.color) {
+            setIsUpdate(true)
+            setSelectedTech({
+                nameId: initialValues.nameId,
+                nameBadge: initialValues.nameBadge,
+                web: initialValues.web,
+                color: initialValues.color
+            })
+            setIsFormReady(true)
+        }
+    }, [])
+
+    // Observar los cambios en el formulario
+    useEffect(() => {
+        const subscription = form.watch(() => {
+            const { nameId, web, color, nameBadge } = form.getValues()
+            
+            // Solo actualizar selectedTech si los datos son completos
+            if (nameId && web && color) {
+                setIsFormReady(true)
+                
+                const newTechData = {
+                    nameId,
+                    nameBadge,
+                    web,
+                    color
+                }
+
+                // Actualizar selectedTech solo si hay cambios reales
+                setSelectedTech(prev => {
+                    if (!prev || 
+                        prev.nameId !== newTechData.nameId || 
+                        prev.web !== newTechData.web || 
+                        prev.color !== newTechData.color) {
+                        return newTechData
+                    }
+                    return prev
+                })
+            } else {
+                setIsFormReady(false)
+            }
+        })
+
+        return () => subscription.unsubscribe()
+    }, [form])
 
     const handleContinue = async () => {
-        console.log("clicked")
         setIsLoading(true)
         try {
-       
-                    onComplete(2)
-                
+            onComplete(2)           
         } catch (error) {
             console.error('Error fetching pre-tech data:', error)
-            // onError([t('errors.fetchError')])
             onError([`Error al cargar los datos de la tech`])
         } finally {
             setIsLoading(false)
         }
     }
-    // useEffect(() => {
-    //     if (account) {
-    //         setIsLogged(true)
-    //         const user = airdropUsers?.find(user => user.address === account.address)
-    //         setIsListed(user ? true : false)
-
-    //     } else {
-    //         setIsLogged(false)
-    //     }
-    // }, [account])
-
-    // const handleContinue = () => {
-    //     const result = stepOneSchema.safeParse({ address: account?.address })
-    //     if (result.success) {
-    //         onComplete(result.data)
-    //     } else {
-    //         onError(result.error.errors.map(err => err.message))
-    //     }
-    // }
 
     return (
         <div className="space-y-4">
             <section className="text-sm text-gray-500">
-                <h2>estas en el formulario para introducir o modificar una nueva tecnología</h2>
-                <p>busca la tecnologia a añadir</p>
-                 {/*<h2>{t("first.h2")}</h2>
-                <p>{t("first.desc.0")} <br />
-                    <i>{t("first.desc.1")}</i>
-                    <br /><br /></p>
-
-                <p>🚀 {t("first.sec-title")}:</p>  <br />
-                <ul className='text-xs'>
-                    <li className="flex w-full justify-between">
-                        <span>20 FTMH</span>
-                        <p>{t("first.list.20")}</p>
-                    </li>
-                    <li className="flex w-full justify-between">
-                        <span>30 FTMH</span>
-                        <p>{t("first.list.30")}</p>
-                    </li>
-                    <li className="flex w-full justify-between">
-                        <span>50 FTMH</span>
-                        <p>{t("first.list.50")}</p>
-                    </li>
-                    <li className="flex w-full justify-between">
-                        <span>60 FTMH</span>
-                        <p>{t("first.list.60")}</p>
-                    </li>
-                </ul>
-                <br />
-                <p>{t("first.sec-desc.0", { date: airdropDate })} <br />👻 {t("first.sec-desc.1")} </p>
-                <br /><br />
-                <p className='font-bold'>
-                    {t("first.footer-desc")}</p> */}
-                    <SearchPreTechCombobox name="nameId" title='nombre' form={form} />
-
-            </section>
-            <DialogFooter className='w-full '>
-         
-                        <Button
-                            className="h-full w-full rounded-lg bg-violet-500/15 hover:bg-violet-800 shadow-violet-400/30 hover:shadow-violet-300 text-white font-semibold shadow-md hover:shadow-md transition-all duration-300 ease-in-out mb-1"
-                            variant="default"
-                            onClick={handleContinue}
-                            disabled={isLoading}
-                        >
-                            {/* {isListed ? t("first.button.0") : t("first.button.1")} */}
-                            {isLoading? "Loading...": "Continuar"}
-                        </Button>
-
-
+                <h2>Estás en el formulario para {isUpdate ? 'modificar una tecnología existente' : 'introducir una nueva tecnología'}</h2>
                 
+                {selectedTech && (
+                    <>
+                        <div className='flex justify-between w-full'>
+                            <p>Color asignado para {selectedTech.nameId}:</p>
+                            <Badge style={{color: `#${selectedTech.color}`}}>{selectedTech.color}</Badge>
+                        </div>
+                        
+                        <div className="space-y-2">
+                            {!editWeb ? (
+                                <p className='truncate max-w-[360px]'>
+                                    Web: <Link href={selectedTech.web} target='_blank'>{selectedTech.web}</Link>
+                                </p>
+                            ) : (
+                                <FormField
+                                    control={form.control}
+                                    name="web"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Nueva URL</FormLabel>
+                                            <FormControl>
+                                                <Input 
+                                                    placeholder="https://nueva-url.com" 
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                        </FormItem>
+                                    )}
+                                />
+                            )}
+                            
+                            <div className="flex items-center space-x-2">
+                                <Checkbox 
+                                    id="edit-web"
+                                    checked={editWeb}
+                                    onCheckedChange={(checked) => {
+                                        setEditWeb(checked as boolean)
+                                        if (!checked) {
+                                            // Restaurar el valor original si se desmarca
+                                            form.setValue("web", selectedTech.web)
+                                        }
+                                    }}
+                                />
+                                <label
+                                    htmlFor="edit-web"
+                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                >
+                                    Modificar URL
+                                </label>
+                            </div>
+                        </div>
+                    </>
+                )}
+
+                {!isUpdate && (
+                    <SearchPreTechCombobox 
+                        name="nameId" 
+                        title='nombre' 
+                        form={form} 
+                    />
+                )}
+            </section>
+
+            <DialogFooter className='w-full'>
+                <Button
+                    className="h-full w-full rounded-lg bg-violet-500/15 hover:bg-violet-800 shadow-violet-400/30 hover:shadow-violet-300 text-white font-semibold shadow-md hover:shadow-md transition-all duration-300 ease-in-out mb-1"
+                    variant="default"
+                    onClick={handleContinue}
+                    disabled={isLoading || !isFormReady}
+                >
+                    {isLoading ? "Loading..." : "Continuar"}
+                </Button>
             </DialogFooter>
         </div>
     )
 }
-

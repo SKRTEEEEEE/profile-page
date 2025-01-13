@@ -24,7 +24,7 @@ export default async function Home({searchParams}:RootProps) {
           title: `${t("manage-root.title")} 🏗️`, 
           description: t("manage-root.desc"), 
           duration: 10000}}/>
-        <TestAction/>
+        {/* <TestAction/> */}
       </div>
     </main>
   );

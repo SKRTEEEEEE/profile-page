@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SearchCombobox } from "@/components/oth/search-combobox";
-import { HandleOperationError, SetStateError } from "@/core/domain/errors/main";
+import { HandleOperationError } from "@/core/domain/errors/main";
 import { DialogFooter } from "@/components/ui/dialog";
 import { DispoTechs } from "@/lib/types";
 import { Slider } from "@/components/ui/slider";
@@ -17,13 +17,15 @@ import { Slider } from "@/components/ui/slider";
 type StepTwoTechProps = StepTechProps & {
   dispo: DispoTechs
   onPrevious: () => void
+  isUpdating: boolean
 }
 export function StepTwo({
   onComplete,
   onError,
   onPrevious,
   form,
-  dispo
+  dispo,
+  isUpdating
 }: StepTwoTechProps) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -171,6 +173,7 @@ export function StepTwo({
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                   className="flex items-center text-sm space-x-3"
+                  disabled={isUpdating}
                 >
                   <FormItem className="flex items-center space-x-1 space-y-0">
                     <FormControl>
@@ -198,15 +201,16 @@ export function StepTwo({
                   </FormItem>
                 </RadioGroup>
               </FormControl>
+              <FormDescription>Solo permitido al crear</FormDescription>
               <FormMessage />
             </FormItem>
           )}}
         />
         {form.watch("category") !== "leng" && (
-          <SearchCombobox name="lengTo" title="lenguaje" data={dispoLeng} form={form} />
+          <SearchCombobox name="lengTo" title="lenguaje" data={dispoLeng} form={form} disabled={isUpdating}/>
         )}
-        {form.watch("category") === "lib" && (
-          <SearchCombobox name="fwTo" title="framework" data={dispoFw} form={form} />
+        { form.watch("category") === "lib" && (
+          <SearchCombobox name="fwTo" title="framework" data={dispoFw} form={form} disabled={isUpdating} />
         )}
       </section>
       <DialogFooter className='w-full '>

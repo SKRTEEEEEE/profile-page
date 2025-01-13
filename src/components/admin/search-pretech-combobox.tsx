@@ -28,6 +28,7 @@ type SearchComboboxProps = {
   title: string;
   name: string;
   form: UseFormReturn<any, any, undefined>;
+  // onDisplayValue: (data: PreTechBase & MongooseBase | null) => void
 }
 
 export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps) {
@@ -101,6 +102,7 @@ export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps
 
   const displayValue = React.useMemo(() => {
     if (selectedTech && selectedTech?.nameId === form.getValues(name)) {
+      // onDisplayValue(selectedTech)
       return selectedTech.nameId
     }
     const foundInResults = searchResults.find(dat => dat.nameId === form.getValues(name))

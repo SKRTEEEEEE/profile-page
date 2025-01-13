@@ -13,10 +13,10 @@ export async function updateTechC(updateData: TechForm) {
                 { "frameworks.librerias.name": updateData.nameId },
                 {
                     $set: {
-                        "frameworks.$[fw].librerias.$[lib].nameId": updateData.nameId,
-                        "frameworks.$[fw].librerias.$[lib].nameBadge": updateData.nameBadge,
-                        "frameworks.$[fw].librerias.$[lib].afinidad": updateData.afinidad,
                         // "frameworks.$[fw].librerias.$[lib].color": updateData.color,
+                        
+                        "frameworks.$[fw].librerias.$[lib].web": updateData.web,
+                        "frameworks.$[fw].librerias.$[lib].afinidad": updateData.afinidad,
                         "frameworks.$[fw].librerias.$[lib].experiencia": updateData.experiencia,
                         "frameworks.$[fw].librerias.$[lib].img": updateData.img,
                         "frameworks.$[fw].librerias.$[lib].desc": updateData.desc,
@@ -36,8 +36,7 @@ export async function updateTechC(updateData: TechForm) {
                 { "frameworks.nameId": updateData.nameId },
                 {
                     $set: {
-                        "frameworks.$.nameId": updateData.nameId,
-                        "frameworks.$.nameBadge": updateData.nameBadge,
+                        "frameworks.$.web": updateData.web,
                         "frameworks.$.afinidad": updateData.afinidad,
                         // "frameworks.$.color": updateData.color,
                         "frameworks.$.experiencia": updateData.experiencia,

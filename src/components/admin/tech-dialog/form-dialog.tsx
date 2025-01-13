@@ -126,8 +126,12 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
     }
 
     const imageFile = form.getValues("img")
+    //Aqui hay que comprobar si se ha cambiado la imagen, sino no hay que hacer ni upload, ni update de la img
+    console.log("!imageFile: ",imageFile) //si que hay image en el upload
+    console.log("tech  onSubmit dialog:", tech ) //Si que hay tech en el upload
     try {
-      if(!imageFile && !tech?.img)throw new InputParseError("No img set")
+    if(!tech||tech.img !== imageFile){
+      // if(!imageFile && !tech?.img)throw new InputParseError("No img set")
       let imgUrl: string
       if(imageFile){
         const formData = new FormData
@@ -148,8 +152,7 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
         }
         form.setValue("img", imgUrl)
       }
-
-
+    }
       const data = form.getValues()
 
       const response = tech ? await updateTech(data) : await createTech(data)
@@ -191,8 +194,8 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
         )}
         <FormProvider {...form}>
         {currentStep === 1 && <StepOne form={form} onComplete={() => handleStepComplete(1)} onError={handleError} />}
-        {currentStep === 2 && <StepTwo form={form} onComplete={() => handleStepComplete(2)} onError={handleError} onPrevious={handlePreviousStep} dispo={dispo} />}
-        {currentStep === 3 && <LastStep form={form} loading={isLoading} onSubmit={onSubmit}  onError={handleError} onPrevious={handlePreviousStep} />}
+        {currentStep === 2 && <StepTwo isUpdating={isUpdating} form={form} onComplete={() => handleStepComplete(2)} onError={handleError} onPrevious={handlePreviousStep} dispo={dispo} />}
+        {currentStep === 3 && <LastStep isAdmin={isAdmin} form={form} loading={isLoading} onSubmit={onSubmit}  onError={handleError} onPrevious={handlePreviousStep} />}
         </FormProvider>
       </DialogContent>
     </Dialog>

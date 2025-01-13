@@ -4,11 +4,13 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Button } from "@/components/ui/button"
 import { DialogFooter } from "@/components/ui/dialog"
 import { Textarea } from "@/components/ui/textarea"
+import { useActiveAccount } from "thirdweb/react"
 
 type LastStepTechProps = Omit<StepTechProps,"onComplete"> & {
     onSubmit: () => Promise<void>
     onPrevious: () => void
     loading: boolean
+    isAdmin: boolean
 }
 
 export function LastStep({
@@ -16,8 +18,11 @@ export function LastStep({
     onPrevious,
     onError,
     loading,
-    form
+    form,
+    isAdmin
 }: LastStepTechProps) {
+    const account = useActiveAccount()
+
     const handleSubmit = async () => {
         const isValid = await form.trigger(["desc.es", "desc.en", "desc.ca", "desc.de"])
         if (isValid) {
@@ -61,7 +66,7 @@ export function LastStep({
                 <Button
                     variant="default"
                     onClick={handleSubmit}
-                    disabled={loading}
+                    disabled={loading || !isAdmin || account===undefined}
                 >
                     {!loading?"Guardar":"Guardando.."}
                 </Button>

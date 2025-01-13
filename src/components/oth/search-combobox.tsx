@@ -30,9 +30,10 @@ type ComboboxDemoProps = {
   }[]
   name: string
   form: UseFormReturn<any, any, undefined>
+  disabled?: boolean
 
 }
-export function SearchCombobox({title, data, name, form }:ComboboxDemoProps) {
+export function SearchCombobox({title, data, name, form, disabled }:ComboboxDemoProps) {
   const [open, setOpen] = React.useState<boolean>(false)
   return (
     <FormField
@@ -53,6 +54,7 @@ export function SearchCombobox({title, data, name, form }:ComboboxDemoProps) {
                   "w-[200px] justify-between",
                   !field.value && "text-muted-foreground"
                 )}
+                disabled={disabled}
               >
                 {field.value
                   ? data?.find(

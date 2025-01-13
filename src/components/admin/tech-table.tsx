@@ -113,7 +113,7 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
                 <TableCell>
                   <Badge 
                     style={{ 
-                      backgroundColor: `${tech.color}`,
+                      backgroundColor: `#${tech.color}`,
                       color: parseInt(tech.color, 16) > 0xffffff / 2 ? '#000' : '#fff'
                     }}
                   >
