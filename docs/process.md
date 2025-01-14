@@ -165,7 +165,7 @@ npm i react-countup
     - [x] Añadir en el step 1 el fetch de pre-tech, permitiendo al usuario cambiar la web y mostrando el color (no hace falta mostrar el nameBadge)
     - [x] Comprobar el uso de update
     - [x] Mejorar el form de update -> v1 - no permitir cambiar el nombre, tampoco cambiar la cat -> se ha de eliminar para eso
-    - [ ] Limitar la ultima acción al administrador
+    - [x] Limitar la ultima acción al administrador
     - [ ] Terminar el updateTech
     - [ ] **En el step-two** hay que limitar la **imagen a 1mb**
 ### fix

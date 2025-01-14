@@ -91,6 +91,7 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
   const [errors, setErrors] = useState<string[]>([])
   const { isAdmin } = useIsAdmin(admins)
   const locale = useLocale()
+  const account = useActiveAccount()
   const isUpdating = !!tech
 
 
@@ -116,7 +117,7 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
 
   const onSubmit = async () => {
     setIsLoading(true)
-    if (!isAdmin) {
+    if (!isAdmin || account=== undefined) {
       toast({ title: "Error", description: "No tienes permisos para realizar esta acción", variant: "destructive" })
       form.reset()  
       setSelectedTech("")

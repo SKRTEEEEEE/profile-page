@@ -56,7 +56,7 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
       setIsLoading(false);
     }
   };
-
+  //Muy parecido al boton final del tech-dialog
   return (
     <>
       {isLoading ? (
