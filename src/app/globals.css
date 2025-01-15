@@ -20,6 +20,9 @@ body,
   }
 }
 
+main {
+  width: 100dvw;
+}
 
 [data-theme="light-grays"] {
   --background: 0 0% 85%;

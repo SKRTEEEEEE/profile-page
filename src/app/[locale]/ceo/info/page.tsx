@@ -23,9 +23,10 @@ const AboutMePage = async () => {
 
 
     return (
-        <main className="bg-opacity-90 mx-8 mt-16 pb-8 md:pb-0 md:mt-0 sm:mt-12">
+        <main  className="mx-8 mt-16 pb-8 md:pb-0 md:mt-0 sm:mt-12">
             <TransitionPage />
-            <div className="bottom-0 right-0 hidden md:inline-block md:absolute">
+            {/* <span className="flex w-full min-h-dvh bg-no-repeat bg-gradient-cover"> */}
+            <div className=" bottom-0 right-0 hidden md:inline-block md:absolute">
                 <Image src="/ceo/circles.png" width="300" height="300" className="w-full h-full " alt={t("ceo.images.circular")} />
             </div>
             <MotionTransition position='right' className="bottom-0 left-0 hidden xl:inline-block xl:absolute">
@@ -63,6 +64,7 @@ const AboutMePage = async () => {
 
                     </section>}
             </div>
+        {/* </span> */}
         </main>
     );
 }

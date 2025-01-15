@@ -5,9 +5,9 @@ import TransitionPage from "@/components/oth/transition-page";
 export default function CeoPage() {
 
     return (
-      <main>
+      <main className="">
         <TransitionPage />
-        <div className="flex w-full min-h-dvh bg-no-repeat bg-gradient-cover">
+        <div className="flex w-full min-h-dvh ">
           <CoverParticles />
           <Introduction />
         </div>

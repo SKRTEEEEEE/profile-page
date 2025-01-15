@@ -159,8 +159,7 @@ npm i react-countup
 **Tener en cuenta los siguientes puntos(clean arch v3 p2)**
 - [x] Adoptar enfoque DB/Redis, para recuperar la lista de techs-simpleicons -> creando SimpleIconsTechRepository etc, con getTechList y updateTechList
 - [x] Reestructurar el modelo de la bdd para en la futura UI y mejorar UX
-##### **ACTUALIDAD**
-- [ ] Rehacer el tech-dialog
+- [x] Rehacer el tech-dialog
     - [x] Hacer el auto-incremental de la preferencia (tech)
     - [x] Añadir en el step 1 el fetch de pre-tech, permitiendo al usuario cambiar la web y mostrando el color (no hace falta mostrar el nameBadge)
     - [x] Comprobar el uso de update
@@ -169,10 +168,13 @@ npm i react-countup
     - [x] Terminar el updateTech: incluir el re-fetch pretechs button
     - [x] **En el step-two** hay que limitar la **imagen a 1mb**
     - [x] En el deleteImg, hay que eliminar todas las img de los techs anidados
+##### **ACTUALIDAD**
 ### fix
 - [x] Arreglar updateMd
     - [ ] Problema con el SHA en updateMd
 - [x] Comprobar el uso de nameBadge/nameId con los badges (actualizarJson)
+### refactor
+- [ ] Campo web, seguramente haremos que el usuario pueda tener un campo web especifico, pero sera distinto al web del pretech, ya que este lo utilizaremos para mostrar la img en web
 ## 1x. Reestructurar clean arch v3 p2 (back)
 ### Revisar connectors
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
@@ -180,7 +182,11 @@ npm i react-countup
 ### Manejar correctamente los UC, C y acciones
 - [ ] Utilizar e unificar un mensaje de respuesta correctamente
 - [ ] **Acción de DAR ADMIN** es un muy buen ejemplo de aver que pasa
+
 - [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
+
+- [ ] Manejar correctamente los estados de todos los componentes
+- [ ] Manejar correctamente los redirect y revalidate(en revalidate cuando sea necesario revalidate la pagina actual, que sea dinámico según la pagina en la que esta)
 #### Utilizar un mensaje de respuesta unificado
 - [ ] Responder a las acciones del servidor con `toast`
     - [ ] Aplicar toast en el tech-form (tech-dialog)
@@ -188,8 +194,14 @@ npm i react-countup
     - [ ] En el caso de que el usuario configure un perfil se le ha de mostrar toast
     - [ ] Si el usuario configura el correo mostrar otro toast conforme se le ha enviado o ha habido error
     - [ ] En el caso de cerrar session
-- [ ] Manejar correctamente los estados de todos los componentes
-- [ ] Manejar correctamente los redirect y revalidate(en revalidate cuando sea necesario revalidate la pagina actual, que sea dinámico según la pagina en la que esta)
+##### Ejemplo mensaje unificado backend
+```ts
+type Mensaje<T> = {
+    success: boolean
+    message?: string
+    data?: T
+}
+```
 #### Mejorar errores correctamente
 
 

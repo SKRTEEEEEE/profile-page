@@ -8,7 +8,6 @@ import { Urbanist } from "next/font/google";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-
 import { ThirdwebProvider } from "thirdweb/react";
 
 
@@ -27,7 +26,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-      <div className={urbanist.className}>
+      <div className={cn(urbanist.className, "flex max-w-dvw min-h-dvh bg-no-repeat bg-gradient-cover")}>
         <CThemeProvider defaultTheme="dark-soft" disableTransitionOnChange>
         <ThirdwebProvider>
         <Navbar />

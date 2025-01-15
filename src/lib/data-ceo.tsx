@@ -138,8 +138,8 @@ export const dataCounter = [
     {
         id: 2,
         endCounter: 30,
-        lineRight: true,
-        lineRightMobile: true,
+        lineRight: false,
+        lineRightMobile: false,
     },
     // {
     //     id: 3,
