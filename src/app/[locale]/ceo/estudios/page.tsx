@@ -1,7 +1,7 @@
 // "use client" -> No me dejava quitar el use client porque el counter services no lo tenia
 
 import CounterServices from "@/components/ceo/counter-services";
-import TimeLine from "@/components/ceo/time-line";
+import TimeLineHARD from "@/components/ceo/time-line-hard";
 import { MotionTransition } from "@/components/oth/transition-component";
 import TransitionPage from "@/components/oth/transition-page";
 import { useTranslations } from "next-intl";
@@ -29,7 +29,7 @@ const StudiesPage = () => {
 
                 <CounterServices />
 
-                <TimeLine /></div>
+                <TimeLineHARD /></div>
 {/* </span> */}
             {/* <TransitionPage /> */}
         </main>

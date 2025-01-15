@@ -2,7 +2,17 @@ import { dataStudiesPage } from "@/lib/data-ceo";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
-const TimeLine = () => {
+type TimeLineProps = {
+    id: string
+    title: string
+    desc: string
+    subtitle: string
+    date: string
+    web?: string
+    badges?: string[]
+}
+
+const TimeLineHARD = () => {
     const t = useTranslations("ceo")
     return (
         <div className="flex flex-col justify-center divide-y divide-slate-200">
@@ -33,4 +43,4 @@ const TimeLine = () => {
     );
 }
 
-export default TimeLine;
+export default TimeLineHARD;

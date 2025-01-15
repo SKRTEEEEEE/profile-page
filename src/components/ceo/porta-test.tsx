@@ -6,7 +6,9 @@ import { ThreeDCardDemo } from "./card-test";
 import { FeatureCard } from "./feature-card";
 import { CustomBadge } from "./custom-badge";
 import { Cpu, Shield, Workflow, Zap } from "lucide-react";
-import TimeLine from "./time-line";
+import TimeLineHARD from "./time-line-hard";
+import PortafolioLinks from "./porta-links";
+import { portafolioExample } from "./porta-example";
 
 const ContentLayout = ({children}: {children: React.ReactNode;}) => (
     <div className="w-full relative h-full rounded-2xl">
@@ -55,7 +57,7 @@ export function TabsDemo() {
           <ContentLayout>
            
             <p>Descripción</p>
-            <ThreeDCardDemo/>
+            <ThreeDCardDemo title={portafolioExample[0].title} img={portafolioExample[0].img} imgDesc={portafolioExample[0].img} links={{projectTitle: portafolioExample[0].title, ...portafolioExample[0].links}} desc={portafolioExample[0].desc}/>
          </ContentLayout>
         ),
       },
@@ -64,6 +66,7 @@ export function TabsDemo() {
       value: "details",
       content: (
             <ContentLayout>
+                <PortafolioLinks projectTitle={portafolioExample[0].title} github={portafolioExample[0].links.github}/>
           <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-900/30 to-transparent rounded-xl blur-xl" />
                 <div className="relative">
@@ -111,8 +114,8 @@ export function TabsDemo() {
       value: "services",
       content: (
         <ContentLayout>
-            <p>Versiones</p>
-            {/* <Image
+                <PortafolioLinks projectTitle={portafolioExample[0].title} github={portafolioExample[0].links.github}/>
+                {/* <Image
               src="/ceo/image-2.png"
               alt="dummy image"
               width="1000"
@@ -120,7 +123,7 @@ export function TabsDemo() {
               className="object-cover object-left-top h-[60%] md:h-[80%] w-[90%] rounded-xl mx-auto"
             /> */}
             {/* <ThreeDCardDemo/> */}
-            <TimeLine/>
+            <TimeLineHARD/>
          </ContentLayout>
       ),
     },
