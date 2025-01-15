@@ -1,6 +1,6 @@
 import Header from "@/components/ceo/header";
 import Navbar from "@/components/ceo/navbar";
-import CheckoutClientTheme from "@/components/oth/CheckoutClientTheme";
+import CheckoutClientTheme from "@/components/oth/checkout-theme";
 import { CThemeProvider } from "@/components/oth/theme-provider";
 import { cn } from "@/lib/utils";
 import type { Metadata} from "next";

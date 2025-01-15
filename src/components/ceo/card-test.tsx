@@ -4,6 +4,7 @@ import Image from "next/image";
 import React from "react";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
 import Link from "next/link";
+import { GithubIcon } from "lucide-react";
 
 export function ThreeDCardDemo() {
   return (
@@ -39,14 +40,16 @@ export function ThreeDCardDemo() {
             target="__blank"
             className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
           >
-            Try now →
+            Ver →
           </CardItem>
           <CardItem
             translateZ={20}
-            as="button"
-            className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+            as={Link}
+            target="__blank"
+            href="https://github.com/SKRTEEEEEE/profile-page"
+            className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold flex gap-2"
           >
-            Sign up
+            <span>Código </span><GithubIcon width={12} height={12}/>
           </CardItem>
         </div>
       </CardBody>

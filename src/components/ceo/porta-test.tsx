@@ -6,21 +6,43 @@ import { ThreeDCardDemo } from "./card-test";
 import { FeatureCard } from "./feature-card";
 import { CustomBadge } from "./custom-badge";
 import { Cpu, Shield, Workflow, Zap } from "lucide-react";
+import TimeLine from "./time-line";
 
 const ContentLayout = ({children}: {children: React.ReactNode;}) => (
-    <div className="w-full overflow-hidden relative h-full rounded-2xl">
+    <div className="w-full relative h-full rounded-2xl">
+         <style jsx>{`
+        ::-webkit-scrollbar {
+            width: 8px; 
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1); 
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px; 
+            height: 4px;
+
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.7); /* Color al pasar el mouse */
+        }
+    `}</style>
         {/* Animated gradient background */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-rose-950 to-gray-900">
           {/* Floating particles */}
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-purple-500/10 rounded-full blur-xl"></div>
           <div className="absolute top-1/2 left-2/3 w-48 h-48 bg-blue-500/10 rounded-full blur-xl"></div>
           <div className="absolute top-3/4 left-1/3 w-40 h-40 bg-indigo-500/10 rounded-full blur-xl"></div>
-          
-          {/* Content container */}
-          <div className="relative z-10 px-10 md:pt-5 text-xl md:text-4xl font-bold text-white h-full">
-
-        {children}
-          </div></div></div>
+        </div>
+        
+        {/* Content container */}
+        <div className="w-full overflow-auto relative h-full rounded-2xl px-10 md:pt-5 text-xl md:text-4xl font-bold text-white">
+          {children}
+        </div>
+    </div>
 )
 
 export function TabsDemo() {
@@ -97,7 +119,8 @@ export function TabsDemo() {
               height="1000"
               className="object-cover object-left-top h-[60%] md:h-[80%] w-[90%] rounded-xl mx-auto"
             /> */}
-            <ThreeDCardDemo/>
+            {/* <ThreeDCardDemo/> */}
+            <TimeLine/>
          </ContentLayout>
       ),
     },
@@ -136,7 +159,7 @@ export function TabsDemo() {
 
   return (
     
-    <div className="h-[40rem] [perspective:1000px] relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
+    <div className="h-[40rem] [perspective:1000px]  relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
         
       <Tabs tabs={tabs} />
 
@@ -144,14 +167,14 @@ export function TabsDemo() {
   );
 }
 
-const DummyContent = () => {
-  return (
-    <Image
-      src="/ceo/image-2.png"
-      alt="dummy image"
-      width="1000"
-      height="1000"
-      className="object-cover object-left-top h-[60%]  md:h-[90%] absolute -bottom-10 inset-x-0 w-[90%] rounded-xl mx-auto"
-    />
-  );
-};
+// const DummyContent = () => {
+//   return (
+//     <Image
+//       src="/ceo/image-2.png"
+//       alt="dummy image"
+//       width="1000"
+//       height="1000"
+//       className="object-cover object-left-top h-[60%]  md:h-[90%] absolute -bottom-10 inset-x-0 w-[90%] rounded-xl mx-auto"
+//     />
+//   );
+// };
