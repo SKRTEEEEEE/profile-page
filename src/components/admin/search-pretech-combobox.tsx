@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useTransition } from "react"
-import { Check, ChevronsUpDown } from "lucide-react"
+import { Check, ChevronsUpDown, HardDriveDownload } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -20,24 +20,27 @@ import {
 } from "@/components/ui/popover"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { UseFormReturn } from "react-hook-form"
-import { readByQueryPreTech } from "@/actions/pre-tech"
+import { readByQueryPreTech, updatePreTech } from "@/actions/pre-tech"
 import { PreTechBase } from "@/core/domain/entities/pre-tech"
 import { MongooseBase } from "@/core/infrastructure/mongoose/types"
+import { useActiveAccount } from "thirdweb/react"
 
 type SearchComboboxProps = {
   title: string;
   name: string;
   form: UseFormReturn<any, any, undefined>;
+  isAdmin: boolean
   // onDisplayValue: (data: PreTechBase & MongooseBase | null) => void
 }
 
-export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps) {
+export function SearchPreTechCombobox({ title, name, form, isAdmin }: SearchComboboxProps) {
   const [open, setOpen] = React.useState(false)
   const [searchResults, setSearchResults] = React.useState<(PreTechBase & MongooseBase)[]| []>([])
   const [isPending, startTransition] = useTransition()
   const [isLoading, setIsLoading] = React.useState(false)
   const [isLoadingFetch, setIsLoadingFetch] = React.useState(false)
   const [selectedTech, setSelectedTech] = React.useState<PreTechBase & MongooseBase | null>(null)
+  const account = useActiveAccount()
   
   const timeoutRef = React.useRef<NodeJS.Timeout | undefined>(undefined)
 
@@ -186,7 +189,22 @@ export function SearchPreTechCombobox({ title, name, form }: SearchComboboxProps
             </Popover>
           </div>
           <FormDescription>
+            <p>
             Selecciona una tecnología para tu perfil. Escribe al menos 2 caracteres para buscar.
+            </p>
+            <div className="flex gap-2 justify-between items-center">
+            <p className="text-xs">
+              Click para fetch las nuevas techs</p> 
+              <Button 
+              variant={"outline"}
+              disabled={!isAdmin||account===undefined}
+              onClick={
+             async ()=>{
+                await updatePreTech()
+             }
+            }><HardDriveDownload className="w-4 h-4" /></Button>
+            
+            </div>
           </FormDescription>
           <FormMessage />
         </FormItem>

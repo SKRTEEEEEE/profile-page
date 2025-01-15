@@ -166,8 +166,9 @@ npm i react-countup
     - [x] Comprobar el uso de update
     - [x] Mejorar el form de update -> v1 - no permitir cambiar el nombre, tampoco cambiar la cat -> se ha de eliminar para eso
     - [x] Limitar la ultima acción al administrador
-    - [ ] Terminar el updateTech
-    - [ ] **En el step-two** hay que limitar la **imagen a 1mb**
+    - [x] Terminar el updateTech: incluir el re-fetch pretechs button
+    - [x] **En el step-two** hay que limitar la **imagen a 1mb**
+    - [x] En el deleteImg, hay que eliminar todas las img de los techs anidados
 ### fix
 - [x] Arreglar updateMd
     - [ ] Problema con el SHA en updateMd

@@ -10,6 +10,8 @@ import { HandleOperationError } from "@/core/domain/errors/main";
 import { DialogFooter } from "@/components/ui/dialog";
 import { DispoTechs } from "@/lib/types";
 import { Slider } from "@/components/ui/slider";
+import { z } from "zod";
+
 
 
 
@@ -32,23 +34,43 @@ export function StepTwo({
   const [previewImage, setPreviewImage] = useState<string | null>(form.watch("img") || null)
   const { dispoLeng, dispoFw } = dispo
 
+  const imageSchema = z.object({
+    img: z
+      .instanceof(File)
+      .refine(file => file.size <= 1 * 1024 * 1024, {
+        message: "El tamaño de la imagen debe ser menor a 1 MB",
+      })
+      .refine(file => ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(file.type), {
+        message: "El formato de la imagen debe ser .jpg, .png o .gif",
+      }),
+  });
+
+  const fileCheck = (file: File) => {
+    const validationResult = imageSchema.safeParse({ img: file });
+    if (!validationResult.success) {
+      onError(validationResult.error.errors.map(err => err.message));
+      throw new HandleOperationError("Error de validación de archivo");
+    }
+  }
+
   const handleFileChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    //Falta comprobar
+    onError([])
     const file = ev.target.files?.[0]
     if (!file) {
       onError(["Error at select file"])
       throw new HandleOperationError("Error at select file")
     }
+    fileCheck(file)
     const imgUrl = URL.createObjectURL(file)
     setPreviewImage(imgUrl)
-    // new focus -> multi steps
     form.setValue("img", file)
   }
 
   const handleContinue = async () => {
     setIsLoading(true)
     try {
-      const isValid = await form.trigger([ "category", "lenguajeTo", "frameworkTo", "experiencia", "afinidad"])
+      fileCheck(form.watch("img"));
+      const isValid = await form.trigger(["category", "lenguajeTo", "frameworkTo", "experiencia", "afinidad"])
       if (isValid) {
         onComplete(3)
       } else {
@@ -165,51 +187,52 @@ export function StepTwo({
           control={form.control}
           name="category"
           render={({ field }) => {
-            return(
-            <FormItem className="space-y-3">
-              <FormLabel>Categoría</FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  className="flex items-center text-sm space-x-3"
-                  disabled={isUpdating}
-                >
-                  <FormItem className="flex items-center space-x-1 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="leng" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      Lenguaje
-                    </FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="fw" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      Framework
-                    </FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="lib" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      Librería
-                    </FormLabel>
-                  </FormItem>
-                </RadioGroup>
-              </FormControl>
-              <FormDescription>Solo permitido al crear</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}}
+            return (
+              <FormItem className="space-y-3">
+                <FormLabel>Categoría</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex items-center text-sm space-x-3"
+                    disabled={isUpdating}
+                  >
+                    <FormItem className="flex items-center space-x-1 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="leng" />
+                      </FormControl>
+                      <FormLabel className="font-normal">
+                        Lenguaje
+                      </FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="fw" />
+                      </FormControl>
+                      <FormLabel className="font-normal">
+                        Framework
+                      </FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="lib" />
+                      </FormControl>
+                      <FormLabel className="font-normal">
+                        Librería
+                      </FormLabel>
+                    </FormItem>
+                  </RadioGroup>
+                </FormControl>
+                <FormDescription>Solo permitido al crear</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
         />
         {form.watch("category") !== "leng" && (
-          <SearchCombobox name="lengTo" title="lenguaje" data={dispoLeng} form={form} disabled={isUpdating}/>
+          <SearchCombobox name="lengTo" title="lenguaje" data={dispoLeng} form={form} disabled={isUpdating} />
         )}
-        { form.watch("category") === "lib" && (
+        {form.watch("category") === "lib" && (
           <SearchCombobox name="fwTo" title="framework" data={dispoFw} form={form} disabled={isUpdating} />
         )}
       </section>

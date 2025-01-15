@@ -7,10 +7,9 @@ import { actualizarJson, actualizarMd } from "../../utils/tech";
 
 
 
-async function doDelete (tipo:string, name:string, img: string) {
+async function doDelete (tipo:string, name:string) {
     console.log(`${tipo} ${name} eliminada correctamente`);
     const proyectosDB = await readAllTechsUC()
-    await deleteImageUC(img)
     //Pasar esto al deleteTechC
     await actualizarJson(proyectosDB);
     console.log(`${tipo} ${name} eliminada correctamente del json`);
@@ -36,7 +35,8 @@ export async function deleteTechC(name: string) {
             lenguaje.frameworks[frameworkIndex].librerias.splice(libreriaIndex, 1);
             proyectoActualizado = await lenguaje.save();
             if (proyectoActualizado) {
-                const res = await doDelete("Librería", name, libreria.img);
+                await deleteImageUC(libreria.img)
+                const res = await doDelete("Librería", name);
                 return res;
             }
         }
@@ -47,6 +47,10 @@ export async function deleteTechC(name: string) {
             const frameworkIndex = lenguaje.frameworks.findIndex((fw:FwDocument) => fw.nameId === name);
             const framework = lenguaje.frameworks.find((fw:FwDocument) => fw.nameId === name);
 
+            // Eliminar imágenes de librerías asociadas al framework
+            for (const libreria of framework.librerias) {
+                await deleteImageUC(libreria.img);
+            }
 
             // Eliminar el framework
             lenguaje.frameworks.splice(frameworkIndex, 1);
@@ -54,7 +58,8 @@ export async function deleteTechC(name: string) {
             proyectoActualizado = await lenguaje.save();
             if (proyectoActualizado) {
                 //Aqui hay que hacer el doDelete, por cada lib que tubiere si las tubiere
-                const res = await doDelete("Framework", name, framework.img);
+                await deleteImageUC(framework.img)
+                const res = await doDelete("Framework", name);
                 return res;
             }
         }
@@ -62,8 +67,15 @@ export async function deleteTechC(name: string) {
         // Buscar en lenguajes
         const lenguajeEliminado = await deleteTechUC({ nameId: name });
         if (lenguajeEliminado) {
-            //Aqui hay que hacer el doDelete, por cada lib y fw que tubiere, si los tubiere
-            const res = await doDelete("Lenguaje", name, lenguajeEliminado.img);
+             // Eliminar imágenes de frameworks y librerías
+             for (const framework of lenguajeEliminado.frameworks) {
+                await deleteImageUC(framework.img);
+                for (const libreria of framework.librerias) {
+                    await deleteImageUC(libreria.img);
+                }
+            }
+            await deleteImageUC(lenguajeEliminado.img)
+            const res = await doDelete("Lenguaje", name);
             return res;
         }
         console.log(`No se encontró una tecnología con el nombre especificado: ${name}`);

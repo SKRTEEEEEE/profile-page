@@ -194,7 +194,7 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
           </div>
         )}
         <FormProvider {...form}>
-        {currentStep === 1 && <StepOne form={form} onComplete={() => handleStepComplete(1)} onError={handleError} />}
+        {currentStep === 1 && <StepOne isAdmin={isAdmin} isUpdating={isUpdating} form={form} onComplete={() => handleStepComplete(1)} onError={handleError} />}
         {currentStep === 2 && <StepTwo isUpdating={isUpdating} form={form} onComplete={() => handleStepComplete(2)} onError={handleError} onPrevious={handlePreviousStep} dispo={dispo} />}
         {currentStep === 3 && <LastStep isAdmin={isAdmin} form={form} loading={isLoading} onSubmit={onSubmit}  onError={handleError} onPrevious={handlePreviousStep} />}
         </FormProvider>

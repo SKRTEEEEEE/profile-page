@@ -20,10 +20,7 @@ type DeleteTechButtonProps = {
 const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onError }) => {
   const account = useActiveAccount()
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  
-  console.log("account delete tech button: ",account)
 
-  // console.log("account delete admin tech: ", account)
   const handleClick = async () => {
     setIsLoading(true);
     try {
@@ -56,7 +53,7 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
       setIsLoading(false);
     }
   };
-  //Muy parecido al boton final del tech-dialog
+  // Render -> Muy parecido al boton final del tech-dialog
   return (
     <>
       {isLoading ? (

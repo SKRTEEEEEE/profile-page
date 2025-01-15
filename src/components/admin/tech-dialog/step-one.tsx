@@ -10,22 +10,27 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { FormField, FormItem, FormControl, FormLabel } from "@/components/ui/form"
 
+type FirstStepTechProps = StepTechProps & {
+    isUpdating: boolean
+    isAdmin: boolean
+}
+
 export function StepOne({
     onComplete,
     onError,
-    form
-}: StepTechProps) {
+    form,
+    isUpdating,
+    isAdmin
+}: FirstStepTechProps) {
     const [isLoading, setIsLoading] = useState(false)
     const [selectedTech, setSelectedTech] = useState<PreTechBase | null>(null)
     const [isFormReady, setIsFormReady] = useState(false)
     const [editWeb, setEditWeb] = useState(false)
-    const [isUpdate, setIsUpdate] = useState(false)
 
     // Efecto inicial para detectar si es un update
     useEffect(() => {
-        const initialValues = form.getValues()
-        if (initialValues.nameId && initialValues.web && initialValues.color) {
-            setIsUpdate(true)
+        if(isUpdating){
+            const initialValues = form.getValues()
             setSelectedTech({
                 nameId: initialValues.nameId,
                 nameBadge: initialValues.nameBadge,
@@ -34,8 +39,8 @@ export function StepOne({
             })
             setIsFormReady(true)
         }
-    }, [])
-
+    }, [isUpdating, form])
+    
     // Observar los cambios en el formulario
     useEffect(() => {
         const subscription = form.watch(() => {
@@ -85,7 +90,7 @@ export function StepOne({
     return (
         <div className="space-y-4">
             <section className="text-sm text-gray-500">
-                <h2>Estás en el formulario para {isUpdate ? 'modificar una tecnología existente' : 'introducir una nueva tecnología'}</h2>
+                <h2>Estás en el formulario para {isUpdating ? 'modificar una tecnología existente' : 'introducir una nueva tecnología'}</h2>
                 
                 {selectedTech && (
                     <>
@@ -140,11 +145,12 @@ export function StepOne({
                     </>
                 )}
 
-                {!isUpdate && (
+                {!isUpdating && (
                     <SearchPreTechCombobox 
                         name="nameId" 
                         title='nombre' 
                         form={form} 
+                        isAdmin={isAdmin}
                     />
                 )}
             </section>

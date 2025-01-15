@@ -87,7 +87,6 @@ export const verifyEmailC = async (id: string, verifyToken: string): Promise<boo
     user.verifyToken = undefined;
     user.verifyTokenExpire = undefined;
     // ⚠️‼️ Esta parte en el futuro sera un botón de "subscripción"
-    console.log("User before update:", user);
 
     const sUser = await updateUserByIdUC(user.id, user)
     if(!sUser) throw new DatabaseOperationError("update user")
@@ -105,7 +104,6 @@ export const checkoutSessionCompletedC = async (session: Stripe.Response<Stripe.
         if(!role)throw new Error("Error with role")
       const stripeCustomerId = role.stripeCustomerId
       // const subscriptionId = role.subscriptionId
-      console.log("role: ",{role})
       if (!stripeCustomerId) {
         throw new Error("stripeCustomerId is undefined");
     }
