@@ -139,7 +139,7 @@ export const dataCounter = [
         id: 2,
         endCounter: 30,
         lineRight: false,
-        lineRightMobile: false,
+        lineRightMobile: true,
     },
     // {
     //     id: 3,
