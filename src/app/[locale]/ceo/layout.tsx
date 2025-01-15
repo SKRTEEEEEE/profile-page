@@ -1,5 +1,6 @@
 import Header from "@/components/ceo/header";
 import Navbar from "@/components/ceo/navbar";
+import CheckoutClientTheme from "@/components/oth/CheckoutClientTheme";
 import { CThemeProvider } from "@/components/oth/theme-provider";
 import { cn } from "@/lib/utils";
 import type { Metadata} from "next";
@@ -28,6 +29,7 @@ export default function Layout({
   return (
       <div className={cn(urbanist.className, "flex max-w-dvw min-h-dvh bg-no-repeat bg-gradient-cover")}>
         <CThemeProvider defaultTheme="dark-soft" disableTransitionOnChange>
+          <CheckoutClientTheme/>
         <ThirdwebProvider>
         <Navbar />
         <Header />
