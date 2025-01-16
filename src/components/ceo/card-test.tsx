@@ -12,7 +12,7 @@ type ThreeDCardBaseProps = {
   desc: string
   img: string
   imgDesc: string
-  links: PortafolioLinksProps
+  links: PortafolioLinksProps["data"]
 }
 
 

@@ -21,9 +21,12 @@ const nextConfig = {
                 hostname: "5ilpg6opjs.ufs.sh"
             },
             {
-                hostname: "images.unsplash.com"
+                hostname: "img.shields.io"
+            },
+            {
+                hostname: "raw.githubusercontent.com"
             }
-        ]
+        ],
     }
 };
 

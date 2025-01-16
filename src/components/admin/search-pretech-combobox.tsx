@@ -189,9 +189,8 @@ export function SearchPreTechCombobox({ title, name, form, isAdmin }: SearchComb
             </Popover>
           </div>
           <FormDescription>
-            <span>
             Selecciona una tecnología para tu perfil. Escribe al menos 2 caracteres para buscar.
-            </span>
+            </FormDescription>
             <div className="flex gap-2 justify-between items-center">
             <span className="text-xs">
               Click para fetch las nuevas techs</span> 
@@ -205,7 +204,7 @@ export function SearchPreTechCombobox({ title, name, form, isAdmin }: SearchComb
             }><HardDriveDownload className="w-4 h-4" /></Button>
             
             </div>
-          </FormDescription>
+          
           <FormMessage />
         </FormItem>
       )}

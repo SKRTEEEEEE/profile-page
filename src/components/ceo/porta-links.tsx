@@ -4,14 +4,16 @@ import { Button } from "../ui/button"
 
 export type PortafolioLinksProps = {
     projectTitle: string
-    web?: string
-    webDesc?: string
-    github: string
-    githubDesc?: string
+    data: {
+        web?: string
+        webDesc?: string
+        github: string
+        githubDesc?: string
+    }
 }
 
 const PortafolioLinks = ({
-    projectTitle, web, webDesc, github, githubDesc
+    projectTitle, data: {web, webDesc, github, githubDesc}
 }: PortafolioLinksProps) => {
     console.log("web: ", web)
     if(webDesc===undefined){

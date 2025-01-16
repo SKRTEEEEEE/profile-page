@@ -1,10 +1,10 @@
 import React from 'react';
 import * as LucideIcons from 'lucide-react';
 
-type IconNames = keyof typeof LucideIcons;
+export type LucideIconNames = keyof typeof LucideIcons;
 
 interface DynamicLucideIconProps extends LucideIcons.LucideProps{
-    iconName: IconNames
+    iconName: LucideIconNames
 }
 
 export const DynamicLucideIcon: React.FC<DynamicLucideIconProps> = ({ iconName, ...props }) => {

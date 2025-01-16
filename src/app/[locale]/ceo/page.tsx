@@ -7,7 +7,7 @@ export default function CeoPage() {
     return (
       <main className="">
         <TransitionPage />
-        <div className="flex w-full min-h-dvh md:pt-12">
+        <div className="flex w-full min-h-dvh">
           <CoverParticles />
           <Introduction />
         </div>

@@ -7,6 +7,7 @@ import { flattenTechs, getGithubUsoByRange } from "@/lib/techs";
 import { Fw, Leng, Lib } from "@/core/domain/entities/tech";
 import { getTranslations } from "next-intl/server";
 import { fetchFileSha, updateFileContent } from "@/actions/techs/utils";
+import { PreTechBase } from "@/core/domain/entities/pre-tech";
 
 
 type RepoDetails = {
@@ -151,10 +152,9 @@ const repo = "markdowns";
 const ref = "profile-page";
 
 
-export async function actualizarMd(proyectosDB: Leng[]|null, create?:{name: string, badge: string, colorhash: string}) {
+export async function actualizarMd(proyectosDB: Leng[]|null, create?:PreTechBase) {
     "use server"
     // const color = create?.colorhash.slice(1)
-    const color = create?.colorhash
 
     try {
         const mdSha = await fetchFileSha(path.md);
@@ -168,12 +168,8 @@ export async function actualizarMd(proyectosDB: Leng[]|null, create?:{name: stri
 </a>
 </p>\n\n\n***\n\n\n`;
         if(create){
-            //hay que poner bien la logica de los name aqui
-            const{name, badge} = create
-            newMdContent += `>- ## ${badge}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.value&label=%F0%9F%92%97%20Afinidad&color=${color}&style=flat&logo=${name})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.afinidad&color=${color}&style=flat&label=%20&suffix=%25)
-        ![Experiencia](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.valueexp&label=%F0%9F%8F%85%20Experiencia&color=${color}&style=flat&logo=${name})![Experiencia %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.experiencia&color=${color}&style=flat&label=%20&suffix=%25)
-        ![Uso En Github](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.valueuso&label=%F0%9F%98%BB%20Uso%20en%20github&color=${color}&style=flat&logo=${name})![Uso en Github %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${name}.usogithub&color=${color}&style=flat&label=%20&suffix=%25)\n>\n>![New Badge](https://img.shields.io/badge/%C2%A1_novedad_%F0%9F%91%8D_!-NEW_%F0%9F%93%A5_%F0%9F%97%92%EF%B8%8F-blue?style=social)
-`;
+            console.log("create: ", create)
+            newMdContent += createBadgeTech(create, true)
         }
         
 
@@ -199,11 +195,12 @@ export async function actualizarMd(proyectosDB: Leng[]|null, create?:{name: stri
     }
 }
 
-export function createBaseBadge(nameId: string, color: string, nameBadge: string, web: string){
+export function createBaseBadge(data: PreTechBase){
+    const {nameId, web} = data
     // const color = tech.color.slice(1)
-    const logoColor = getContrastColor(color)
+    const baseLink = getTechsLinks(data).base
     return(
-        `[![${nameId}](https://img.shields.io/badge/-${nameId}-${color}?style=for-the-badge&logo=${nameBadge}&logoColor=${logoColor})](${web})`
+        `[![${nameId}](${baseLink})](${web})`
     )
 }
 /**
@@ -228,11 +225,35 @@ export function getContrastColor(hexColor: string): string {
     // y necesitamos texto negro. En caso contrario, necesitamos texto blanco.
     return luminance > 0.5 ? "black" : "white";
 }
-export function createBadgeTech(tech: Lib | Leng | Fw) {
-    // const color = tech.color.slice(1)
-    const color = tech.color
+export function createBadgeTech(tech: PreTechBase, newTech?: true ) {
+    const {af, afNum, exp, expNum, github, githubNum} = getTechsLinks({nameId: tech.nameId, color: tech.color, nameBadge:tech.nameBadge, web:tech.web})
+    const baseBadge = createBaseBadge({nameId: tech.nameId, color: tech.color, nameBadge:tech.nameBadge, web:tech.web})
+    console.log("baseBadge: ", baseBadge)
+    if(newTech === true) {
+        return(`>- ## ${baseBadge}\n>![Afinidad](${af})![Afinidad %](${afNum})\n![Experiencia](${exp})![Experiencia %](${expNum})\n![Uso En Github](${github})![Uso en Github %](${githubNum})\n>\n>![New Badge](https://img.shields.io/badge/%C2%A1_novedad_%F0%9F%91%8D_!-NEW_%F0%9F%93%A5_%F0%9F%97%92%EF%B8%8F-blue?style=social)`)
+    }else {
+        return(`${baseBadge}\n>![Afinidad](${af})![Afinidad %](${afNum})\n![Experiencia](${exp})![Experiencia %](${expNum})\n![Uso En Github](${github})![Uso en Github %](${githubNum})`)
+    }
+}
+type GetLinksResp = {
+    base: string
+    af: string
+    afNum: string
+    exp: string
+    expNum: string
+    github: string
+    githubNum: string
+}
+export function getTechsLinks({nameId, nameBadge, color}: PreTechBase): GetLinksResp {
+    const logoColor = getContrastColor(color)
+    return {
+        base: `https://img.shields.io/badge/-${nameId.replace(/\s+/g, '')}-${color}?style=for-the-badge&logo=${nameBadge}&logoColor=${logoColor}`,
+        af: `https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${nameBadge}.value&label=%F0%9F%92%97%20Afinidad&color=${color}&style=flat&logo=${nameBadge}`,
+        afNum: `https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${nameBadge}.afinidad&color=${color}&style=flat&label=%20&suffix=%25`,
+        exp: `https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${nameBadge}.valueexp&label=%F0%9F%8F%85%20Experiencia&color=${color}&style=flat&logo=${nameBadge}`,
+        expNum: `https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${nameBadge}.experiencia&color=${color}&style=flat&label=%20&suffix=%25`,
+        github: `https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${nameBadge}.valueuso&label=%F0%9F%98%BB%20Uso%20en%20github&color=${color}&style=flat&logo=${nameBadge}`,
+        githubNum: `https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${nameBadge}.usogithub&color=${color}&style=flat&label=%20&suffix=%25`
 
-    return (
-        `${createBaseBadge(tech.nameId, tech.color, tech.nameBadge, tech.web)}\n>![Afinidad](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$.${tech.nameBadge}.value&label=%F0%9F%92%97%20Afinidad&color=${color}&style=flat&logo=${tech.nameBadge})![Afinidad %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$.${tech.nameBadge}.afinidad&color=${color}&style=flat&label=%20&suffix=%25)\n![Experiencia](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$.${tech.nameBadge}.valueexp&label=%F0%9F%8F%85%20Experiencia&color=${color}&style=flat&logo=${tech.nameBadge})![Experiencia %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$.${tech.nameBadge}.experiencia&color=${color}&style=flat&label=%20&suffix=%25)\n![Uso En Github](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$.${tech.nameBadge}.valueuso&label=%F0%9F%98%BB%20Uso%20en%20github&color=${color}&style=flat&logo=${tech.nameBadge})![Uso en Github %](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/profile-page/sys/techs-test.json&query=$.${tech.nameBadge}.usogithub&color=${color}&style=flat&label=%20&suffix=%25)`
-    )
+    }
 }

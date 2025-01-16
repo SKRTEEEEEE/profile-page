@@ -23,7 +23,7 @@ const AboutMePage = async () => {
 
 
     return (
-        <main  className="mx-8 mt-4 pb-4 md:pb-0 md:mt-0 sm:mt-12">
+        <main  className="mx-8 mt-24 pb-8 md:pb-0 md:mt-0 sm:mt-12">
             <TransitionPage />
             {/* <span className="flex w-full min-h-dvh bg-no-repeat bg-gradient-cover"> */}
             <div className=" bottom-0 right-0 hidden md:inline-block md:absolute">
@@ -32,10 +32,10 @@ const AboutMePage = async () => {
             <MotionTransition position='right' className="bottom-0 left-0 hidden xl:inline-block xl:absolute">
                 <Image src="/ceo/services.svg" width="400" height="400" className="w-[350px] h-full " alt={t("ceo.images.tablet_office")} />
             </MotionTransition>
-            <div className="md:grid flex flex-col md:pt-40 justify-center min-h-dvh max-w-5xl md:gap-6 gap-4 mx-auto md:grid-cols-2">
+            <div className="md:grid flex flex-col md:pt-20 justify-center items-center min-h-dvh max-w-5xl md:gap-6 gap-4 mx-auto md:grid-cols-2">
                 <section className="max-w-[450px]">
 
-                    <h1 tabIndex={0} className="text-xl mb-4   leading-tight text-center sm:text-left md:text-4xl md:mb-32">{t("ceo.info.section.skills.h1.0")} <span className="font-bold text-secondary-ceo"> {t("ceo.info.section.skills.h1.1")}.</span></h1>
+                    <h1 tabIndex={0} className="text-xl mb-4   leading-tight text-center sm:text-left md:text-4xl md:mb-2">{t("ceo.info.section.skills.h1.0")} <span className="font-bold text-secondary-ceo"> {t("ceo.info.section.skills.h1.1")}.</span></h1>
                     <h2 className='hover:text-secondary-ceo-600/20 text-secondary-ceo-300 md:mb-4'>{t("ceo.info.section.skills.h2")}: </h2>
                     <ul className="md:mb-3 xl:text-xl 
                     text-gray-300">
@@ -53,7 +53,7 @@ const AboutMePage = async () => {
                 </section>
 
                 {/* SLIDER */}
-                {allLeng !== false ? <section className="md:h-full md:my-auto md:pt-40">
+                {allLeng !== false ? <section className="md:h-full md:my-auto md:pt-20">
 
                     <h2 className='hover:text-secondary-ceo-600/20 text-secondary-ceo-300 mb-4' tabIndex={0}>{t("ceo.info.section.slider.h2")}: </h2>
                     <SliderTechs data={allLeng} />

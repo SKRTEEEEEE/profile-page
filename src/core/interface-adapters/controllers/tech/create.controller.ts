@@ -132,9 +132,10 @@ export async function createTechC(data: TechForm): Promise<{success: boolean, me
         // 3. Actualizar MD y JSON
         await Promise.all([
             actualizarMd(proyectosDB, { 
-                name: nameBadge, 
-                badge: createBaseBadge(nameId, color, nameBadge, web), 
-                colorhash: color 
+                nameId,
+                nameBadge, 
+                web, 
+                color 
             }),
             actualizarJson(newProyectosDB)
         ]);

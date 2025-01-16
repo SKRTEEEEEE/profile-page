@@ -1,6 +1,9 @@
 import { dataStudiesPage } from "@/lib/data-ceo";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { Badge } from "../ui/badge";
+
+
 
 type TimeLineProps = {
     id: string
@@ -9,7 +12,8 @@ type TimeLineProps = {
     subtitle: string
     date: string
     web?: string
-    badges?: string[]
+    badges?: string[] // Para poder crear los links de los badges necesitamos
+    // badges?: [PreTechBase, ...Array<PreTechBase[]>] // Para poder crear los links de los badges necesitamos
 }
 
 const TimeLineHARD = () => {
@@ -34,7 +38,11 @@ const TimeLineHARD = () => {
                                 <time className="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-primary-ceo-200 bg-secondary-ceo-700 rounded-full" tabIndex={0}>{data.date}</time>
                                 <Link href={data.link} className="text-xl font-bold text-gray-400">{data.institution}</Link>
                             </div>
-                            <div className="text-slate-400 w-5/6">{t(`estudios.list.${data.id}.desc`)}</div>
+                            {/* <div className="flex gap-2 items-center flex-wrap">{data.badges.map(badge=>(
+                                <Badge key={badge}>{badge}</Badge>
+                            ))}</div> */}
+                            <div className="text-slate-400 w-5/6">{t(`estudios.list.${data.id}.desc`)}
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -44,3 +52,4 @@ const TimeLineHARD = () => {
 }
 
 export default TimeLineHARD;
+

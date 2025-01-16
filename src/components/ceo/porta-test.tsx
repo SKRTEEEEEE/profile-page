@@ -3,14 +3,19 @@
 import Image from "next/image";
 import { Tabs } from "../ui-ac/tabs";
 import { ThreeDCardDemo } from "./card-test";
-import { FeatureCard } from "./feature-card";
-import { CustomBadge } from "./custom-badge";
-import { Cpu, Shield, Workflow, Zap } from "lucide-react";
-import TimeLineHARD from "./time-line-hard";
-import PortafolioLinks from "./porta-links";
-import { portafolioExample } from "./porta-example";
 
-const ContentLayout = ({children}: {children: React.ReactNode;}) => (
+import TimeLineHARD from "./time-line-hard";
+import PortafolioLinks, { PortafolioLinksProps } from "./porta-links";
+import { portafolioExample } from "./porta-example";
+import { KeyProjectsCards } from "./feature-card";
+
+type ContentLayoutProps = {
+    children: React.ReactNode
+    title: string
+    links?: PortafolioLinksProps["data"]
+}
+
+const ContentLayout = ({children, links, title}: ContentLayoutProps) => (
     <div className="w-full relative h-full rounded-2xl">
          <style jsx>{`
         ::-webkit-scrollbar {
@@ -42,6 +47,7 @@ const ContentLayout = ({children}: {children: React.ReactNode;}) => (
         
         {/* Content container */}
         <div className="w-full overflow-auto relative h-full rounded-2xl px-10 md:pt-5 text-xl md:text-4xl font-bold text-white">
+            {links!==undefined&&<PortafolioLinks projectTitle={title} data={links}/>}
           {children}
         </div>
     </div>
@@ -54,10 +60,10 @@ export function TabsDemo() {
         value: "desc",
         content: (
             
-          <ContentLayout>
+          <ContentLayout title={portafolioExample[0].title}>
            
             <p>Descripción</p>
-            <ThreeDCardDemo title={portafolioExample[0].title} img={portafolioExample[0].img} imgDesc={portafolioExample[0].img} links={{projectTitle: portafolioExample[0].title, ...portafolioExample[0].links}} desc={portafolioExample[0].desc}/>
+            <ThreeDCardDemo title={portafolioExample[0].title} img={portafolioExample[0].img} imgDesc={portafolioExample[0].img} links={ portafolioExample[0].links} desc={portafolioExample[0].desc}/>
          </ContentLayout>
         ),
       },
@@ -65,64 +71,17 @@ export function TabsDemo() {
       title: "Detalles",
       value: "details",
       content: (
-            <ContentLayout>
-                <PortafolioLinks projectTitle={portafolioExample[0].title} github={portafolioExample[0].links.github}/>
-          <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-900/30 to-transparent rounded-xl blur-xl" />
-                <div className="relative">
-                  <h3 className="text-2xl font-bold text-purple-100 mb-4">Tecnologías</h3>
-                  <div className="flex flex-wrap gap-3">
-                    {['React', 'TypeScript', 'Next.js', 'TailwindCSS', 'Node.js', 'MongoDB'].map((tech) => (
-                      <CustomBadge key={tech}>{tech}</CustomBadge>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Características Clave -
-                      - Si funciona bien en mobile, hacer esta parte con swiper                
-              */}
-              <div>
-                <h3 className="text-2xl font-bold text-purple-100 my-6">Características Clave</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <FeatureCard
-                    icon={<Cpu className="w-6 h-6" />}
-                    title="Rendimiento Optimizado"
-                    description="Arquitectura de alto rendimiento con optimizaciones avanzadas para una experiencia fluida."
-                  />
-                  <FeatureCard
-                    icon={<Shield className="w-6 h-6" />}
-                    title="Seguridad Avanzada"
-                    description="Implementación de protocolos de seguridad de última generación para proteger datos sensibles."
-                  />
-                  <FeatureCard
-                    icon={<Zap className="w-6 h-6" />}
-                    title="Tiempo Real"
-                    description="Actualizaciones instantáneas y sincronización en tiempo real entre todos los usuarios."
-                  />
-                  <FeatureCard
-                    icon={<Workflow className="w-6 h-6" />}
-                    title="Flujo de Trabajo"
-                    description="Procesos automatizados y flujos de trabajo personalizables para máxima eficiencia."
-                  />
-                </div>
-              </div></ContentLayout>
+            <ContentLayout title={portafolioExample[0].title} links={portafolioExample[0].links}>
+                <KeyProjectsCards techs={portafolioExample[0].techs} keys={portafolioExample[0].keys}/>
+              </ContentLayout>
       ),
     },
     {
       title: "Versiones",
       value: "services",
       content: (
-        <ContentLayout>
-                <PortafolioLinks projectTitle={portafolioExample[0].title} github={portafolioExample[0].links.github}/>
-                {/* <Image
-              src="/ceo/image-2.png"
-              alt="dummy image"
-              width="1000"
-              height="1000"
-              className="object-cover object-left-top h-[60%] md:h-[80%] w-[90%] rounded-xl mx-auto"
-            /> */}
-            {/* <ThreeDCardDemo/> */}
+        <ContentLayout title={portafolioExample[0].title} links={portafolioExample[0].links}>
+            
             <TimeLineHARD/>
          </ContentLayout>
       ),
