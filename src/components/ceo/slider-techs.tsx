@@ -7,6 +7,7 @@ import { Pagination } from 'swiper/modules';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { FullTechData } from '@/core/domain/entities/tech';
 import { useTranslations } from 'next-intl';
+import { createSimpleIconByNameBadge, DynamicSimpleIcon } from '../oth/dyn/dynamic-si';
 
 const SliderTechs = ({data}: {data:FullTechData[]}) => {
     const t = useTranslations("ceo.info.section.slider")
@@ -42,11 +43,13 @@ const SliderTechs = ({data}: {data:FullTechData[]}) => {
                             <div className='h-full w-full flex flex-col items-center justify-between'>
                                 <div className='flex md:flex-col w-full justify-between items-center'>
                                 <h3 className="mb-4 text-xl" tabIndex={0}>{(item.nameId).charAt(0).toUpperCase() + (item.nameId).slice(1).toLowerCase()}</h3>
-                                
+                                { item.img  ?
                                 <Avatar className='w-16 h-16 mb-2'>
-                                    <AvatarImage src={item.img?item.img:""} alt={item.nameId} />
+                                     <AvatarImage src={item.img} alt={item.nameId} />
+                                    
                                     <AvatarFallback>{item.nameId.substring(0, 2).toUpperCase()}</AvatarFallback>
-                                </Avatar>
+                                </Avatar> :
+                                    <DynamicSimpleIcon iconName={createSimpleIconByNameBadge(item.nameBadge)} size={36}/>}
                                </div>
                                <div className="flex sm:flex-col w-full justify-between items-center">
                                 <h4>{t("affinity")}  </h4>

@@ -4,8 +4,7 @@ import Link from "next/link";
 import { Badge } from "../ui/badge";
 
 
-
-type TimeLineProps = {
+export type DataTimeLine = {
     id: string
     title: string
     desc: string
@@ -16,15 +15,20 @@ type TimeLineProps = {
     // badges?: [PreTechBase, ...Array<PreTechBase[]>] // Para poder crear los links de los badges necesitamos
 }
 
-const TimeLineHARD = () => {
-    const t = useTranslations("ceo")
+type TimeLineProps = {
+    arrData: DataTimeLine[]
+}
+
+const TimeLine = ({arrData}: TimeLineProps) => {
     return (
         <div className="flex flex-col justify-center divide-y divide-slate-200">
             <div className="w-full max-w-3xl mx-auto md:pb-40 ">
                 <div className="-my-6">
-                    {dataStudiesPage.map((data) => (
-                        <div key={data.id} className="relative py-6 pl-8 sm:pl-32 group">
-                            <h3 className="mb-1 text-2xl font-bold sm:mb-0" tabIndex={0}>{t(`estudios.list.${data.id}.title`)}</h3>
+                    {arrData.map((data) => {
+                        const {id, title, desc, subtitle, date, web, badges} = data
+                        return(
+                        <div key={id} className="relative py-6 pl-8 sm:pl-32 group">
+                            <h3 className="mb-1 text-2xl font-bold sm:mb-0" tabIndex={0}>{title}</h3>
                             <div className="flex flex-col sm:flex-row items-start mb-1 
                                         group-last:before:hidden before:absolute 
                                         before:left-2 sm:before:left-0 before:h-full
@@ -35,21 +39,21 @@ const TimeLineHARD = () => {
                                         after:border-4 after:box-content after:border-slate-50 
                                         after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 
                                         after:translate-y-1.5">
-                                <time className="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-primary-ceo-200 bg-secondary-ceo-700 rounded-full" tabIndex={0}>{data.date}</time>
-                                <Link href={data.link} className="text-xl font-bold text-gray-400">{data.institution}</Link>
+                                <time className="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-primary-ceo-200 bg-secondary-ceo-700 rounded-full" tabIndex={0}>{date}</time>
+                                <Link href={web?web:"#"} className="text-xl font-bold text-gray-400">{subtitle}</Link>
                             </div>
-                            <div className="flex gap-2 items-center flex-wrap">{data.badges.map(badge=>(
+                            {badges&&<div className="flex gap-2 items-center flex-wrap">{badges.map(badge=>(
                                 <Badge key={badge}>{badge}</Badge>
-                            ))}</div>
-                            <div className="text-slate-400 w-5/6">{t(`estudios.list.${data.id}.desc`)}
+                            ))}</div>}
+                            <div className="text-slate-400 w-5/6">{desc}
                             </div>
                         </div>
-                    ))}
+                    )})}
                 </div>
             </div>
         </div>
     );
 }
 
-export default TimeLineHARD;
+export default TimeLine;
 

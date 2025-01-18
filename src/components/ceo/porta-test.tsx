@@ -1,13 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { Tabs } from "../ui-ac/tabs";
 import { ThreeDCardDemo } from "./card-test";
-
-import TimeLineHARD from "./time-line-hard";
 import PortafolioLinks, { PortafolioLinksProps } from "./porta-links";
 import { portafolioExample } from "./porta-example";
 import { KeyProjectsCards } from "./feature-card";
+import TimeLine from "./time-line";
 
 type ContentLayoutProps = {
     children: React.ReactNode
@@ -62,7 +60,6 @@ export function TabsDemo() {
             
           <ContentLayout title={portafolioExample[0].title}>
            
-            <p>Descripción</p>
             <ThreeDCardDemo title={portafolioExample[0].title} img={portafolioExample[0].img} imgDesc={portafolioExample[0].img} links={ portafolioExample[0].links} desc={portafolioExample[0].desc}/>
          </ContentLayout>
         ),
@@ -82,61 +79,18 @@ export function TabsDemo() {
       content: (
         <ContentLayout title={portafolioExample[0].title} links={portafolioExample[0].links}>
             
-            <TimeLineHARD/>
+            <TimeLine arrData={portafolioExample[0].time}/>
          </ContentLayout>
       ),
     },
-    // {
-    //   title: "Versiones",
-    //   value: "services",
-    //   content: (
-    //     <div className="w-full overflow-hidden relative h-full rounded-2xl px-10 md:pt-5 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
-    //       <p>Versiones</p>
-    //       <DummyContent />
-    //     </div>
-    //   ),
-    // },
-    // {
-    //   title: "Playground",
-    //   value: "playground",
-    //   content: (
-    //     <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
-    //       <p>Playground tab</p>
-    //       <DummyContent />
-    //     </div>
-    //   ),
-    // },
-    // {
-    //   title: "Content",
-    //   value: "content",
-    //   content: (
-    //     <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
-    //       <p>Content tab</p>
-    //       <DummyContent />
-    //     </div>
-    //   ),
-    // },
-
   ];
 
   return (
     
-    <div className="h-[40rem] [perspective:1000px]  relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
+    <div className="h-[28rem] sm:h-[32rem] [perspective:1000px]  relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
         
       <Tabs tabs={tabs} />
 
     </div>
   );
 }
-
-// const DummyContent = () => {
-//   return (
-//     <Image
-//       src="/ceo/image-2.png"
-//       alt="dummy image"
-//       width="1000"
-//       height="1000"
-//       className="object-cover object-left-top h-[60%]  md:h-[90%] absolute -bottom-10 inset-x-0 w-[90%] rounded-xl mx-auto"
-//     />
-//   );
-// };
