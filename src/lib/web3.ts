@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server"
+import { creatorData } from "./data"
 
 export type Web3I18 = {
     id: number
@@ -16,15 +17,15 @@ export type Web3Stat = {
 const web3Static: Web3Stat[] = [{
     id: 1,
     path: "/nft-raffle",
-    contract: "https://github.com/SKRTEEEEEE/trySolidity24/blob/main/markdown/contratos_desplegados.md"
+    contract: `${creatorData.githubUrl}/trySolidity24/blob/main/markdown/contratos_desplegados.md`
 }, {
     id: 2,
     path: "/nft-membership",
-    contract: "https://github.com/SKRTEEEEEE/trySolidity24/blob/main/markdown/contratos_desplegados.md"
+    contract: `${creatorData.githubUrl}/trySolidity24/blob/main/markdown/contratos_desplegados.md`
 }, {
     id: 3,
     path: "/counter",
-    contract: "https://github.com/SKRTEEEEEE/trySolidity24/blob/main/markdown/contratos_desplegados.md"
+    contract: `${creatorData.githubUrl}/trySolidity24/blob/main/markdown/contratos_desplegados.md`
 }]
 
 export async function getWeb3(): Promise<(Web3I18 & Web3Stat)[]> {

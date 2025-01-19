@@ -37,7 +37,7 @@ const dataSiteConfig = {
   icons: [
       {
           id: "users",
-          path: siteConfig.links.users,
+          path: "/admin/users",
           title: "Usuarios",
           render: 
           <>

@@ -1,36 +1,23 @@
-export const metadataMain = {
-    name: "SkrtBlog",
-    url: "https://profile-skrt.vercel.app/",
-    description: "Nextjs 15 profile programmer page",
-    author: "Adan Reh",
-    links:{
-        twitter: "https://x.com/queen420nft",
-        github: "https://github.com/SKRTEEEEEE",
-        personalSite: "https://profile-skrt.vercel.app/"
+import { creatorData } from "./data"
+
+const getMetadataSection = (options: {name: string, desc:string}) => {
+    return {
+        name: options.name,
+        url: creatorData.profileWebUrl,
+        description: options.desc,
+        author: "Adan Reh",
+        links:{
+            twitter: creatorData.twitter,
+            github: creatorData.githubUrl,
+            personalSite: creatorData.profileWebUrl
+        }
     }
 }
-export const metadataBlog = {
-    name: "SkrtBlog",
-    url: "https://profile-skrt.vercel.app/es/blog",
-    description: "NextJs 15 exercises blog",
-    author: "Adan Reh",
-    links:{
-        twitter: "https://x.com/queen420nft",
-        github: "https://github.com/SKRTEEEEEE",
-        personalSite: "https://profile-skrt.vercel.app/"
-    }
-}
-export const  metadataAdmin = {
-    name: "SkrtAdmin",
-    url: "https://blog-next-green-eight.vercel.app/",
-    description: "NextJs 14 admin dashboard for the page",
-    author: "Adan Reh",
-    links:{
-        users: "/admin/users",
-        twitter: "https://github.com/SKRTEEEEEE",
-        idk: "https://profile-skrt.vercel.app/"
-    }
-}
+
+export const metadataMain = getMetadataSection({name: "SkrtPage",desc: "Nextjs 15 profile programmer page"})
+export const metadataBlog = getMetadataSection({name: "SkrtBlog",desc: "NextJs 15 exercises blog"})
+export const metadataAdmin = getMetadataSection({name: "SkrtAdmin",desc: "NextJs 15 admin dashboard for the page"})
+
 
 export type SiteConfigMetadata = {
     name: string;

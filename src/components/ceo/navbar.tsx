@@ -1,11 +1,78 @@
 "use client"
-
-
-import { itemsNavbar } from "@/lib/data-ceo";
-
 import { MotionTransition } from "../oth/transition-component";
 import { Link, usePathname } from "@/i18n/routing";
 import { useLocale } from "next-intl";
+import { BookText, CodeSquare,  HomeIcon, UserRound, Linkedin, Link as LucideLink, Info } from "lucide-react";
+
+
+const itemsNavbar = [
+    {
+        id: 1,
+        title: "Home",
+        icon: <HomeIcon size={25} color="#fff" strokeWidth={1} aria-describedby="Home" />,
+        link: "/",
+        desc: {
+            es: "Volver al inicio",
+            de: "Zur Startseite zurückkehren",
+            en: "Go to start"
+        }
+    },
+    {
+        id: 2,
+        title: "Perfil",
+        icon: <UserRound size={25} color="#fff" strokeWidth={1} aria-describedby="Perfil" />,
+        link: "/ceo",
+        desc: {
+            es: "Presentación perfil",
+            de: "Profilpräsentation",
+            en: "Profile presentation"
+        }
+    },
+    {
+        id: 3,
+        title: "Información",
+        icon: <Info size={25} color="#fff" strokeWidth={1} aria-describedby="Información" />,
+        link: "/ceo/info",
+        desc: {
+            es: "Principal Información tecnológica",
+            de: "Wichtige technologische Informationen",
+            en: "Main technological information"
+        }
+    },
+    {
+        id: 4,
+        title: "Portafolio",
+        icon: <CodeSquare size={25} color="#fff" strokeWidth={1} aria-describedby="Portafolio" />,
+        link: "/ceo/portafolio",
+        desc: {
+            es: "Principales proyectos de código abierto",
+            de: "Wichtigste Open-Source-Projekte",
+            en: "Main open-source projects"
+        }
+    },
+    {
+        id: 5,
+        title: "Estudios",
+        icon: <BookText size={25} color="#fff" strokeWidth={1} aria-describedby="Estudios" />,
+        link: "/ceo/estudios",
+        desc: {
+            es: "Estudios certificados oficiales",
+            de: "Offizielle zertifizierte Studien",
+            en: "Official certified studies"
+        }
+    },
+    {
+        id: 6,
+        title: "Code",
+        icon: <LucideLink size={25} color="#fff" strokeWidth={1} aria-describedby="Code" />,
+        link: "/ceo/code",
+        desc: {
+            es: "Información sobre proyectos de código abierto web3",
+            de: "Informationen zu Open-Source-Web3-Projekten",
+            en: "Information about open-source web3 projects"
+        }
+    },
+];
 
 const Navbar = () => {
     const router = usePathname()

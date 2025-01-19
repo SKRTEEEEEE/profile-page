@@ -23,7 +23,6 @@ import { InputParseError } from "@/core/domain/errors/main";
 
 
 */
-
 export type StepTechProps = {
   onComplete: (data: number) => void
   onError: (errors: string[]) => void

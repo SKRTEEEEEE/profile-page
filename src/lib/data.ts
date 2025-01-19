@@ -1,4 +1,10 @@
-
+export const creatorData = {
+  githubUrl: "https://github.com/SKRTEEEEEE",
+  email: "adanreh.m@gmail.com",
+  emailTo: `mailto:adanreh.m@gmail.com`,
+  twitter: "https://x.com/queen420nft",
+  profileWebUrl: "https://profile-skrt.vercel.app"
+}
 export const plansBasicInfo = [
     {
       name: "Plan Gratuito",

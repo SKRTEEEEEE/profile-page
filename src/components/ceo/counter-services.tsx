@@ -1,10 +1,35 @@
 "use client"
 
-import { dataCounter } from "@/lib/data-ceo";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import CountUp from "react-countup";
-
+const dataCounter = [
+    {
+        id: 0,
+        endCounter: 2,
+        lineRight: true,
+        lineRightMobile: true,
+    },
+    {
+        id: 1,
+        endCounter: 80,
+        lineRight: true,
+        lineRightMobile: false,
+    },
+    {
+        id: 2,
+        endCounter: 30,
+        lineRight: false,
+        lineRightMobile: true,
+    },
+    // {
+    //     id: 3,
+    //     endCounter: 30,
+    //     text: "Premios ganadores",
+    //     lineRight: false,
+    //     lineRightMobile: false,
+    // },
+];
 const CounterServices = () => {
     const t = useTranslations("ceo.estudios.counter")
     return (

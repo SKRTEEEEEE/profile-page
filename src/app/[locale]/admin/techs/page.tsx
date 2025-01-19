@@ -2,8 +2,8 @@ import AdminTechTable from "@/components/admin/tech-table"
 import { readRoleUC } from "@/core/application/usecases/entities/role"
 import { readAllTechsUC } from "@/core/application/usecases/entities/tech"
 import { getCookiesUC } from "@/core/application/usecases/services/auth"
+import { flattenTechs } from "@/core/interface-adapters/utils/tech"
 // import { JWTContext } from "@/core/application/services/auth"
-import { flattenTechs } from "@/lib/techs"
 
 
 const TechsAdminPage = async( ) =>{

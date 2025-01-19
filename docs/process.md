@@ -174,7 +174,16 @@ npm i react-countup
     - [ ] Problema con el SHA en updateMd
 - [x] Comprobar el uso de nameBadge/nameId con los badges (actualizarJson)
 ### refactor
-- [ ] Campo web, seguramente haremos que el usuario pueda tener un campo web especifico, pero sera distinto al web del pretech, ya que este lo utilizaremos para mostrar la img en web
+- [❓] Campo web, ??seguramente haremos que el usuario pueda tener un campo web especifico, pero sera distinto al web del pretech
+## 16. Upgrade de parte projects
+### Empezar a guardar los datos en la base de datos
+
+## 1x. Mejorar frontend  (Clean Code, estructura, metadatos) 
+- [ ] Definir estructura types del frontend --donde los pondremos, cuando debemos crear uno, etc..
+- [ ] Definir estructura lib, unificar archivos, mejorar nombres, etc...
+- [ ] Empezar a trabajar la parte de metadatos de la sección de 'sobre mi'
+- [❓] Cambiar el nombre de ceo a admin?
+
 ## 1x. Reestructurar clean arch v3 p2 (back)
 ### Revisar connectors
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.

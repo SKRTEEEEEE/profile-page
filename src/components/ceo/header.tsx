@@ -1,11 +1,33 @@
 "use client"
 
-import { socialNetworks } from "@/lib/data-ceo";
 import Link from "next/link";
 import Image from "next/image";
 import { MotionTransition } from "../oth/transition-component";
 import LocalSwitcher from "../oth/locale-switch";
+import { Github, Mail } from "lucide-react";
+import { creatorData } from "@/lib/data";
+const socialNetworks = [
+    {
+        id: 1,
+        logo: <Github  size={30} strokeWidth={1} aria-describedby="Github"/>,
+        src: creatorData.githubUrl,
+        title: "Github",
+        desc: "Mi perfil en Github"
+    },
+    // {
+    //     id: 2,
+    //     logo: <Linkedin size={30} strokeWidth={1} />,
+    //     src: "skkdjalksa",
+    // },
+    {
+        id: 3,
+        logo: <Mail size={30} strokeWidth={1} aria-describedby="Mail"/>,
+        src: `${creatorData.emailTo}`,
+        title: "Mail",
+        desc: "Contacto de correo electrónico"
+    },
 
+];
 const Header = () => {
     return (
         <MotionTransition position="bottom" className="fixed z-40 w-full top-1 md:top-2">

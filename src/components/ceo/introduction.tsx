@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TypeAnimation } from 'react-type-animation';
 import { Link as LinkLocale } from "@/i18n/routing"
+import { creatorData } from "@/lib/data";
 
 
 const Introduction = () => {
@@ -44,7 +45,7 @@ const Introduction = () => {
                         <LinkLocale href="/ceo/proyectos" className="w-48 text-center py-2 my-2 transition-all border-2 cursor-pointer text-md  bg-primary-ceo-900/60 hover:bg-primary-ceo-900/30 rounded-xl hover:shadow-md hover:shadow-white/50">
                             {t("main.introduction.buttons.view_projects")}
                         </LinkLocale>
-                        <Link href="mailto:adanreh.m@gmail.com"
+                        <Link href={creatorData.emailTo}
                             className="w-48 text-center py-2 sm:my-5 transition-all border-1 shadow-secondary-ceo-900 shadow-sm cursor-pointer text-md text-primary-ceo-200 border-secondary-ceo/10 rounded-xl hover:shadow-xl hover:shadow-secondary-ceo" >
                             {t("main.introduction.buttons.contact_me")}
                         </Link>

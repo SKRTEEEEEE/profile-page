@@ -1,6 +1,6 @@
 import { createTechUC, readAllTechsUC, readOneTechUC, updateTechUC } from "@/core/application/usecases/entities/tech";
 import { Leng, TechBase, TechForm } from "@/core/domain/entities/tech";
-import { actualizarJson, actualizarMd, createBaseBadge, getGithubPercentage } from "../../utils/tech";
+import { actualizarJson, actualizarMd, getGithubPercentage } from "../../utils/tech";
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 
 /**

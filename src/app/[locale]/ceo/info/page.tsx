@@ -6,8 +6,8 @@ import TransitionPage from "@/components/oth/transition-page";
 import { Button } from "@/components/ui/button";
 import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
 import { FullTechData, Leng } from "@/core/domain/entities/tech";
+import { flattenTechs } from "@/core/interface-adapters/utils/tech";
 import { Link } from "@/i18n/routing";
-import { flattenTechs } from "@/lib/techs";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 

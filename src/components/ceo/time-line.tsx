@@ -1,5 +1,3 @@
-import { dataStudiesPage } from "@/lib/data-ceo";
-import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 
@@ -22,7 +20,7 @@ type TimeLineProps = {
 const TimeLine = ({arrData}: TimeLineProps) => {
     return (
         <div className="flex flex-col justify-center divide-y divide-slate-200">
-            <div className="w-full max-w-3xl mx-auto md:pb-40 ">
+            <div className="w-full max-w-3xl mx-auto md:pb-10 ">
                 <div className="-my-6">
                     {arrData.map((data) => {
                         const {id, title, desc, subtitle, date, web, badges} = data
