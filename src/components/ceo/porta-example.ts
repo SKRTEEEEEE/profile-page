@@ -7,6 +7,7 @@ export type PortafolioExampleData = {
     title: string
     img: string
     imgDesc: string
+    lilDesc: string
     desc: string
     links: PortafolioLinksProps["data"]
     techs: string[]
@@ -24,7 +25,8 @@ export const portafolioExample = [
         // parte descripción
         img: "/ceo/image-2.png",
         imgDesc: "Imagen muy bonita de mi web",
-        desc: "Proyecto de web personal en la que explorar mis posibilidades como programador",
+        lilDesc: "Proyecto de web personal principal en la que aplicar mis posibilidades como programador",
+        desc: "Web personal donde aplico mis conocimientos como programador backend, con una funcionalidad para mantener actualizada la información tanto en la web como en Github (parte 'sobre mi') y creando un SAAS completo con una arquitectura escalable y segura, que incorpora seis niveles de permisos jerárquico",
         icon: "UserRoundSearch" as LucideIconNames,
         // parte detalles
         techs: ['React', 'TypeScript', 'Next.js', 'TailwindCSS', 'Node.js', 'MongoDB'],
@@ -97,7 +99,8 @@ export const portafolioExample = [
         },
         img: "/ceo/image-4.png",
         imgDesc: "Imagen representativa de mini-apps en red Sepolia",
-        desc: "Proyecto de tres mini-apps en la red de pruebas Sepolia de Ethereum: lotería descentralizada, almacenamiento seguro y NFT de membresía SaaS",
+        lilDesc: "Tres mini-dApps: lotería descentralizada, almacenamiento seguro y NFT de membresía SaaS",
+        desc: "Tres mini-dApps EVM realizadas que integran blockchain (red Sepolia Ethereum) en casos prácticos: una lotería descentralizada, un almacenamiento seguro de datos y un sistema de NFT como membresía SaaS, diseñadas con contratos inteligentes programados con Solidity, para garantizar seguridad y transparencia.",
         techs: ['Solidity', 'Ethereum', 'Sepolia', 'React', 'TypeScript', 'Hardhat', 'Web3.js'],
         icon: "Link" as LucideIconNames,
         keys: [

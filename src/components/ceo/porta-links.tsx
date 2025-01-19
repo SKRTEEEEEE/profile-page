@@ -15,7 +15,6 @@ export type PortafolioLinksProps = {
 const PortafolioLinks = ({
     projectTitle, data: {web, webDesc, github, githubDesc}
 }: PortafolioLinksProps) => {
-    console.log("web: ", web)
     if(webDesc===undefined){
         webDesc = `Dirígete a la pagina web de ${projectTitle}`
     }

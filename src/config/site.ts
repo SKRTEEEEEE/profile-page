@@ -1,7 +1,18 @@
 export const siteConfigMain = {
     name: "SkrtBlog",
-    url: "https://blog-next-green-eight.vercel.app/",
-    description: "NextJs 14 exercises blog using velite, tailwind and shadcn",
+    url: "https://profile-skrt.vercel.app/",
+    description: "Nextjs 15 profile programmer page",
+    author: "Adan Reh",
+    links:{
+        twitter: "https://x.com/queen420nft",
+        github: "https://github.com/SKRTEEEEEE",
+        personalSite: "https://profile-skrt.vercel.app/"
+    }
+}
+export const siteConfigBlog = {
+    name: "SkrtBlog",
+    url: "https://profile-skrt.vercel.app/es/blog",
+    description: "NextJs 15 exercises blog",
     author: "Adan Reh",
     links:{
         twitter: "https://x.com/queen420nft",

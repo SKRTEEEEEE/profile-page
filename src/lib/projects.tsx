@@ -74,6 +74,5 @@ export async function getProjects(): Promise<Project[]> {
       ejemplo: project.ejemplo || false
     };
   });
-  console.log("mappedProjects: ", mappedProjects)
   return mappedProjects
 }

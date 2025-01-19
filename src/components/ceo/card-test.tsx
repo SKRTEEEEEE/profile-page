@@ -6,21 +6,23 @@ import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
 import Link from "next/link";
 import { GithubIcon } from "lucide-react";
 import { PortafolioLinksProps } from "./porta-links";
-
-type ThreeDCardBaseProps = {
+type ThreeDCardOptions= {
   title: string
   desc: string
   img: string
   imgDesc: string
+}
+type ThreeDCardBaseProps = {
+  options: ThreeDCardOptions
   links: PortafolioLinksProps["data"]
 }
 
 
-export function ThreeDCardDemo({title, desc, img ,imgDesc, links}: ThreeDCardBaseProps) {
-  console.log("web:" , links.web)
+export function ThreeDCardDemo({options, links}: ThreeDCardBaseProps) {
+  const {title, desc, img ,imgDesc}= options
   return (
     <CardContainer className="inter-var">
-      <CardBody className=" relative group/card hover:shadow-2xl hover:shadow-emerald-500/[0.1] bg-black border-white/[0.2]  w-auto sm:w-[40rem] md:w-[55rem] h-auto rounded-xl p-6 border  bg-transparent/15 ">
+      <CardBody className=" relative group/card hover:shadow-2xl hover:shadow-emerald-500/[0.1] bg-black   w-auto sm:w-[40rem] md:w-[55rem] h-auto rounded-xl p-6   bg-transparent/15 ">
         <CardItem
           translateZ="50"
           className="text-xl pl-8 font-bold  text-white"
@@ -31,7 +33,7 @@ export function ThreeDCardDemo({title, desc, img ,imgDesc, links}: ThreeDCardBas
         <CardItem
           as="p"
           translateZ="60"
-          className=" pl-8 text-sm max-w-sm mt-2  text-neutral-300"
+          className=" pl-8 text-sm mt-2  text-neutral-300"
         >
           {/* Hover over this card to unleash the power of CSS perspective */}
           {desc}
@@ -45,7 +47,7 @@ export function ThreeDCardDemo({title, desc, img ,imgDesc, links}: ThreeDCardBas
             alt={imgDesc}
           />
         </CardItem>
-        <div className={links.web===undefined?"flex justify-end items-center":"flex justify-between items-center mt-20"}>
+        <div className={links.web===undefined?"flex justify-end items-center mt-10":"flex justify-between items-center mt-10"}>
           {links.web === undefined?null:<CardItem
             translateZ={20}
             as={Link}

@@ -84,11 +84,13 @@ export function TabsDemo() {
             
           <ContentLayout title={state.projectData.title}>
         <ThreeDCardDemo 
-          title={state.projectData.title} 
-          img={state.projectData.img} 
-          imgDesc={state.projectData.img} 
+          options={{
+            title:state.projectData.title, 
+            img:state.projectData.img, 
+            imgDesc: `Imagen de muestra del proyecto ${state.projectData.title}`, 
+            desc:state.projectData.desc,
+          }}
           links={state.projectData.links} 
-          desc={state.projectData.desc}
         />
       </ContentLayout>
         ),
@@ -113,14 +115,14 @@ export function TabsDemo() {
       ),
     },
   ]
-  const selectorTabs = portafolioExample.map((data, index)=>({id: index.toString(), name: data.title, description: data.desc, icon: <DynamicLucideIcon iconName={data.icon as LucideIconNames}/>}))
+  const selectorTabs = portafolioExample.map((data, index)=>({id: index.toString(), name: data.title, description: data.lilDesc, icon: <DynamicLucideIcon iconName={data.icon as LucideIconNames}/>}))
   const onProjectSelect =  (index:number)=>dispatch({type: "SET_SELECTED_PROJECT", payload: index})
   const projectSelectOptions = {projects: selectorTabs, selectedProject:state.selectedProject, onProjectSelect}
   return (
     <div className="flex flex-col justify-center h-full lg:pt-8">
         
 
-    <div className="h-[28rem] sm:h-[32rem] [perspective:1000px]  relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
+    <div className="h-[28rem] sm:h-[36rem] [perspective:1000px]  relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
         
       <Tabs key={state.selectedProject} tabs={tabs} projectSelectOptions={projectSelectOptions}/>
 

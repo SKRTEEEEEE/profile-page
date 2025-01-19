@@ -62,7 +62,7 @@ export function ProjectSelector({options}: ProjectSelectorProps) {
           <div className="w-[200px] relative border-r border-purple-500/20">
             <div className="aspect-square relative">
               <Image
-                src="/ceo/avatar-code.png"
+                src="/ceo/portafolio-select.png"
                 alt="Project Preview"
                 fill
                 className="object-cover"

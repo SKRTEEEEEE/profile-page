@@ -1,11 +1,13 @@
 import { NextRequest } from "next/server";
 import { ImageResponse } from "next/og";
-import { siteConfigMain as siteConfig } from "@/config/site";
+import { siteConfigBlog as siteConfig } from "@/config/site";
 
 export const runtime = "edge";
 
+//HAY QUE MIRAR QUE LA RUTA ESTE BIEN! - tambien hay que set los meta del resto de secciones
+
 const interBold = fetch(
-  new URL("../../../../assets/fonts/Inter-Bold.ttf", import.meta.url)
+  new URL("../../../../../content/assets/fonts/Inter-Bold.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer());
 
 export async function GET(req: NextRequest) {
