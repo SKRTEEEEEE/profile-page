@@ -1,4 +1,4 @@
-export const siteConfigMain = {
+export const metadataMain = {
     name: "SkrtBlog",
     url: "https://profile-skrt.vercel.app/",
     description: "Nextjs 15 profile programmer page",
@@ -9,7 +9,7 @@ export const siteConfigMain = {
         personalSite: "https://profile-skrt.vercel.app/"
     }
 }
-export const siteConfigBlog = {
+export const metadataBlog = {
     name: "SkrtBlog",
     url: "https://profile-skrt.vercel.app/es/blog",
     description: "NextJs 15 exercises blog",
@@ -20,7 +20,7 @@ export const siteConfigBlog = {
         personalSite: "https://profile-skrt.vercel.app/"
     }
 }
-export const siteConfigAdmin = {
+export const  metadataAdmin = {
     name: "SkrtAdmin",
     url: "https://blog-next-green-eight.vercel.app/",
     description: "NextJs 14 admin dashboard for the page",
@@ -32,7 +32,7 @@ export const siteConfigAdmin = {
     }
 }
 
-export type SiteConfig = {
+export type SiteConfigMetadata = {
     name: string;
     url: string;
     description: string;
