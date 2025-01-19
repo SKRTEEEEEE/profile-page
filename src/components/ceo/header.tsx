@@ -8,7 +8,7 @@ import LocalSwitcher from "../oth/locale-switch";
 
 const Header = () => {
     return (
-        <MotionTransition position="bottom" className="fixed z-40 w-full top-5 md:top-10">
+        <MotionTransition position="bottom" className="fixed z-40 w-full top-1 md:top-2">
             <header>
                 <div className="container justify-between max-w-6xl mx-auto md:flex">
                     <Link href='/' aria-describedby="link-header-title" className="flex items-center justify-center gap-4">

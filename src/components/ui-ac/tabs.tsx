@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { ProjectSelector, ProjectSelectorProps } from "../ceo/project-selector";
 
 type Tab = {
   title: string;
@@ -16,12 +17,14 @@ export const Tabs = ({
   activeTabClassName,
   tabClassName,
   contentClassName,
+  projectSelectOptions
 }: {
   tabs: Tab[];
   containerClassName?: string;
   activeTabClassName?: string;
   tabClassName?: string;
   contentClassName?: string;
+  projectSelectOptions?: ProjectSelectorProps["options"]
 }) => {
   const [active, setActive] = useState<Tab>(propTabs[0]);
   const [tabs, setTabs] = useState<Tab[]>(propTabs);
@@ -40,10 +43,13 @@ export const Tabs = ({
     <>
       <div
         className={cn(
-          "flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full",
+          "flex flex-row items-center justify-between [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full",
           containerClassName
         )}
       >
+        {projectSelectOptions&& <ProjectSelector options={projectSelectOptions} />}
+
+        <div>
         {propTabs.map((tab, idx) => (
           <button
             key={tab.title}
@@ -62,17 +68,19 @@ export const Tabs = ({
                 layoutId="clickedbutton"
                 transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                 className={cn(
-                  "absolute inset-0 bg-gray-200 dark:bg-zinc-800 rounded-full ",
+                  "absolute inset-0 bg-zinc-800 rounded-full ",
                   activeTabClassName
                 )}
               />
             )}
 
-            <span className="text-xs md:text-base relative block text-black dark:text-white">
+            <span className="text-xs md:text-base relative block font-bold text-white">
               {tab.title}
             </span>
           </button>
         ))}
+        </div>
+
       </div>
       <FadeInDiv
         tabs={tabs}

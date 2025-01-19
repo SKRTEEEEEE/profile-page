@@ -20,6 +20,7 @@ function FeatureCard({ title, desc, icon }: FeatureCardProps) {
     </div>
   )
 }
+
 export type KeyCardProjectProps =  {
     icon: {
       iconName: string

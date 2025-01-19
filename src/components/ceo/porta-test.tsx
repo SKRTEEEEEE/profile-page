@@ -3,9 +3,11 @@
 import { Tabs } from "../ui-ac/tabs";
 import { ThreeDCardDemo } from "./card-test";
 import PortafolioLinks, { PortafolioLinksProps } from "./porta-links";
-import { portafolioExample } from "./porta-example";
+import { portafolioExample, PortafolioExampleData } from "./porta-example";
 import { KeyProjectsCards } from "./feature-card";
 import TimeLine from "./time-line";
+import { DynamicLucideIcon, LucideIconNames } from "../oth/dyn/dynamic-lucide";
+import { useReducer } from "react";
 
 type ContentLayoutProps = {
     children: React.ReactNode
@@ -50,26 +52,53 @@ const ContentLayout = ({children, links, title}: ContentLayoutProps) => (
         </div>
     </div>
 )
+type State = {
+  selectedProject: number
+  projectData: PortafolioExampleData
+}
 
+type Action = 
+| {type: "SET_SELECTED_PROJECT"; payload: number}
+
+const initialState: State = {
+  selectedProject: 0,
+  projectData: portafolioExample[0]
+}
+function reducer(state: State, action: Action): State {
+  switch(action.type){
+    case "SET_SELECTED_PROJECT":
+    return{
+      ...state,
+      selectedProject: action.payload,
+      projectData: portafolioExample[action.payload]
+    }
+  }
+}
 export function TabsDemo() {
+  const [state, dispatch] = useReducer(reducer, initialState)
   const tabs = [
     {
         title: "Descripción",
         value: "desc",
         content: (
             
-          <ContentLayout title={portafolioExample[0].title}>
-           
-            <ThreeDCardDemo title={portafolioExample[0].title} img={portafolioExample[0].img} imgDesc={portafolioExample[0].img} links={ portafolioExample[0].links} desc={portafolioExample[0].desc}/>
-         </ContentLayout>
+          <ContentLayout title={state.projectData.title}>
+        <ThreeDCardDemo 
+          title={state.projectData.title} 
+          img={state.projectData.img} 
+          imgDesc={state.projectData.img} 
+          links={state.projectData.links} 
+          desc={state.projectData.desc}
+        />
+      </ContentLayout>
         ),
       },
     {
       title: "Detalles",
       value: "details",
       content: (
-            <ContentLayout title={portafolioExample[0].title} links={portafolioExample[0].links}>
-                <KeyProjectsCards techs={portafolioExample[0].techs} keys={portafolioExample[0].keys}/>
+            <ContentLayout title={state.projectData.title} links={state.projectData.links}>
+                <KeyProjectsCards techs={state.projectData.techs} keys={state.projectData.keys}/>
               </ContentLayout>
       ),
     },
@@ -77,20 +106,24 @@ export function TabsDemo() {
       title: "Versiones",
       value: "services",
       content: (
-        <ContentLayout title={portafolioExample[0].title} links={portafolioExample[0].links}>
+        <ContentLayout title={state.projectData.title} links={state.projectData.links}>
             
-            <TimeLine arrData={portafolioExample[0].time}/>
+            <TimeLine arrData={state.projectData.time}/>
          </ContentLayout>
       ),
     },
-  ];
-
+  ]
+  const selectorTabs = portafolioExample.map((data, index)=>({id: index.toString(), name: data.title, description: data.desc, icon: <DynamicLucideIcon iconName={data.icon as LucideIconNames}/>}))
+  const onProjectSelect =  (index:number)=>dispatch({type: "SET_SELECTED_PROJECT", payload: index})
+  const projectSelectOptions = {projects: selectorTabs, selectedProject:state.selectedProject, onProjectSelect}
   return (
-    
+    <div className="flex flex-col justify-center h-full lg:pt-8">
+        
+
     <div className="h-[28rem] sm:h-[32rem] [perspective:1000px]  relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
         
-      <Tabs tabs={tabs} />
+      <Tabs key={state.selectedProject} tabs={tabs} projectSelectOptions={projectSelectOptions}/>
 
-    </div>
+    </div></div>
   );
 }
