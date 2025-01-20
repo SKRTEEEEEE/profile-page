@@ -1,7 +1,8 @@
 import { createTechUC, readAllTechsUC, readOneTechUC, updateTechUC } from "@/core/application/usecases/entities/tech";
 import { Leng, TechBase, TechForm } from "@/core/domain/entities/tech";
-import { actualizarJson, actualizarMd, getGithubPercentage } from "../../utils/tech";
+import { actualizarJson, actualizarMd } from "../../utils/tech";
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
+import { getTechGithubPercentageUC } from "@/actions/octokit";
 
 /**
  * Finds the first available number in a sequence of preferences
@@ -60,14 +61,14 @@ async function calculateNextPreference(
     return findFirstAvailable(libraryPreferences);
 }
 
-export async function createTechC(data: TechForm): Promise<{success: boolean, message: string}> {
+export async function createTechC(data: TechForm, owner = "SKRTEEEEEE"): Promise<{success: boolean, message: string}> {
     const { nameId, nameBadge, web, desc, afinidad, color, experiencia, img, lengTo, fwTo } = data;
     console.log("data at createTechC: ", data);
 
     try {
         // 1. Obtener el estado actual de la BD y calcular uso de GitHub
         const proyectosDB = await readAllTechsUC();
-        const usoGithub = await getGithubPercentage(nameId);
+        const usoGithub = await getTechGithubPercentageUC(nameId, owner);
         
         // Calcular la siguiente preferencia disponible
         const nextPreference = await calculateNextPreference(proyectosDB, lengTo, fwTo);

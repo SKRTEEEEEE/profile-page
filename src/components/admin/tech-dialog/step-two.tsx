@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StepTechProps } from "./form-dialog";
+import { DispoTechs, StepTechProps } from "./form-dialog";
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SearchCombobox } from "@/components/oth/search-combobox";
 import { HandleOperationError } from "@/core/domain/errors/main";
 import { DialogFooter } from "@/components/ui/dialog";
-import { DispoTechs } from "@/lib/types";
 import { Slider } from "@/components/ui/slider";
 import { z } from "zod";
 

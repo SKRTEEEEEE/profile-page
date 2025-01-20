@@ -2,8 +2,8 @@
 import { rv } from "@/actions/revrd";
 import { createTech, updateTech } from "@/actions/tech";
 import { toast } from "@/components/hooks/use-toast";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { FullTechData, secondStepTechSchema, TechForm, techSchema } from "@/core/domain/entities/tech";
+import { Dialog, DialogContent, DialogDescription,  DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { FullTechData,  TechForm, techSchema } from "@/core/domain/entities/tech";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocale } from "next-intl";
 import { JSX, useEffect, useState } from "react"
@@ -11,7 +11,6 @@ import { FormProvider, useForm, UseFormReturn } from "react-hook-form";
 import { useActiveAccount } from "thirdweb/react";
 import { StepOne } from "./step-one";
 import { StepTwo } from "./step-two";
-import { DispoTechs } from "@/lib/types";
 import { LastStep } from "./last-step";
 import { updateImg, uploadImg } from "@/actions/img";
 import { InputParseError } from "@/core/domain/errors/main";
@@ -20,9 +19,12 @@ import { InputParseError } from "@/core/domain/errors/main";
 /*
 # HAY QUE HACER LA PARTE DEL lengTo, fwTo, etc....
 
-
-
 */
+export type DispoTechs = {
+  dispoLeng?: {name:string}[]
+  dispoFw?: {name:string}[]
+}
+
 export type StepTechProps = {
   onComplete: (data: number) => void
   onError: (errors: string[]) => void

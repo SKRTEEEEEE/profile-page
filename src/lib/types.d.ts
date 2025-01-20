@@ -21,8 +21,3 @@ export type DataSiteConfig = {
 }[];
 }
 
-export type DispoTechs = {
-    dispoLeng?: {name:string}[]
-    dispoFw?: {name:string}[]
-  }
-  
