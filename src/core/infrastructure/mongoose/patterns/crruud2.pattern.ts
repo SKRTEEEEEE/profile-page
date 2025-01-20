@@ -1,11 +1,12 @@
 import { FilterQuery, Model, Query, QueryOptions, UpdateQuery } from "mongoose";
 import { MongooseBase } from "../types";
 import { MongooseBaseRepository } from "../implementations/base.repository";
-import { MongooseReadProps, MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
+import {  MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
 import { MongooseCRURepository } from "../implementations/cru.repository";
 import { MongooseDeleteRepository } from "../implementations/delete.repository";
 import { MongooseUpdateRepository } from "../implementations/update.repository";
 import { MongooseCRRUUD2 } from "../types/patterns";
+import { MongooseDeleteProps, MongooseReadProps, MongooseUpdateByIdProps, MongooseUpdateProps } from "../types/implementations";
 
 // -> crruud v2 - (not used still -old tech.pattern)
 
@@ -43,20 +44,17 @@ export abstract class MongooseCRRUUD2Pattern<
   ): MongooseReadResponse<TBase> {
     return await this.readRepo.read(props);
   }
-  async updateById(id: string,
-    updateData?: UpdateQuery<TBase> | undefined,
-    options?: QueryOptions<any> | null | undefined & { includeResultMetadata: true; lean: true; }
+  async updateById(props: MongooseUpdateByIdProps<TBase>
   )
     : Promise<TBase & MongooseBase | null> {
-    return await this.cruRepo.updateById(id, updateData, options)
+    return await this.cruRepo.updateById(props)
   }
-  async update(filter?: FilterQuery<TBase & MongooseBase> | undefined, update?: UpdateQuery<TBase> | undefined, options?: QueryOptions<TBase> | null | undefined): Promise<TBase & MongooseBase | null> {
-    return await this.updateRepo.update(filter, update, options)
+  async update(props: MongooseUpdateProps<TBase>): Promise<TBase & MongooseBase | null> {
+    return await this.updateRepo.update(props)
   }
   async delete(
-    filter?: Partial<TBase & MongooseBase> | null | undefined,
-    options?: any | null | undefined
+    props: MongooseDeleteProps<TBase>
   ): Promise<Query<any, any, {}, any, "findOneAndDelete", {}>> {
-    return this.deleteRepo.delete(filter, options)
+    return this.deleteRepo.delete(props)
   }
 }

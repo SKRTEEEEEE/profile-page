@@ -1,5 +1,6 @@
 import { User, UserBase } from "@/core/domain/entities/User";
 import { MongooseUserRepository } from "@/core/infrastructure/mongoose/entities/user.repository";
+import { MongooseUpdateProps } from "@/core/infrastructure/mongoose/types/implementations";
 
 // 🧠👨‍🎓💡 Vamos a hacer la inyección aquí, SIN hacer EXPORT -> Así: nos aseguramos de solo utilizar la infra aquí(application)
 // 🧠🚧⚠️ En el futuro -> trataremos de solo usar tipos de domain - PROHIBIDO usar tipos de mongoose aquí ya
@@ -23,14 +24,12 @@ export const createUserUC = async (data: Omit<UserBase, "id">) => {
 }
 
 export const findUserAndUpdateUC = async (
-    filter?: Partial<User> | undefined, 
-    update?: any | undefined, 
-    options?: any | null | undefined
+    props: MongooseUpdateProps<User>
 ) => {
-    return await userRepository.update(filter, update, options)
+    return await userRepository.update(props)
 }
 export const updateUserByIdUC = async (id: string, user?: Partial<UserBase> | undefined) => {
-    return await userRepository.updateById(id, user)
+    return await userRepository.updateById({id, updateData:user})
 }
 export const deleteUserByIdUC = async (id: string) => {
     return await userRepository.deleteById(id)

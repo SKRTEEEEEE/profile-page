@@ -1,6 +1,5 @@
-import { FilterQuery, Query, QueryOptions } from "mongoose";
-import { MongooseBase, MongooseDocument } from "../types";
-import { MongooseDeleteByIdI, MongooseDeleteI } from "../types/implementations";
+import { MongooseDocument } from "../types";
+import { MongooseDeleteByIdI, MongooseDeleteI, MongooseDeleteProps } from "../types/implementations";
 import { MongooseBaseRepository } from "./base.repository";
 
 export class MongooseDeleteByIdRepository<
@@ -14,8 +13,8 @@ TBase,
 }
 export class MongooseDeleteRepository<
 TBase,
-> extends MongooseBaseRepository<TBase> implements MongooseDeleteI{
-  async delete(filter?: FilterQuery<TBase> | null | undefined, options?: QueryOptions<TBase> | null | undefined): Promise<Query<any, any, {}, any, "findOneAndDelete", {}>> {
+> extends MongooseBaseRepository<TBase> implements MongooseDeleteI<TBase>{
+  async delete({filter, options}: MongooseDeleteProps<TBase>) {
     await this.connect();
     return await this.Model.findOneAndDelete(filter, options)
   }

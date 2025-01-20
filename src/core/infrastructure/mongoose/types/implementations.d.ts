@@ -1,6 +1,10 @@
 import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
 import { MongooseBase } from ".";
-
+export type MongooseUpdateByIdProps<TBase> = {
+  id: string,
+  updateData: UpdateQuery<TBase> | undefined,
+  options?: QueryOptions<TBase> | null | undefined 
+}
 export type MongooseCRUI<
   TBase,
 > = {
@@ -13,16 +17,17 @@ export type MongooseCRUI<
   )
     : Promise<TBase & MongooseBase | null>
   updateById(
-    id: string,
-    updateData?: Partial<TBase> | undefined,
-    options?: any | null | undefined
+    props: MongooseUpdateByIdProps<TBase>
   )
     : Promise<TBase & MongooseBase | null>
 }
-export type MongooseDeleteI = {
+export type MongooseDeleteProps<TBase> = {
+  filter?: RootFilterQuery<TBase> | null | undefined, 
+  options?: QueryOptions<TBase> | null | undefined
+}
+export type MongooseDeleteI<TBase> = {
   delete(
-    filter?: Partial<TBase & MongooseBase> | null | undefined, 
-    options?: any | null | undefined
+    props: MongooseDeleteProps
   ): Promise<Query<any, any, {}, any, "findOneAndDelete", {}>>
 }
 export type MongooseDeleteByIdI = {
@@ -31,14 +36,23 @@ export type MongooseDeleteByIdI = {
   )
     : Promise<boolean>
 }
+export type MongooseReadProps<TBase> = {
+  filter?: FilterQuery<TBase & MongooseBase> | undefined,
+  projection?: ProjectionType<TBase> | null | undefined,
+  options?: QueryOptions<TBase> | null | undefined
+}
 export type MongooseReadI<TBase> = {
   read(
-    filter?: FilterQuery<TBase & MongooseBase>,
-    projection?: ProjectionType<any> | null | undefined,
-    options?: QueryOptions<any> | null | undefined
+    {filter, projection, options}:MongooseReadProps
   )
     : Query<(TBase & MongooseBase)[] | null>
 }
+export type MongooseUpdateProps<TBase> = {
+  filter?: FilterQuery<TBase & MongooseBase> | undefined, 
+  update?: UpdateQuery<TBase> | undefined, 
+  options?: QueryOptions<TBase> | null | undefined
+}
+
 export type MongooseUpdateI<TBase> = {
   update(
     filter?: FilterQuery<TBase & MongooseBase> | undefined,

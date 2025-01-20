@@ -1,7 +1,6 @@
-import { Fw, Leng, TechBase } from "@/core/domain/entities/tech";
+import {  Leng, TechBase } from "@/core/domain/entities/tech";
 import { MongooseLenguajesRepository } from "@/core/infrastructure/mongoose/entities/tech.repository";
-import { MongooseReadProps } from "@/core/infrastructure/mongoose/implementations/read.repository";
-import { MongooseBase } from "@/core/infrastructure/mongoose/types";
+import { MongooseDeleteProps, MongooseReadProps, MongooseUpdateProps } from "@/core/infrastructure/mongoose/types/implementations";
 
 const lengRepository = new MongooseLenguajesRepository()
 
@@ -16,23 +15,20 @@ props: MongooseReadProps<Leng>
 }
 
 export const readOneTechUC =  async (
-    props: MongooseReadProps<TechBase>
+    props: MongooseReadProps<Leng>
 ) => {
     return await lengRepository.readOne(props)
 }
 export const deleteTechUC = async (
-    filter?: Partial<MongooseBase & TechBase & { frameworks?: Fw[] | undefined; }> | null | undefined, 
-    options?: any | null | undefined
+    props: MongooseDeleteProps<Leng>
   )=>{
-    return await lengRepository.delete(filter, options)
+    return await lengRepository.delete(props)
   }
 
   export const updateTechUC = async (
-    filter?: any | undefined,
-    update?: any | undefined,
-    options?: any | null | undefined
+    props: MongooseUpdateProps<Leng>
   ) => {
-    return await lengRepository.update(filter, update, options)
+    return await lengRepository.update(props)
   }
 
   export const createTechUC =  async (data: TechBase) =>{

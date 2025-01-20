@@ -106,7 +106,7 @@ export async function createTechC(data: TechForm, owner = "SKRTEEEEEE"): Promise
             if (!fwTo) {
                 // Caso 2: Agregar un framework a un lenguaje
                 lenguaje.frameworks.push(nuevoItem);
-                const res = await updateTechUC({nameId: lengTo}, lenguaje, {new: true});
+                const res = await updateTechUC({filter:{nameId: lengTo}, update:lenguaje, options:{new: true}});
                 const frameworkAgregado = res?.frameworks?.some(fw => fw.nameId === nuevoItem.nameId);
                 
                 success = !!frameworkAgregado;

@@ -187,17 +187,22 @@ npm i react-countup
 - [❓] Cambiar el nombre de ceo a admin?
 
 ## 1x. Reestructurar clean arch v3 p2 (back)
+- [ ] **REVISAR ERROR CON LOS STATE DE LA IMG** en el form de techs
 ### Revisar connectors
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
-#### Traspasar octokit a clean arch
+- [x] Traspasar octokit a clean arch
+
 ### Manejar correctamente los UC, C y acciones
+
 - [ ] Utilizar e unificar un mensaje de respuesta correctamente
 - [ ] **Acción de DAR ADMIN** es un muy buen ejemplo de aver que pasa
 
-- [ ] Documentar lógica UC y C: _Los uc serán los individuales y los C los compound_
+- [ ] Documentar lógica UC y C: _Los UC serán los individuales y los C los compound_
 
 - [ ] Manejar correctamente los estados de todos los componentes
 - [ ] Manejar correctamente los redirect y revalidate(en revalidate cuando sea necesario revalidate la pagina actual, que sea dinámico según la pagina en la que esta)
+#### Techs
+- [ ] Revisar que no se ejecute dos veces el updateMd y updateJson 
 #### Utilizar un mensaje de respuesta unificado
 - [ ] Responder a las acciones del servidor con `toast`
     - [ ] Aplicar toast en el tech-form (tech-dialog)
@@ -206,11 +211,23 @@ npm i react-countup
     - [ ] Si el usuario configura el correo mostrar otro toast conforme se le ha enviado o ha habido error
     - [ ] En el caso de cerrar session
 ##### Ejemplo mensaje unificado backend
+**OPCIÓN A**
 ```ts
 type Mensaje<T> = {
     success: boolean
     message?: string
     data?: T
+}
+```
+**OPCIÓN B**
+```ts
+type Mensaje<T> = {
+    success: true
+    data?: T
+    message?: string
+} | {
+    success: false
+    message?: string
 }
 ```
 #### Mejorar errores correctamente

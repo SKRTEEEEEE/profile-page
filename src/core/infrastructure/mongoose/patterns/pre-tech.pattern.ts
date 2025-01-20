@@ -1,7 +1,8 @@
-import { Model, Mongoose } from "mongoose";
+import { Model } from "mongoose";
 import { MongooseBaseRepository } from "../implementations/base.repository";
-import { MongooseReadProps, MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
+import {  MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
 import { MongoosePopulateProps, MongoosePopulateRepository, MongoosePopulateResponse } from "../implementations/populate.repository";
+import { MongooseReadProps } from "../types/implementations";
 
 /* 
 primario, proviene de las implementaciones

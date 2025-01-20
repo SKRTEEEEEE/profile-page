@@ -1,6 +1,6 @@
 import { PreTechBase } from "@/core/domain/entities/pre-tech";
 import { MongoosePreTechRepository } from "@/core/infrastructure/mongoose/entities/pre-tech.repository";
-import { MongooseReadProps } from "@/core/infrastructure/mongoose/implementations/read.repository";
+import { MongooseReadProps } from "@/core/infrastructure/mongoose/types/implementations";
 
 const preTechRepository = new MongoosePreTechRepository<PreTechBase>()
 

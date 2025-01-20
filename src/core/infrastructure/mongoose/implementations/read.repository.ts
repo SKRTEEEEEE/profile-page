@@ -1,15 +1,8 @@
-import { FilterQuery } from "mongoose";
 import { MongooseBaseRepository } from "./base.repository";
-import { ProjectionType } from "mongoose";
-import { QueryOptions } from "mongoose";
 import { MongooseBase } from "../types";
-import { MongooseReadI } from "../types/implementations";
+import { MongooseReadI, MongooseReadProps } from "../types/implementations";
 
-export type MongooseReadProps<TBase> = {
-  filter?: FilterQuery<TBase & MongooseBase> | undefined,
-  projection?: ProjectionType<TBase> | null | undefined,
-  options?: QueryOptions<TBase> | null | undefined
-}
+
 export type MongooseReadResponse<TBase> = Promise<(TBase & MongooseBase)[] | []>
 
 export class MongooseReadRepository<
@@ -20,7 +13,6 @@ TBase,
       {filter, projection, options}: MongooseReadProps<TBase> 
     ): Promise<(TBase & MongooseBase)[]> {
       try {
-        console.log("filter read: ",filter)
         await this.connect();
         const docs = await this.Model.find(filter || {}, projection, options) // Usa un objeto vacío si filter es undefined
         return docs.map(user=>this.documentToPrimary(user))

@@ -10,8 +10,8 @@ export async function updateTechC(updateData: TechForm) {
         if ('fwTo' in updateData) {
             // Actualizar librería
             proyectoActualizado = await updateTechUC(
-                { "frameworks.librerias.name": updateData.nameId },
-                {
+                {filter:{ "frameworks.librerias.name": updateData.nameId },
+                update:{
                     $set: {
                         // "frameworks.$[fw].librerias.$[lib].color": updateData.color,
                         
@@ -22,19 +22,19 @@ export async function updateTechC(updateData: TechForm) {
                         "frameworks.$[fw].librerias.$[lib].desc": updateData.desc,
                     }
                 },
-                {
+                options:{
                     arrayFilters: [
                         { "fw.librerias.nameId": updateData.nameId },
                         { "lib.nameId": updateData.nameId }
                     ],
                     new: true
-                }
+                }}
             );
         } else if ('lengTo' in updateData) {
             // Actualizar framework
             proyectoActualizado = await updateTechUC(
-                { "frameworks.nameId": updateData.nameId },
-                {
+              {filter:{ "frameworks.nameId": updateData.nameId },
+                update:{
                     $set: {
                         "frameworks.$.web": updateData.web,
                         "frameworks.$.afinidad": updateData.afinidad,
@@ -44,14 +44,14 @@ export async function updateTechC(updateData: TechForm) {
                         "frameworks.$.desc": updateData.desc
                     }
                 },
-                { new: true }
+                options:{ new: true }}
             );
         } else {
             // Actualizar lenguaje
             proyectoActualizado = await updateTechUC(
-                { nameId: updateData.nameId },
-                updateData,
-                { new: true }
+                {filter:{ nameId: updateData.nameId },
+                update:updateData,
+                options:{ new: true }}
             );
         }
 

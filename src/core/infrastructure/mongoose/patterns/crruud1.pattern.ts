@@ -1,13 +1,14 @@
-import { Model, ProjectionType, UpdateQuery } from "mongoose";
+import { Model,  UpdateQuery } from "mongoose";
 import { MongooseBaseRepository } from "../implementations/base.repository";
 import { MongooseDeleteByIdRepository } from "../implementations/delete.repository";
-import { MongooseReadProps, MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
+import {  MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
 import { MongooseUpdateRepository } from "../implementations/update.repository";
 import { FilterQuery } from "mongoose";
 import { QueryOptions } from "mongoose";
 import { MongooseBase } from "../types";
 import { MongooseCRURepository } from "../implementations/cru.repository";
 import { MongooseCRRUUD1 } from "../types/patterns";
+import { MongooseReadProps, MongooseUpdateByIdProps, MongooseUpdateProps } from "../types/implementations";
 
 /* 
   - crruud v1
@@ -50,15 +51,13 @@ export abstract class MongooseCRRUUD1Pattern<
   ): MongooseReadResponse<TBase> {
     return await this.readRepo.read(props);
   }
-  async updateById(id: string,
-    updateData?: UpdateQuery<TBase> | undefined,
-    options?: QueryOptions<any> | null | undefined & { includeResultMetadata: true; lean: true; }
+  async updateById(props:MongooseUpdateByIdProps<TBase>
   )
     : Promise<TBase & MongooseBase | null> {
-    return await this.cruRepo.updateById(id, updateData, options)
+    return await this.cruRepo.updateById(props)
   }
-  async update(filter?: FilterQuery<TBase & MongooseBase> | undefined, update?: UpdateQuery<TBase> | undefined, options?: QueryOptions<TBase> | null | undefined): Promise<TBase & MongooseBase | null> {
-    return await this.updateRepo.update(filter, update, options)
+  async update(props: MongooseUpdateProps<TBase>): Promise<TBase & MongooseBase | null> {
+    return await this.updateRepo.update(props)
   }
   // Implementar el método delete
   async deleteById(id: string): Promise<boolean> {

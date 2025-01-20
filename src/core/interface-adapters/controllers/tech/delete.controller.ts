@@ -66,9 +66,7 @@ export async function deleteTechC(name: string) {
         }
 
         // Buscar en lenguajes
-        const lenguajeEliminado = await deleteTechUC({ nameId: name });
-        console.log("lenguajeEliminado deleteTech: ",lenguajeEliminado)
-
+        const lenguajeEliminado = await deleteTechUC({filter:{ nameId: name }});
         if (lenguajeEliminado) {
              // Eliminar imágenes de frameworks y librerías
              for (const framework of lenguajeEliminado.frameworks) {

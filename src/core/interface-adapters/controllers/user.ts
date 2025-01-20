@@ -161,12 +161,12 @@ export const checkoutSessionCompletedC = async (session: Stripe.Response<Stripe.
 export const customerSubscriptionDeletedC = async (subscriptionId: string) => {
     try {
         const subscription = await retrieveSubscriptionUC(subscriptionId);
-        const role = await findOneRoleAndDeleteUC({ stripeCustomerId: subscription.customer as string });
+        const role = await findOneRoleAndDeleteUC({filter:{ stripeCustomerId: subscription.customer as string }});
         
         // 💡 Corregido: Se usa 'return' en lugar de 'break'
         if (!role) return; // Si no se encuentra el rol, salimos de la función
         
-        const user = await findUserAndUpdateUC({ address: role.address }, { role: null, roleId: null });
+        const user = await findUserAndUpdateUC({filter:{ address: role.address }, update:{ role: null, roleId: null }});
         
         console.log("updated user: ", { user });
         console.log("deleted role: ", { role });

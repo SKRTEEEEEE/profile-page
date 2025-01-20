@@ -1,12 +1,12 @@
-import { FilterQuery, Model, Query, QueryOptions, UpdateQuery } from "mongoose";
+import { FilterQuery, Model, Query, QueryOptions } from "mongoose";
 import { MongooseBase } from "../types";
 import { MongooseBaseRepository } from "../implementations/base.repository";
-import { MongooseReadProps, MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
-import { ProjectionType } from "mongoose";
+import { MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
 import { MongooseDeleteByIdRepository, MongooseDeleteRepository } from "../implementations/delete.repository";
 import { MongooseUpdateRepository } from "../implementations/update.repository";
 import { RoleRepository } from "@/core/application/interfaces/entities/role";
 import { MongooseCRURepository } from "../implementations/cru.repository";
+import { MongooseDeleteProps, MongooseReadProps, MongooseUpdateByIdProps } from "../types/implementations";
 
 // crruudd 
 
@@ -41,12 +41,10 @@ TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>
     : Promise<TBase & MongooseBase | null> {
       return await this.cruRepo.readById(id)
     }
-  async updateById(id: string,
-    updateData?: UpdateQuery<TBase> | undefined,
-    options?: QueryOptions<any> | null | undefined & { includeResultMetadata: true; lean: true; }
+  async updateById(props: MongooseUpdateByIdProps<TBase>
   )
     : Promise<TBase & MongooseBase | null> {
-      return await this.cruRepo.updateById(id,updateData,options)
+      return await this.cruRepo.updateById(props)
     }
   // Implementar el método delete
   async deleteById(id: string): Promise<boolean> {
@@ -58,10 +56,10 @@ TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>
   ): MongooseReadResponse<TBase> {
     return await this.readRepo.read(props);
   }
-  async delete(filter?: FilterQuery<any> | null | undefined, options?: QueryOptions<any> | null | undefined): Promise<Query<any, any, {}, any, "findOneAndDelete", {}>>{
-    return this.deleteRepo.delete(filter, options)
+  async delete(props: MongooseDeleteProps<TBase>): Promise<Query<any, any, {}, any, "findOneAndDelete", {}>>{
+    return this.deleteRepo.delete(props)
   }
-  async update(filter?: FilterQuery<TBase & MongooseBase> | undefined, update?: UpdateQuery<TBase> | undefined, options?: QueryOptions<TBase> | null | undefined): Promise<TBase & MongooseBase | null>{
-    return this.updateRepo.update(filter, update, options)
+  async update(props: MongooseUpdateByIdProps<TBase>): Promise<TBase & MongooseBase | null>{
+    return this.updateRepo.update(props)
   }
 }
