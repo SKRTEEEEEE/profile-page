@@ -32,7 +32,6 @@ const DeleteTechButton: React.FC<DeleteTechButtonProps> = ({ isAdmin, name, onEr
         const response = await adminOnlyAction()
         if (response) {
           const res = await deleteTech(name);
-          // console.log("Deleted:", res);
           if (res) {
             onError(`Eliminación de ${name} completada.`);
           } else {

@@ -171,10 +171,12 @@ npm i react-countup
 ##### **ACTUALIDAD**
 ### fix
 - [x] Arreglar updateMd
-    - [ ] Problema con el SHA en updateMd
+    - [x] Problema con el SHA en updateMd
 - [x] Comprobar el uso de nameBadge/nameId con los badges (actualizarJson)
 ### refactor
 - [❓] Campo web, ??seguramente haremos que el usuario pueda tener un campo web especifico, pero sera distinto al web del pretech
+#### func tech -> delete.controller.ts
+- [x] Hacer que se borren todas las imágenes en el caso de eliminar un leng o fw
 ## 16. Upgrade de parte projects
 ### Empezar a guardar los datos en la base de datos
 

@@ -7,8 +7,8 @@ import { MongooseReadI } from "../types/implementations";
 
 export type MongooseReadProps<TBase> = {
   filter?: FilterQuery<TBase & MongooseBase> | undefined,
-  projection?: ProjectionType<any> | null | undefined,
-  options?: QueryOptions<any> | null | undefined
+  projection?: ProjectionType<TBase> | null | undefined,
+  options?: QueryOptions<TBase> | null | undefined
 }
 export type MongooseReadResponse<TBase> = Promise<(TBase & MongooseBase)[] | []>
 
@@ -20,6 +20,7 @@ TBase,
       {filter, projection, options}: MongooseReadProps<TBase> 
     ): Promise<(TBase & MongooseBase)[]> {
       try {
+        console.log("filter read: ",filter)
         await this.connect();
         const docs = await this.Model.find(filter || {}, projection, options) // Usa un objeto vacío si filter es undefined
         return docs.map(user=>this.documentToPrimary(user))

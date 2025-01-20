@@ -26,7 +26,7 @@ export async function deleteTechC(name: string) {
         let proyectoActualizado = null;
 
         // Buscar en librerías
-        let lenguaje = await readOneTechUC({ "frameworks.librerias.nameId": name });
+        let lenguaje = await readOneTechUC({filter:{ "frameworks.librerias.nameId": name }});
         if (lenguaje) {
             const frameworkIndex = lenguaje.frameworks.findIndex((fw:FwDocument) => fw.librerias?.some((lib:LibDocument) => lib.nameId === name));
             const libreriaIndex = lenguaje.frameworks[frameworkIndex].librerias.findIndex((lib:LibDocument) => lib.nameId === name);
@@ -43,7 +43,7 @@ export async function deleteTechC(name: string) {
         }
 
         // Buscar en frameworks
-        lenguaje = await readOneTechUC({ "frameworks.nameId": name });
+        lenguaje = await readOneTechUC({filter:{ "frameworks.nameId": name }});
         if (lenguaje) {
             const frameworkIndex = lenguaje.frameworks.findIndex((fw:FwDocument) => fw.nameId === name);
             const framework = lenguaje.frameworks.find((fw:FwDocument) => fw.nameId === name);
@@ -67,6 +67,8 @@ export async function deleteTechC(name: string) {
 
         // Buscar en lenguajes
         const lenguajeEliminado = await deleteTechUC({ nameId: name });
+        console.log("lenguajeEliminado deleteTech: ",lenguajeEliminado)
+
         if (lenguajeEliminado) {
              // Eliminar imágenes de frameworks y librerías
              for (const framework of lenguajeEliminado.frameworks) {

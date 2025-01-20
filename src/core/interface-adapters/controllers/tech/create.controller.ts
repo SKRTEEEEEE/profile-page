@@ -63,7 +63,6 @@ async function calculateNextPreference(
 
 export async function createTechC(data: TechForm, owner = "SKRTEEEEEE"): Promise<{success: boolean, message: string}> {
     const { nameId, nameBadge, web, desc, afinidad, color, experiencia, img, lengTo, fwTo } = data;
-    console.log("data at createTechC: ", data);
 
     try {
         // 1. Obtener el estado actual de la BD y calcular uso de GitHub
@@ -99,7 +98,7 @@ export async function createTechC(data: TechForm, owner = "SKRTEEEEEE"): Promise
                 : `No se ha podido guardar ${nameId} en la BDD.`;
 
         } else {
-            const lenguaje = await readOneTechUC({ nameId: lengTo });
+            const lenguaje = await readOneTechUC({filter:{ nameId: lengTo }});
             if (!lenguaje) {
                 return { success: false, message: `Lenguaje no encontrado: ${lengTo}` };
             }

@@ -1,5 +1,6 @@
 import { Fw, Leng, TechBase } from "@/core/domain/entities/tech";
 import { MongooseLenguajesRepository } from "@/core/infrastructure/mongoose/entities/tech.repository";
+import { MongooseReadProps } from "@/core/infrastructure/mongoose/implementations/read.repository";
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 
 const lengRepository = new MongooseLenguajesRepository()
@@ -9,19 +10,15 @@ export const readAllTechsUC=async()=>{
 }
 
 export const readLengUC = async (
-    filter: Partial<Leng>,
-    projection?: any | null,
-    options?: any | null
+props: MongooseReadProps<Leng>
 ) => {
-    return await lengRepository.read({filter, projection, options})
+    return await lengRepository.read(props)
 }
 
 export const readOneTechUC =  async (
-    filter?: any | undefined, 
-    projection?: any | null | undefined, 
-    options?: any | null | undefined
+    props: MongooseReadProps<TechBase>
 ) => {
-    return await lengRepository.readOne(filter, projection, options)
+    return await lengRepository.readOne(props)
 }
 export const deleteTechUC = async (
     filter?: Partial<MongooseBase & TechBase & { frameworks?: Fw[] | undefined; }> | null | undefined, 

@@ -173,7 +173,6 @@ function getContrastColor(hexColor: string): string {
 function createBadgeTech(tech: PreTechBase, newTech?: true ) {
     const {af, afNum, exp, expNum, github, githubNum} = getTechsLinks({nameId: tech.nameId, color: tech.color, nameBadge:tech.nameBadge, web:tech.web})
     const baseBadge = createBaseBadge({nameId: tech.nameId, color: tech.color, nameBadge:tech.nameBadge, web:tech.web})
-    console.log("baseBadge: ", baseBadge)
     if(newTech === true) {
         return(`>- ## ${baseBadge}\n>![Afinidad](${af})![Afinidad %](${afNum})\n![Experiencia](${exp})![Experiencia %](${expNum})\n![Uso En Github](${github})![Uso en Github %](${githubNum})\n>\n>![New Badge](https://img.shields.io/badge/%C2%A1_novedad_%F0%9F%91%8D_!-NEW_%F0%9F%93%A5_%F0%9F%97%92%EF%B8%8F-blue?style=social)`)
     }else {
