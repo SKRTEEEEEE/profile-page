@@ -4,21 +4,13 @@ import SliderTechs from "@/components/ceo/slider-techs";
 import { MotionTransition } from "@/components/oth/transition-component";
 import TransitionPage from "@/components/oth/transition-page";
 import { Button } from "@/components/ui/button";
-import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
-import { FullTechData, Leng } from "@/core/domain/entities/tech";
-import { flattenTechs } from "@/core/interface-adapters/utils/tech";
+import { readAllFlattenTechsC } from "@/core/interface-adapters/controllers/tech/read.controller";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 
 const AboutMePage = async () => {
-    const lenguajes = await readAllTechsUC()
-    let allLeng: false | FullTechData[]
-    if (!lenguajes) {
-        allLeng = false
-    } else {
-        allLeng = flattenTechs(lenguajes)
-    }
+    const {techs:allLeng} = await readAllFlattenTechsC()
     const t = await getTranslations()
 
 
@@ -53,7 +45,7 @@ const AboutMePage = async () => {
                 </section>
 
                 {/* SLIDER */}
-                {allLeng !== false ? <section className="md:h-full md:my-auto md:pt-20">
+                {allLeng.length > 0 ? <section className="md:h-full md:my-auto md:pt-20">
 
                     <h2 className='hover:text-secondary-ceo-600/20 text-secondary-ceo-300 mb-4' tabIndex={0}>{t("ceo.info.section.slider.h2")}: </h2>
                     <SliderTechs data={allLeng} />

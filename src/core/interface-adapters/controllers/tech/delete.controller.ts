@@ -11,7 +11,7 @@ async function doDelete (tipo:string, name:string) {
     console.log(`${tipo} ${name} eliminada correctamente`);
     const proyectosDB = await readAllTechsUC()
     //Pasar esto al deleteTechC
-    await actualizarJson(proyectosDB);
+    await actualizarJson();
     console.log(`${tipo} ${name} eliminada correctamente del json`);
     await actualizarMd(proyectosDB);
     console.log(`${tipo} ${name} eliminada correctamente del md`);

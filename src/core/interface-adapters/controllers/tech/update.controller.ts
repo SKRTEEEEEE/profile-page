@@ -58,8 +58,7 @@ export async function updateTechC(updateData: TechForm) {
         if (!proyectoActualizado) {
             return handleError(`No se encontró un proyecto llamado ${updateData.nameId}.`);
         }
-        const proyectosDB = await readAllTechsUC()
-        await actualizarJson(proyectosDB);
+        await actualizarJson();
         return handleSuccess(`El proyecto ${updateData.nameId} ha sido actualizado correctamente.`);
     } catch (error) {
         console.error('Error actualizando el proyecto:', error);

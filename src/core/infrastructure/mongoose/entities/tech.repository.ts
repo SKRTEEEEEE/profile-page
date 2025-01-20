@@ -1,5 +1,5 @@
 import { LengRepository } from "@/core/application/interfaces/entities/tech";
-import { FilterQuery } from "mongoose";
+import { FilterQuery, ProjectionType, QueryOptions } from "mongoose";
 import { MongooseCRRUUD2Pattern } from "../patterns/crruud2.pattern";
 import { Leng, TechBase } from "@/core/domain/entities/tech";
 import { LengsModel } from "../schemas/tech.schema";
@@ -11,8 +11,8 @@ import { LengsModel } from "../schemas/tech.schema";
     }
     async readOne(
       filter?: FilterQuery<Leng> | undefined, 
-      projection?: any | null | undefined, 
-      options?: any | null | undefined){
+      projection?: ProjectionType<Leng> | null | undefined, 
+      options?: QueryOptions<Leng> | null | undefined){
       this.connect()
       return this.Model.findOne(filter, projection, options)
     }

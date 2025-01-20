@@ -129,7 +129,6 @@ export async function createTechC(data: TechForm, owner = "SKRTEEEEEE"): Promise
             }
         }
 
-        const newProyectosDB = await readAllTechsUC();
         // 3. Actualizar MD y JSON
         await Promise.all([
             actualizarMd(proyectosDB, { 
@@ -138,7 +137,7 @@ export async function createTechC(data: TechForm, owner = "SKRTEEEEEE"): Promise
                 web, 
                 color 
             }),
-            actualizarJson(newProyectosDB)
+            actualizarJson()
         ]);
 
         return { success, message };

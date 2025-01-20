@@ -7,9 +7,7 @@ const lengRepository = new MongooseLenguajesRepository()
 export const readAllTechsUC=async()=>{
     return await lengRepository.read({})
 }
-// export const getLengModelUC = (data:Partial<Leng>): Model<any> => {
-//     return lengRepository.makeModel(data)
-// }
+
 export const readLengUC = async (
     filter: Partial<Leng>,
     projection?: any | null,
