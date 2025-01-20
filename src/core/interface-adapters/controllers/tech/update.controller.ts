@@ -1,6 +1,6 @@
-import { readAllTechsUC, updateTechUC } from "@/core/application/usecases/entities/tech";
+import { updateTechUC } from "@/core/application/usecases/entities/tech";
 import { TechForm } from "@/core/domain/entities/tech";
-import { actualizarJson } from "../../utils/tech";
+import { actualizarGithubTechsC, ActualizarGithubTechsType } from "./github.controller";
 
 // FALTA TERMINAR EL UPDATE NUEVO - solo afinidad, experiencia, imagen, (web -futuro-) y descripciones
 
@@ -58,7 +58,7 @@ export async function updateTechC(updateData: TechForm) {
         if (!proyectoActualizado) {
             return handleError(`No se encontró un proyecto llamado ${updateData.nameId}.`);
         }
-        await actualizarJson();
+        await actualizarGithubTechsC({type: ActualizarGithubTechsType.json});
         return handleSuccess(`El proyecto ${updateData.nameId} ha sido actualizado correctamente.`);
     } catch (error) {
         console.error('Error actualizando el proyecto:', error);

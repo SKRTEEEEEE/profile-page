@@ -1,19 +1,20 @@
 
 import { revalidatePath } from "next/cache";
 import { deleteImageUC } from "@/core/application/usecases/services/img";
-import {  deleteTechUC, readAllTechsUC, readOneTechUC } from "@/core/application/usecases/entities/tech";
+import {  deleteTechUC,  readOneTechUC } from "@/core/application/usecases/entities/tech";
 import { FwDocument, LibDocument } from "@/core/domain/entities/tech";
-import { actualizarJson, actualizarMd } from "../../utils/tech";
+import { actualizarGithubTechsC, ActualizarGithubTechsType } from "./github.controller";
 
 
 
 async function doDelete (tipo:string, name:string) {
     console.log(`${tipo} ${name} eliminada correctamente`);
-    const proyectosDB = await readAllTechsUC()
+    // const proyectosDB = await readAllTechsUC()
     //Pasar esto al deleteTechC
-    await actualizarJson();
+    // await actualizarJson();
+    actualizarGithubTechsC({type: ActualizarGithubTechsType.all})
     console.log(`${tipo} ${name} eliminada correctamente del json`);
-    await actualizarMd(proyectosDB);
+    // await actualizarMd(proyectosDB);
     console.log(`${tipo} ${name} eliminada correctamente del md`);
     //Hay que hacer bien esta parte de aquí!
     revalidatePath("/admin/techs")

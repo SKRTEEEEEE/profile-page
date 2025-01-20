@@ -1,12 +1,13 @@
 import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
 import { FullTechData, Leng } from "@/core/domain/entities/tech";
+import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 type BadgeAndValue = {
     badge: string;
     value: string;
 }
 
 //El badge ya no se obtendrá de aquí sino que de la bdd, ya que depende del lenguaje al que pertenece el badge. Esto lo guardamos para un futuro en una posible card, etc..
-export function getColorByRange(numValue:number):BadgeAndValue{
+function getColorByRange(numValue:number):BadgeAndValue{
     let badge: string;
     let value: string;
     if (numValue > 80) {
@@ -27,7 +28,7 @@ export function getColorByRange(numValue:number):BadgeAndValue{
     }
     return { badge, value };
 }
-export function getGithubUsoByRange(numValue:number):BadgeAndValue{
+function getGithubUsoByRange(numValue:number):BadgeAndValue{
     let badge: string;
     let value: string;
     switch (true) {
@@ -156,11 +157,12 @@ const flattenTechs = (proyectos: Leng[]): FullTechData[] => {
     return flattenedArray;
 };
 type ReadAllFlattenTechsRes = {
-    techs: FullTechData[],
+    techs: (Leng & MongooseBase)[]
+    flattenTechs: FullTechData[],
     dispoFw: {name:string}[]
     dispoLeng: {name:string}[]
 }
-export const readAllFlattenTechsC = async(): Promise<ReadAllFlattenTechsRes> => {
+export const readAllTechsC = async(): Promise<ReadAllFlattenTechsRes> => {
     const proyectosDB = await readAllTechsUC()
     const dispoLeng = proyectosDB?.map((lenguaje: {nameId:string}) => ({ name: lenguaje.nameId }));
   const dispoFw = proyectosDB?.flatMap((lenguaje) => {
@@ -169,5 +171,5 @@ export const readAllFlattenTechsC = async(): Promise<ReadAllFlattenTechsRes> => 
       }
       return [];
     });
-    return {techs:flattenTechs(proyectosDB),dispoFw, dispoLeng}
+    return {techs:proyectosDB,flattenTechs:flattenTechs(proyectosDB),dispoFw, dispoLeng}
 }

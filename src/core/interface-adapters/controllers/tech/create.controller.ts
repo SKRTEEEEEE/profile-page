@@ -1,8 +1,8 @@
 import { createTechUC, readAllTechsUC, readOneTechUC, updateTechUC } from "@/core/application/usecases/entities/tech";
 import { Leng, TechBase, TechForm } from "@/core/domain/entities/tech";
-import { actualizarJson, actualizarMd } from "../../utils/tech";
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 import { getTechGithubPercentageUC } from "@/actions/octokit";
+import { actualizarGithubTechsC, ActualizarGithubTechsType } from "./github.controller";
 
 /**
  * Finds the first available number in a sequence of preferences
@@ -130,15 +130,16 @@ export async function createTechC(data: TechForm, owner = "SKRTEEEEEE"): Promise
         }
 
         // 3. Actualizar MD y JSON
-        await Promise.all([
-            actualizarMd(proyectosDB, { 
-                nameId,
-                nameBadge, 
-                web, 
-                color 
-            }),
-            actualizarJson()
-        ]);
+        // await Promise.all([
+        //     actualizarMd(proyectosDB, { 
+        //         nameId,
+        //         nameBadge, 
+        //         web, 
+        //         color 
+        //     }),
+        //     actualizarJson()
+        // ]);
+        await actualizarGithubTechsC({type: ActualizarGithubTechsType.all, create:{base: {nameId, nameBadge, web, color}, oldTechs: proyectosDB} })
 
         return { success, message };
 
