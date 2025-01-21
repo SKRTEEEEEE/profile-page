@@ -48,7 +48,7 @@ export function StepTwo({
     const validationResult = imageSchema.safeParse({ img: file });
     if (!validationResult.success) {
       onError(validationResult.error.errors.map(err => err.message));
-      throw new HandleOperationError("Error de validación de archivo");
+      throw new HandleOperationError("Error de validación de archivo"); //???????Salta este error en el update
     }
   }
 
@@ -68,7 +68,7 @@ export function StepTwo({
   const handleContinue = async () => {
     setIsLoading(true)
     try {
-      fileCheck(form.watch("img"));
+      !isUpdating && fileCheck(form.watch("img"));
       const isValid = await form.trigger(["category", "lenguajeTo", "frameworkTo", "experiencia", "afinidad"])
       if (isValid) {
         onComplete(3)
