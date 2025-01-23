@@ -18,7 +18,6 @@ import { InputParseError } from "@/core/domain/errors/main";
 
 /*
 # HAY QUE HACER LA PARTE DEL lengTo, fwTo, etc....
-
 */
 export type DispoTechs = {
   dispoLeng?: {name:string}[]
@@ -46,11 +45,13 @@ type FormState = {
   errors: string[]
   selectedTech: string
   isLoading: boolean
+  previewImage: string | null
 }
 type FormAction = 
   | {type: "SET_STEP"; payload: number}
   | { type: 'SET_ERRORS'; payload: string[] }
   | { type: 'SET_SELECTED_TECH'; payload: string }
+  | { type: "SET_PREVIEW_IMAGE"; payload: string | null }
   | { type: 'SET_LOADING'; }
   | { type: 'RESET_FORM'; payload?: FullTechData }
   | { type: 'NEXT_STEP' }
@@ -60,7 +61,8 @@ type FormAction =
     currentStep: 1,
     errors: [],
     selectedTech: tech?.nameId || '',
-    isLoading: false
+    isLoading: false,
+    previewImage: tech?.img || null
   })
   function formReducer(state: FormState, action: FormAction): FormState {
     switch (action.type) {
@@ -72,6 +74,8 @@ type FormAction =
         return { ...state, selectedTech: action.payload }
       case 'SET_LOADING':
         return { ...state, isLoading: !state.isLoading }
+      case 'SET_PREVIEW_IMAGE':
+        return {...state, previewImage: action.payload}
       case 'RESET_FORM':
         return createInitialState(action.payload)
       case 'NEXT_STEP':
@@ -148,12 +152,6 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
       category: "leng",
     },
   })
-  // const [currentStep, setCurrentStep] = useState<number>(1)
-  // const [isLoading, setIsLoading] = useState<boolean>(false)
-  
-  // const [selectedTech, setSelectedTech] = useState<string>(form.watch("nameId")||"")
-
-  // const [errors, setErrors] = useState<string[]>([])
   const isUpdating = !!tech
 
 
@@ -168,13 +166,6 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
     dispatch({type: "NEXT_STEP"})
     // setErrors([])
   }
-  // const handleStepComplete = (step: number) => {
-  //   if (currentStep === 1) {
-  //     setSelectedTech(form.watch("nameId"))
-  //   }
-  //   setCurrentStep(step + 1)
-  //   setErrors([])
-  // }
 
   const handlePreviousStep = () => {
     if (state.currentStep > 1) {
@@ -182,29 +173,22 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
       // setErrors([])
     }
   }
-  // const handlePreviousStep = () => {
-  //   if (currentStep > 1) {
-  //     setCurrentStep(currentStep - 1)
-  //     setErrors([])
-  //   }
-  // }
+
 
   const handleError = (errors: string[]) => {
     dispatch({ type: 'SET_ERRORS', payload: errors })
   }
-  // const handleError = (error: string[]) => {
-  //   setErrors(error)
-  // }
+
+  const handlePreviewImage = (file: string|null ) => {
+    dispatch({type: "SET_PREVIEW_IMAGE", payload: file})
+  }
+
 
   const onSubmit = async () => {
         dispatch({type: "SET_LOADING"})    
       try {
         if (!isAdmin || account=== undefined) {
         toast({ title: "Error", description: "No tienes permisos para realizar esta acción", variant: "destructive" })
-        // form.reset()  
-        // setSelectedTech("")
-        // setCurrentStep(1)
-        // setIsLoading(false)
         return
       }
 
@@ -235,67 +219,6 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
 
     }
   }
-  // const onSubmit = async () => {
-  //   setIsLoading(true)
-  //   if (!isAdmin || account=== undefined) {
-  //     toast({ title: "Error", description: "No tienes permisos para realizar esta acción", variant: "destructive" })
-  //     form.reset()  
-  //     setSelectedTech("")
-  //     setCurrentStep(1)
-  //     setIsLoading(false)
-  //     return
-  //   }
-
-  //   const imageFile = form.getValues("img")
-  //   //Aqui hay que comprobar si se ha cambiado la imagen, sino no hay que hacer ni upload, ni update de la img
-  //   console.log("!imageFile: ",imageFile) //si que hay image en el upload
-  //   console.log("tech  onSubmit dialog:", tech ) //Si que hay tech en el upload
-  //   try {
-  //   if(!tech||tech.img !== imageFile){
-  //     // if(!imageFile && !tech?.img)throw new InputParseError("No img set")
-  //     let imgUrl: string
-  //     if(imageFile){
-  //       const formData = new FormData
-  //       formData.append("img", imageFile)
-  //       if(tech&&tech.img){
-  //         imgUrl = await updateImg(formData, tech.img)
-
-  //       }else{
-  //         imgUrl = await uploadImg(formData)
-  //       }
-  //       const v = techSchema.shape.img.safeParse(imgUrl)
-  //       if (!v.success) {
-  //         form.reset()  
-  //         setSelectedTech("")
-  //         setCurrentStep(1)
-  //         setIsLoading(false)
-  //         throw new InputParseError("Error with img upload storage")
-  //       }
-  //       form.setValue("img", imgUrl)
-  //     }
-  //   }
-  //     const data = form.getValues()
-
-  //     const response = tech ? await updateTech(data) : await createTech(data)
-  //     if (response.success) {
-  //       toast({ title: "Éxito", description: response.message })
-  //       rv(`/${locale}/admin/techs`)
-  //       setOpen(false)
-  //     } else {
-  //       toast({ title: "Error", description: response.message, variant: "destructive" })
-  //     }
-  //   } catch (error) {
-  //     console.error(error)
-  //     toast({ title: "Error", description: "Ocurrió un error al procesar la solicitud", variant: "destructive" })
-  //   }
-  //   finally
-  //   {
-  //     form.reset()
-  //     setSelectedTech("")
-  //     setCurrentStep(1)
-  //     setIsLoading(false)
-  //   }
-  // }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{renderButton}</DialogTrigger>
@@ -315,7 +238,7 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
         )}
         <FormProvider {...form}>
         {state.currentStep === 1 && <StepOne isAdmin={isAdmin} isUpdating={isUpdating} form={form} onComplete={() => handleStepComplete(1)} onError={handleError} />}
-        {state.currentStep === 2 && <StepTwo isUpdating={isUpdating} form={form} onComplete={() => handleStepComplete(2)} onError={handleError} onPrevious={handlePreviousStep} dispo={dispo} />}
+        {state.currentStep === 2 && <StepTwo previewImage={state.previewImage} onPreviewImage={handlePreviewImage} isUpdating={isUpdating} form={form} onComplete={() => handleStepComplete(2)} onError={handleError} onPrevious={handlePreviousStep} dispo={dispo} />}
         {state.currentStep === 3 && <LastStep isAdmin={isAdmin} form={form} loading={state.isLoading} onSubmit={onSubmit}  onError={handleError} onPrevious={handlePreviousStep} />}
         </FormProvider>
       </DialogContent>

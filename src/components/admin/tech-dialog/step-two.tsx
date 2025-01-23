@@ -19,6 +19,8 @@ type StepTwoTechProps = StepTechProps & {
   dispo: DispoTechs
   onPrevious: () => void
   isUpdating: boolean
+  previewImage: string | null
+  onPreviewImage: (file:string|null) => void
 }
 export function StepTwo({
   onComplete,
@@ -26,11 +28,12 @@ export function StepTwo({
   onPrevious,
   form,
   dispo,
-  isUpdating
+  isUpdating,
+  previewImage,
+  onPreviewImage
 }: StepTwoTechProps) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [previewImage, setPreviewImage] = useState<string | null>(form.watch("img") || null)
   const { dispoLeng, dispoFw } = dispo
 
   const imageSchema = z.object({
@@ -61,7 +64,7 @@ export function StepTwo({
     }
     fileCheck(file)
     const imgUrl = URL.createObjectURL(file)
-    setPreviewImage(imgUrl)
+    onPreviewImage(imgUrl)
     form.setValue("img", file)
   }
 
@@ -103,7 +106,7 @@ export function StepTwo({
                         variant="secondary"
                         className="my-auto"
                         onClick={() => {
-                          setPreviewImage(null);
+                          onPreviewImage(null);
                           form.setValue("img", null);
                         }}
                       >
