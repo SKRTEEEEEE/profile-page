@@ -1,7 +1,13 @@
 import { MongooseBase, MongooseTimestamps } from "@/core/infrastructure/mongoose/types";
 import { Document } from "mongoose";
 import { z } from "zod";
-
+import { createIntlZodInput } from "./intl";
+// const idiomaZObject = z.object({
+//     es: z.string().min(2, "La descripción debe tener al menos 2 caracteres"),
+//     en: z.string().min(2, "La descripción debe tener al menos 2 caracteres"),
+//     ca: z.string().min(2, "La descripción debe tener al menos 2 caracteres"),
+//     de: z.string().min(2, "La descripción debe tener al menos 2 caracteres"),
+// })
 export const firstStepTechSchema = z.object({
     nameId: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
     // from pre-tech
@@ -20,12 +26,7 @@ export const secondStepTechSchema = z.object({
       }),
 })
 export const techSchema = z.object({
-    desc: z.object({
-        es: z.string().min(2, "La descripción debe tener al menos 2 caracteres"),
-        en: z.string().min(2, "La descripción debe tener al menos 2 caracteres"),
-        ca: z.string().min(2, "La descripción debe tener al menos 2 caracteres"),
-        de: z.string().min(2, "La descripción debe tener al menos 2 caracteres"),
-    }),
+    desc: createIntlZodInput({minLength: 2, minMessage: "La descripción debe tener al menos 2 caracteres"}),
 }).merge(firstStepTechSchema).merge(secondStepTechSchema)
 
 export type TechForm = z.infer<typeof techSchema>;

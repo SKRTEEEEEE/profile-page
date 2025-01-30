@@ -1,10 +1,8 @@
-import { Model,  UpdateQuery } from "mongoose";
+import { Model } from "mongoose";
 import { MongooseBaseRepository } from "../implementations/base.repository";
 import { MongooseDeleteByIdRepository } from "../implementations/delete.repository";
 import {  MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
 import { MongooseUpdateRepository } from "../implementations/update.repository";
-import { FilterQuery } from "mongoose";
-import { QueryOptions } from "mongoose";
 import { MongooseBase } from "../types";
 import { MongooseCRURepository } from "../implementations/cru.repository";
 import { MongooseCRRUUD1 } from "../types/patterns";

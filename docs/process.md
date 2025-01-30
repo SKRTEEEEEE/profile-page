@@ -187,7 +187,7 @@ npm i react-countup
 - [❓] Cambiar el nombre de ceo a admin?
 
 ## 1x. Reestructurar clean arch v3 p2 (back)
-- [ ] **REVISAR ERROR CON LOS STATE DE LA IMG** en el form de techs
+- [x] **REVISAR ERROR CON LOS STATE DE LA IMG** en el form de techs
 ### Revisar connectors
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.
 - [x] Traspasar octokit a clean arch

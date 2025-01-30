@@ -95,6 +95,7 @@ export const portafolioExample = [
     {
         title: "Mini-Apps Blockchain Sepolia",
         links: {
+            web: "https://ejemplos-d-apps.vercel.app/",
             github: "https://github.com/SKRTEEEEEE/sepolia-mini-apps",
         },
         img: "/ceo/image-4.png",
@@ -106,7 +107,7 @@ export const portafolioExample = [
         keys: [
             {
                 icon:{
-                    iconName: "Dice",
+                    iconName: "Dices",
                     className: "w-6 h-6",
                 },
                 title: "Lotería Descentralizada",
@@ -163,6 +164,5 @@ export const portafolioExample = [
                 badges: ["Solidity", "Hardhat", "Ethers.js", "React", "TypeScript"]                
             },
         ]
-    }
-    
+    },
 ]

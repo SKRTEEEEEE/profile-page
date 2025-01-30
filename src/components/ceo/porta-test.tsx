@@ -46,7 +46,7 @@ const ContentLayout = ({children, links, title}: ContentLayoutProps) => (
         </div>
         
         {/* Content container */}
-        <div className="w-full overflow-auto relative h-full rounded-2xl px-10 md:pt-5 text-xl md:text-4xl font-bold text-white">
+        <div className="w-full overflow-auto relative h-full rounded-2xl px-10 md:pt-5 font-bold text-white">
             {links!==undefined&&<PortafolioLinks projectTitle={title} data={links}/>}
           {children}
         </div>
@@ -119,10 +119,10 @@ export function TabsDemo() {
   const onProjectSelect =  (index:number)=>dispatch({type: "SET_SELECTED_PROJECT", payload: index})
   const projectSelectOptions = {projects: selectorTabs, selectedProject:state.selectedProject, onProjectSelect}
   return (
-    <div className="flex flex-col justify-center h-full lg:pt-8">
+    <div className="flex overflow-hidden flex-col justify-center h-dvh w-dvw lg:pt-8">
         
 
-    <div className="h-[28rem] sm:h-[36rem] [perspective:1000px]  relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
+    <div className="h-[24rem] sm:h-[36rem] [perspective:640px] sm:[perspective:1000px]  relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
         
       <Tabs key={state.selectedProject} tabs={tabs} projectSelectOptions={projectSelectOptions}/>
 
