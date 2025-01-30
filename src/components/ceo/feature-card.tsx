@@ -1,5 +1,8 @@
+import { KeyProject, TechProject } from "@/core/domain/entities/project";
 import { DynamicLucideIcon, LucideIconNames } from "../oth/dyn/dynamic-lucide";
 import { CustomBadge } from "./custom-badge"
+import { useLocale } from "next-intl";
+import { IntlKey } from "@/core/domain/entities/intl";
 
 
 type FeatureCardProps = {
@@ -21,21 +24,15 @@ function FeatureCard({ title, desc, icon }: FeatureCardProps) {
   )
 }
 
-export type KeyCardProjectProps =  {
-    icon: {
-      iconName: string
-      className: string
-    },
-    title: string
-    desc: string
-  }
+export type KeyCardProjectProps =  KeyProject
 
 type KeyCardsProjectsProps = {
-  techs: string[]
+  techs: TechProject[]
   keys: KeyCardProjectProps[]
 }
 
 export function KeyProjectsCards({techs, keys}: KeyCardsProjectsProps ) {
+  const locale = useLocale()
   return (
     <span>
       <div className="relative">
@@ -44,7 +41,7 @@ export function KeyProjectsCards({techs, keys}: KeyCardsProjectsProps ) {
           <h3 className="text-2xl font-bold text-purple-100 mb-4">Tecnologías</h3>
           <div className="flex flex-wrap gap-3">
             {techs.map((tech) => (
-              <CustomBadge key={tech}>{tech}</CustomBadge>
+              <CustomBadge key={tech.nameId}>{tech.nameId}</CustomBadge>
             ))}
           </div>
         </div>
@@ -59,10 +56,10 @@ export function KeyProjectsCards({techs, keys}: KeyCardsProjectsProps ) {
           {keys.map(({icon, title, desc})=> (
             <FeatureCard
             // icon={<Cpu className="w-6 h-6" />}
-            key={title}
+            key={title[locale as IntlKey]}
             icon={<DynamicLucideIcon iconName={icon.iconName as LucideIconNames} className={icon.className} />}
-            title={title}
-            desc={desc}
+            title={title[locale as IntlKey]}
+            desc={desc[locale as IntlKey]}
           />
           ))}
           {/* <FeatureCard

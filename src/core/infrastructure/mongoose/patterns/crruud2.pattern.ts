@@ -1,7 +1,7 @@
-import { FilterQuery, Model, Query, QueryOptions, UpdateQuery } from "mongoose";
+import { Model, Query } from "mongoose";
 import { MongooseBase } from "../types";
 import { MongooseBaseRepository } from "../implementations/base.repository";
-import {  MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
+import { MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
 import { MongooseCRURepository } from "../implementations/cru.repository";
 import { MongooseDeleteRepository } from "../implementations/delete.repository";
 import { MongooseUpdateRepository } from "../implementations/update.repository";
@@ -11,9 +11,7 @@ import { MongooseDeleteProps, MongooseReadProps, MongooseUpdateByIdProps, Mongoo
 // -> crruud v2 - (not used still -old tech.pattern)
 
 export abstract class MongooseCRRUUD2Pattern<
-  TBase,
-  TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>> = {}
-> extends MongooseBaseRepository<TBase, TOptions> implements MongooseCRRUUD2<TBase> {
+  TBase> extends MongooseBaseRepository<TBase> implements MongooseCRRUUD2<TBase> {
   private cruRepo: MongooseCRURepository<TBase>
   private readRepo: MongooseReadRepository<TBase>;
   private deleteRepo: MongooseDeleteRepository<TBase>

@@ -1,4 +1,4 @@
-import { Model, QueryOptions } from "mongoose";
+import { Model, Types } from "mongoose";
 import { MongoDbConnection } from "../../connectors/mongo-db";
 import { MongooseBase, MongooseDocument } from "../types";
 
@@ -10,42 +10,50 @@ export abstract class MongooseBaseRepository<
   TBase,
   TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>> = {}
 > extends MongoDbConnection {
-  constructor(protected Model: Model<any, {}, {}, {}, any, any>, private parseOpt?: TOptions) {
+  protected parseOpt?: TOptions;
+  constructor(protected Model: Model<any, {}, {}, {}, any, any>, parseOpt?: TOptions) {
     super();
+    this.parseOpt = parseOpt;
+  }
+  private flattenMap(value: any): any {
+    if (value instanceof Map) {
+      return Object.fromEntries(value);
+    }
+    if (Array.isArray(value)) {
+      return value.map(item => this.flattenMap(item));
+    }
+    if (value && typeof value === 'object') {
+      return Object.fromEntries(
+        Object.entries(value).map(([key, val]) => [key, this.flattenMap(val)])
+      );
+    }
+    return value;
   }
 
-//   protected documentToPrimary(document: TBase & MongooseDocument): TBase & MongooseBase {
-//     const { _id, createdAt, updatedAt, ...rest } = document.toObject();
   
-//     const result: Partial<TBase & MongooseBase> = {
-//       id: _id.toString(),
-//       createdAt: createdAt.toISOString(),
-//       updatedAt: updatedAt.toISOString(),
-//       ...rest,
-//     };
   
-//     // Aplicar las transformaciones especificadas en las opciones
-//  if (this.parseOpt) {
-//   Object.entries(this.parseOpt).forEach(([key, transformFn]) => {
-//     if (key in result && typeof transformFn === 'function') {
-//       result[key as keyof TBase & MongooseBase] = transformFn(result[key as keyof TBase & MongooseBase]);
-//     }
-//   });
-// }
+  
 
-//     return result as TBase & MongooseBase;
-//   }
+// Uso en documentToPrimary
  protected documentToPrimary(document: TBase & MongooseDocument): TBase & MongooseBase {
     const { _id, createdAt, updatedAt, ...rest } = document.toObject();
 
-    const result: Partial<TBase & MongooseBase> = {
+    let result: Partial<TBase & MongooseBase> = {
       id: _id.toString(),
       createdAt: createdAt.toISOString(),
       updatedAt: updatedAt.toISOString(),
       ...rest,
     };
+    // // Transformar automáticamente Maps a objetos planos
+    // Object.entries(result).forEach(([key, value]) => {
+    //   if (value instanceof Map) {
+    //     (result as any)[key] = Object.fromEntries(value);
+    //   }
+    // });
+    result = this.flattenMap(result);
 
-    // Aplicar las transformaciones especificadas en las opciones
+
+    // // Aplicar las transformaciones especificadas en las opciones
     if (this.parseOpt) {
       Object.entries(this.parseOpt).forEach(([key, transformFn]) => {
         if (key in result && typeof transformFn === "function") {

@@ -11,9 +11,7 @@ import { MongooseDeleteProps, MongooseReadProps, MongooseUpdateByIdProps } from 
 // crruudd 
 
 export abstract class MongooseRolePattern<
-TBase,
-TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>> = {}
-> extends MongooseBaseRepository<TBase, TOptions> implements RoleRepository<TBase>{
+TBase> extends MongooseBaseRepository<TBase> implements RoleRepository<TBase>{
   private cruRepo: MongooseCRURepository<TBase>
   private readRepo: MongooseReadRepository<TBase>;
   private updateRepo: MongooseUpdateRepository<TBase>

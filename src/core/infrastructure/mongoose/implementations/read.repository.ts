@@ -1,13 +1,18 @@
 import { MongooseBaseRepository } from "./base.repository";
 import { MongooseBase } from "../types";
 import { MongooseReadI, MongooseReadProps } from "../types/implementations";
+import { Model } from "mongoose";
 
 
 export type MongooseReadResponse<TBase> = Promise<(TBase & MongooseBase)[] | []>
 
 export class MongooseReadRepository<
 TBase,
-> extends MongooseBaseRepository<TBase> implements MongooseReadI<TBase>{
+TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>> = {}
+> extends MongooseBaseRepository<TBase, TOptions> implements MongooseReadI<TBase>{
+    constructor(Model: Model<any, {}, {}, {}, any, any>, parseOpt?: TOptions) {
+        super(Model, parseOpt);
+    }
     // -> Read All
     async read(
       {filter, projection, options}: MongooseReadProps<TBase> 

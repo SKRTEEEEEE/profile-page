@@ -1,7 +1,7 @@
 import { TabsDemo } from "@/components/ceo/porta-test";
-import PortfolioBox from "@/components/ceo/portfolio-box";
 import { MotionTransition } from "@/components/oth/transition-component";
 import TransitionPage from "@/components/oth/transition-page";
+import { readExampleProjectsUC } from "@/core/application/usecases/entities/project";
 import { getProjects } from "@/lib/projects";
 import { getTranslations } from "next-intl/server";
 
@@ -11,6 +11,10 @@ import Image from "next/image";
 const PortfolioPage = async () => {
     const t = await getTranslations("ceo")
     const dataPortfolio = await getProjects()
+    const exProjects = await readExampleProjectsUC()
+    // console.log("exProjects", exProjects[0].time)
+    // console.log("techs: ", exProjects[0].techs)
+    // console.log("keys: ", exProjects[0].keys)
     return (
         <main>
             <TransitionPage />
@@ -21,7 +25,7 @@ const PortfolioPage = async () => {
                 <Image src="/ceo/circles.png" width="300" height="300" className="w-full h-full " alt={t("images.circular")} />
             </div>
             <section className="">
-                <TabsDemo/>
+                <TabsDemo selectedProjects={exProjects}/>
             </section>
             {/* <section className="sm:hidden my-20 p-4">
             <div className="flex flex-col justify-center h-full">

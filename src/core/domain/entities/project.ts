@@ -11,7 +11,7 @@ export enum TypeProject {
     Design = "design",
     Other = "other"
   }
-type TechProject = {
+export type TechProject = {
     nameId: string;
     nameBadge: string;
     img: null|string;
