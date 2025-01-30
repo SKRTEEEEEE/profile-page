@@ -8,16 +8,16 @@ const techsProjectSchema = new Schema({
     web: { type: String, required: true },
 
     desc: {type: Map, of: String, required: true},
-    type: {type: String, required: true},
+    type: {type: [String], required: true},
     typeDesc: {type: Map, of: String, required: true},
+    version: {type: String, default: null},
 })
 const timeProjectSchema = new Schema({
     title: { type: Map, of: String, required: true },
     date: { type: String, required: true },
     desc: { type: Map, of: String, required: true },
-    subtitle: { type: String, required: true },
-    type: {type: String, required: true},
-    techs: [{id: Schema.Types.ObjectId, ref: "Project.techs"}],
+    type: {type: [String], required: true},
+    techs: [{type:String , ref: "projects"}],
 })
 const keyProjectSchema = new Schema({
     icon: {
@@ -42,5 +42,7 @@ const projectSchema = new Schema<ProjectDocument>({
     time: [timeProjectSchema],
     keys: [keyProjectSchema],
     techs: [techsProjectSchema],
-})
+},{timestamps: true})
+// Añadimos indice en techs.nameId para facilitar la búsqueda
+projectSchema.index({ 'techs.nameId': 1 });
 export const ProjectModel = mongoose.models.projects || mongoose.model("projects", projectSchema)

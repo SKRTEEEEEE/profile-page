@@ -17,16 +17,16 @@ type TechProject = {
     img: null|string;
     web: string;
     desc: IntlBase;
-    type: TypeProject;
+    type: TypeProject[];
     typeDesc: IntlBase;
+    version: string|null;
 }
 
 type TimeProject = {
     title: IntlBase;
     date: string;
     desc: IntlBase;
-    subtitle: string;
-    type: TypeProject;
+    type: TypeProject[];
     techs: string[]; // Referencia a los IDs de TechProject
 }
 

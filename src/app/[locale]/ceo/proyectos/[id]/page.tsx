@@ -13,7 +13,8 @@ type TechsSectionProps = {
   sectionTitle: string,
 }
 
-const TechsSection: React.FC<TechsSectionProps> = ({ techs, sectionTitle }) => (techs.length > 1) ? (<section className="flex w-dvw min-h-32 flex-col align-center">
+const TechsSection: React.FC<TechsSectionProps> = ({ techs, sectionTitle }) => (techs.length > 1) ? 
+(<section className="flex w-dvw min-h-32 flex-col align-center">
 
   <h3 className="absolute ml-4 xl:ml-24 text-xl text-primary-ceo-200 font-semibold">{sectionTitle}</h3>
   <AutoplaySliderTechs data={techs} />

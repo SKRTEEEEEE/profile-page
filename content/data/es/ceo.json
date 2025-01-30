@@ -62,7 +62,7 @@
                         "frontend": [
                             {
                                 "title": "NextJS",
-                                "iconName": "TbBrandNextjs",
+                                "iconName": "SiNextdotjs",
                                 "version": "v14",
                                 "desc": "parte principal"
                             },
