@@ -132,7 +132,7 @@ export function TabsPortafolioSection({selectedProjects}: {selectedProjects: Pro
       content: (
         <ContentLayout buttons={t.raw("buttons")} title={state.projectData.title[locale as IntlKey]} links={{web: state.projectData.operative || undefined, github: state.projectData.openSource!}}>
             
-            <TimeLine arrData={timeLineProps}/>
+            <TimeLine arrData={timeLineProps} classNameMain="mx-auto"/>
          </ContentLayout>
       ),
     },

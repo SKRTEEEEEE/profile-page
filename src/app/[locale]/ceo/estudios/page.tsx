@@ -1,7 +1,7 @@
 // "use client" -> No me dejava quitar el use client porque el counter services no lo tenia
 
 import CounterServices from "@/components/ceo/counter-services";
-import TimeLine from "@/components/ceo/time-line";
+import TimeLine, { DataTimeLine } from "@/components/ceo/time-line";
 import { MotionTransition } from "@/components/oth/transition-component";
 import TransitionPage from "@/components/oth/transition-page";
 import { useTranslations } from "next-intl";
@@ -36,19 +36,10 @@ const dataStudiesPage = [
         link: "https://www.centrocoliseum.com/"
     },
 ];
-type TimeLineProps = {
-    id: string
-    title: string
-    desc: string
-    subtitle: string
-    date: string
-    web?: string
-    badges?: string[] // Para poder crear los links de los badges necesitamos
-    // badges?: [PreTechBase, ...Array<PreTechBase[]>] // Para poder crear los links de los badges necesitamos
-}
+
 const StudiesPage = () => {
     const t = useTranslations("ceo")
-    const arrData: TimeLineProps[] = dataStudiesPage.map((data,index)=>({
+    const arrData: DataTimeLine[] = dataStudiesPage.map((data, index) => ({
         id: data.id.toString(),
         title: t(`estudios.list.${data.id}.title`),
         desc: t(`estudios.list.${data.id}.desc`),
@@ -57,30 +48,41 @@ const StudiesPage = () => {
         web: data.link
     }))
     return (
-        <main className="mt-6 lg:mt-4 pb-12 md:pb-2 md:mb-0 lg:pb-0 ">
+        <main className="max-h-dvh max-w-dvw">
 
-        <TransitionPage />
-            {/* <span className="w-full max-w-6xl px-4 pb-40 mx-auto mt-40 md:pb-0 md:px-6"> */}
+            <TransitionPage />
 
-            
+
+
             <MotionTransition position="bottom" className="top-14 right-0 hidden xl:inline-block xl:absolute ">
-            <Image priority src="/ceo/avatar1.svg" width={"550"} height={"550"} className="" alt={t("images.office")}/>
-                </MotionTransition>
-                <div className="pt-24 gap-4 flex flex-col px-12">
-                <h1 tabIndex={0} className="text-2xl leading-tight text-center md:text-left md:text-5xl md:mt-10">
-                    <span className="font-bold text-secondary-ceo">
-                {t("estudios.h1.0")}
-                    </span>
-                    {' '}{t("estudios.h1.1")}
-                </h1>
+                <Image priority src="/ceo/avatar1.svg" width={"550"} height={"550"} className="" alt={t("images.office")} />
+            </MotionTransition>
+            <div className="pt-24 gap-4 max-h-dvh flex flex-col ">
+                <span className="mx-6 pt-2 max-sm:bg-blend-luminosity max-sm:h-[25dvh]">
+                    <h1 tabIndex={0} className="text-2xl leading-tight text-center md:text-left md:text-5xl md:mt-10">
+                        <span className="font-bold text-secondary-ceo">
+                            {t("estudios.h1.0")}
+                        </span>
+                        {' '}{t("estudios.h1.1")}
+                    </h1>
 
-                <CounterServices />
+                    <CounterServices />
+                </span>
 
-                {/* <TimeLineHARD /> */}
-                <TimeLine arrData={arrData}/>
+
+                <div className="relative  max-sm:h-[75dvh] overflow-hidden">
+                    {/* Degradado en la parte superior e inferior para efecto de desvanecimiento */}
+                    <div className="sm:hidden pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-violet-400/20 to-transparent" />
+                    <div className="sm:hidden pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent" />
+
+                    {/* Contenedor de TimeLine con overflow y scroll suave */}
+                    <div className="h-full mx-12  overflow-y-auto pt-8 max-sm:pb-32 scroll-smooth shadow-lg rounded-lg">
+                        <TimeLine arrData={arrData} classNameMain="2xl:mx-auto" />
+                    </div>
                 </div>
-{/* </span> */}
-            {/* <TransitionPage /> */}
+
+
+            </div>
         </main>
     );
 }

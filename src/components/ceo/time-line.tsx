@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Badge } from "../ui/badge";
+import { cn } from "@/lib/utils";
 
 
 export type DataTimeLine = {
@@ -15,12 +16,13 @@ export type DataTimeLine = {
 
 type TimeLineProps = {
     arrData: DataTimeLine[]
+    classNameMain?: string
+
 }
 
-const TimeLine = ({arrData}: TimeLineProps) => {
+const TimeLine = ({arrData, classNameMain}: TimeLineProps) => {
     return (
-        <div className="flex flex-col justify-center divide-y divide-slate-200">
-            <div className="w-full max-w-3xl mx-auto md:pb-10 ">
+        <div className={cn(classNameMain,"flex flex-col justify-center divide-y divide-slate-200 w-full max-w-3xl md:pb-10")}>
                 <div className="-my-6">
                     {arrData.map((data) => {
                         const {id, title, desc, subtitle, date, web, badges} = data
@@ -48,7 +50,6 @@ const TimeLine = ({arrData}: TimeLineProps) => {
                         </div>
                     )})}
                 </div>
-            </div>
         </div>
     );
 }
