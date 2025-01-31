@@ -61,7 +61,6 @@ const ContentLayout = ({children, links, title, buttons}: ContentLayoutProps) =>
 type State = {
   selectedProject: number
   projectData: Project
-  // projectData: PortafolioExampleData
 }
 
 type Action = 
