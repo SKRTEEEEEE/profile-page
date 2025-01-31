@@ -82,8 +82,8 @@ export function TabsPortafolioSection({selectedProjects}: {selectedProjects: Pro
     }
   }
   const initialState: State = {
-    selectedProject: 1,
-    projectData: selectedProjects[1]
+    selectedProject: selectedProjects.length-1,
+    projectData: selectedProjects[selectedProjects.length-1]
   }
   const [state, dispatch] = useReducer(reducer, initialState)
   const timeLineProps: DataTimeLine[] = state.projectData.time.map((tim, index) => {

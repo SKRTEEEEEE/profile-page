@@ -1,21 +1,38 @@
 import { KeyProject, TechProject } from "@/core/domain/entities/project";
 import { DynamicLucideIcon, LucideIconNames } from "../oth/dyn/dynamic-lucide";
-import { CustomBadge } from "./custom-badge"
 import { useLocale } from "next-intl";
 import { IntlKey } from "@/core/domain/entities/intl";
+import { cn } from "@/lib/utils"
 
-
+interface CustomBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode
+}
 type FeatureCardProps = {
   title: string
   desc: string
   icon?: React.ReactNode
 }
-
+function CustomBadge({ children, className, ...props }: CustomBadgeProps) {
+  return (
+    <div
+      className={cn(
+        "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium",
+        "bg-purple-900/30 text-purple-200 border border-purple-500/50",
+        "shadow-[0_0_15px_rgba(147,51,234,0.1)] backdrop-blur-sm",
+        "transition-all duration-300 hover:bg-purple-800/40 hover:border-purple-400/60",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
 function FeatureCard({ title, desc, icon }: FeatureCardProps) {
   return (
-    <div className="group relative">
+    <div className="group relative ">
       <div className="absolute inset-0 bg-gradient-to-r from-purple-900/50 to-purple-800/30 rounded-xl blur-xl transition-all duration-300 group-hover:blur-2xl opacity-75" />
-      <div className="relative p-6 rounded-xl border border-purple-500/20 backdrop-blur-sm bg-black/20 transition-all duration-300 group-hover:bg-black/30">
+      <div className="relative min-h-[122px] p-6 rounded-xl border border-purple-500/20 backdrop-blur-sm bg-black/20 transition-all duration-300 group-hover:bg-black/30">
         <div className="flex gap-4 ">{icon && <div className="text-purple-400 mb-4">{icon}</div>}
           <h4 className="text-xl font-bold text-purple-100 mb-2">{title}</h4></div>
         <p className="text-purple-200/80 text-xs">{desc}</p>

@@ -22,6 +22,13 @@ export const testPopulateUC = async () => {
 export const readExampleProjectsUC = async () => {
     return await projectRepository.read({filter: {ejemplo: true}})
 }
+export const readProjectsDeployedUC = async () => {
+  return await projectRepository.read({filter: {operative: {$ne: null}}})
+}
+export const readProjectByIdUnoptUC = async (id: string) => {
+  const projects = await projectRepository.read({filter: {_id: id}})
+  return projects[0]
+}
 // export const readExampleProjectsUC = async () => {
 //     return await projectRepository.readLean()
 // }

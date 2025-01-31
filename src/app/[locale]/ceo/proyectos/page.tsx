@@ -1,7 +1,9 @@
 import Link from 'next/link';
-import { getProjects, Project } from '@/lib/projects';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Link as LinkLocale } from '@/i18n/routing';
+import { readProjectsDeployedUC } from '@/core/application/usecases/entities/project';
+import { Project } from '@/core/domain/entities/project';
+import { IntlKey } from '@/core/domain/entities/intl';
 
 
 type SearchParams = Promise<{
@@ -10,10 +12,10 @@ type SearchParams = Promise<{
 
 export default async function ProjectsPage({ searchParams }: { searchParams: SearchParams }) {
   const projectsPerPage = 4;
-  // const [currentPage, setCurrentPage] = useState(1);
   const sp = (await searchParams).page
   const t = await getTranslations()
-  const mappedProjects = await getProjects()
+  const locale = await getLocale()
+  const mappedProjects = await readProjectsDeployedUC()
   const currentPage = sp ? parseInt(sp) : 1;
 
   const indexOfLastProject = currentPage * projectsPerPage;
@@ -30,24 +32,24 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Sea
           // console.log("data projects: ", data)
           return (
             <li className="flex justify-between" key={data.id}>
-              <h2 className='text-md xl:text-2xl'>{data.title}</h2>
+              <h2 className='text-md xl:text-2xl'>{data.title[locale as IntlKey]}</h2>
               <div className='flex'>
-                {data?.urlDemo &&
+                {data?.openSource &&
                   <Link
                     className='mr-4 px-2 py-1 border-2 border-primary-ceo-200 rounded-md bg-secondary-ceo-300/50
                hover:bg-secondary-ceo-600 hover:border-primary-ceo-400/80 sm:inline hidden'
-                    href={data.urlDemo}
+                    href={data.openSource}
                     target='_blank'>
                     {t("ceo.proyectos.main.ul.buttons.url_demo.0")}
                     <span className="hidden xl:inline"> {t("ceo.proyectos.main.ul.buttons.url_demo.1")}
                     </span>🧑‍💻
                   </Link>
                 }
-                  {data?.urlGithub && 
+                  {data?.operative && 
                   <Link 
                     className='mr-4 px-2 py-1 border-2 border-primary-ceo-200 rounded-md bg-secondary-ceo-300/50 
                     hover:bg-secondary-ceo-600 hover:border-primary-ceo-400/80 sm:inline hidden' 
-                    href={data.urlGithub} 
+                    href={data.operative} 
                     target='_blank'>
                     <span className="hidden xl:inline">{t("ceo.proyectos.main.ul.buttons.url_github.0")} </span>
                     {t("ceo.proyectos.main.ul.buttons.url_github.1")}📄

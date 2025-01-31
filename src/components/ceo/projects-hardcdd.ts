@@ -159,6 +159,68 @@ const techsToInsertEjemplosDApps = [
         ca: "Part principal",
         de: "Hauptteil"
       },
+      version: "v15"
+    },
+    {
+      nameId: "Tailwind CSS",
+      nameBadge: "tailwindcss",
+      img: "https://utfs.io/f/ddf18b4c-5645-4f56-b47a-a9e492a67f46-ej1tto.webp",
+      web: "https://tailwindcss.com/",
+      desc: {
+        es: "Framework/superset CSS - estilos visuales",
+        en: "CSS framework/superset - visual styles",
+        ca: "Framework/superset CSS - estils visuals",
+        de: "CSS-Framework/Superset - visuelle Stile"
+      },
+      type: ["frontend"],
+      typeDesc: {
+        es: "Parte visual principal",
+        en: "Main visual part",
+        ca: "Part visual principal",
+        de: "Hauptvisueller Teil"
+      },
+      version: null
+    },
+    {
+        nameId: "Thirdweb",
+        nameBadge: "thirdweb",
+        img: "https://utfs.io/f/1fc1d9aa-4608-4f2c-9e5e-b8b2e71fe637-eniplh.png",
+        web: "https://thirdweb.com/",
+        desc: {
+          es: "SDK para desarrollo de conectividad usuarios",
+          en: "SDK for user connectivity development",
+          ca: "SDK per al desenvolupament de connectivitat d'usuaris",
+          de: "SDK für die Entwicklung der Benutzerkonnektivität"
+        },
+        type: ["backend"],
+        typeDesc: {
+          es: "Conectividad web/blockchain",
+          en: "Web/blockchain connectivity",
+          ca: "Connectivitat web/blockchain",
+          de: "Web/Blockchain-Konnektivität"
+        },
+        version: "v4"
+      },
+  ];
+  const techsToInsertBlockchainCo = [
+    {
+      nameId: "Next.js",
+      nameBadge: "nextdotjs",
+      img: "https://utfs.io/f/fc92b9b0-a618-4a9b-bd99-b4433510b5c6-6jipdj.png",
+      web: "https://nextjs.org",
+      desc: {
+        es: "Framework de programación fullstack de React y Node.js",
+        en: "React and Node.js fullstack programming framework",
+        ca: "Framework de programació fullstack de React i Node.js",
+        de: "React und Node.js Fullstack-Programmierframework"
+      },
+      type: ["frontend"],
+      typeDesc: {
+        es: "Parte principal",
+        en: "Main part",
+        ca: "Part principal",
+        de: "Hauptteil"
+      },
       version: "v14"
     },
     {
@@ -179,30 +241,10 @@ const techsToInsertEjemplosDApps = [
         ca: "Part visual principal",
         de: "Hauptvisueller Teil"
       },
-      version: "v1"
+      version: null
     },
-    {
-        nameId: "Thirdweb",
-        nameBadge: "thirdweb",
-        img: "https://utfs.io/f/1fc1d9aa-4608-4f2c-9e5e-b8b2e71fe637-eniplh.png",
-        web: "https://thirdweb.com/",
-        desc: {
-          es: "SDK para desarrollo de conectividad usuarios",
-          en: "SDK for user connectivity development",
-          ca: "SDK per al desenvolupament de connectivitat d'usuaris",
-          de: "SDK für die Entwicklung der Benutzerkonnektivität"
-        },
-        type: ["backend"],
-        typeDesc: {
-          es: "Conectividad web/blockchain",
-          en: "Web/blockchain connectivity",
-          ca: "Connectivitat web/blockchain",
-          de: "Web/Blockchain-Konnektivität"
-        },
-        version: "v1"
-      },
+   
   ];
-
  export const projectsToInsert = [
   {
     nameId: "profile-page",
@@ -230,6 +272,7 @@ const techsToInsertEjemplosDApps = [
       de: "Hauptprojekt der persönlichen Website, um meine Programmierfähigkeiten anzuwenden"
     },
     techs: techsToInsertProfilePage,
+    
     keys: [
         {
           icon: {
@@ -377,6 +420,128 @@ const techsToInsertEjemplosDApps = [
     ]
   },
   {
+    nameId: "blockchain-presentation",
+    openSource: "https://github.com/SKRTEEEEEE/blockchain-presentation",
+    operative: "https://blockchain-presentation-eta.vercel.app/",
+    ejemplo: true,
+    image: "/ceo/image-2.png",
+    icon: "Building2",
+    
+    title: {
+        es: "Blockchain para empresas",
+        en: "Blockchain for companies",
+        ca: "Blockchain per a empreses",
+        de: "Blockchain für Unternehmen"
+    },
+    desc: {
+        es: "Pagina para mostrar las algunas de las principales posibilidades para empresas tradicionales, con diferentes ejemplos teoricos de implementación, asi como diferentes estrategias para la implementación de estas.",
+        en: "Page to show some of the main possibilities for traditional companies, with different theoretical examples of implementation as well as different strategies for the implementation of these.",
+        ca: "Pagina per mostrar les algunes de les principals possibilitats per a empreses tradicionals, amb diferents exemples teòrics d'implementació, així com diferents estratègies per a la implementació d'aquestes.",
+        de: "Seite, um einige der wichtigsten Möglichkeiten für traditionelle Unternehmen zu zeigen, mit verschiedenen theoretischen Beispielen für die Implementierung sowie verschiedenen Strategien für die Implementierung dieser."
+    },
+    lilDesc: {
+        es: "Pagina de presentación de las posibilidades de la blockchain para las empresas",
+        en: "Page to show some of the main possibilities for traditional companies.",
+        ca: "Pagina de presentació de les possibilitats de la blockchain per a les empreses",
+        de: "Präsentationsseite der Möglichkeiten der Blockchain für Unternehmen"
+    },
+    techs: techsToInsertBlockchainCo,
+    time: [
+        {
+            title: {
+                es: "v0: Desarrollo pagina web",
+                en: "v0: Web page development",
+                ca: "v0: Desenvolupament pàgina web",
+                de: "v0: Webseitenentwicklung"
+            },
+            date: "Mar 13, 2024",
+            desc: {
+                es: "Desarrollo de prototipos y implementación en la web 🛠️",
+                en: "Development of prototypes and implementation on the web 🛠️",
+                ca: "Desenvolupament de prototips i implementació a la web 🛠️",
+                de: "Entwicklung von Prototypen und Implementierung auf der Website 🛠️"
+            },
+            type: ["frontend"],
+            techs: ["Next.js", "Tailwind CSS"]
+        }
+    ],
+
+    keys: [
+        {
+            icon: {
+                iconName: "Eye",
+                className: "w-6 h-6"
+            },
+            title: {
+                es: "Buen UI/UX (frontend)",
+                en: "Good UI/UX (frontend)",
+                ca: "Bon UI/UX (frontend)",
+                de: "Gutes UI/UX (frontend)"
+            },
+            desc: {
+                es: "Ejemplo practico de buen Interfaz y Experiencia de Usuario.",
+                en: "Example of good User Interface and Experience.",
+                ca: "Exemple pràctic de bona Interfície i Experiència d'Usuari.",
+                de: "Beispiel für eine gute Benutzeroberfläche und -erfahrung."
+            }
+        },
+        {
+            icon: {
+                iconName: "BookOpenText",
+                className: "w-6 h-6"
+            },
+            title: {
+                es: "Explicación teorica",
+                en: "Theoretical explanation",
+                ca: "Explicació teòrica",
+                de: "Theoretische Erklärung"
+            },
+            desc: {
+                es: "Exposición de conceptos teoricos sobre blockchain.",
+                en: "Exposition of theoretical concepts about blockchain.",
+                ca: "Exposició de conceptes teòrics sobre blockchain.",
+                de: "Darstellung theoretischer Konzepte zur Blockchain."
+            }
+        },
+        {
+            icon: {
+                iconName: "Factory",
+                className: "w-6 h-6"
+            },
+            title: {
+                es: "Usos para empresas",
+                en: "Uses for companies",
+                ca: "Usos per a empreses",
+                de: "Verwendungen für Unternehmen"
+            },
+            desc: {
+                es: "Exoposición de posibilidades de uso de la blockchain para empresas.",
+                en: "Exposition of possibilities of use of the blockchain for companies.",
+                ca: "Exoposició de possibilitats d'ús de la blockchain per a empreses.",
+                de: "Darstellung der Einsatzmöglichkeiten der Blockchain für Unternehmen."
+            }
+        },
+        {
+            icon: {
+                iconName: "Coins",
+                className: "w-6 h-6"
+            },
+            title: {
+                es: "Ofrecer servicios",
+                en: "Offer services",
+                ca: "Oferir serveis",
+                de: "Dienstleist"
+            },
+            desc: {
+                es: "Propuesta de servicios de desarrollo blockchain para empresas tradicionales.",
+                en: "Proposal of blockchain development services for traditional companies.",
+                ca: "Proposta de serveis de desenvolupament blockchain per a empreses tradicionals.",
+                de: "Vorschlag von Blockchain-Entwicklungsdiensten für traditionelle Unternehmen."
+            }
+        }
+    ]
+},
+  {
     nameId: "ejemplos-dApps",
     openSource: "https://github.com/SKRTEEEEEE/ejemplos-dApps",
     operative: "https://ejemplos-d-apps.vercel.app/",
@@ -418,8 +583,7 @@ const techsToInsertEjemplosDApps = [
                 ca: "Implementar característiques avançades com staking de NFTs i sistema de governança descentralitzada 🚀",
                 de: "Implementierung fortgeschrittener Funktionen wie NFT-Staking und dezentrales Governance-System 🚀"
             },
-            subtitle: "Blockchain Development",
-            type: "blockchain",
+            type: ["blockchain"],
             techs: ["Solidity", "Thirdweb"] 
         },
         {
@@ -436,8 +600,7 @@ const techsToInsertEjemplosDApps = [
                 ca: "Desplegament de contractes intel·ligents a la xarxa Sepolia amb proves completes d'integració 🎉",
                 de: "Bereitstellung von Smart Contracts im Sepolia-Netzwerk mit vollständigen Integrationstests 🎉"
             },
-            subtitle: "Smart Contracts",
-            type: "blockchain",
+            type: ["blockchain"],
             techs: ["Solidity", "Thirdweb"]
         },
         {
@@ -454,8 +617,7 @@ const techsToInsertEjemplosDApps = [
                 ca: "Desenvolupament de prototips inicials i configuració de l'entorn de desenvolupament blockchain 🛠️",
                 de: "Entwicklung erster Prototypen und Einrichtung der Blockchain-Entwicklungsumgebung 🛠️"
             },
-            subtitle: "Blockchain Setup",
-            type: "fullstack",
+            type: ["fullstack"],
             techs: ["Next.js", "Tailwind CSS", "styled-components", "Chakra UI","Three.js"]
         }
     ],
@@ -535,5 +697,6 @@ const techsToInsertEjemplosDApps = [
         }
     ]
 },
+
 
 ];
