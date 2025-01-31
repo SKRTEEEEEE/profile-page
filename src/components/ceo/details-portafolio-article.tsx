@@ -26,19 +26,23 @@ function FeatureCard({ title, desc, icon }: FeatureCardProps) {
 
 export type KeyCardProjectProps =  KeyProject
 
-type KeyCardsProjectsProps = {
+type DetailsPortafolioArticleProps = {
   techs: TechProject[]
   keys: KeyCardProjectProps[]
+  title: {
+    char: string
+    tech: string
+  }
 }
 
-export function KeyProjectsCards({techs, keys}: KeyCardsProjectsProps ) {
+export function DetailsPortafolioArticle({techs, keys, title}: DetailsPortafolioArticleProps ) {
   const locale = useLocale()
   return (
-    <span>
+    <article>
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/30 to-transparent rounded-xl blur-xl" />
         <div className="relative">
-          <h3 className="text-2xl font-bold text-purple-100 mb-4">Tecnologías</h3>
+          <h3 className="text-2xl font-bold text-purple-100 mb-4">{title.tech}</h3>
           <div className="flex flex-wrap gap-3">
             {techs.map((tech) => (
               <CustomBadge key={tech.nameId}>{tech.nameId}</CustomBadge>
@@ -51,7 +55,7 @@ export function KeyProjectsCards({techs, keys}: KeyCardsProjectsProps ) {
           - Si funciona bien en mobile, hacer esta parte con swiper                
       */}
       <div>
-        <h3 className="text-2xl font-bold text-purple-100 my-6">Características Clave</h3>
+        <h3 className="text-2xl font-bold text-purple-100 my-6">{title.char}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {keys.map(({icon, title, desc})=> (
             <FeatureCard
@@ -79,6 +83,6 @@ export function KeyProjectsCards({techs, keys}: KeyCardsProjectsProps ) {
           /> */}
         </div>
       </div>
-    </span>
+    </article>
   )
 }

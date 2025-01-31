@@ -10,10 +10,14 @@ export type PortafolioLinksProps = {
         github: string
         githubDesc?: string
     }
+    buttons: {
+        ver: string
+        code: string
+    }
 }
 
 const PortafolioLinks = ({
-    projectTitle, data: {web, webDesc, github, githubDesc}
+    projectTitle, data: {web, webDesc, github, githubDesc}, buttons
 }: PortafolioLinksProps) => {
     if(webDesc===undefined){
         webDesc = `Dirígete a la pagina web de ${projectTitle}`
@@ -29,7 +33,7 @@ const PortafolioLinks = ({
             className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
           >
             
-            Ver →
+            {buttons.ver} →
           </Button>
           </Link>}
 
@@ -39,7 +43,7 @@ const PortafolioLinks = ({
             
             className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold flex gap-2"
           >
-           <span>Código </span><GithubIcon width={12} height={12}/>
+           <span>{buttons.code} </span><GithubIcon width={12} height={12}/>
           </Button></Link>
         </div>
     )

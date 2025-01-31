@@ -1,5 +1,5 @@
 import { LucideIconNames } from "../oth/dyn/dynamic-lucide"
-import { KeyCardProjectProps } from "./feature-card"
+import { KeyCardProjectProps } from "./details-portafolio"
 import { PortafolioLinksProps } from "./porta-links"
 import { DataTimeLine } from "./time-line"
 

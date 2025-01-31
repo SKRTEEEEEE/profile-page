@@ -46,6 +46,17 @@
                     }
                 }
             },
+            "desc": "Descripción",
+            "details": "Detalles",
+            "versions": "Versiones",
+            "buttons": {
+                "ver": "Ver",
+                "code": "Código"
+            },
+            "keys": {
+                "tech": "Tecnologías",
+                "char": "Características Clave"
+            },
             "id": [
                 {
                     "id": 2,

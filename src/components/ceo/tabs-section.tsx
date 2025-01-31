@@ -1,23 +1,27 @@
 "use client";
 
 import { Tabs } from "../ui-ac/tabs";
-import { ThreeDCardDemo } from "./card-test";
+import { ThreeDCardPortafolio } from "./portafolio-3d-card";
 import PortafolioLinks, { PortafolioLinksProps } from "./porta-links";
-import { KeyProjectsCards } from "./feature-card";
+import { DetailsPortafolioArticle } from "./details-portafolio-article";
 import TimeLine, { DataTimeLine } from "./time-line";
 import { DynamicLucideIcon, LucideIconNames } from "../oth/dyn/dynamic-lucide";
 import { useReducer } from "react";
 import { Project } from "@/core/domain/entities/project";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { IntlKey } from "@/core/domain/entities/intl";
 
 type ContentLayoutProps = {
     children: React.ReactNode
     title: string
     links?: PortafolioLinksProps["data"]
+    buttons?: {
+        ver: string
+        code: string
+    }
 }
 
-const ContentLayout = ({children, links, title}: ContentLayoutProps) => (
+const ContentLayout = ({children, links, title, buttons}: ContentLayoutProps) => (
     <div className="w-full relative h-full rounded-2xl">
          <style jsx>{`
         ::-webkit-scrollbar {
@@ -49,7 +53,7 @@ const ContentLayout = ({children, links, title}: ContentLayoutProps) => (
         
         {/* Content container */}
         <div className="w-full overflow-auto relative h-full rounded-2xl px-10 md:pt-5 font-bold text-white">
-            {links!==undefined&&<PortafolioLinks projectTitle={title} data={links}/>}
+            {links!==undefined&&<PortafolioLinks projectTitle={title} data={links} buttons={buttons!}/>}
           {children}
         </div>
     </div>
@@ -65,8 +69,9 @@ type Action =
 
 
 
-export function TabsDemo({selectedProjects}: {selectedProjects: Project[]}) {
+export function TabsPortafolioSection({selectedProjects}: {selectedProjects: Project[]}) {
   const locale = useLocale()
+  const t = useTranslations("ceo.proyectos")
   function reducer(state: State, action: Action): State {
     switch(action.type){
       case "SET_SELECTED_PROJECT":
@@ -78,8 +83,8 @@ export function TabsDemo({selectedProjects}: {selectedProjects: Project[]}) {
     }
   }
   const initialState: State = {
-    selectedProject: 0,
-    projectData: selectedProjects[0]
+    selectedProject: 1,
+    projectData: selectedProjects[1]
   }
   const [state, dispatch] = useReducer(reducer, initialState)
   const timeLineProps: DataTimeLine[] = state.projectData.time.map((tim, index) => {
@@ -95,17 +100,18 @@ export function TabsDemo({selectedProjects}: {selectedProjects: Project[]}) {
   });
   const tabs = [
     {
-        title: "Descripción",
+        title: t("desc"),
         value: "desc",
         content: (
             
           <ContentLayout title={state.projectData.title[locale as IntlKey]}>
-        <ThreeDCardDemo 
+        < ThreeDCardPortafolio
           options={{
             title:state.projectData.title[locale as IntlKey], 
             img:state.projectData.image || "/ceo/avatar-works.png", 
             imgDesc: `Imagen de muestra del proyecto ${state.projectData.title}`, 
             desc:state.projectData.desc[locale as IntlKey],
+            buttons: t.raw("buttons")
           }}
           links={{web: state.projectData.operative || undefined, github: state.projectData.openSource!}} 
         />
@@ -113,19 +119,19 @@ export function TabsDemo({selectedProjects}: {selectedProjects: Project[]}) {
         ),
       },
     {
-      title: "Detalles",
+      title: t("details"),
       value: "details",
       content: (
-            <ContentLayout title={state.projectData.title[locale as IntlKey]} links={{web: state.projectData.operative || undefined, github: state.projectData.openSource!}}>
-                <KeyProjectsCards techs={state.projectData.techs} keys={state.projectData.keys}/>
+            <ContentLayout buttons={t.raw("buttons")} title={state.projectData.title[locale as IntlKey]} links={{web: state.projectData.operative || undefined, github: state.projectData.openSource!}}>
+                <DetailsPortafolioArticle title={t.raw("keys")} techs={state.projectData.techs} keys={state.projectData.keys}/>
               </ContentLayout>
       ),
     },
     {
-      title: "Versiones",
-      value: "services",
+      title: t("versions"),
+      value: "versions",
       content: (
-        <ContentLayout title={state.projectData.title[locale as IntlKey]} links={{web: state.projectData.operative || undefined, github: state.projectData.openSource!}}>
+        <ContentLayout buttons={t.raw("buttons")} title={state.projectData.title[locale as IntlKey]} links={{web: state.projectData.operative || undefined, github: state.projectData.openSource!}}>
             
             <TimeLine arrData={timeLineProps}/>
          </ContentLayout>
@@ -136,13 +142,13 @@ export function TabsDemo({selectedProjects}: {selectedProjects: Project[]}) {
   const onProjectSelect =  (index:number)=>dispatch({type: "SET_SELECTED_PROJECT", payload: index})
   const projectSelectOptions = {projects: selectorTabs, selectedProject:state.selectedProject, onProjectSelect}
   return (
-    <div className="flex overflow-hidden flex-col justify-center h-dvh w-dvw lg:pt-8">
+    <section className="flex overflow-hidden flex-col justify-center h-dvh w-dvw lg:pt-8">
         
 
     <div className="h-[24rem] sm:h-[36rem] [perspective:640px] sm:[perspective:1000px]  relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
         
       <Tabs key={state.selectedProject} tabs={tabs} projectSelectOptions={projectSelectOptions}/>
 
-    </div></div>
+    </div></section>
   );
 }

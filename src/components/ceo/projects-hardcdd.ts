@@ -37,7 +37,7 @@ const techsToInsertEjemplosDApps = [
         ca: "Part visual principal",
         de: "Hauptvisueller Teil"
       },
-      version: "v3"
+      version: "v1"
     },
     {
       nameId: "styled-components",
@@ -117,7 +117,7 @@ const techsToInsertEjemplosDApps = [
         ca: "Connectivitat web/blockchain",
         de: "Web/Blockchain-Konnektivität"
       },
-      version: "v4"
+      version: "v1"
     },
     {
       nameId: "Solidity",
@@ -179,7 +179,7 @@ const techsToInsertEjemplosDApps = [
         ca: "Part visual principal",
         de: "Hauptvisueller Teil"
       },
-      version: "v3"
+      version: "v1"
     },
     {
         nameId: "Thirdweb",
@@ -199,12 +199,184 @@ const techsToInsertEjemplosDApps = [
           ca: "Connectivitat web/blockchain",
           de: "Web/Blockchain-Konnektivität"
         },
-        version: "v4"
+        version: "v1"
       },
   ];
 
  export const projectsToInsert = [
-    {
+  {
+    nameId: "profile-page",
+    openSource: "https://github.com/SKRTEEEEEE/profile-page",
+    operative: null,
+    ejemplo: true,
+    image: "/ceo/image-3.png",
+    icon: "UserRoundSearch",
+    title: {
+      es: "Página de Perfil",
+      en: "Profile Page",
+      ca: "Pàgina de Perfil",
+      de: "Profilseite"
+    },
+    desc: {
+      es: "Web personal donde aplico mis conocimientos como programador, con una funcionalidad para mantener actualizada la información tanto en la web como en Github (parte 'sobre mi') y creando un SAAS completo con una arquitectura escalable y segura, que incorpora seis niveles de permisos jerárquico.",
+      en: "Main personal web project to apply my programming skills, with a functionality to keep the information updated both on the web and on Github ('about me' part) and creating a complete SAAS with a scalable and secure architecture, incorporating six hierarchical permission levels.",
+      ca: "Projecte de web personal principal en la que aplicar les meves possibilitats com a programador, amb una funcionalitat per mantenir actualitzada la informació tant a la web com a Github (part 'sobre mi') i creant un SAAS complet amb una arquitectura escalable i segura, que incorpora sis nivells de permisos jeràrquic.",
+      de: "Hauptprojekt der persönlichen Website, um meine Programmierfähigkeiten anzuwenden, mit einer Funktionalität, um die Informationen sowohl auf der Website als auch auf Github ('über mich'-Teil) aktuell zu halten und ein komplettes SAAS mit einer skalierbaren und sicheren Architektur zu erstellen, das sechs hierarchische Berechtigungsebenen umfasst."
+    },
+    lilDesc: {
+      es: "Proyecto de web personal principal en la que aplicar mis posibilidades como programador",
+      en: "Main personal web project to apply my programming skills",
+      ca: "Projecte de web personal principal en la que aplicar les meves possibilitats com a programador",
+      de: "Hauptprojekt der persönlichen Website, um meine Programmierfähigkeiten anzuwenden"
+    },
+    techs: techsToInsertProfilePage,
+    keys: [
+        {
+          icon: {
+            iconName: "Cpu",
+            className: "w-6 h-6"
+          },
+          title: {
+            es: "Rendimiento Optimizado",
+            en: "Optimized Performance",
+            ca: "Rendiment Optimitzat",
+            de: "Optimierte Leistung"
+          },
+          desc: {
+            es: "Arquitectura de alto rendimiento con optimizaciones avanzadas para una experiencia fluida.",
+            en: "High-performance architecture with advanced optimizations for a smooth experience.",
+            ca: "Arquitectura d'alt rendiment amb optimitzacions avançades per a una experiència fluida.",
+            de: "Hochleistungsarchitektur mit fortschrittlichen Optimierungen für ein reibungsloses Erlebnis."
+          }
+        },
+        {
+          icon: {
+            iconName: "Shield",
+            className: "w-6 h-6"
+          },
+          title: {
+            es: "Seguridad Avanzada",
+            en: "Advanced Security",
+            ca: "Seguretat Avançada",
+            de: "Erweiterte Sicherheit"
+          },
+          desc: {
+            es: "Implementación de protocolos de seguridad de última generación para proteger datos sensibles.",
+            en: "Implementation of next-generation security protocols to protect sensitive data.",
+            ca: "Implementació de protocols de seguretat d'última generació per protegir dades sensibles.",
+            de: "Implementierung von Sicherheitsprotokollen der nächsten Generation zum Schutz sensibler Daten."
+          }
+        },
+        {
+          icon: {
+            iconName: "Zap",
+            className: "w-6 h-6"
+          },
+          title: {
+            es: "Tiempo Real",
+            en: "Real-Time Updates",
+            ca: "Temps Real",
+            de: "Echtzeitaktualisierungen"
+          },
+          desc: {
+            es: "Actualizaciones instantáneas y sincronización en tiempo real entre diferentes plataformas.",
+            en: "Instant updates and real-time synchronization across different platforms.",
+            ca: "Actualitzacions instantànies i sincronització en temps real entre diferents plataformes.",
+            de: "Sofortige Aktualisierungen und Echtzeitsynchronisation zwischen verschiedenen Plattformen."
+          }
+        },
+        {
+          icon:{
+              iconName:"Workflow", 
+              className:"w-6 h-6"
+          },
+          title:{
+              es:"Flujo de Trabajo", 
+              en:"Workflow", 
+              ca:"Flux de Treball", 
+              de:"Arbeitsablauf"
+          }, 
+          desc:{
+              es:"Procesos automatizados y flujos personalizables para máxima eficiencia.", 
+              en:"Automated processes and customizable workflows for maximum efficiency.", 
+              ca:"Processos automatitzats i fluxos personalitzables per màxima eficiència.", 
+              de:"Automatisierte Prozesse und anpassbare Arbeitsabläufe für maximale Effizienz."
+           }
+       }
+      ],
+    time: [
+      {
+        title: {
+          es: "v0: Lanzamiento Sobre mi",
+          en: "v0: About Me Launch",
+          ca: "v0: Llançament Sobre mi",
+          de: "v0: Über mich Start"
+        },
+        date: "Ene 10, 2024",
+        desc: {
+          es: "Lanzamiento seccion sobre mi, asi como toda la logica de Backend para techs (github-md y json).",
+          en: "Launch about me section, as well as all the Backend logic for techs (github-md and json).",
+          ca: "Llançament secció sobre mi, així com tota la lògica de Backend per techs (github-md i json).",
+          de: "Ueber mich Abschnitt starten, sowie die gesamte Backend-Logik für Techs (github-md und json)."
+        },
+        type: ["frontend", "backend"],
+        techs: ["Next.js", "Tailwind CSS", "thirdweb"]
+      },
+      {
+        title: {
+          es: "v0: Lanzamiento Academia Beta",
+          en: "v0: Academy Beta Launch",
+          ca: "v0: Llançament Acadèmia Beta",
+          de: "v0: Akademie Beta Start"
+        },
+        date: "Ago 20, 2024",
+        desc: {
+          es: "Lanzamiento de la sección de academia, con un sistema de SAAS para cursos, con ejercicios limitados segun el nivel de subscripción.",
+          en: "Launch of the academy section, with a SAAS system for courses, with limited exercises according to the subscription level.",
+          ca: "Llançament de la secció d'acadèmia, amb un sistema de SAAS per a cursos, amb exercicis limitats segons el nivell de subscripció.",
+          de: "Start des Akademiebereichs mit einem SAAS-System für Kurse, mit begrenzten Übungen je nach Abonnementstufe."
+        },
+        type: ["frontend", "backend"],
+        techs: ["Next.js", "Tailwind CSS", "thirdweb"]
+      },
+      {
+        title: {
+          es: "v1: Arquitectura Limpia",
+          en: "v1: Clean Architecture",
+          ca: "v1: Arquitectura Neta",
+          de: "v1: Saubere Architektur"
+        },
+        date: "Dec 19, 2024",
+        desc: {
+          es: "Traspasar la web/backend a clean arquitectura (hexagonal) 🚀",
+          en: "Migrate the web/backend to clean architecture (hexagonal) 🚀",
+          ca: "Traspassar la web/backend a arquitectura neta (hexagonal) 🚀",
+          de: "Überführung des Web/Backend in eine saubere Architektur (hexagonal) 🚀"
+        },
+        type: ["frontend", "backend"],
+        techs: [ "NextJS"]
+        // techs: ["TypeScript", "NextJS", "MongoDB", "JavaScript", "Third web", "Perplexity UI"]
+      },
+      {
+        title: {
+          es: "v1: Mejoras UI/UX y Multilenguaje",
+          en: "v1: UI/UX Improvements and Multilanguage",
+          ca: "v1: Millores UI/UX i Multiidioma",
+          de: "v1: UI/UX-Verbesserungen und Mehrsprachigkeit"
+        },
+        date: "Actualidad",
+        desc: {
+          es: "Integrar una mejor UI y UX en la sección de 'sobre mi' y 'admin', incluyendo multi lenguaje (de Catalán, Inglés, Alemán y Español) 🚀",
+          en: "Integrate better UI and UX in the 'about me' and 'admin' sections, including multi-language support (Catalan, English, German, and Spanish) 🚀",
+          ca: "Integrar una millor UI i UX a la secció de 'sobre mi' i 'admin', incloent multi idioma (Català, Anglès, Alemany i Espanyol) 🚀",
+          de: "Integration einer verbesserten UI und UX in den Bereichen 'Über mich' und 'Admin', einschließlich Mehrsprachigkeit (Katalanisch, Englisch, Deutsch und Spanisch) 🚀"
+        },
+        type: ["frontend", "backend"],
+        techs: ["React", "uploadthing", "mongoose", "i18n", "Framer motion", "Perplexity UI"]
+      },
+    ]
+  },
+  {
     nameId: "ejemplos-dApps",
     openSource: "https://github.com/SKRTEEEEEE/ejemplos-dApps",
     operative: "https://ejemplos-d-apps.vercel.app/",
@@ -283,7 +455,7 @@ const techsToInsertEjemplosDApps = [
                 de: "Entwicklung erster Prototypen und Einrichtung der Blockchain-Entwicklungsumgebung 🛠️"
             },
             subtitle: "Blockchain Setup",
-            type: "blockchain",
+            type: "fullstack",
             techs: ["Next.js", "Tailwind CSS", "styled-components", "Chakra UI","Three.js"]
         }
     ],
@@ -291,7 +463,7 @@ const techsToInsertEjemplosDApps = [
     keys: [
         {
             icon: {
-                iconName: "Dice",
+                iconName: "Dices",
                 className: "w-6 h-6"
             },
             title: {
@@ -363,176 +535,5 @@ const techsToInsertEjemplosDApps = [
         }
     ]
 },
-{
-    nameId: "profile-page",
-    openSource: "https://github.com/SKRTEEEEEE/profile-page",
-    operative: "https://profile-page.vercel.app/",
-    ejemplo: true,
-    image: "/ceo/image-5.png",
-    icon: "UserRoundSearch",
-    title: {
-      es: "Página de Perfil",
-      en: "Profile Page",
-      ca: "Pàgina de Perfil",
-      de: "Profilseite"
-    },
-    desc: {
-      es: "Web personal donde aplico mis conocimientos como programador backend, con una funcionalidad para mantener actualizada la información tanto en la web como en Github (parte 'sobre mi') y creando un SAAS completo con una arquitectura escalable y segura, que incorpora seis niveles de permisos jerárquico.",
-      en: "Main personal web project to apply my programming skills, with a functionality to keep the information updated both on the web and on Github ('about me' part) and creating a complete SAAS with a scalable and secure architecture, incorporating six hierarchical permission levels.",
-      ca: "Projecte de web personal principal en la que aplicar les meves possibilitats com a programador, amb una funcionalitat per mantenir actualitzada la informació tant a la web com a Github (part 'sobre mi') i creant un SAAS complet amb una arquitectura escalable i segura, que incorpora sis nivells de permisos jeràrquic.",
-      de: "Hauptprojekt der persönlichen Website, um meine Programmierfähigkeiten anzuwenden, mit einer Funktionalität, um die Informationen sowohl auf der Website als auch auf Github ('über mich'-Teil) aktuell zu halten und ein komplettes SAAS mit einer skalierbaren und sicheren Architektur zu erstellen, das sechs hierarchische Berechtigungsebenen umfasst."
-    },
-    lilDesc: {
-      es: "Proyecto de web personal principal en la que aplicar mis posibilidades como programador",
-      en: "Main personal web project to apply my programming skills",
-      ca: "Projecte de web personal principal en la que aplicar les meves possibilitats com a programador",
-      de: "Hauptprojekt der persönlichen Website, um meine Programmierfähigkeiten anzuwenden"
-    },
-    techs: techsToInsertProfilePage,
-    keys: [
-        {
-          icon: {
-            iconName: "Cpu",
-            className: "w-6 h-6"
-          },
-          title: {
-            es: "Rendimiento Optimizado",
-            en: "Optimized Performance",
-            ca: "Rendiment Optimitzat",
-            de: "Optimierte Leistung"
-          },
-          desc: {
-            es: "Arquitectura de alto rendimiento con optimizaciones avanzadas para una experiencia fluida.",
-            en: "High-performance architecture with advanced optimizations for a smooth experience.",
-            ca: "Arquitectura d'alt rendiment amb optimitzacions avançades per a una experiència fluida.",
-            de: "Hochleistungsarchitektur mit fortschrittlichen Optimierungen für ein reibungsloses Erlebnis."
-          }
-        },
-        {
-          icon: {
-            iconName: "Shield",
-            className: "w-6 h-6"
-          },
-          title: {
-            es: "Seguridad Avanzada",
-            en: "Advanced Security",
-            ca: "Seguretat Avançada",
-            de: "Erweiterte Sicherheit"
-          },
-          desc: {
-            es: "Implementación de protocolos de seguridad de última generación para proteger datos sensibles.",
-            en: "Implementation of next-generation security protocols to protect sensitive data.",
-            ca: "Implementació de protocols de seguretat d'última generació per protegir dades sensibles.",
-            de: "Implementierung von Sicherheitsprotokollen der nächsten Generation zum Schutz sensibler Daten."
-          }
-        },
-        {
-          icon: {
-            iconName: "Zap",
-            className: "w-6 h-6"
-          },
-          title: {
-            es: "Tiempo Real",
-            en: "Real-Time Updates",
-            ca: "Temps Real",
-            de: "Echtzeitaktualisierungen"
-          },
-          desc: {
-            es: "Actualizaciones instantáneas y sincronización en tiempo real entre todos los usuarios.",
-            en: "Instant updates and real-time synchronization across all users.",
-            ca: "Actualitzacions instantànies i sincronització en temps real entre tots els usuaris.",
-            de: "Sofortige Aktualisierungen und Echtzeitsynchronisierung zwischen allen Benutzern."
-          }
-        },
-        {
-          icon:{
-              iconName:"Workflow", 
-              className:"w-6 h-6"
-          },
-          title:{
-              es:"Flujo de Trabajo", 
-              en:"Workflow", 
-              ca:"Flux de Treball", 
-              de:"Arbeitsablauf"
-          }, 
-          desc:{
-              es:"Procesos automatizados y flujos personalizables para máxima eficiencia.", 
-              en:"Automated processes and customizable workflows for maximum efficiency.", 
-              ca:"Processos automatitzats i fluxos personalitzables per màxima eficiència.", 
-              de:"Automatisierte Prozesse und anpassbare Arbeitsabläufe für maximale Effizienz."
-           }
-       }
-      ],
-    time: [
-      {
-        title: {
-          es: "v0: Lanzamiento Sobre mi",
-          en: "v0: About Me Launch",
-          ca: "v0: Llançament Sobre mi",
-          de: "v0: Über mich Start"
-        },
-        date: "Ene 10, 2024",
-        desc: {
-          es: "Lanzamiento seccion sobre mi, asi como toda la logica de Backend para techs (github-md y json).",
-          en: "Launch about me section, as well as all the Backend logic for techs (github-md and json).",
-          ca: "Llançament secció sobre mi, així com tota la lògica de Backend per techs (github-md i json).",
-          de: "Ueber mich Abschnitt starten, sowie die gesamte Backend-Logik für Techs (github-md und json)."
-        },
-        type: ["frontend", "backend"],
-        techs: ["Next.js", "Tailwind CSS", "thirdweb"]
-      },
-      {
-        title: {
-          es: "v1: Lanzamiento Academia Beta",
-          en: "v1: Academy Beta Launch",
-          ca: "v1: Llançament Acadèmia Beta",
-          de: "v1: Akademie Beta Start"
-        },
-        date: "Ago 20, 2024",
-        desc: {
-          es: "Lanzamiento de la sección de academia, con un sistema de SAAS para cursos, con ejercicios limitados segun el nivel de subscripción.",
-          en: "Launch of the academy section, with a SAAS system for courses, with limited exercises according to the subscription level.",
-          ca: "Llançament de la secció d'acadèmia, amb un sistema de SAAS per a cursos, amb exercicis limitats segons el nivell de subscripció.",
-          de: "Start des Akademiebereichs mit einem SAAS-System für Kurse, mit begrenzten Übungen je nach Abonnementstufe."
-        },
-        type: ["frontend", "backend"],
-        techs: ["Next.js", "Tailwind CSS", "thirdweb"]
-      },
-      {
-        title: {
-          es: "v3: Arquitectura Limpia",
-          en: "v3: Clean Architecture",
-          ca: "v3: Arquitectura Neta",
-          de: "v3: Saubere Architektur"
-        },
-        date: "Dec 19, 2024",
-        desc: {
-          es: "Traspasar la web/backend a clean arquitectura (hexagonal) 🚀",
-          en: "Migrate the web/backend to clean architecture (hexagonal) 🚀",
-          ca: "Traspassar la web/backend a arquitectura neta (hexagonal) 🚀",
-          de: "Überführung des Web/Backend in eine saubere Architektur (hexagonal) 🚀"
-        },
-        type: ["frontend", "backend"],
-        techs: [ "NextJS"]
-        // techs: ["TypeScript", "NextJS", "MongoDB", "JavaScript", "Third web", "Perplexity UI"]
-      },
-      {
-        title: {
-          es: "v4: Mejoras UI/UX y Multilenguaje",
-          en: "v4: UI/UX Improvements and Multilanguage",
-          ca: "v4: Millores UI/UX i Multiidioma",
-          de: "v4: UI/UX-Verbesserungen und Mehrsprachigkeit"
-        },
-        date: "Actualidad",
-        desc: {
-          es: "Integrar una mejor UI y UX en la sección de 'sobre mi' y 'admin', incluyendo multi lenguaje (de Catalán, Inglés, Alemán y Español) 🚀",
-          en: "Integrate better UI and UX in the 'about me' and 'admin' sections, including multi-language support (Catalan, English, German, and Spanish) 🚀",
-          ca: "Integrar una millor UI i UX a la secció de 'sobre mi' i 'admin', incloent multi idioma (Català, Anglès, Alemany i Espanyol) 🚀",
-          de: "Integration einer verbesserten UI und UX in den Bereichen 'Über mich' und 'Admin', einschließlich Mehrsprachigkeit (Katalanisch, Englisch, Deutsch und Spanisch) 🚀"
-        },
-        type: ["frontend", "backend"],
-        techs: ["React", "uploadthing", "mongoose", "i18n", "Framer motion", "Perplexity UI"]
-      },
-    ]
-  }
+
 ];
