@@ -173,6 +173,11 @@ npm i react-countup
 - [x] Arreglar updateMd
     - [x] Problema con el SHA en updateMd
 - [x] Comprobar el uso de nameBadge/nameId con los badges (actualizarJson)
+#### volver a comprobar el CRUD de techs
+- [ ] Se eliminan correctamente varios?
+- [x] **edit:** libs
+- [x] **updateMd:** creo que al hacer update de la bdd no se elimina el espacio en el badge principal poreso no se ve correctamente el nombre, cosa que al crear no pasa
+
 ### refactor
 - [❓] Campo web, ??seguramente haremos que el usuario pueda tener un campo web especifico, pero sera distinto al web del pretech
 #### func tech -> delete.controller.ts
@@ -241,7 +246,7 @@ type Mensaje<T> = {
 ### Despliegue
 - [x] Hay que cambiar el ATLAS env secret para que apunte a la nueva colección, en el despliegue de next-hexa-test, para que funcione con los datos de profile-page(actual), igual que en el local.
 
-
+## 1x. Documentar toda la nueva arquitectura de la app (frontend, clean arch, backend)(names, folders, func-folders..)
 ## 1x. Comprobar uso stripe en despliegue (back)
 
 <br/><br/>

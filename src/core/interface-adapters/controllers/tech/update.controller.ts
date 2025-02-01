@@ -10,7 +10,7 @@ export async function updateTechC(updateData: TechForm) {
         if ('fwTo' in updateData) {
             // Actualizar librería
             proyectoActualizado = await updateTechUC(
-                {filter:{ "frameworks.librerias.name": updateData.nameId },
+                {filter:{ "frameworks.librerias.nameId": updateData.nameId },
                 update:{
                     $set: {
                         // "frameworks.$[fw].librerias.$[lib].color": updateData.color,

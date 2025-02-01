@@ -192,7 +192,7 @@ function getTechsLinks({nameId, nameBadge, color}: PreTechBase): GetLinksResp {
     const{ repo, ref, owner} = baseOptions
     const logoColor = getContrastColor(color)
     return {
-        base: `https://img.shields.io/badge/-${nameId.replace(/\s+/g, '')}-${color}?style=for-the-badge&logo=${nameBadge}&logoColor=${logoColor}`,
+        base: `https://img.shields.io/badge/-${nameId = nameId.replace(/[\s-]+/g, '%20')}-${color}?style=for-the-badge&logo=${nameBadge}&logoColor=${logoColor}`,
         af: `https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${nameBadge}.value&label=%F0%9F%92%97%20Afinidad&color=${color}&style=flat&logo=${nameBadge}`,
         afNum: `https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${nameBadge}.afinidad&color=${color}&style=flat&label=%20&suffix=%25`,
         exp: `https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path.json}&query=$.${nameBadge}.valueexp&label=%F0%9F%8F%85%20Experiencia&color=${color}&style=flat&logo=${nameBadge}`,
