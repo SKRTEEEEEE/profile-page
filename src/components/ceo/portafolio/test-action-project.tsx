@@ -1,7 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
 import { testPopulateUC } from "@/core/application/usecases/entities/project"
-import { Button } from "../ui/button"
 
 export function TestAction () {
   return (

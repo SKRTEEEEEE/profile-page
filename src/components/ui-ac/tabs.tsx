@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { ProjectSelector, ProjectSelectorProps } from "../ceo/project-selector";
+import { ProjectSelectPortafolio, ProjectSelectPortafolioProps } from "../ceo/portafolio/project-select";
 
 type Tab = {
   title: string;
@@ -24,7 +24,7 @@ export const Tabs = ({
   activeTabClassName?: string;
   tabClassName?: string;
   contentClassName?: string;
-  projectSelectOptions?: ProjectSelectorProps["options"]
+  projectSelectOptions?: ProjectSelectPortafolioProps["options"]
 }) => {
   const [active, setActive] = useState<Tab>(propTabs[0]);
   const [tabs, setTabs] = useState<Tab[]>(propTabs);
@@ -47,7 +47,7 @@ export const Tabs = ({
           containerClassName
         )}
       >
-        {projectSelectOptions&& <ProjectSelector options={projectSelectOptions} />}
+        {projectSelectOptions&& <ProjectSelectPortafolio options={projectSelectOptions} />}
 
         <div>
         {propTabs.map((tab, idx) => (

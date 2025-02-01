@@ -1,11 +1,11 @@
 "use client";
 
-import { Tabs } from "../ui-ac/tabs";
-import { ThreeDCardPortafolio } from "./portafolio-3d-card";
-import PortafolioLinks, { PortafolioLinksProps } from "./porta-links";
-import { DetailsPortafolioArticle } from "./details-portafolio-article";
-import TimeLine, { DataTimeLine } from "./time-line";
-import { DynamicLucideIcon, LucideIconNames } from "../oth/dyn/dynamic-lucide";
+import { Tabs } from "../../ui-ac/tabs";
+import { ThreeDCardPortafolio } from "./3d-card";
+import LinksButtonPortafolio, { LinksButtonPortafolioProps } from "./links-button";
+import { DetailsArticlePortafolio } from "./details-article";
+import TimeLine, { DataTimeLine } from "../time-line";
+import { DynamicLucideIcon, LucideIconNames } from "../../oth/dyn/dynamic-lucide";
 import { useReducer } from "react";
 import { Project } from "@/core/domain/entities/project";
 import { useLocale, useTranslations } from "next-intl";
@@ -14,7 +14,7 @@ import { IntlKey } from "@/core/domain/entities/intl";
 type ContentLayoutProps = {
     children: React.ReactNode
     title: string
-    links?: PortafolioLinksProps["data"]
+    links?: LinksButtonPortafolioProps["data"]
     buttons?: {
         ver: string
         code: string
@@ -53,7 +53,7 @@ const ContentLayout = ({children, links, title, buttons}: ContentLayoutProps) =>
         
         {/* Content container */}
         <div className="w-full overflow-auto relative h-full rounded-2xl px-10 md:pt-5 font-bold text-white">
-            {links!==undefined&&<PortafolioLinks projectTitle={title} data={links} buttons={buttons!}/>}
+            {links!==undefined&&<LinksButtonPortafolio projectTitle={title} data={links} buttons={buttons!}/>}
           {children}
         </div>
     </div>
@@ -68,9 +68,9 @@ type Action =
 
 
 
-export function TabsPortafolioSection({selectedProjects}: {selectedProjects: Project[]}) {
+export function TabsSectionPortafolio({selectedProjects}: {selectedProjects: Project[]}) {
   const locale = useLocale()
-  const t = useTranslations("ceo.proyectos")
+  const t = useTranslations("ceo.portafolio.section")
   function reducer(state: State, action: Action): State {
     switch(action.type){
       case "SET_SELECTED_PROJECT":
@@ -122,7 +122,7 @@ export function TabsPortafolioSection({selectedProjects}: {selectedProjects: Pro
       value: "details",
       content: (
             <ContentLayout buttons={t.raw("buttons")} title={state.projectData.title[locale as IntlKey]} links={{web: state.projectData.operative || undefined, github: state.projectData.openSource!}}>
-                <DetailsPortafolioArticle title={t.raw("keys")} techs={state.projectData.techs} keys={state.projectData.keys}/>
+                <DetailsArticlePortafolio title={t.raw("keys")} techs={state.projectData.techs} keys={state.projectData.keys}/>
               </ContentLayout>
       ),
     },
@@ -141,13 +141,14 @@ export function TabsPortafolioSection({selectedProjects}: {selectedProjects: Pro
   const onProjectSelect =  (index:number)=>dispatch({type: "SET_SELECTED_PROJECT", payload: index})
   const projectSelectOptions = {projects: selectorTabs, selectedProject:state.selectedProject, onProjectSelect}
   return (
-    <section className="flex overflow-hidden flex-col justify-center h-dvh w-dvw lg:pt-8">
+    <section className="flex overflow-hidden flex-col justify-end sm:justify-center h-dvh w-dvw lg:pt-8">
         
 
-    <div className="h-[24rem] sm:h-[36rem] [perspective:640px] sm:[perspective:1000px]  relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
+    <div className="h-[30rem] sm:h-[36rem] [perspective:640px] sm:[perspective:1000px] max-sm:pb-[90px] relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
         
       <Tabs key={state.selectedProject} tabs={tabs} projectSelectOptions={projectSelectOptions}/>
 
-    </div></section>
+    </div>
+    </section>
   );
 }

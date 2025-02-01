@@ -46,231 +46,9 @@
                     }
                 }
             },
-            "desc": "Beschreibung",
-            "details": "Details",
-            "versions": "Versionen",
-            "buttons": {
-                "ver": "Sieh",
-                "code": "Code"
-            },
-            "keys": {
-                "tech": "Technologien",
-                "char": "Charakteristiken"
-            },
-            "id": [
-                {
-                    "id": 2,
-                    "title": "Web-Entwickler-Profil",
-                    "description": "Meine Profilseite als Entwickler",
-                    "main_objetive": "Meine Fähigkeiten als Fullstack-Entwickler zeigen",
-                    "objetives": [
-                        "SCRUM",
-                        "gute Dokumentation",
-                        "Selbstverwirklichung",
-                        "Frontend-Kompatibilität"
-                    ],
-                    "technologies": {
-                        "frontend": [
-                            {
-                                "title": "NextJS",
-                                "iconName": "TbBrandNextjs",
-                                "version": "v14",
-                                "desc": "Hauptteil"
-                            },
-                            {
-                                "title": "TailwindCSS",
-                                "iconName": "SiTailwindcss",
-                                "version": "v3",
-                                "desc": "Hauptsichtbarkeit"
-                            },
-                            {
-                                "title": "SwiperJs und TsParticles",
-                                "iconName": "SiSwiper",
-                                "version": "",
-                                "desc": "Interaktive visuelle Darstellung"
-                            }
-                        ],
-                        "backend": [
-                            {
-                                "title": "NextJS",
-                                "iconName": "TbBrandNextjs",
-                                "version": "v14",
-                                "desc": "Hauptteil"
-                            }
-                        ]
-                    },
-                    "image": "/ceo/image-3.png",
-                    "urlGithub": "https://github.com/SKRTEEEEEE/profile-page",
-                    "urlDemo": "",
-                    "operative": true,
-                    "ejemplo": true
-                },
-                {
-                    "id": 3,
-                    "title": "Blockchain für Unternehmen",
-                    "description": "Blockchain-Präsentationsseite für Unternehmen",
-                    "main_objetive": "Die Möglichkeiten der Blockchain für Unternehmen zeigen",
-                    "objetives": [
-                        "Theoretische Konzepte",
-                        "Frontend und visuelle Darstellung",
-                        "Selbstverwirklichung",
-                        "Investitionen anziehen"
-                    ],
-                    "technologies": {
-                        "frontend": [
-                            {
-                                "title": "NextJS",
-                                "iconName": "TbBrandNextjs",
-                                "version": "v14",
-                                "desc": "Hauptteil"
-                            },
-                            {
-                                "title": "TailwindCSS",
-                                "iconName": "SiTailwindcss",
-                                "version": "v3",
-                                "desc": "Hauptsichtbarkeit"
-                            },
-                            {
-                                "title": "SwiperJs und TsParticles",
-                                "iconName": "SiSwiper",
-                                "version": "",
-                                "desc": "Interaktive visuelle Darstellung"
-                            }
-                        ]
-                    },
-                    "image": "/ceo/image-2.png",
-                    "urlGithub": "https://github.com/SKRTEEEEEE/blockchain-presentation",
-                    "urlDemo": "https://blockchain-presentation-eta.vercel.app/",
-                    "operative": true,
-                    "ejemplo": true
-                },
-                {
-                    "id": 4,
-                    "title": "Beispiel für dezentrale Anwendungen",
-                    "description": "Beispiele für dezentrale Anwendungen, die später angepasst werden können",
-                    "main_objetive": "Meine Fähigkeiten als Fullstack-Blockchain-Entwickler zeigen",
-                    "objetives": [
-                        "Smart-Contracts",
-                        "Web3/Web-Integration",
-                        "Frontend-Kompatibilität",
-                        "Blockchain-Nutzung"
-                    ],
-                    "technologies": {
-                        "frontend": [
-                            {
-                                "title": "NextJS",
-                                "iconName": "TbBrandNextjs",
-                                "version": "v14",
-                                "desc": "Hauptteil"
-                            },
-                            {
-                                "title": "TailwindCSS",
-                                "iconName": "SiTailwindcss",
-                                "version": "v3",
-                                "desc": "Hauptsichtbarkeit"
-                            },
-                            {
-                                "title": "Styled Components",
-                                "iconName": "SiStyledcomponents",
-                                "version": "",
-                                "desc": "Hauptsichtbarkeit"
-                            },
-                            {
-                                "title": "ChakraUI",
-                                "iconName": "SiChakraui",
-                                "version": "",
-                                "desc": "Interaktive visuelle Darstellung"
-                            },
-                            {
-                                "title": "ThreeJS",
-                                "iconName": "TbBrandThreejs",
-                                "version": "",
-                                "desc": "Interaktive visuelle Darstellung"
-                            }
-                        ],
-                        "backend": [
-                            {
-                                "title": "NextJS",
-                                "iconName": "TbBrandNextjs",
-                                "version": "v14",
-                                "desc": "Hauptteil"
-                            },
-                            {
-                                "title": "Thirdweb SDK",
-                                "iconName": "SiThirdweb",
-                                "version": "v4",
-                                "desc": "Web/Blockchain-Konnektivität"
-                            },
-                            {
-                                "title": "Thirdweb CLI",
-                                "iconName": "SiThirdweb",
-                                "version": "",
-                                "desc": "Smart Contracts bereitstellen"
-                            },
-                            {
-                                "title": "Solidity",
-                                "iconName": "SiSolidity",
-                                "version": "",
-                                "desc": "Smart Contracts erstellen"
-                            }
-                        ]
-                    },
-                    "image": "/ceo/image-4.png",
-                    "urlGithub": "https://github.com/SKRTEEEEEE/ejemplos-dApps",
-                    "urlDemo": "http://ejemplos-d-apps.vercel.app/",
-                    "operative": true,
-                    "ejemplo": true
-                },
-                {
-                    "id": 5,
-                    "title": "Web Profil v2",
-                    "description": "Verbesserte Profilseite als Entwickler",
-                    "main_objetive": "Verbesserung des Backend-Teils zur Automatisierung von Prozessen",
-                    "objetives": [
-                        "SCRUM",
-                        "100% eigenes Projekt",
-                        "Technologiekompatibilität",
-                        "Backend hinzufügen"
-                    ],
-                    "technologies": {
-                        "frontend": [
-                            {
-                                "title": "NextJS",
-                                "iconName": "TbBrandNextjs",
-                                "version": "v14",
-                                "desc": "Hauptteil"
-                            },
-                            {
-                                "title": "TailwindCSS",
-                                "iconName": "SiTailwindcss",
-                                "version": "v3",
-                                "desc": "Hauptsichtbarkeit"
-                            },
-                            {
-                                "title": "SwiperJs und TsParticles",
-                                "iconName": "SiSwiper",
-                                "version": "",
-                                "desc": "Interaktive visuelle Darstellung"
-                            }
-                        ],
-                        "backend": [
-                            {
-                                "title": "NextJS",
-                                "iconName": "TbBrandNextjs",
-                                "version": "v14",
-                                "desc": "Hauptteil"
-                            }
-                        ]
-                    },
-                    "image": "/ceo/image-3.jpg",
-                    "urlGithub": "https://github.com/SKRTEEEEEE/profile-page/tree/v01.02/",
-                    "urlDemo": "",
-                    "operative": false,
-                    "ejemplo": true
-                }
-            ],
+        
             "id_static": {
-                "main_objetive": "Ziel",
+                "main_objetive": "Ziele",
                 "buttons": {
                     "back": [
                         "Zurück",
@@ -319,7 +97,20 @@
                 "Vorgestellte",
                 "Open-Source",
                 "-Beispiele"
-            ]
+            ],
+            "section":{
+                "desc": "Beschreibung",
+                "details": "Details",
+                "versions": "Versionen",
+                "buttons": {
+                    "ver": "Sieh",
+                    "code": "Code"
+                },
+                "keys": {
+                    "tech": "Technologien",
+                    "char": "Charakteristiken"
+                }
+            }
         },
         "estudios": {
             "h1": [

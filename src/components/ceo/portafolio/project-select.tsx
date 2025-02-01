@@ -7,22 +7,22 @@ import { Button } from '@/components/ui/button'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-export type ProjectSelectorData = {
+export type ProjectSelectPortafolioData = {
   id: string
   name: string
   description: string
   icon: React.ReactNode
 }
 
-export type ProjectSelectorProps = {
+export type ProjectSelectPortafolioProps = {
   options: {
-    projects: ProjectSelectorData[]
+    projects: ProjectSelectPortafolioData[]
     selectedProject: number
     onProjectSelect: (projectId: number) => void
   }
 }
 
-export function ProjectSelector({ options }: ProjectSelectorProps) {
+export function ProjectSelectPortafolio({ options }: ProjectSelectPortafolioProps) {
   const {
     projects,
     selectedProject,

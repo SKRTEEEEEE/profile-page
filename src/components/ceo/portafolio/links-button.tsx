@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { GithubIcon } from "lucide-react"
-import { Button } from "../ui/button"
+import { Button } from "../../ui/button"
 
-export type PortafolioLinksProps = {
+export type LinksButtonPortafolioProps = {
     projectTitle: string
     data: {
         web?: string
@@ -16,9 +16,9 @@ export type PortafolioLinksProps = {
     }
 }
 
-const PortafolioLinks = ({
+const LinksButtonPortafolio = ({
     projectTitle, data: {web, webDesc, github, githubDesc}, buttons
-}: PortafolioLinksProps) => {
+}: LinksButtonPortafolioProps) => {
     if(webDesc===undefined){
         webDesc = `Dirígete a la pagina web de ${projectTitle}`
     }
@@ -49,4 +49,4 @@ const PortafolioLinks = ({
     )
 }
 
-export default PortafolioLinks;
+export default LinksButtonPortafolio;

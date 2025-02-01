@@ -1,5 +1,5 @@
 import { KeyProject, TechProject } from "@/core/domain/entities/project";
-import { DynamicLucideIcon, LucideIconNames } from "../oth/dyn/dynamic-lucide";
+import { DynamicLucideIcon, LucideIconNames } from "../../oth/dyn/dynamic-lucide";
 import { useLocale } from "next-intl";
 import { IntlKey } from "@/core/domain/entities/intl";
 import { cn } from "@/lib/utils"
@@ -43,7 +43,7 @@ function FeatureCard({ title, desc, icon }: FeatureCardProps) {
 
 export type KeyCardProjectProps =  KeyProject
 
-type DetailsPortafolioArticleProps = {
+type DetailsArticlePortafolioProps = {
   techs: TechProject[]
   keys: KeyCardProjectProps[]
   title: {
@@ -52,7 +52,7 @@ type DetailsPortafolioArticleProps = {
   }
 }
 
-export function DetailsPortafolioArticle({techs, keys, title}: DetailsPortafolioArticleProps ) {
+export function DetailsArticlePortafolio({techs, keys, title}: DetailsArticlePortafolioProps ) {
   const locale = useLocale()
   return (
     <article>
@@ -83,21 +83,6 @@ export function DetailsPortafolioArticle({techs, keys, title}: DetailsPortafolio
             desc={desc[locale as IntlKey]}
           />
           ))}
-          {/* <FeatureCard
-            icon={<Shield className="w-6 h-6" />}
-            title="Seguridad Avanzada"
-            description="Implementación de protocolos de seguridad de última generación para proteger datos sensibles."
-          />
-          <FeatureCard
-            icon={<Zap className="w-6 h-6" />}
-            title="Tiempo Real"
-            description="Actualizaciones instantáneas y sincronización en tiempo real entre todos los usuarios."
-          />
-          <FeatureCard
-            icon={<Workflow className="w-6 h-6" />}
-            title="Flujo de Trabajo"
-            description="Procesos automatizados y flujos de trabajo personalizables para máxima eficiencia."
-          /> */}
         </div>
       </div>
     </article>

@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import React from "react";
-import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
+import { CardBody, CardContainer, CardItem } from "../../ui/3d-card";
 import Link from "next/link";
 import { GithubIcon } from "lucide-react";
-import { PortafolioLinksProps } from "./porta-links";
+import { LinksButtonPortafolioProps } from "./links-button";
 type ThreeDCardOptions= {
   title: string
   desc: string
@@ -18,7 +18,7 @@ type ThreeDCardOptions= {
 }
 type ThreeDCardBaseProps = {
   options: ThreeDCardOptions
-  links: PortafolioLinksProps["data"]
+  links: LinksButtonPortafolioProps["data"]
 }
 
 

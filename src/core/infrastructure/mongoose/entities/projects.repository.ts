@@ -1,4 +1,4 @@
-import { projectsToInsert } from "@/components/ceo/projects-hardcdd";
+import { projectsToInsert } from "@/components/ceo/portafolio/projects-hardcdd";
 import { MongoosePreTechPattern } from "../patterns/pre-tech.pattern";
 import { MongooseBase } from "../types";
 import { Model } from "mongoose";
