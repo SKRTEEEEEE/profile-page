@@ -1,4 +1,4 @@
-import { TestAction } from "@/components/ceo/test-action-project";
+// import { TestAction } from "@/components/ceo/test-action-project";
 import { ToastTriggered } from "@/components/oth/toast-triggered";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
@@ -24,7 +24,7 @@ export default async function Home({searchParams}:RootProps) {
           title: `${t("manage-root.title")} 🏗️`, 
           description: t("manage-root.desc"), 
           duration: 10000}}/>
-        <TestAction/>
+        {/* <TestAction/> */}
       </div>
     </main>
   );
