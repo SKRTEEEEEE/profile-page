@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { ImageResponse } from "next/og";
-import { metadataBlog as siteConfig } from "@/lib/metadata";
+import { metadataBlog as siteConfig } from "@/lib/data";
 
 export const runtime = "edge";
 

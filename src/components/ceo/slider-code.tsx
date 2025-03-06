@@ -3,7 +3,7 @@
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
-import { Web3I18, Web3Stat } from '@/lib/web3';
+import { Web3I18, Web3Stat } from '@/app/[locale]/ceo/code/page';
 
 
 

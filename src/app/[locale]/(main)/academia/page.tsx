@@ -2,12 +2,20 @@ import { ejercicios } from "#site/content";
 import { EjercicioItem } from "@/components/academia/ejercicio-item";
 import { SubscriptionPlansDialog } from "@/components/oth/plains-dialog/subscription-plans-dialog";
 import { buttonVariants } from "@/components/ui/button";
-import { routesConfig } from "@/lib/routes";
 import { getCookiesUC } from "@/core/application/usecases/services/auth";
 import { userInCookiesUC } from "@/core/interface-adapters/controllers/user";
 import { Link } from "@/i18n/routing";
 import { cn, sortPosts } from "@/lib/utils";
 import { Metadata } from "next";
+
+const routesConfig = {
+  academia: {
+      path: "/academia",
+      title: "Academia dev",
+      description: "Aprende a desarrollar de forma rápida y dinámica."
+  }
+}
+
 export const metadata: Metadata = {
   title: routesConfig.academia.title,
   description: routesConfig.academia.description

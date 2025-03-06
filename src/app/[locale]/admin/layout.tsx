@@ -1,6 +1,6 @@
 import { SiteHeader } from "@/components/site-header/site-header";
 import { CThemeProvider } from "@/components/oth/theme-provider";
-import { metadataAdmin as siteConfig } from "@/lib/metadata";
+import { metadataAdmin as siteConfig } from "@/lib/data";
 import type { Metadata, Viewport } from "next";
 import { ThirdwebProvider } from "thirdweb/react";
 import { Icons } from "@/components/site-header/icons";
