@@ -28,7 +28,7 @@ const AboutMePage = async () => {
                 <section className="max-w-[450px]">
 
                     
-                    <span className="sm:inline hidden">
+                    <span className="md:inline hidden">
                     <h1 tabIndex={0} className="text-xl mb-4   leading-tight text-center sm:text-left md:text-4xl md:mb-2">{t("ceo.info.section.skills.h1.0")} <span className="font-bold text-secondary-ceo"> {t("ceo.info.section.skills.h1.1")}.</span></h1>
                     <h2 className='hover:text-secondary-ceo-600/20 text-secondary-ceo-300 md:mb-4'>{t("ceo.info.section.skills.h2")}: </h2>
                     <ul className="md:mb-3 xl:text-xl 

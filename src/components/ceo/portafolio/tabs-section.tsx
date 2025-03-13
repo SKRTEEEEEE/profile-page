@@ -11,6 +11,7 @@ import { Project } from "@/core/domain/entities/project";
 import { useLocale, useTranslations } from "next-intl";
 import { IntlKey } from "@/core/domain/entities/intl";
 
+// style layout
 type ContentLayoutProps = {
     children: React.ReactNode
     title: string
@@ -52,12 +53,14 @@ const ContentLayout = ({children, links, title, buttons}: ContentLayoutProps) =>
         </div>
         
         {/* Content container */}
-        <div className="w-full overflow-auto relative h-full rounded-2xl px-10 md:pt-5 font-bold text-white">
+        <div className="w-full overflow-auto relative h-full rounded-2xl px-10 md:pt-8 font-bold text-white">
             {links!==undefined&&<LinksButtonPortafolio projectTitle={title} data={links} buttons={buttons!}/>}
           {children}
         </div>
     </div>
 )
+
+
 type State = {
   selectedProject: number
   projectData: Project
@@ -141,10 +144,10 @@ export function TabsSectionPortafolio({selectedProjects}: {selectedProjects: Pro
   const onProjectSelect =  (index:number)=>dispatch({type: "SET_SELECTED_PROJECT", payload: index})
   const projectSelectOptions = {projects: selectorTabs, selectedProject:state.selectedProject, onProjectSelect}
   return (
-    <section className="flex overflow-hidden flex-col justify-end sm:justify-center h-dvh w-dvw lg:pt-8">
+    <section className="flex overflow-hidden flex-col justify-end sm:justify-center h-dvh w-dvw">
         
 
-    <div className="h-[30rem] sm:h-[36rem] [perspective:640px] sm:[perspective:1000px] max-sm:pb-[90px] relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
+    <div className="h-[80dvh] sm:h-[36rem] [perspective:640px] sm:[perspective:1000px] max-sm:pb-[90px] relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start">
         
       <Tabs key={state.selectedProject} tabs={tabs} projectSelectOptions={projectSelectOptions}/>
 

@@ -48,7 +48,7 @@ const StudiesPage = () => {
         web: data.link
     }))
     return (
-        <main className="max-h-dvh max-w-dvw">
+        <main className="min-sm:max-h-dvh max-w-dvw">
 
             <TransitionPage />
 
@@ -57,8 +57,8 @@ const StudiesPage = () => {
             <MotionTransition position="bottom" className="top-14 right-0 hidden xl:inline-block xl:absolute ">
                 <Image priority src="/ceo/avatar1.svg" width={"550"} height={"550"} className="" alt={t("images.office")} />
             </MotionTransition>
-            <div className="pt-24 gap-4 max-h-dvh flex flex-col ">
-                <span className="mx-6 pt-2 max-sm:bg-blend-luminosity max-sm:h-[25dvh]">
+            <div className="pt-24 gap-4 flex flex-col ">
+                <span className="mx-6 min-sm:pt-2 max-sm:bg-blend-luminosity max-sm:h-[25dvh]">
                     <h1 tabIndex={0} className="text-2xl leading-tight text-center md:text-left md:text-5xl md:mt-10">
                         <span className="font-bold text-secondary-ceo">
                             {t("estudios.h1.0")}

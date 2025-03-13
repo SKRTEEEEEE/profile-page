@@ -99,16 +99,16 @@
                 " examples"
             ],
             "section":{
-                "desc": "Descripció",
-                "details": "Detalls",
+                "desc": "Description",
+                "details": "Details",
                 "versions": "Versions",
                 "buttons": {
-                    "ver": "Veure",
-                    "code": "Codi"
+                    "ver": "See",
+                    "code": "Code"
                 },
                 "keys": {
-                    "tech": "Tecnologies",
-                    "char": "Característiques clau"
+                    "tech": "Technologies",
+                    "char": "Key features"
                 }
             }
         },

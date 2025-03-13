@@ -187,7 +187,7 @@ npm i react-countup
 
 ## 1x. Mejorar frontend  (Clean Code, estructura, metadatos) 
 - [ ] Definir estructura types del frontend --donde los pondremos, cuando debemos crear uno, etc..
-- [ ] Definir estructura lib, unificar archivos, mejorar nombres, etc...
+- [x] Definir estructura lib, unificar archivos, mejorar nombres, etc...
 - [ ] Empezar a trabajar la parte de metadatos de la sección de 'sobre mi'
 - [❓] Cambiar el nombre de ceo a admin?
 
