@@ -10,7 +10,6 @@ import { Pencil, Plus } from 'lucide-react'
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -21,6 +20,7 @@ import { Tooltip } from "@radix-ui/react-tooltip"
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import { FullTechData } from "@/core/domain/entities/tech"
 import TechFormDialog from "./tech-dialog/form-dialog"
+import { createSimpleIconByNameBadge, DynamicSimpleIcon, SimpleIconNames } from "../oth/dyn/dynamic-si"
 
 // - [ ] Falta mostrar el error del delete, y mejorar...
 // - [ ] Falta terminar la parte del mobile
@@ -87,6 +87,8 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
           <TableBody>
             {paginatedData.map((tech) => 
             {
+            
+
               // console.log("tech tech-table: ",tech)
             
    // <Button variant="ghost" size="icon" asChild>
@@ -100,9 +102,11 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
               <TableRow key={tech.nameId}>
                 <TableCell className="font-medium">
                   <div className="flex items-center space-x-3">
+                  
                     <Avatar>
                       <AvatarImage src={tech.img ? tech.img : ""} alt={tech.nameId} />
-                      <AvatarFallback>{tech.nameId.substring(0, 2).toUpperCase()}</AvatarFallback>
+                      <AvatarFallback><DynamicSimpleIcon iconName={createSimpleIconByNameBadge(tech.nameBadge)} className="w-8 h-8"/></AvatarFallback>
+                      {/* <AvatarFallback>{tech.nameId.substring(0, 2).toUpperCase()}</AvatarFallback> */}
                     </Avatar>
                     <span>{tech.nameId.charAt(0).toUpperCase() + tech.nameId.slice(1).toLowerCase()}</span>
 

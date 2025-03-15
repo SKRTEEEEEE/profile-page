@@ -7,7 +7,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { readProjectByIdUnoptUC } from "@/core/application/usecases/entities/project";
 import { IntlKey } from "@/core/domain/entities/intl";
 import { KeyProject, TechProject, TypeProject } from "@/core/domain/entities/project";
-import { DynamicSimpleIcon, SimpleIconNames } from "@/components/oth/dyn/dynamic-si";
+import { createSimpleIconByNameBadge, DynamicSimpleIcon } from "@/components/oth/dyn/dynamic-si";
 
 type TechsSectionProps = {
   techs: TechProject[],
@@ -31,7 +31,7 @@ const TechsSection: React.FC<TechsSectionProps> = ({ techs, sectionTitle, locale
           {techs?.map((tech) => {
             const shouldRenderParagraph = tech?.version && tech?.version.trim() !== '';
             return (<div key={tech.nameBadge} className="flex mt-8 justify-center align-center">
-              {<DynamicSimpleIcon iconName={`Si${tech.nameBadge.at(0)?.toLocaleUpperCase + tech.nameBadge.slice(1)}` as SimpleIconNames} className="w-8 h-8" />}
+              {<DynamicSimpleIcon iconName={createSimpleIconByNameBadge(tech.nameBadge)} className="w-8 h-8" />}
               <div className="flex flex-col">
                 <span> {tech.nameId} {shouldRenderParagraph && tech.version} </span>
                 <span className="text-xs"><i>{tech.typeDesc[locale]}</i></span>

@@ -7,7 +7,7 @@ import { Pagination } from 'swiper/modules';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { FullTechData } from '@/core/domain/entities/tech';
 import { useTranslations } from 'next-intl';
-import { createSimpleIconByNameBadge, DynamicSimpleIcon } from '../oth/dyn/dynamic-si';
+import { createSimpleIconByNameBadge, DynamicSimpleIcon, SimpleIconNames } from '../oth/dyn/dynamic-si';
 
 const SliderTechs = ({data}: {data:FullTechData[]}) => {
     const t = useTranslations("ceo.info.section.slider")
@@ -46,7 +46,7 @@ const SliderTechs = ({data}: {data:FullTechData[]}) => {
                                 <Avatar className='w-16 h-16 mb-2'>
                                      <AvatarImage src={item.img} alt={item.nameId} />
                                     
-                                    <AvatarFallback>{item.nameId.substring(0, 2).toUpperCase()}</AvatarFallback>
+                                    <AvatarFallback><DynamicSimpleIcon iconName={createSimpleIconByNameBadge(item.nameBadge)} className="w-8 h-8"/></AvatarFallback>
                                 </Avatar> :
                                     <DynamicSimpleIcon iconName={createSimpleIconByNameBadge(item.nameBadge)} size={36}/>}
                                 <h3 className="mb-4 text-xl md:h-16" tabIndex={0}>{(item.nameId).charAt(0).toUpperCase() + (item.nameId).slice(1).toLowerCase()}

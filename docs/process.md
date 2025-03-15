@@ -195,22 +195,27 @@ npm i react-countup
 ### Configuración
 #### Configurar nuevas rutas repo `markdowns`
 - [x] Configurar en el backend
-  - [ ] Comprobar el 'name' de los `topics` de Github
+  - [ ] Comprobar el 'name' de los `topics` de Github 
+    - [ ] todos MENOS "tailwind-css" -> hacer un exceptions?
+    - [ ] hay que mantener la comparacion de - a . , pej 'node-js' a 'node.js' o 'next-js' a 'next.js'
+    - [ ] hay que utilizar el ptechs en ambas opciones, nameId y nameBadge 
 - [x] Configurar en el frontend (paginas 'dinamicas' leen de github)
 #### Configurar / modificar repo `SKRTEEEEEE` (main)
 - [x] Parte 1: Añadir nuevo banner techs, refactor page v1
 #### Crear nuevos templates `markdown-template`
-- [ ] Usar la opción de template de Github
+- [x] Usar la opción de template de Github
 ### Ordenar
 #### Ordenar Github
-- [ ] Poner tags con lenguajes
-- [ ] Archivar no usados
+- [x] Poner tags con lenguajes
+- [ ] Archivar no usados -> documentar
+  - Los que esten desplegados se mantendran sin archivar
+  - Los que se tengan que modificar aun se mantendrán sin archivar
+  - [...]
 #### Ordenar Laptop
 - [ ] Mirar proyectos
       - [ ] Los que ya no se vayan a usar (pruebas, proyectos parados, etc..), comprobar match con Github y borrar
       - [ ] Los que todavía se deben usar **para recoger info, publicar projects** (CURSOS y MARKDOWN) -> comprobar match con Github y conservar-los
       - [ ] Los que todavía se deben usar **porque están en desarrollo** -> comprobar que asi sea
-    - [ ] Cambiar los header a todos con el nuevo template
   
 
 
@@ -220,6 +225,7 @@ npm i react-countup
 - [x] Definir estructura lib, unificar archivos, mejorar nombres, etc...
 - [ ] Empezar a trabajar la parte de metadatos de la sección de 'sobre mi'
 - [❓] Cambiar el nombre de ceo a admin?
+- [ ] Poner los logos de las techs cuando falle la image en las techs
 
 ## 1x. Reestructurar clean arch v3 p2 (back)
 - [x] **REVISAR ERROR CON LOS STATE DE LA IMG** en el form de techs
