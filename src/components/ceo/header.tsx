@@ -16,11 +16,6 @@ const socialNetworks = [
         title: "Github",
         desc: "Mi perfil en Github"
     },
-    // {
-    //     id: 2,
-    //     logo: <Linkedin size={30} strokeWidth={1} />,
-    //     src: "skkdjalksa",
-    // },
     {
         id: 3,
         logo: <Mail size={30} strokeWidth={1} aria-describedby="Mail"/>,

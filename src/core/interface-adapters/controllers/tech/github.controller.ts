@@ -8,9 +8,12 @@ import { getTranslations } from "next-intl/server"
 const baseOptions = {
     owner:"SKRTEEEEEE",
     repo: "markdowns",
-    ref: "profile-page"
+    ref: "main"
+    // ref: "profile-page"
 }
-const path = { md: "sys/techs-test.md", json: "sys/techs-test.json" };
+const path = { md: "about/techs.md", json: "sys/techs.json" };
+
+const techsHeaderBanner = `<img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,obsidian,md,html,css,styledcomponents,tailwind,threejs,react,js,ts,prisma,sqlite,mongodb,mysql,nextjs,nodejs,express,py,php,c,cpp,sentry,redux,firebase,vercel,bash,powershell,npm,vscode,notion,ableton,windows&perline=18" />`
 
 export enum ActualizarGithubTechsType {"md", "json", "all"}
 type ActualizarGithubTechsProps = {
@@ -64,7 +67,7 @@ async function actualizarMd(props:{create?: ActualizarGithubTechsProps["create"]
 let newMdContent = `# Tecnologías y Lenguajes de Programación\n_Documentación de lenguajes, tecnologías (frameworks, librerías...) de programación que utilizo._\n\n
 <p align="center">
 <a href="#">
-<img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,md,html,css,styledcomponents,tailwind,js,ts,mysql,mongodb,firebase,vercel,nextjs,nodejs,express,react,redux,threejs,py,bash,powershell,npm,vscode,ableton,discord&perline=14" />
+${techsHeaderBanner}
 </a>
 </p>\n\n\n***\n\n\n`;
             if(create){

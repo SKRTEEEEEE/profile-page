@@ -13,11 +13,9 @@ import Link from "next/link";
 // }
 
 const GITHUB_RAW_TECHS_URL =
-// "https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/main/about/techs.md";
-"https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/profile-page/sys/techs-test.md";
+"https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/main/about/techs.md";
 const GITHUB_RAW_TECHS_BASE = 
-// "https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/main/about/";
-"https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/profile-page/sys/";
+"https://raw.githubusercontent.com/SKRTEEEEEE/markdowns/refs/heads/main/about/";
 
 
 async function fetchMarkdownFile(filename?: string): Promise<string | null> {
@@ -27,8 +25,7 @@ async function fetchMarkdownFile(filename?: string): Promise<string | null> {
     response = await fetch(`${GITHUB_RAW_TECHS_URL}`);
   }
     if(filename === "techs" || filename === "degrees"){
-    response = await fetch(`${GITHUB_RAW_TECHS_BASE}${filename}-test.md`);
-    // response = await fetch(`${GITHUB_RAW_TECHS_BASE}${filename}.md`);
+    response = await fetch(`${GITHUB_RAW_TECHS_BASE}${filename}.md`);
   }
     if (!response.ok) {
       return null;

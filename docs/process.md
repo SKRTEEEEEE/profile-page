@@ -113,7 +113,7 @@ npm i react-countup
     - [x] Mejorar/usar mayus en el name
     - [x] Mejorar autocomplete p1 (faltaria hacer un personalizado para el name)
     - [x] Mejorar color y prefe (poner cuadrado input mas peque y al lado del title)
-    - [x] Mejorar expe y afinidad (poner input mas peque al lado del title y al lado el total escojido)
+    - [x] Mejorar expe y afinidad (poner input mas peque al lado del title y al lado el total escogido)
 
 
 ## 13. Reestructurar clean arch v3 p1 (back) 
@@ -137,7 +137,7 @@ npm i react-countup
         Este ocurre cuando entramos directamente a **cualquier ruta**, excepto [la principal / root](http://localhost:3000)
 - [x] Mejorar el frontend, mejorando los temas, y comprobando la correcta utilización de tailwind en todos los componentes **p1**
 - [x] Traducir todo a Español
-- [ ] Unificar lógica del main(grid-layout)
+- [x] Unificar lógica del main(grid-layout) ⁉️
     - [x] mínimo: Las partes que utilizan el `site-header` component
 ### Oth
 #### Tech table
@@ -151,10 +151,11 @@ npm i react-countup
 ### Internalization (en/es/de/ca) `i18n`
 - [x] Pasar la parte de web3 a la i18n (asi eliminamos la parte de bdd que no tiene clean arch)
 - [x] Hay que arreglar los links de academia y admin page-parts
-## Fix
+### Fix
 - [x] Arreglar error estructura md
     - [Para ello seguir el patron de este md](https://github.com/SKRTEEEEEE/markdowns/blob/main/about/techs.md?plain=1)
 - [x] Arreglar mal performance en tech-dialog, que cuando el usuario introduce un dato incorrecto solo se muestra en la pantalla correspondiente y debería aparecer en la parte común también
+  
 ## 15. Reestructurar techs (full)
 **Tener en cuenta los siguientes puntos(clean arch v3 p2)**
 - [x] Adoptar enfoque DB/Redis, para recuperar la lista de techs-simpleicons -> creando SimpleIconsTechRepository etc, con getTechList y updateTechList
@@ -168,22 +169,51 @@ npm i react-countup
     - [x] Terminar el updateTech: incluir el re-fetch pretechs button
     - [x] **En el step-two** hay que limitar la **imagen a 1mb**
     - [x] En el deleteImg, hay que eliminar todas las img de los techs anidados
-##### **ACTUALIDAD**
 ### fix
 - [x] Arreglar updateMd
     - [x] Problema con el SHA en updateMd
 - [x] Comprobar el uso de nameBadge/nameId con los badges (actualizarJson)
 #### volver a comprobar el CRUD de techs
-- [ ] Se eliminan correctamente varios?
 - [x] **edit:** libs
-- [x] **updateMd:** creo que al hacer update de la bdd no se elimina el espacio en el badge principal poreso no se ve correctamente el nombre, cosa que al crear no pasa
-
+- [x] **updateMd:** creo que al hacer update de la bdd no se elimina el espacio en el badge principal por eso no se ve correctamente el nombre, cosa que al crear no pasa
+##### **ACTUALIDAD**
+##### Se eliminan correctamente varios?
+- [x] Se eliminan varios si es un fw
+  - [ ] Se eliminan las imágenes
+- [x] Se eliminan varios si es un leng
+  - [ ] Se eliminan las imágenes
 ### refactor
-- [❓] Campo web, ??seguramente haremos que el usuario pueda tener un campo web especifico, pero sera distinto al web del pretech
+- [ ] Campo web, ??seguramente haremos que el usuario pueda tener un campo web especifico, pero sera distinto al web del pretech
+  - [ ] Actualmente el campo web se puede modificar -> La idea es que en futuro haya dos campos, uno principal (la idea esque te lleve a tu pagina con la info de dicho tech) y otro secundario, que se mostrara al final y te llevara a la web de dicho tech (opcional)
 #### func tech -> delete.controller.ts
 - [x] Hacer que se borren todas las imágenes en el caso de eliminar un leng o fw
+  
 ## 16. Upgrade de parte projects
 ### Empezar a guardar los datos en la base de datos
+
+## 17. Traspasar nueva lógica de `markdowns` v.1
+### Configuración
+#### Configurar nuevas rutas repo `markdowns`
+- [x] Configurar en el backend
+  - [ ] Comprobar el 'name' de los `topics` de Github
+- [x] Configurar en el frontend (paginas 'dinamicas' leen de github)
+#### Configurar / modificar repo `SKRTEEEEEE` (main)
+- [x] Parte 1: Añadir nuevo banner techs, refactor page v1
+#### Crear nuevos templates `markdown-template`
+- [ ] Usar la opción de template de Github
+### Ordenar
+#### Ordenar Github
+- [ ] Poner tags con lenguajes
+- [ ] Archivar no usados
+#### Ordenar Laptop
+- [ ] Mirar proyectos
+      - [ ] Los que ya no se vayan a usar (pruebas, proyectos parados, etc..), comprobar match con Github y borrar
+      - [ ] Los que todavía se deben usar **para recoger info, publicar projects** (CURSOS y MARKDOWN) -> comprobar match con Github y conservar-los
+      - [ ] Los que todavía se deben usar **porque están en desarrollo** -> comprobar que asi sea
+    - [ ] Cambiar los header a todos con el nuevo template
+  
+
+
 
 ## 1x. Mejorar frontend  (Clean Code, estructura, metadatos) 
 - [ ] Definir estructura types del frontend --donde los pondremos, cuando debemos crear uno, etc..
@@ -259,3 +289,9 @@ type Mensaje<T> = {
 > #### El Administrador puede eliminar un usuario
 > - _Directamente se optara por la opción de vetar ya que no tiene lógica que elimine sin notificar ni nada._
 > - [ ] El Administrador puede vetar de la app ciertas carteras/users
+> #### Techs form
+> - [ ] Mensaje de muestra en el form de techs cuando el usuario no ha iniciado sesión
+> - [ ] No permitir seleccionar ni mostrar en la lista de techs las techs que ya están publicadas
+> - [ ] Desactivar o no mostrar el botón atras mientras se hace el loading
+> - [ ] Mejorar el loading del form
+> 

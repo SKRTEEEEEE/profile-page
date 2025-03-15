@@ -38,3 +38,6 @@ next-env.d.ts
 # velite files
 
 .velite
+
+# scripts json's
+/content/scripts/*.json
