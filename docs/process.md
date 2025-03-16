@@ -225,7 +225,8 @@ npm i react-countup
 - [x] Definir estructura lib, unificar archivos, mejorar nombres, etc...
 - [ ] Empezar a trabajar la parte de metadatos de la sección de 'sobre mi'
 - [❓] Cambiar el nombre de ceo a admin?
-- [ ] Poner los logos de las techs cuando falle la image en las techs
+- [x] Poner los logos de las techs cuando falle la image en las techs
+- [x] Hacer autotranslate en el form de techs 
 
 ## 1x. Reestructurar clean arch v3 p2 (back)
 - [x] **REVISAR ERROR CON LOS STATE DE LA IMG** en el form de techs
