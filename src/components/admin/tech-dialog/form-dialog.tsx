@@ -28,6 +28,8 @@ export type StepTechProps = {
   onComplete: (data: number) => void
   onError: (errors: string[]) => void
   form: UseFormReturn<any, any, undefined>;
+  // form: UseFormReturn<TechForm>;
+
 }
 
 type FlattenAdmin = {

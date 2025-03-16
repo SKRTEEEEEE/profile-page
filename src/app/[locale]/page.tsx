@@ -1,5 +1,6 @@
 // import { TestAction } from "@/components/ceo/test-action-project";
 import { ToastTriggered } from "@/components/oth/toast-triggered";
+// import TestActionTranslate from "@/components/test-action-translate";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 //Hay que recojer por searchParams, si el usuario entra por primera vez redirigido del middleware, se le mostrara toast()
@@ -24,7 +25,7 @@ export default async function Home({searchParams}:RootProps) {
           title: `${t("manage-root.title")} 🏗️`, 
           description: t("manage-root.desc"), 
           duration: 10000}}/>
-        {/* <TestAction/> */}
+        {/* <TestActionTranslate/> */}
       </div>
     </main>
   );

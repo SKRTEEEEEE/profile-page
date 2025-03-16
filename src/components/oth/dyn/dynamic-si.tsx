@@ -24,6 +24,13 @@ export const DynamicSimpleIcon: React.FC<DynamicSimpleIconProps> = ({
 
     return <IconComponent size={size} color={color} {...props} />;
 };
+const exceptionsSINameBadge = {
+    css: "css3"
+}
 export const createSimpleIconByNameBadge = (nameBadge: string) => {
+    if (nameBadge in exceptionsSINameBadge) {
+        return `Si${exceptionsSINameBadge[nameBadge as keyof typeof exceptionsSINameBadge].charAt(0).toUpperCase() + 
+            exceptionsSINameBadge[nameBadge as keyof typeof exceptionsSINameBadge].slice(1)}` as SimpleIconNames
+    }
     return `Si${nameBadge.charAt(0).toUpperCase() + nameBadge.slice(1)}` as SimpleIconNames
 }

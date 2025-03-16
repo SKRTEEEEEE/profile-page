@@ -8,7 +8,17 @@ import { useActiveAccount } from "thirdweb/react"
 import { Save } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { FaSpinner } from "react-icons/fa"
-
+import { IntlKey } from "@/core/domain/entities/intl"
+import { translate } from "@/actions/translate"
+import { useState } from "react"
+interface Translation {
+    text: string;
+    to: string;
+  }
+  
+  interface TranslationResponse {
+    translations: Translation[];
+  }
 type LastStepTechProps = Omit<StepTechProps, "onComplete"> & {
     onSubmit: () => Promise<void>
     onPrevious: () => void
@@ -24,6 +34,7 @@ export function LastStep({
     form,
     isAdmin
 }: LastStepTechProps) {
+    const [translating, setTranslating] = useState(false)
     const account = useActiveAccount()
 
     const handleSubmit = async () => {
@@ -34,12 +45,60 @@ export function LastStep({
             onError(["Por favor, completa todas las descripciones"])
         }
     }
+    const translateText = async () => {
+        setTranslating(true)
+        try {
+            const data = form.getValues();
+            const desc = data.desc as Record<IntlKey, string>; // Tipado explícito
+            
+            // 1. Encontrar el idioma fuente y su texto
+            const [fromLang, fromText] = Object.entries(desc)
+                .find(([_, text]) => text.trim() !== "") || [];
+            
+            if (!fromLang || !fromText) {
+                onError(["Debe ingresar al menos una descripción"]);
+                return;
+            }
+    
+            // 2. Preparar idiomas destino (excluyendo el fuente)
+            const targetLangs = Object.keys(desc)
+                .filter(lang => lang !== fromLang) as IntlKey[];
+            
+            // 3. Llamar al servicio de traducción
+            const translationResult =  await translate(
+                fromText, 
+                fromLang, 
+                targetLangs // ['es', 'ca', 'de'] si fromLang='en'
+            );
+            if(!translationResult){onError(["Error al traducir. Intente nuevamente"]);return}
+            // 4. Mapear resultados al formulario
+            // Parsear la respuesta JSON
+            const translations: TranslationResponse[] = JSON.parse(translationResult);
+
+            if (translations.length === 0 || !translations[0].translations) {
+            onError(["No se recibieron traducciones"]);
+            return;
+            }
+
+            // 4. Mapear resultados al formulario
+            translations[0].translations.forEach((translation) => {
+            const targetLang = translation.to as keyof typeof desc;
+            form.setValue(`desc.${targetLang}`, translation.text);
+            });
+                    
+                } catch (error) {
+                    onError(["Error al traducir. Intente nuevamente"]);
+                } finally {
+                    setTranslating(false);
+                }
+            }
+            
 
     return (
         <div className="space-y-4">
             <section>
                 <h3>Descripciones</h3>
-                {["es", "en", "ca", "de"].map((lang) => (
+                { Object.values(IntlKey).map((lang) => (
                     <FormField
                         key={lang}
                         control={form.control}
@@ -64,20 +123,23 @@ export function LastStep({
                     className="h-full w-full rounded-lg bg-violet-500/15 hover:bg-violet-800 shadow-violet-400/30 hover:shadow-violet-300 text-white font-semibold shadow-md hover:shadow-md transition-all duration-300 ease-in-out mb-1"
                     variant="default"
                     onClick={onPrevious}
+                    disabled={loading}
                 >
-                    {/* {isListed ? t("first.button.0") : t("first.button.1")} */}
                     {"Anterior"}
                 </Button>
-                {/* <Button
+                <Button
+                    className="h-full w-full rounded-lg bg-violet-500/15 hover:bg-violet-800 shadow-violet-400/30 hover:shadow-violet-300 text-white font-semibold shadow-md hover:shadow-md transition-all duration-300 ease-in-out mb-1"
                     variant="default"
-                    onClick={handleSubmit}
-                    disabled={loading || !isAdmin || account === undefined}
+                    onClick={translateText}
+                    disabled={loading||translating}
                 >
-                    {!loading ? "Guardar" : "Guardando.."}
-                </Button> */}
+                    {"Traducir"}
+                </Button>
+        
                 {loading ? (
-                    <Button variant={"destructive"} className="">
+                    <Button variant={"destructive"} className="w-full">
                         <FaSpinner width={6} height={6} color="red" />
+                        <p>Loading...</p>
                     </Button>
                 ) : (
 
