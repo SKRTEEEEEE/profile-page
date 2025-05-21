@@ -1,4 +1,4 @@
-import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
+import { FilterQuery, ProjectionType, QueryOptions, RootFilterQuery, UpdateQuery } from "mongoose";
 import { MongooseBase } from ".";
 export type MongooseUpdateByIdProps<TBase> = {
   id: string,

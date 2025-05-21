@@ -217,10 +217,12 @@ npm i react-countup
       - [ ] Los que todavía se deben usar **para recoger info, publicar projects** (CURSOS y MARKDOWN) -> comprobar match con Github y conservar-los
       - [ ] Los que todavía se deben usar **porque están en desarrollo** -> comprobar que asi sea
   
+## 18. Migrar backend a NestJS
+
+## 19. Implementar backend NestJS en NextJS
 
 
-
-## 1x. Mejorar frontend  (Clean Code, estructura, metadatos) 
+## 2x. Mejorar frontend  (Clean Code, estructura, metadatos) 
 - [ ] Definir estructura types del frontend --donde los pondremos, cuando debemos crear uno, etc..
 - [x] Definir estructura lib, unificar archivos, mejorar nombres, etc...
 - [ ] Empezar a trabajar la parte de metadatos de la sección de 'sobre mi'
@@ -228,7 +230,7 @@ npm i react-countup
 - [x] Poner los logos de las techs cuando falle la image en las techs
 - [x] Hacer autotranslate en el form de techs 
 
-## 1x. Reestructurar clean arch v3 p2 (back)
+## 2x. Reestructurar clean arch v3 p2 (back)
 - [x] **REVISAR ERROR CON LOS STATE DE LA IMG** en el form de techs
 ### Revisar connectors
 - [ ] Mirar que hacer con las **funciones de los connectors que se utilizan en el Framework**, como client de thirdweb o ourFileRouter de uploadthing que creo que ni se utiliza.

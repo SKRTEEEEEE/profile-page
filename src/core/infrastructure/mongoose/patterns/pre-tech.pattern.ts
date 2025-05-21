@@ -4,16 +4,19 @@ import {  MongooseReadRepository, MongooseReadResponse } from "../implementation
 import { MongoosePopulateProps, MongoosePopulateRepository, MongoosePopulateResponse } from "../implementations/populate.repository";
 import { MongooseReadProps } from "../types/implementations";
 import { MongooseBase } from "../types";
+import { MongooseRp } from "../types/patterns";
 
 /* 
+- Rp -> Read, Populate
 primario, proviene de las implementaciones
 Aquí solo se implementan patrones de repositorios
 - para utilizar las TOptions, se debe implementar en los repositorios de implementación que contiene
 */
-export abstract class MongoosePreTechPattern<
+export abstract class MongooseRpPattern<
     TBase,
     TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>> = {}
-> extends MongooseBaseRepository<TBase, TOptions>
+> extends MongooseBaseRepository<TBase, TOptions> 
+implements MongooseRp<TBase>
     {
     private readRepo: MongooseReadRepository<TBase, TOptions>;
     private populateRepo: MongoosePopulateRepository<TBase, TOptions>;

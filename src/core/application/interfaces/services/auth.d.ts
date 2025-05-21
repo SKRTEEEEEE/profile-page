@@ -63,10 +63,7 @@ type JWTContext = {
     img: string | undefined;
 
   }
-interface ExtendedJWTPayload extends JWTPayload{
-    ctx: JWTContext
-}
-
+interface ExtendedJWTPayload extends JWTPayload<JWTContext>{}
 // export type AuthAdapterRepository = {
 //     generatePayload(params: GenerateLoginPayloadParams): Promise<LoginPayload> 
 

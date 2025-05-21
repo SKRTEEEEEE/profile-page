@@ -1,5 +1,5 @@
 "use client"
-import { updateUser } from "@/actions/user";
+import { updateUser, updateUserTest } from "@/actions/user";
 import { Button } from "../ui/button";
 import { useActiveAccount } from "thirdweb/react";
 import { signLoginPayload } from "thirdweb/auth";
@@ -117,7 +117,7 @@ export default function UserFormDialog({ user, formButtonLabel, buttonLabelVaria
       img: form.getValues().img
     };
 
-    const res = await updateUser(user.id, signatureRes, updatedData);
+    const res = await updateUserTest(user.id, signatureRes, updatedData);
     console.log("res: ", res)
   }
 

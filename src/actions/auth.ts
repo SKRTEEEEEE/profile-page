@@ -21,6 +21,8 @@ export async function login(payload: VerifyLoginPayloadParams){
     return await loginUserUC(payload)
 }
 
+// /api/test
+
 // merge-old
 
 export async function protAdmAct(){

@@ -27,15 +27,4 @@ TBase,
         }));
         return updatedDocument ? this.documentToPrimary(updatedDocument) : null;
       }
-      // async updateById(
-      //   id: string,
-      //   updateData: UpdateQuery<TBase> | undefined,
-      //   options?: QueryOptions<any> | null | undefined & { includeResultMetadata: true; lean: true; }
-      // ): Promise<TBase & MongooseBase | null> {
-      //   await this.connect();
-      //   const updatedDocument: TBase & MongooseDocument|null = await this.Model.findByIdAndUpdate(id, updateData, (options ? options: {
-      //     new: true,
-      //   }));
-      //   return updatedDocument ? this.documentToPrimary(updatedDocument) : null;
-      // }
 }

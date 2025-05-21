@@ -14,10 +14,13 @@ import { StepTwo } from "./step-two";
 import { LastStep } from "./last-step";
 import { updateImg, uploadImg } from "@/actions/img";
 import { InputParseError } from "@/core/domain/errors/main";
+import { createTechTest } from "./test";
 
 
 /*
 # HAY QUE HACER LA PARTE DEL lengTo, fwTo, etc....
+
+Ojo con este componente, ya que nunca se creara usuario por aquí sino iniciando sesión por lo tanto siempre será de update. Si no hay tech -> !tech -> pondremos el botón de inicio de sesión en el last step de tal forma que se acabara haciendo un update 
 */
 export type DispoTechs = {
   dispoLeng?: {name:string}[]
@@ -202,7 +205,8 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
     }
       const data = form.getValues()
 
-      const response = tech ? await updateTech(data) : await createTech(data)
+      
+      const response = tech ? await updateTech(data) : await createTechTest(data)
       if (response.success) {
         toast({ title: "Éxito", description: response.message })
         rv(`/${locale}/admin/techs`)

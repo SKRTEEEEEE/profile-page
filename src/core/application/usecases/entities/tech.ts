@@ -4,6 +4,10 @@ import { MongooseDeleteProps, MongooseReadProps, MongooseUpdateProps } from "@/c
 
 const lengRepository = new MongooseLenguajesRepository()
 
+export const createTechUC =  async (data: TechBase) =>{
+  return await lengRepository.create(data)
+}
+
 export const readAllTechsUC=async()=>{
     return await lengRepository.read({})
 }
@@ -31,6 +35,3 @@ export const deleteTechUC = async (
     return await lengRepository.update(props)
   }
 
-  export const createTechUC =  async (data: TechBase) =>{
-    return await lengRepository.create(data)
-  }

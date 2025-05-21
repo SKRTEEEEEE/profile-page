@@ -1,9 +1,9 @@
-import { MongoosePreTechPattern } from "../patterns/pre-tech.pattern";
+import { MongooseRpPattern } from "../patterns/pre-tech.pattern";
 import { PreTechRepository } from "@/core/application/interfaces/entities/pre-tech";
 import { PreTechModel } from "../schemas/pre-tech.schema";
 import { MongooseBase } from "../types";
 
-export class MongoosePreTechRepository<TBase> extends MongoosePreTechPattern<TBase> implements PreTechRepository<TBase> {
+export class MongoosePreTechRepository<TBase> extends MongooseRpPattern<TBase> implements PreTechRepository<TBase> {
   private mdUrl = 'https://raw.githubusercontent.com/simple-icons/simple-icons/master/slugs.md';
   private jsonUrl = 'https://raw.githubusercontent.com/simple-icons/simple-icons/master/_data/simple-icons.json';
   constructor() {
@@ -79,15 +79,7 @@ export class MongoosePreTechRepository<TBase> extends MongoosePreTechPattern<TBa
     }
   }
 
-  // not used
-  async readByName(name: string)
-    : Promise<TBase & MongooseBase> {
-    await this.connect()
-    const filter = {
-      "nameId": name
-    }
-    return (await this.read({filter}))[0]
-  }
+
 
 
   private parseMdContent(content: string): Array<{ nameId: string, nameBadge: string }> {

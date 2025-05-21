@@ -224,18 +224,28 @@ export const giveRoleUC = async(payload: {
 export const loginUserUC = async (payload: VerifyLoginPayloadParams) => {
   const verifiedPayload = await verifyPayloadUC(payload);
   if (!verifiedPayload.valid) throw new VerificationOperationError("Payload not valid")
-  let user = await listUserByAddressUC(verifiedPayload.payload.address);
-  if (!user) {
-    user = await createUserUC({ address: verifiedPayload.payload.address, roleId: null, role: null, solicitud: null, img: null, email: null , isVerified: false})
-  }
-
+  // let user = await listUserByAddressUC(verifiedPayload.payload.address);
+  // if (!user) {
+  //   user = await createUserUC({ address: verifiedPayload.payload.address, roleId: null, role: null, solicitud: null, img: null, email: null , isVerified: false})
+  // }
+  console.log("posting....")
+  const user: {data:User | null, success: boolean} = await fetch("http://localhost:3001/user", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            
+        },
+        body: JSON.stringify({payload})
+        }).then((res)=>res.json())
+  console.log("user", user)
+  if(user.data === null)throw new Error("Shit")
   const jwt = await setJwtUC(
     payload,
     {
-      role: user.role,
-      nick: user.nick,
-      id: user.id,
-      img: user.img || undefined
+      role: user.data.role,
+      nick: user.data.nick,
+      id: user.data.id,
+      img: user.data.img || undefined
     }
   );
   return jwt

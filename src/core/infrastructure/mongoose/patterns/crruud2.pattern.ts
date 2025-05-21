@@ -8,7 +8,7 @@ import { MongooseUpdateRepository } from "../implementations/update.repository";
 import { MongooseCRRUUD2 } from "../types/patterns";
 import { MongooseDeleteProps, MongooseReadProps, MongooseUpdateByIdProps, MongooseUpdateProps } from "../types/implementations";
 
-// -> crruud v2 - (not used still -old tech.pattern)
+// -> crruud v2 - 
 
 export abstract class MongooseCRRUUD2Pattern<
   TBase> extends MongooseBaseRepository<TBase> implements MongooseCRRUUD2<TBase> {

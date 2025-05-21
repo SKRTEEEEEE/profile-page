@@ -1,20 +1,18 @@
-import { FilterQuery, Model, Query, QueryOptions } from "mongoose";
+import {  Model, Query } from "mongoose";
 import { MongooseBase } from "../types";
 import { MongooseBaseRepository } from "../implementations/base.repository";
 import { MongooseReadRepository, MongooseReadResponse } from "../implementations/read.repository";
 import { MongooseDeleteByIdRepository, MongooseDeleteRepository } from "../implementations/delete.repository";
-import { MongooseUpdateRepository } from "../implementations/update.repository";
 import { RoleRepository } from "@/core/application/interfaces/entities/role";
 import { MongooseCRURepository } from "../implementations/cru.repository";
 import { MongooseDeleteProps, MongooseReadProps, MongooseUpdateByIdProps } from "../types/implementations";
 
-// crruudd 
+// crrudd 
 
 export abstract class MongooseRolePattern<
 TBase> extends MongooseBaseRepository<TBase> implements RoleRepository<TBase>{
   private cruRepo: MongooseCRURepository<TBase>
   private readRepo: MongooseReadRepository<TBase>;
-  private updateRepo: MongooseUpdateRepository<TBase>
   private deleteByIdRepo: MongooseDeleteByIdRepository<TBase>;
   private deleteRepo: MongooseDeleteRepository<TBase>
 
@@ -24,7 +22,6 @@ TBase> extends MongooseBaseRepository<TBase> implements RoleRepository<TBase>{
     this.readRepo = new MongooseReadRepository(this.Model);
     this.deleteByIdRepo = new MongooseDeleteByIdRepository(this.Model);
     this.deleteRepo = new MongooseDeleteRepository(this.Model)
-    this.updateRepo = new MongooseUpdateRepository(this.Model)
     this.cruRepo = new MongooseCRURepository(this.Model)
   }
   async create(
@@ -56,8 +53,5 @@ TBase> extends MongooseBaseRepository<TBase> implements RoleRepository<TBase>{
   }
   async delete(props: MongooseDeleteProps<TBase>): Promise<Query<any, any, {}, any, "findOneAndDelete", {}>>{
     return this.deleteRepo.delete(props)
-  }
-  async update(props: MongooseUpdateByIdProps<TBase>): Promise<TBase & MongooseBase | null>{
-    return this.updateRepo.update(props)
   }
 }

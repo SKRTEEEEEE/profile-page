@@ -1,9 +1,9 @@
 import { projectsToInsert } from "@/components/ceo/portafolio/projects-hardcdd";
-import { MongoosePreTechPattern } from "../patterns/pre-tech.pattern";
+import { MongooseRpPattern } from "../patterns/pre-tech.pattern";
 import { MongooseBase } from "../types";
 import { Model } from "mongoose";
 
-export class MongooseProjectRepository<TBase, TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>> = {}> extends MongoosePreTechPattern<TBase, TOptions>{
+export class MongooseProjectRepository<TBase, TOptions extends Partial<Record<keyof TBase & MongooseBase, (value: any) => any>> = {}> extends MongooseRpPattern<TBase, TOptions>{
     constructor(Model: Model<any, {}, {}, {}, any, any>,parseOpt?: TOptions) {
         super(Model, parseOpt);
     }
