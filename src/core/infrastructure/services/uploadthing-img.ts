@@ -1,4 +1,4 @@
-import { StorageActionError } from "@/core/presentation/types/app.error";
+import { StorageActionError } from "@/types";
 import { UploadThingAdapter } from "../connectors/uploadthing-st";
 import { InputParseError } from "@/core/domain/flows/domain.error";
 

@@ -1,7 +1,7 @@
 import { LengBase, TechBase } from "@/core/domain/entities/tech";
 import { MongooseLenguajesRepository } from "@/core/infrastructure/mongoose/entities/tech.repository";
 import { MongooseDeleteProps, MongooseReadProps, MongooseUpdateProps } from "@/core/infrastructure/mongoose/types/implementations";
-import { Leng } from "@/core/presentation/types/app.entitie";
+import { Leng } from "@/types";
 
 const lengRepository = new MongooseLenguajesRepository()
 

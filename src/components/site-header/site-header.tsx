@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { MobileNav } from "./mobile-nav";
 import UserFormDialog from "./user-form-dialog";
 import { CConectButton } from "../oth/custom-connect-button";
-import { DataSiteConfig } from "@/lib/types";
+import { DataSiteConfig } from "@/types";
 import { userInCookiesUC } from "@/core/presentation/controllers/user";
 import ThemePopover from "./theme-popover";
 import { Link as LinkLocale } from "@/i18n/routing";

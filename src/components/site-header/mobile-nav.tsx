@@ -7,7 +7,7 @@ import { Menu } from "lucide-react";
 
 import { CConectButton } from "../oth/custom-connect-button";
 import UserFormDialog from "../site-header/user-form-dialog";
-import { DataSiteConfig } from "@/lib/types";
+import { DataSiteConfig } from "@/types";
 import { Separator } from "../ui/separator";
 import { Link as LinkLocale, useRouter} from "@/i18n/routing";
 import Link, { LinkProps } from "next/link";

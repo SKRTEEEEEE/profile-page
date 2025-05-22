@@ -3,7 +3,7 @@ import { FullTechData } from "@/core/domain/entities/tech"
 import { MongooseBase } from "@/core/infrastructure/mongoose/types"
 import { readAllTechsCMongoose } from "./read.controller"
 import { getTranslations } from "next-intl/server"
-import { Leng } from "../../types/app.entitie"
+import { Leng } from "@/types"
 // ⚠️ Hay que arreglar esto ⬇️⬇️
 const baseOptions = {
     owner:"SKRTEEEEEE",
