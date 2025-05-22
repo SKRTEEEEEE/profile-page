@@ -1,4 +1,4 @@
-import { SetEnvError } from "@/core/domain/errors/main";
+import { SetEnvError } from "@/core/domain/flows/domain.error";
 import { Octokit } from "@octokit/rest";
 
 export abstract class OctokitConfig{

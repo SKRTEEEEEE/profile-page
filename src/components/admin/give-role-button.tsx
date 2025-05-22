@@ -6,16 +6,16 @@ import { generatePayload } from "@/actions/auth"
 import { signLoginPayload } from "thirdweb/auth"
 import { giveRole } from "@/actions/user"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
-import { RoleType } from "@/core/domain/entities/Role"
-import { HandleOperationError, SetStateError } from "@/core/domain/errors/main"
+import { UnauthorizedError } from "@/core/domain/flows/domain.error"
+import { RoleType } from "@/core/domain/entities/role.type"
 
 export default function GiveRoleButton({solicitud, id,role, userIsAdmin}:{solicitud:RoleType|null, id: string,role:RoleType|null, userIsAdmin:boolean}) {
     const account = useActiveAccount()
 
     async function handleSubmit(event: React.FormEvent) {
         event.preventDefault()
-        if(!account)throw new SetStateError("Please connect your wallet")
-        if(solicitud!==RoleType.ADMIN&&solicitud!==RoleType.PROF_TEST) throw new HandleOperationError("Action not corresponding")   
+        if(!account)throw new UnauthorizedError("Please connect your wallet")
+        if(solicitud!==RoleType.ADMIN) throw new UnauthorizedError("Action not corresponding")   
         try {
 
             const payload = await generatePayload({address: account.address})

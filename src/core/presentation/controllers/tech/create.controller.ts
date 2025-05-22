@@ -1,8 +1,9 @@
 import { createTechUC, readAllTechsUC, readOneTechUC, updateTechUC } from "@/core/application/usecases/entities/tech";
-import { Leng, TechBase, TechForm } from "@/core/domain/entities/tech";
+import { TechBase, TechForm } from "@/core/domain/entities/tech";
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 import { getTechGithubPercentageUC } from "@/actions/octokit";
-import { actualizarGithubTechsC, ActualizarGithubTechsType } from "./github.controller";
+import { actualizarGithubTechsCMongoose, ActualizarGithubTechsType } from "./github.controller";
+import { Leng } from "../../types/app.entitie";
 
 /**
  * Finds the first available number in a sequence of preferences
@@ -61,7 +62,7 @@ async function calculateNextPreference(
     return findFirstAvailable(libraryPreferences);
 }
 
-export async function createTechC(data: TechForm, owner = "SKRTEEEEEE"): Promise<{success: boolean, message: string}> {
+export async function createTechCMongoose(data: TechForm, owner = "SKRTEEEEEE"): Promise<{success: boolean, message: string}> {
     const { nameId, nameBadge, web, desc, afinidad, color, experiencia, img, lengTo, fwTo } = data;
 
     try {
@@ -70,7 +71,7 @@ export async function createTechC(data: TechForm, owner = "SKRTEEEEEE"): Promise
         const usoGithub = await getTechGithubPercentageUC(nameId, owner);
         
         // Calcular la siguiente preferencia disponible
-        const nextPreference = await calculateNextPreference(proyectosDB, lengTo, fwTo);
+        const nextPreference = await calculateNextPreference(proyectosDB as (Omit<Leng, "id" | "createdAt" | "updatedAt"> & MongooseBase)[], lengTo, fwTo);
         
         const nuevoItem: TechBase = {
             nameId,
@@ -107,7 +108,7 @@ export async function createTechC(data: TechForm, owner = "SKRTEEEEEE"): Promise
                 // Caso 2: Agregar un framework a un lenguaje
                 lenguaje.frameworks.push(nuevoItem);
                 const res = await updateTechUC({filter:{nameId: lengTo}, update:lenguaje, options:{new: true}});
-                const frameworkAgregado = res?.frameworks?.some(fw => fw.nameId === nuevoItem.nameId);
+                const frameworkAgregado = res!.frameworks?.some((fw: TechBase) => fw.nameId === nuevoItem.nameId);
                 
                 success = !!frameworkAgregado;
                 message = success
@@ -138,7 +139,7 @@ export async function createTechC(data: TechForm, owner = "SKRTEEEEEE"): Promise
         //     }),
         //     actualizarJson()
         // ]);
-        await actualizarGithubTechsC({type: ActualizarGithubTechsType.all, create:{base: {nameId, nameBadge, web, color}, oldTechs: proyectosDB} })
+        await actualizarGithubTechsCMongoose({type: ActualizarGithubTechsType.all, create:{base: {nameId, nameBadge, web, color}, oldTechs: proyectosDB} })
 
         return { success, message };
 

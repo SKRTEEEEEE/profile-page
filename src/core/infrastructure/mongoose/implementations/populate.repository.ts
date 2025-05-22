@@ -1,4 +1,4 @@
-import { DatabaseOperationError, InputParseError } from "@/core/domain/errors/main";
+import { DatabaseActionError, InputParseError } from "@/core/domain/flows/domain.error";
 import { MongooseBase, MongooseDocument } from "../types";
 import { MongoosePopulateI } from "../types/implementations";
 import { MongooseBaseRepository } from "./base.repository";
@@ -24,7 +24,7 @@ export class MongoosePopulateRepository<
                 return res.map(doc => this.documentToPrimary(doc as (TBase & MongooseDocument)))
             } catch (error) {   
                 console.error("Error al poblar documentos:", error);
-                throw new DatabaseOperationError("Error en la operación de poblado");
+                throw new DatabaseActionError("Error en la operación de poblado");
             }
         }
     }

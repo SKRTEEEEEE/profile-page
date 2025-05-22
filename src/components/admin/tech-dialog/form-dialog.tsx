@@ -3,7 +3,7 @@ import { rv } from "@/actions/revrd";
 import { createTech, updateTech } from "@/actions/tech";
 import { toast } from "@/components/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription,  DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { FullTechData,  TechForm, techSchema } from "@/core/domain/entities/tech";
+import { FullTechData,  TechForm} from "@/core/domain/entities/tech";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocale } from "next-intl";
 import { JSX, useEffect, useReducer, useState } from "react"
@@ -13,9 +13,30 @@ import { StepOne } from "./step-one";
 import { StepTwo } from "./step-two";
 import { LastStep } from "./last-step";
 import { updateImg, uploadImg } from "@/actions/img";
-import { InputParseError } from "@/core/domain/errors/main";
+import { InputParseError } from "@/core/domain/flows/domain.error";
+import { z } from "zod";
+import { createIntlZodInput } from "@/core/presentation/validation";
 
-
+export const firstStepTechSchema = z.object({
+    nameId: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
+    // from pre-tech
+    nameBadge: z.string(),
+    color: z.string().regex(/^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, "Color inválido"),
+    web: z.string().url(),
+})
+export const secondStepTechSchema = z.object({
+    experiencia: z.number().min(0, "No puede ser negativo").max(100, "No puede ser mayor a 100"),
+    afinidad: z.number().min(0, "No puede ser negativo").max(100, "No puede ser mayor a 100"),
+    img: z.string().regex(/https:\/\/(?:utfs\.io|[a-z0-9]+\.ufs\.sh)\/f\/([a-f0-9\-]+)-([a-z0-9]+)\.(jpg|webp|png)/, "URL invalida").nullable().default(null),
+    lengTo: z.string().optional(),
+    fwTo: z.string().optional(),
+    category: z.enum(["leng", "fw", "lib"], {
+        required_error: "Debes seleccionar una categoría",
+      }),
+})
+export const techSchema = z.object({
+    desc: createIntlZodInput({minLength: 2, minMessage: "La descripción debe tener al menos 2 caracteres"}),
+}).merge(firstStepTechSchema).merge(secondStepTechSchema)
 /*
 # HAY QUE HACER LA PARTE DEL lengTo, fwTo, etc....
 */

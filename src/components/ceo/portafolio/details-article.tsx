@@ -1,8 +1,8 @@
-import { KeyProject, TechProject } from "@/core/domain/entities/project";
 import { DynamicLucideIcon, LucideIconNames } from "../../oth/dyn/dynamic-lucide";
 import { useLocale } from "next-intl";
-import { IntlKey } from "@/core/domain/entities/intl";
+import { IntlKey } from "@/core/domain/entities/intl.type";
 import { cn } from "@/lib/utils"
+import { KeyProject, TechProject } from "@/core/domain/entities/projects";
 
 interface CustomBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode

@@ -1,5 +1,5 @@
-import { ProjectDocument } from "@/core/domain/entities/project";
-import mongoose, { Schema } from "mongoose";
+import { ProjectBase } from "@/core/domain/entities/projects";
+import mongoose, { Document, Schema } from "mongoose";
 
 const techsProjectSchema = new Schema({
     nameId: { type: String, required: true },
@@ -27,7 +27,7 @@ const keyProjectSchema = new Schema({
     title: { type: Map, of: String, required: true },
     desc: { type: Map, of: String, required: true },
 })
-const projectSchema = new Schema<ProjectDocument>({
+const projectSchema = new Schema<ProjectBase & Document>({
     nameId: { type: String, required: true, unique: true},
     openSource: String,
     operative: String,

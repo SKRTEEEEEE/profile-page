@@ -4,13 +4,13 @@ import SliderTechs from "@/components/ceo/slider-techs";
 import { MotionTransition } from "@/components/oth/transition-component";
 import TransitionPage from "@/components/oth/transition-page";
 import { Button } from "@/components/ui/button";
-import { readAllTechsC } from "@/core/interface-adapters/controllers/tech/read.controller";
+import { readAllTechsCMongoose } from "@/core/presentation/controllers/tech/read.controller";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 
 const AboutMePage = async () => {
-    const {flattenTechs:allLeng} = await readAllTechsC()
+    const {flattenTechs:allLeng} = await readAllTechsCMongoose()
     const t = await getTranslations()
 
 

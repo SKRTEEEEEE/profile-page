@@ -2,8 +2,9 @@ import Link from 'next/link';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Link as LinkLocale } from '@/i18n/routing';
 import { readProjectsDeployedUC } from '@/core/application/usecases/entities/project';
-import { Project } from '@/core/domain/entities/project';
-import { IntlKey } from '@/core/domain/entities/intl';
+import { IntlKey } from '@/core/domain/entities/intl.type';
+import { Project } from '@/core/domain/entities/projects';
+import { MongooseBase } from '@/core/infrastructure/mongoose/types';
 
 
 type SearchParams = Promise<{
@@ -28,7 +29,7 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Sea
     <main className="w-full min-h-screen flex flex-col items-center justify-center">
       <h1 className="p-4 text-3xl xl:text-4xl font-bold mb-8">{t("ceo.proyectos.main.h1")}</h1>
       <ul className="w-11/12 xl:w-9/12 flex flex-col gap-4">
-        {currentProjects.map((data: Project) => {
+        {currentProjects.map((data: Project<MongooseBase>) => {
           // console.log("data projects: ", data)
           return (
             <li className="flex justify-between" key={data.id}>

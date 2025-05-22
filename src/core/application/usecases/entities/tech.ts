@@ -1,6 +1,7 @@
-import {  Leng, TechBase } from "@/core/domain/entities/tech";
+import { LengBase, TechBase } from "@/core/domain/entities/tech";
 import { MongooseLenguajesRepository } from "@/core/infrastructure/mongoose/entities/tech.repository";
 import { MongooseDeleteProps, MongooseReadProps, MongooseUpdateProps } from "@/core/infrastructure/mongoose/types/implementations";
+import { Leng } from "@/core/presentation/types/app.entitie";
 
 const lengRepository = new MongooseLenguajesRepository()
 
@@ -32,5 +33,5 @@ export const deleteTechUC = async (
   }
 
   export const createTechUC =  async (data: TechBase) =>{
-    return await lengRepository.create(data)
+    return await lengRepository.create(data as LengBase)
   }

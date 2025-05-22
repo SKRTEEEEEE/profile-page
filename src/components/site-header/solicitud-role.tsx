@@ -1,6 +1,5 @@
 "use client"
 
-import { RoleType } from "@/core/domain/entities/Role"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -11,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import Link from "next/link"
 import { updateUserSolicitud } from "@/actions/user"
 import { useState } from "react"
+import { RoleType } from "@/core/domain/entities/role.type";
 
 
 
@@ -42,7 +42,7 @@ render={({field}) => (
 /> */}
 
 const formSchema = z.object({
-    solicitud: z.enum([RoleType.ADMIN,RoleType.PROF_TEST]).nullable()
+    solicitud: z.enum([RoleType.ADMIN]).nullable()
 })
 
 export default function SolicitudRoleButton({id}:{id:string}){

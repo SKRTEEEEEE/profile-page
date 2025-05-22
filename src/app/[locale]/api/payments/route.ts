@@ -2,7 +2,7 @@
 // import { User } from "@/core/domain/entities/User";
 // import { RoleModel, UserModel } from "@/models/user-role-schema";
 import { constructEventWebhookUC, retrieveSessionUC } from "@/core/application/usecases/services/pay";
-import { checkoutSessionCompletedC, customerSubscriptionDeletedC } from "@/core/interface-adapters/controllers/user";
+import { checkoutSessionCompletedC, customerSubscriptionDeletedC } from "@/core/presentation/controllers/user";
 import { NextRequest, NextResponse } from "next/server";
 // import Stripe from "stripe";
 

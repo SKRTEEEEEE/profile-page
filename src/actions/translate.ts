@@ -1,6 +1,6 @@
 "use server"
 
-import { IntlKey } from '@/core/domain/entities/intl';
+import { IntlKey } from '@/core/domain/entities/intl.type';
 // const axios = require('axios').default;
 // const { v4: uuidv4 } = require('uuid');
 import axios, { AxiosError } from 'axios';

@@ -1,4 +1,4 @@
-import { SetEnvError } from "@/core/domain/errors/main";
+import { SetEnvError } from "@/core/domain/flows/domain.error";
 import Stripe from "stripe";
 
 export abstract class StripeConnector {

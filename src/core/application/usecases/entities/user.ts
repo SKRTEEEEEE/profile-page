@@ -1,5 +1,5 @@
-import { User, UserBase } from "@/core/domain/entities/User";
 import { MongooseUserRepository } from "@/core/infrastructure/mongoose/entities/user.repository";
+import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 import { MongooseUpdateProps } from "@/core/infrastructure/mongoose/types/implementations";
 
 // 🧠👨‍🎓💡 Vamos a hacer la inyección aquí, SIN hacer EXPORT -> Así: nos aseguramos de solo utilizar la infra aquí(application)
@@ -24,7 +24,7 @@ export const createUserUC = async (data: Omit<UserBase, "id">) => {
 }
 
 export const findUserAndUpdateUC = async (
-    props: MongooseUpdateProps<User>
+    props: MongooseUpdateProps<User<MongooseBase>>
 ) => {
     return await userRepository.update(props)
 }

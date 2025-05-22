@@ -1,12 +1,12 @@
 "use client"
-import { User } from "@/core/domain/entities/User";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { AlertCircle } from "lucide-react";
 import { resendVerificationEmail } from "@/actions/user";
 import { Button } from "../ui/button";
 import { useState, useEffect } from "react";
+import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 
-export const VerificacionEmailAlert = ({ user }: { user: User }) => {
+export const VerificacionEmailAlert = ({ user }: { user: User<MongooseBase> }) => {
     const [loading, setLoading] = useState(false);
     // const [open, setOpen] = useState(false);
     const [lastSent, setLastSent] = useState<number | null>(null);

@@ -6,15 +6,15 @@ import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
 
 import { CConectButton } from "../oth/custom-connect-button";
-import { User } from "@/core/domain/entities/User";
 import UserFormDialog from "../site-header/user-form-dialog";
 import { DataSiteConfig } from "@/lib/types";
 import { Separator } from "../ui/separator";
 import { Link as LinkLocale, useRouter} from "@/i18n/routing";
 import Link, { LinkProps } from "next/link";
 import { useLocale } from "next-intl";
+import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 
-export function MobileNav({ user, dataSiteConfig }: { user: User | false | null, dataSiteConfig: DataSiteConfig }) {
+export function MobileNav({ user, dataSiteConfig }: { user: User<MongooseBase> | false | null, dataSiteConfig: DataSiteConfig }) {
   const [open, setOpen] = useState(false);
 
   return (

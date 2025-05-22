@@ -12,10 +12,10 @@ import styles from './autoplay-slider-techs.module.css';
 
 // import required modules
 import  { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import { TechProject } from '@/core/domain/entities/project';
 import { useLocale } from 'next-intl';
-import { IntlKey } from '@/core/domain/entities/intl';
+import { IntlKey } from '@/core/domain/entities/intl.type';
 import { DynamicSimpleIcon, SimpleIconNames } from '../oth/dyn/dynamic-si';
+import { TechProject } from '@/core/domain/entities/projects';
 
 
 type AutoplaySliderProps = {

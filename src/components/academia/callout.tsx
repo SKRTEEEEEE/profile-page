@@ -1,7 +1,7 @@
 // "ejemplo de componente personalizado"
 
-import { RoleType } from "@/core/domain/entities/Role";
-import { userInCookiesUC } from "@/core/interface-adapters/controllers/user";
+import { RoleType } from "@/core/domain/entities/role.type";
+import { userInCookiesUC } from "@/core/presentation/controllers/user";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 

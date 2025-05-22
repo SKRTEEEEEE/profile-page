@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SearchCombobox } from "@/components/oth/search-combobox";
-import { HandleOperationError } from "@/core/domain/errors/main";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
 import { z } from "zod";
+import { InputParseError } from "@/core/domain/flows/domain.error";
 
 
 
@@ -51,7 +51,7 @@ export function StepTwo({
     const validationResult = imageSchema.safeParse({ img: file });
     if (!validationResult.success) {
       onError(validationResult.error.errors.map(err => err.message));
-      throw new HandleOperationError("Error de validación de archivo"); //???????Salta este error en el update
+      throw new InputParseError("Error de validación de archivo"); //???????Salta este error en el update
     }
   }
 
@@ -60,7 +60,7 @@ export function StepTwo({
     const file = ev.target.files?.[0]
     if (!file) {
       onError(["Error at select file"])
-      throw new HandleOperationError("Error at select file")
+      throw new InputParseError("Error at select file")
     }
     fileCheck(file)
     const imgUrl = URL.createObjectURL(file)

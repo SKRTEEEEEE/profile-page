@@ -1,6 +1,7 @@
 import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
-import { FullTechData, Leng } from "@/core/domain/entities/tech";
+import { FullTechData } from "@/core/domain/entities/tech";
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
+import { Leng } from "../../types/app.entitie";
 type BadgeAndValue = {
     badge: string;
     value: string;
@@ -162,7 +163,7 @@ type ReadAllFlattenTechsRes = {
     dispoFw: {name:string}[]
     dispoLeng: {name:string}[]
 }
-export const readAllTechsC = async(): Promise<ReadAllFlattenTechsRes> => {
+export const readAllTechsCMongoose = async(): Promise<ReadAllFlattenTechsRes> => {
     const proyectosDB = await readAllTechsUC()
     const dispoLeng = proyectosDB?.map((lenguaje: {nameId:string}) => ({ name: lenguaje.nameId }));
   const dispoFw = proyectosDB?.flatMap((lenguaje) => {

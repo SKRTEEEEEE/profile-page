@@ -5,9 +5,9 @@ import Link from "next/link";
 import { Link as LinkLocale } from "@/i18n/routing"
 import { getLocale, getTranslations } from "next-intl/server";
 import { readProjectByIdUnoptUC } from "@/core/application/usecases/entities/project";
-import { IntlKey } from "@/core/domain/entities/intl";
-import { KeyProject, TechProject, TypeProject } from "@/core/domain/entities/project";
+import { IntlKey } from "@/core/domain/entities/intl.type";
 import { createSimpleIconByNameBadge, DynamicSimpleIcon } from "@/components/oth/dyn/dynamic-si";
+import { KeyProject, TechProject, TypeProject } from "@/core/domain/entities/projects";
 
 type TechsSectionProps = {
   techs: TechProject[],

@@ -1,6 +1,6 @@
 import { CConectButton } from "../oth/custom-connect-button";
 import GiveRoleButton from "./give-role-button";
-import { userInCookiesUC } from "@/core/interface-adapters/controllers/user";
+import { userInCookiesUC } from "@/core/presentation/controllers/user";
 import { listUsersUC } from "@/core/application/usecases/entities/user";
 
 export default async function UsersTable() {

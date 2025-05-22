@@ -1,5 +1,5 @@
-import { FwDocument, LengDocument, LibDocument } from "@/core/domain/entities/tech";
-import mongoose, { Schema } from "mongoose";
+import { LengBase } from "@/core/domain/entities/tech";
+import mongoose, { Document, Schema } from "mongoose";
 
 
 const TechBaseSchema = {
@@ -58,16 +58,16 @@ const TechBaseSchema = {
 };
 
 
-const LibSchema: Schema = new Schema<LibDocument>({
+const LibSchema: Schema = new Schema({
     ...TechBaseSchema
 }, { timestamps: true });
 
-const FwSchema: Schema = new Schema<FwDocument>({
+const FwSchema: Schema = new Schema({
     ...TechBaseSchema,
     librerias: [LibSchema]
 }, {timestamps: true})
 
-const LengSchema: Schema = new Schema<LengDocument>({
+const LengSchema: Schema = new Schema<LengBase & Document>({
     ...TechBaseSchema,
     frameworks: [FwSchema]
 }, {timestamps: true})

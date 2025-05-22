@@ -1,17 +1,17 @@
 "use server"
 
 import { TechForm } from "@/core/domain/entities/tech"
-import { createTechC } from "@/core/interface-adapters/controllers/tech/create.controller"
-import { deleteTechC } from "@/core/interface-adapters/controllers/tech/delete.controller"
-import { updateTechC } from "@/core/interface-adapters/controllers/tech/update.controller"
+import { createTechCMongoose } from "@/core/presentation/controllers/tech/create.controller"
+import { deleteTechCMongoose } from "@/core/presentation/controllers/tech/delete.controller"
+import { updateTechCMongoose } from "@/core/presentation/controllers/tech/update.controller"
 
 
 export async function createTech(params:TechForm) {
-    return await createTechC(params)
+    return await createTechCMongoose(params)
 }
 export async function updateTech(updateData: TechForm){
-    return await updateTechC(updateData)
+    return await updateTechCMongoose(updateData)
 }
 export async function deleteTech(name: string){
-    return await deleteTechC(name)
+    return await deleteTechCMongoose(name)
 }

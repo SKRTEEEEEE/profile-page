@@ -1,14 +1,14 @@
 
-import { RoleBase, RoleDocument } from "@/core/domain/entities/Role";
-import { UserDocument } from "@/core/domain/entities/User";
 
 import mongoose, { Schema } from "mongoose";
+import { MongooseBase } from "../types";
+import { RoleBase } from "@/core/domain/entities/Role";
 export const roleEnum = ['ADMIN', 'STUDENT', 'STUDENT_P', 'PROF_TEST', 'PROF', "PROF_PRO"]
 
 
 
 
-const userSchema = new Schema<UserDocument>({
+const userSchema = new Schema<UserBase & MongooseBase>({
     address: { type: String, required: true },
     roleId: {default: null, type: mongoose.Schema.Types.ObjectId, ref: "Role" },
     role: { default: null, type: String, enum: roleEnum },
@@ -30,7 +30,7 @@ const userSchema = new Schema<UserDocument>({
 }, {
     timestamps: true 
 })
-const roleSchema = new Schema<RoleDocument>({
+const roleSchema = new Schema<RoleBase & MongooseBase>({
     address: { type: String, required: true },
     permissions: { type: String, required: true, enum: roleEnum, },
     stripeCustomerId: { type: String },
@@ -39,5 +39,5 @@ const roleSchema = new Schema<RoleDocument>({
 }, {
     timestamps: true 
 })
-export const UserModel = mongoose.models.User || mongoose.model<UserDocument>('User', userSchema);
-export const RoleModel = mongoose.models.Role || mongoose.model<RoleDocument>("Role", roleSchema)
+export const UserModel = mongoose.models.User || mongoose.model<UserBase & MongooseBase>('User', userSchema);
+export const RoleModel = mongoose.models.Role || mongoose.model<RoleBase & MongooseBase>("Role", roleSchema)

@@ -1,8 +1,8 @@
 import { EmailRepository, SendMailParams } from "@/core/application/interfaces/services/email";
 import { NodemailerTransportConfig } from "../connectors/nodemailer-conn";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
-import { SetEnvError } from "@/core/domain/errors/main";
 import { verificationEmailTemplate } from "./verification-email-template";
+import { SetEnvError } from "@/core/domain/flows/domain.error";
 
 class NodemailerEmailRepositoy extends NodemailerTransportConfig implements EmailRepository{
     private mFrom = process.env.SMTP_FROM_EMAIL

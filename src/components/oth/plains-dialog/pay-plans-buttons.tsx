@@ -1,11 +1,11 @@
 // import { UserModel } from "@/models/user-role-schema";
 import { Button } from "../../ui/button"
 import { CConectButton } from "../custom-connect-button";
-import { RoleType } from "@/core/domain/entities/Role";
 import Link from "next/link";
 import UserFormDialog from "../../site-header/user-form-dialog";
 import { generatePaymentLink } from "@/lib/utils";
-import { userInCookiesUC } from "@/core/interface-adapters/controllers/user";
+import { userInCookiesUC } from "@/core/presentation/controllers/user";
+import { RoleType } from "@/core/domain/entities/role.type";
 
 
 

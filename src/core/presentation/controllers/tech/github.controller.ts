@@ -1,9 +1,9 @@
 import { updateGithubFileContentUC } from "@/actions/octokit"
-import { PreTechBase } from "@/core/domain/entities/pre-tech"
-import { FullTechData, Leng } from "@/core/domain/entities/tech"
+import { FullTechData } from "@/core/domain/entities/tech"
 import { MongooseBase } from "@/core/infrastructure/mongoose/types"
-import { readAllTechsC } from "./read.controller"
+import { readAllTechsCMongoose } from "./read.controller"
 import { getTranslations } from "next-intl/server"
+import { Leng } from "../../types/app.entitie"
 // ⚠️ Hay que arreglar esto ⬇️⬇️
 const baseOptions = {
     owner:"SKRTEEEEEE",
@@ -25,8 +25,8 @@ type ActualizarGithubTechsProps = {
     }
     
 }
-export async function actualizarGithubTechsC(props:ActualizarGithubTechsProps){
-    const {flattenTechs, techs} = await readAllTechsC()
+export async function actualizarGithubTechsCMongoose(props:ActualizarGithubTechsProps){
+    const {flattenTechs, techs} = await readAllTechsCMongoose()
     if(props.create!==undefined){
         try {
             await actualizarMd({create: props.create})

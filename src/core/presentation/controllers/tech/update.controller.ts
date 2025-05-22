@@ -1,10 +1,10 @@
 import { updateTechUC } from "@/core/application/usecases/entities/tech";
 import { TechForm } from "@/core/domain/entities/tech";
-import { actualizarGithubTechsC, ActualizarGithubTechsType } from "./github.controller";
+import {  actualizarGithubTechsCMongoose, ActualizarGithubTechsType } from "./github.controller";
 
 // FALTA TERMINAR EL UPDATE NUEVO - solo afinidad, experiencia, imagen, (web -futuro-) y descripciones
 
-export async function updateTechC(updateData: TechForm) {
+export async function updateTechCMongoose(updateData: TechForm) {
     try {
         let proyectoActualizado;
         if ('fwTo' in updateData) {
@@ -58,7 +58,7 @@ export async function updateTechC(updateData: TechForm) {
         if (!proyectoActualizado) {
             return handleError(`No se encontró un proyecto llamado ${updateData.nameId}.`);
         }
-        await actualizarGithubTechsC({type: ActualizarGithubTechsType.json});
+        await actualizarGithubTechsCMongoose({type: ActualizarGithubTechsType.json});
         return handleSuccess(`El proyecto ${updateData.nameId} ha sido actualizado correctamente.`);
     } catch (error) {
         console.error('Error actualizando el proyecto:', error);

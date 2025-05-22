@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button"
 import { DialogFooter } from '@/components/ui/dialog'
 import { SearchPreTechCombobox } from '../search-pretech-combobox'
 import { StepTechProps } from './form-dialog'
-import { PreTechBase } from '@/core/domain/entities/pre-tech'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
 import { Checkbox } from "@/components/ui/checkbox"

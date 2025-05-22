@@ -1,5 +1,6 @@
+import { StorageActionError } from "@/core/presentation/types/app.error";
 import { UploadThingAdapter } from "../connectors/uploadthing-st";
-import { InputParseError, StorageOperationError } from "@/core/domain/errors/main";
+import { InputParseError } from "@/core/domain/flows/domain.error";
 
 class UploadThingImgRepository extends UploadThingAdapter implements ImgRepository{
     async uploadImage(file: File): Promise<string> {
@@ -8,7 +9,7 @@ class UploadThingImgRepository extends UploadThingAdapter implements ImgReposito
   
     const results = await this.utapi.uploadFiles([file]);
     const firstResult = results[0];
-    if(!firstResult.data)throw new StorageOperationError("No result: "+firstResult)
+    if(!firstResult.data)throw new StorageActionError("upload",{type:"image",optionalMessage:"No result: "+firstResult})
     return firstResult.data.url
     }
     async deleteImage(img: string): Promise<boolean> {

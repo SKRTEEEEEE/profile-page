@@ -1,7 +1,6 @@
-import { PreTechDocument } from "@/core/domain/entities/pre-tech";
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
-const preTechSchema = new Schema<PreTechDocument>({
+const preTechSchema = new Schema<PreTechBase & Document>({
     nameId: { type: String, required: true, unique: true },
     nameBadge: { type: String, required: true},
     color: { type: String, required: true },
@@ -9,4 +8,4 @@ const preTechSchema = new Schema<PreTechDocument>({
 }, {
     timestamps: true
 })
-export const PreTechModel = mongoose.models.ptechs || mongoose.model<PreTechDocument>('ptechs', preTechSchema);
+export const PreTechModel = mongoose.models.ptechs || mongoose.model<PreTechBase & Document>('ptechs', preTechSchema);

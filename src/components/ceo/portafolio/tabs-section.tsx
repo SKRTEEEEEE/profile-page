@@ -7,9 +7,10 @@ import { DetailsArticlePortafolio } from "./details-article";
 import TimeLine, { DataTimeLine } from "../time-line";
 import { DynamicLucideIcon, LucideIconNames } from "../../oth/dyn/dynamic-lucide";
 import { useReducer } from "react";
-import { Project } from "@/core/domain/entities/project";
 import { useLocale, useTranslations } from "next-intl";
-import { IntlKey } from "@/core/domain/entities/intl";
+import { IntlKey } from "@/core/domain/entities/intl.type";
+import { Project } from "@/core/domain/entities/projects";
+import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 
 // style layout
 type ContentLayoutProps = {
@@ -63,7 +64,7 @@ const ContentLayout = ({children, links, title, buttons}: ContentLayoutProps) =>
 
 type State = {
   selectedProject: number
-  projectData: Project
+  projectData: Project<MongooseBase>
 }
 
 type Action = 
@@ -71,7 +72,7 @@ type Action =
 
 
 
-export function TabsSectionPortafolio({selectedProjects}: {selectedProjects: Project[]}) {
+export function TabsSectionPortafolio({selectedProjects}: {selectedProjects: Project<MongooseBase>[]}) {
   const locale = useLocale()
   const t = useTranslations("ceo.portafolio.section")
   function reducer(state: State, action: Action): State {

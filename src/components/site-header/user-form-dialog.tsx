@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
-import { User, userSchema } from "@/core/domain/entities/User";
 import { useEffect, useState, type JSX } from "react";
 import Image from "next/image";
 import { Label } from "../ui/label";
@@ -21,6 +20,7 @@ import { Separator } from "../ui/separator";
 import DeleteUserButton from "./delete-user-button";
 import { VerificacionEmailAlert } from "../verify-email/verificacion-email-alert";
 import SolicitudRoleButton from "./solicitud-role";
+import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 
 // const userSchema = z.object({
 //   nick: z.string().min(5, { message: "⚠️ Debe tener 5 caracteres como mínimo." }).max(25, { message: "⚠️ Debe tener 25 caracteres como máximo." }).optional(),
@@ -46,8 +46,13 @@ const FormButtonLabelDef = () => {
       </>
   );
 };
+const userSchema = z.object({
+    nick: z.string().min(5, { message: "⚠️ Debe tener 5 caracteres como mínimo." }).max(25, { message: "⚠️ Debe tener 25 caracteres como máximo." }).optional(),
+    img: z.string().nullable().default(null),
+    email: z.string().email({ message: "El email debe ser válido" }).nullable().optional(), // Cambia a string y establece un valor por defecto
+  })
 
-export default function UserFormDialog({ user, formButtonLabel, buttonLabelVariant="outline", buttonLabelClass="px-2" }: { user: User | false | null, formButtonLabel?: JSX.Element, buttonLabelVariant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined, buttonLabelClass?:string }) {
+export default function UserFormDialog({ user, formButtonLabel, buttonLabelVariant="outline", buttonLabelClass="px-2" }: { user: User<MongooseBase> | false | null, formButtonLabel?: JSX.Element, buttonLabelVariant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined, buttonLabelClass?:string }) {
   const account = useActiveAccount()
   const [previewImage, setPreviewImage] = useState<string | null>(user ? user.img : null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -64,7 +69,7 @@ export default function UserFormDialog({ user, formButtonLabel, buttonLabelVaria
   useEffect(() => {
     // Actualiza los valores del formulario cuando cambia el usuario
     form.reset({
-      nick: user ? user.nick : "",
+      nick: user ? user.nick! : "",
       img: user ? user.img : null,
       email: user ? user.email || undefined : undefined,
     });

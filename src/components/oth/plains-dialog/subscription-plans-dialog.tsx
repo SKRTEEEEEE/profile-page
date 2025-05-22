@@ -16,16 +16,16 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { cn, generatePaymentLink } from "@/lib/utils";
-import { User } from "@/core/domain/entities/User";
-import { RoleType } from "@/core/domain/entities/Role";
 import {Link as LinkLocale} from "@/i18n/routing"
+import { RoleType } from "@/core/domain/entities/role.type";
+import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 
 type State = {
   actualRole: string;
   button: string;
 };
 
-export function SubscriptionPlansDialog({ buttonTitle, user }: { buttonTitle?: string; user: false | User }) {
+export function SubscriptionPlansDialog({ buttonTitle, user }: { buttonTitle?: string; user: false | User<MongooseBase> }) {
   const getInitialState = (): State => {
     if (user) {
       switch (user.role) {

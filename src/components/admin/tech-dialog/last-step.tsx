@@ -8,7 +8,7 @@ import { useActiveAccount } from "thirdweb/react"
 import { Save } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { FaSpinner } from "react-icons/fa"
-import { IntlKey } from "@/core/domain/entities/intl"
+import { IntlKey } from "@/core/domain/entities/intl.type"
 import { translate } from "@/actions/translate"
 import { useState } from "react"
 interface Translation {

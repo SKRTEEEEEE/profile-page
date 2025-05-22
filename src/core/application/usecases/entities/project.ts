@@ -1,7 +1,8 @@
 "use server"
-import { Project } from "@/core/domain/entities/project";
+import { Project } from "@/core/domain/entities/projects";
 import { MongooseProjectRepository } from "@/core/infrastructure/mongoose/entities/projects.repository";
 import { ProjectModel } from "@/core/infrastructure/mongoose/schemas/project.schema";
+import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 const extractId = (item: any, index: number) => {
     const { _id, ...rest } = item;
     return { ...rest, id:  index.toString()};}
@@ -11,7 +12,7 @@ const parseOpt = {
     techs: (value:any) => value?.map((item: any, index:number) => extractId(item, index))
   }
 
-const projectRepository = new MongooseProjectRepository<Project, {
+const projectRepository = new MongooseProjectRepository<Project<MongooseBase>, {
     time: (value: any) => any;
     keys: (value: any) => any;
   }>(ProjectModel,parseOpt)

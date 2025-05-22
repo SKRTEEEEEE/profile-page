@@ -4,7 +4,7 @@
 //NOT CHECKED!
 
 import { generatePayloadUC, getCookiesUC, isLoggedInUC, logoutUC, protAdmActUC } from "@/core/application/usecases/services/auth"
-import { loginUserUC } from "@/core/interface-adapters/controllers/user"
+import { loginUserUCMongoose } from "@/core/presentation/controllers/user"
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth"
 
 
@@ -18,7 +18,7 @@ export async function logout(){
     await logoutUC()
 }
 export async function login(payload: VerifyLoginPayloadParams){
-    return await loginUserUC(payload)
+    return await loginUserUCMongoose(payload)
 }
 
 // merge-old

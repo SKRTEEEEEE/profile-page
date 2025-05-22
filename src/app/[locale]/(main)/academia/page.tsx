@@ -3,7 +3,7 @@ import { EjercicioItem } from "@/components/academia/ejercicio-item";
 import { SubscriptionPlansDialog } from "@/components/oth/plains-dialog/subscription-plans-dialog";
 import { buttonVariants } from "@/components/ui/button";
 import { getCookiesUC } from "@/core/application/usecases/services/auth";
-import { userInCookiesUC } from "@/core/interface-adapters/controllers/user";
+import { userInCookiesUC } from "@/core/presentation/controllers/user";
 import { Link } from "@/i18n/routing";
 import { cn, sortPosts } from "@/lib/utils";
 import { Metadata } from "next";

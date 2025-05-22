@@ -4,7 +4,7 @@
 //NOT CHECKED!
 
 import { deleteImageUC, uploadImageUC } from "@/core/application/usecases/services/img";
-import { InputParseError } from "@/core/domain/errors/main";
+import { InputParseError } from "@/core/domain/flows/domain.error";
 
 export async function uploadImg(formData: FormData) {
     const img = formData.get('img') as File
