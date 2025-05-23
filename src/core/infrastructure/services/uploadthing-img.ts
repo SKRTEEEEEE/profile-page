@@ -1,4 +1,4 @@
-import { StorageActionError } from "@/types";
+import { StorageActionError } from "../../../dynamic.types";
 import { UploadThingAdapter } from "../connectors/uploadthing-st";
 import { InputParseError } from "@/core/domain/flows/domain.error";
 

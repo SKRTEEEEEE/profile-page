@@ -3,7 +3,7 @@ import { TechBase, TechForm } from "@/core/domain/entities/tech";
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 import { getTechGithubPercentageUC } from "@/actions/octokit";
 import { actualizarGithubTechsCMongoose, ActualizarGithubTechsType } from "./github.controller";
-import { Leng } from "@/types";
+import { Leng } from "@/dynamic.types";
 
 /**
  * Finds the first available number in a sequence of preferences

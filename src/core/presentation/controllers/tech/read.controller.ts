@@ -1,7 +1,7 @@
 import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
 import { FullTechData } from "@/core/domain/entities/tech";
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
-import { Leng } from "@/types";
+import { Leng } from "@/dynamic.types";
 type BadgeAndValue = {
     badge: string;
     value: string;

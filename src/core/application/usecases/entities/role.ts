@@ -5,7 +5,7 @@ import { RoleBase } from "@/core/domain/entities/Role";
 import { RoleRepository } from "../../interfaces/entities/role";
 import { MongooseRoleRepository } from "@/core/infrastructure/mongoose/entities/role.repository";
 import { MongooseDeleteProps } from "@/core/infrastructure/mongoose/types/implementations";
-import { Role } from "@/types";
+import { Role } from "@/dynamic.types";
 
 const roleRepository = new MongooseRoleRepository()
 
