@@ -1,9 +1,11 @@
 
 import { VerificacionEmailAlert } from "@/components/verify-email/verificacion-email-alert";
 import {  RenderAlert, VerifyEmailConfirmDialog } from "@/components/verify-email/verify-email-dialogs";
-import { listUsersByIdUC } from "@/core/application/usecases/entities/user";
+import { apiReadUserByIdUC, mongooseListUsersByIdUC } from "@/core/application/usecases/entities/user";
 import { verifyEmailCMongoose } from "@/core/presentation/controllers/user";
 import { Suspense } from "react";
+
+// ⚠️🚧 Hay que terminar el verifyEmailCMongoose a api
 
 type SearchParams = {
   verifyToken?: string;
@@ -20,7 +22,8 @@ async function VerifyEmailContent({ verifyToken, id }: SearchParams) {
     return <RenderAlert title="URL Invalida"  description="Esta pagina no contiene contenido."/>
   }
 
-  const user = await listUsersByIdUC(id)
+  // const user = await mongooseListUsersByIdUC(id)
+  const user = await apiReadUserByIdUC(id)
   if (!user) {
     return <RenderAlert title="URL Invalida"  description="Si estas tratando de validar el email, intenta-lo después."/>
   } else if (user.verifyToken == verifyToken) {

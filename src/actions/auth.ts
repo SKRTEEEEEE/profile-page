@@ -1,5 +1,6 @@
 "use server"
 
+import { apiLoginUserUC } from "@/core/application/usecases/entities/user"
 // -> ❕🧠⚠️❗⬇️ SOLO PARA ACCIONES QUE SON LLAMADAS DESDE EL CLIENTE! - sino usar UC/C ⬇️❗⚠️🧠❕
 //NOT CHECKED!
 
@@ -18,7 +19,10 @@ export async function logout(){
     await logoutUC()
 }
 export async function login(payload: VerifyLoginPayloadParams){
-    return await loginUserUCMongoose(payload)
+    // return await loginUserUCMongoose(payload)
+    const res = await apiLoginUserUC({payload})
+    if(!res) throw new Error("Login failed")
+    return res.data
 }
 
 // merge-old

@@ -1,5 +1,5 @@
 import { getCookiesUC, logoutUC, setJwtUC, verifyPayloadUC } from "@/core/application/usecases/services/auth";
-import { createUserUC, deleteUserByIdUC, findUserAndUpdateUC, listUserByAddressUC, listUsersByIdUC, updateUserByIdUC } from "@/core/application/usecases/entities/user";
+import { mongooseCreateUserUC, mongooseDeleteUserByIdUC, mongooseFindUserAndUpdateUC, mongooseListUserByAddressUC, mongooseListUsersByIdUC, mongooseUpdateUserByIdUC } from "@/core/application/usecases/entities/user";
 // import { RoleType } from "@/core/domain/entities/role";
 import { DatabaseFindError, DatabaseActionError, SetEnvError, UnauthorizedError } from "@/core/domain/flows/domain.error";
 import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
@@ -37,7 +37,7 @@ export const tokenGenerator = () => {
 
 export const updateUserFormCMongoose = async(payload: VerifyLoginPayloadParams,user:{id:string, email:string|null,nick?:string,img:string|null}): Promise<ExtendedJWTPayload | null> => {
     let verifyToken, verifyTokenExpire;
-    const userB = await listUsersByIdUC(user.id)
+    const userB = await mongooseListUsersByIdUC(user.id)
     if (!userB) throw new DatabaseActionError("User not found")
     //Ojo con esto, hemos de manejar cuando el usuario vuelva a cambiar el correo
     let isVerified = userB.isVerified
@@ -52,10 +52,10 @@ export const updateUserFormCMongoose = async(payload: VerifyLoginPayloadParams,u
         await sendMailUC({to: user.email, subject: "Email Verification",html})
         isVerified = false
     }
-    const res = await updateUserByIdUC(user.id, {...user, verifyToken, verifyTokenExpire, isVerified})
+    const res = await mongooseUpdateUserByIdUC(user.id, {...user, verifyToken, verifyTokenExpire, isVerified})
     if(!res) throw new DatabaseActionError("update user form")
     return await setJwtUC(payload,{nick:user.nick,id: user.id, role: userB.role, img: user.img || undefined})
-}
+} //✅⁉️
 export const resendVerificationEmailCMongoose = async({id,email}:{id:string, email: string}) => {
     const {hashedToken, expireDate} = tokenGenerator()
 
@@ -65,12 +65,12 @@ export const resendVerificationEmailCMongoose = async({id,email}:{id:string, ema
         const html = createVerificationEmailUC(verificationLink);
         const res = await sendMailUC({to: email, subject: "Email Verification",html})
         
-        const upU = await updateUserByIdUC(id, {verifyToken: hashedToken, verifyTokenExpire: expireDate.toString()})
+        const upU = await mongooseUpdateUserByIdUC(id, {verifyToken: hashedToken, verifyTokenExpire: expireDate.toString()})
         return {updatedUser: upU, sendedMail: res}
-}
+}//✅⁉️
 
 export const verifyEmailCMongoose = async (id: string, verifyToken: string): Promise<boolean> => {
-    const user = await listUsersByIdUC(id);
+    const user = await mongooseListUsersByIdUC(id);
     if (!user) {
         console.error("Error at find user");
         return false;
@@ -88,14 +88,14 @@ export const verifyEmailCMongoose = async (id: string, verifyToken: string): Pro
     user.verifyTokenExpire = undefined;
     // ⚠️‼️ Esta parte en el futuro sera un botón de "subscripción"
 
-    const sUser = await updateUserByIdUC(user.id, user)
+    const sUser = await mongooseUpdateUserByIdUC(user.id, user)
     if(!sUser) throw new DatabaseActionError("update user")
     console.log(sUser)
     return true;
-}
+} //⚠️🚧
 export const checkoutSessionCompletedC = async (session: Stripe.Response<Stripe.Checkout.Session>) => {
     
-    const user: User<MongooseBase> | null = await listUsersByIdUC(session.client_reference_id!);
+    const user: User<MongooseBase> | null = await mongooseListUsersByIdUC(session.client_reference_id!);
     if (!user) throw new Error("Error with client_reference_id")
     if (!session.metadata || !session.metadata.role) throw new Error("Error at set metadata role")
     const role = await listRoleUC(user.roleId!)
@@ -131,7 +131,7 @@ export const checkoutSessionCompletedC = async (session: Stripe.Response<Stripe.
       })
       console.log("Role created: ", role)
       try {
-        const updatedUser = await updateUserByIdUC(user.id, { roleId: role.id, role: session.metadata.role as RoleType });
+        const updatedUser = await mongooseUpdateUserByIdUC(user.id, { roleId: role.id, role: session.metadata.role as RoleType });
         if(!updatedUser){ throw new Error(`Error at find user ${user.id}: `) }else {
             console.log("updatedUser: ", updatedUser)
         }
@@ -152,12 +152,12 @@ export const checkoutSessionCompletedC = async (session: Stripe.Response<Stripe.
         console.log("role info to be updated: ", {role})
       const updatedRole =  await updateRoleUC(role.id, role)
       console.log("updatedRole :", {updatedRole})
-      const updatedUser = await updateUserByIdUC(user.id, {role: session.metadata.role as RoleType})
+      const updatedUser = await mongooseUpdateUserByIdUC(user.id, {role: session.metadata.role as RoleType})
       if(!updatedUser) {throw new Error( `Error at find user ${user.id}` )}else{
       console.log("updatedUser: ", {updatedUser})}
        
     }
-}
+}//🚧⁉️
 export const customerSubscriptionDeletedC = async (subscriptionId: string) => {
     try {
         const subscription = await retrieveSubscriptionUC(subscriptionId);
@@ -166,7 +166,7 @@ export const customerSubscriptionDeletedC = async (subscriptionId: string) => {
         // 💡 Corregido: Se usa 'return' en lugar de 'break'
         if (!role) return; // Si no se encuentra el rol, salimos de la función
         
-        const user = await findUserAndUpdateUC({filter:{ address: role.address }, update:{ role: null, roleId: null }});
+        const user = await mongooseFindUserAndUpdateUC({filter:{ address: role.address }, update:{ role: null, roleId: null }});
         
         console.log("updated user: ", { user });
         console.log("deleted role: ", { role });
@@ -174,7 +174,7 @@ export const customerSubscriptionDeletedC = async (subscriptionId: string) => {
     } catch (error) {
         console.error("Error at handle delete subscription: ", error);
     }
-};
+};//🚧⁉️
 
 
 
@@ -187,14 +187,14 @@ export const deleteUserAccountUCMongoose = async (payload: {
   if (v.payload.address !== address) throw new UnauthorizedError("User only can delete her address")
 
   //deleteUser(id)
-  const user = await listUsersByIdUC(id)
+  const user = await mongooseListUsersByIdUC(id)
   if (!user) throw new DatabaseFindError({optionalMessage:"User not found"})
   if (user.roleId !== null) {
     await deleteRoleByIdUC(user.roleId)
   }
-  await deleteUserByIdUC(id)
+  await mongooseDeleteUserByIdUC(id)
   await logoutUC()
-}
+}//🚧
 
 
 export const giveRoleUCMongoose = async(payload: {
@@ -203,17 +203,17 @@ export const giveRoleUCMongoose = async(payload: {
 }, id: string, solicitud: RoleType.ADMIN ) => {
   const v = await verifyPayloadUC(payload)
     if (!v.valid) throw new UnauthorizedError("payload auth")
-      const signUser = await listUserByAddressUC(payload.payload.address)
+      const signUser = await mongooseListUserByAddressUC(payload.payload.address)
     if (!signUser) throw new DatabaseFindError({optionalMessage:"signer user"})
     if (signUser.role!=="ADMIN") throw new UnauthorizedError("Only admins")
     const createdRole = await createRoleUC({address: payload.payload.address,permissions: solicitud})
-    const user = await listUsersByIdUC(id)
+    const user = await mongooseListUsersByIdUC(id)
     if(!user)throw new DatabaseFindError({entitie:"user"})
-    await updateUserByIdUC(id,{
+    await mongooseUpdateUserByIdUC(id,{
        address: user.address, roleId: createdRole.id,
       role: solicitud, solicitud: null, img: user.img, email: user.email, isVerified: user.isVerified
     })
-}
+}//🚧
 
 
 
@@ -224,9 +224,9 @@ export const giveRoleUCMongoose = async(payload: {
 export const loginUserUCMongoose = async (payload: VerifyLoginPayloadParams) => {
   const verifiedPayload = await verifyPayloadUC(payload);
   if (!verifiedPayload.valid) throw new UnauthorizedError("Payload not valid")
-  let user = await listUserByAddressUC(verifiedPayload.payload.address);
+  let user = await mongooseListUserByAddressUC(verifiedPayload.payload.address);
   if (!user) {
-    user = await createUserUC({ address: verifiedPayload.payload.address, nick: null, roleId: null, role: null, solicitud: null, img: null, email: null , isVerified: false})
+    user = await mongooseCreateUserUC({ address: verifiedPayload.payload.address, nick: null, roleId: null, role: null, solicitud: null, img: null, email: null , isVerified: false})
   }
 
   const jwt = await setJwtUC(
@@ -239,14 +239,14 @@ export const loginUserUCMongoose = async (payload: VerifyLoginPayloadParams) => 
     }
   );
   return jwt
-}
+}//✅⁉️
 
 
 
 export const userInCookiesUC = async () => {
   const cooki = await getCookiesUC()
     if (!cooki) return false
-    const user = await listUserByAddressUC(cooki.sub)
+    const user = await mongooseListUserByAddressUC(cooki.sub)
     if (!user) return false
     return user
-}
+}//✅⁉️

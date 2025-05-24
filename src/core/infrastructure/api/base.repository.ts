@@ -35,11 +35,17 @@ export abstract class ApiBaseRepository {
             create: {endpoint: "tech", method: "POST"},
             update: {endpoint: "tech", method: "PUT"},
             actualizarGithub: {endpoint: (opt)=>`tech/${opt}`, method: "POST"},
-            readAll: {endpoint: "tech/all", method: "GET"},
+            readAll: {endpoint: "tech", method: "GET"},
             delete: {endpoint: "tech", method: "DELETE"},
 
         },
-        [Modules.USER]: {}
+        [Modules.USER]: {
+            readById: {endpoint: "user/:id", method: "GET"},
+            readAll: {endpoint: "user", method: "GET"},
+            login: {endpoint: "user", method: "POST"},
+            update: {endpoint: "user", method: "PUT"},
+            updateSolicitud: {endpoint: "user/solicitud", method: "PUT"},
+        }
     };
 
     constructor(module: Modules, baseUrl?: string) {
@@ -66,11 +72,6 @@ export abstract class ApiBaseRepository {
         });
     }
     public get module() {return this._module}
-
-    // Métodos privados para uso interno
-    private getModuleConfig(): ModuleConfig {
-        return this.modules[this._module];
-    }
 
     protected getEndpointConfig(key: keyof ModuleConfig): EndpointConfig | undefined {
         return this.getModuleConfig()[key as string];
@@ -100,5 +101,9 @@ export abstract class ApiBaseRepository {
             }
         }
         return null;
+    }
+    // Métodos privados para uso interno
+    private getModuleConfig(): ModuleConfig {
+        return this.modules[this._module];
     }
 }

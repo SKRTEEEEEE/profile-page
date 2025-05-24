@@ -1,11 +1,12 @@
 import { CConectButton } from "../oth/custom-connect-button";
 import GiveRoleButton from "./give-role-button";
 import { userInCookiesUC } from "@/core/presentation/controllers/user";
-import { listUsersUC } from "@/core/application/usecases/entities/user";
+import { apiReadUsersUC } from "@/core/application/usecases/entities/user";
 
 export default async function UsersTable() {
   const activeUser = await userInCookiesUC()
-  const users = await listUsersUC();
+  // const users = await mongooseListUsersUC();
+  const users = await apiReadUsersUC()
 
 
   return (
@@ -43,7 +44,7 @@ export default async function UsersTable() {
             </tr>
           </thead>
           <tbody className="bg-background/50 divide-y divide-gray-200">
-            {users?.map((user: any) => (
+            {users?.data.map((user: any) => (
               <tr key={user.id} className="hover:bg-gray-50">
                 <td className="px-2 xl:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {user.address}
