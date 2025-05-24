@@ -1,4 +1,4 @@
-import { updateTechUC } from "@/core/application/usecases/entities/tech";
+import { mongooseUpdateTechUC } from "@/core/application/usecases/entities/tech";
 import { TechForm } from "@/core/domain/entities/tech";
 import {  actualizarGithubTechsCMongoose, ActualizarGithubTechsType } from "./github.controller";
 
@@ -9,7 +9,7 @@ export async function updateTechCMongoose(updateData: TechForm) {
         let proyectoActualizado;
         if ('fwTo' in updateData) {
             // Actualizar librería
-            proyectoActualizado = await updateTechUC(
+            proyectoActualizado = await mongooseUpdateTechUC(
                 {filter:{ "frameworks.librerias.nameId": updateData.nameId },
                 update:{
                     $set: {
@@ -32,7 +32,7 @@ export async function updateTechCMongoose(updateData: TechForm) {
             );
         } else if ('lengTo' in updateData) {
             // Actualizar framework
-            proyectoActualizado = await updateTechUC(
+            proyectoActualizado = await mongooseUpdateTechUC(
               {filter:{ "frameworks.nameId": updateData.nameId },
                 update:{
                     $set: {
@@ -48,7 +48,7 @@ export async function updateTechCMongoose(updateData: TechForm) {
             );
         } else {
             // Actualizar lenguaje
-            proyectoActualizado = await updateTechUC(
+            proyectoActualizado = await mongooseUpdateTechUC(
                 {filter:{ nameId: updateData.nameId },
                 update:updateData,
                 options:{ new: true }}
@@ -58,7 +58,7 @@ export async function updateTechCMongoose(updateData: TechForm) {
         if (!proyectoActualizado) {
             return handleError(`No se encontró un proyecto llamado ${updateData.nameId}.`);
         }
-        await actualizarGithubTechsCMongoose({type: ActualizarGithubTechsType.json});
+        await actualizarGithubTechsCMongoose({type: ActualizarGithubTechsType.JSON});
         return handleSuccess(`El proyecto ${updateData.nameId} ha sido actualizado correctamente.`);
     } catch (error) {
         console.error('Error actualizando el proyecto:', error);

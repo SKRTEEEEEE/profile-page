@@ -1,6 +1,8 @@
 import { ResFlow } from "@/core/domain/flows/res.codes";
 import { MongooseBase } from "../mongoose/types";
 import { ApiBaseRepository, Modules } from "./base.repository";
+import { ApiResponseError } from "@/dynamic.types";
+import { cookies } from "next/headers";
 
 export class ApiPreTechRepository extends ApiBaseRepository{
 
@@ -9,29 +11,35 @@ export class ApiPreTechRepository extends ApiBaseRepository{
   }
 
   async readByQuery(query: string): Promise<ResFlow<(PreTechBase & MongooseBase)>> {
-    const url = `${this.baseUrl}/${this.endpoints.readByQuery.endpoint}?q=${encodeURIComponent(query)}`;
+    const url = `${this.getEndpointModule("readByQuery")}?q=${encodeURIComponent(query)}`;
     const response = await fetch(url, {
       method: this.endpoints.readByQuery.method,
       headers: { 'Content-Type': 'application/json' }
     });
+    console.log("response", response)
     if (!response.ok) {
-      throw new Error(`Error fetching ${this.endpoints.readByQuery.endpoint}: ${response.statusText}`);
+      throw new ApiResponseError("readByQuery",{module: this.module,optionalMessage:`Error fetching ${this.endpoints.readByQuery.endpoint}: ${response.statusText}`});
     }
-    return await response.json();
+    const data = await response.json();
+    console.log("data", data)
+    return data
   }
 
   async updatePreTech(): Promise<ResFlow> {
     const url = `${this.baseUrl}/${this.endpoints.updatePreTech.endpoint}`;
-    //get cookies jwt
+    const jwt = (await cookies()).get("jwt");
     const response = await fetch(url, {
       method: this.endpoints.updatePreTech.method,
       headers: { 
-        'Content-Type': 'application/json' 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwt?.value}`
       },
     });
     if (!response.ok) {
-      throw new Error(`Error updating ${this.endpoints.updatePreTech.endpoint}: ${response.statusText}`);
+      throw new ApiResponseError("readByQuery",{module: this.module,optionalMessage:`Error updating ${this.endpoints.updatePreTech.endpoint}: ${response.statusText}`});
     }
-    return await response.json();
+    const data = await response.json();
+    console.log("data", data)
+    return data
   }
 }

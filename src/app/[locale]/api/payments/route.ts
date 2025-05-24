@@ -1,4 +1,4 @@
-// import { RoleType } from "@/core/domain/entities/Role";
+// import { RoleType } from "@/core/domain/entities/role";
 // import { User } from "@/core/domain/entities/User";
 // import { RoleModel, UserModel } from "@/models/user-role-schema";
 import { constructEventWebhookUC, retrieveSessionUC } from "@/core/application/usecases/services/pay";

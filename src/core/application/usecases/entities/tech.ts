@@ -1,37 +1,57 @@
-import { LengBase, TechBase } from "@/core/domain/entities/tech";
+import { LengBase, TechBase, TechForm } from "@/core/domain/entities/tech";
+import { ApiTechRepository } from "@/core/infrastructure/api/tech.repository";
 import { MongooseLenguajesRepository } from "@/core/infrastructure/mongoose/entities/tech.repository";
 import { MongooseDeleteProps, MongooseReadProps, MongooseUpdateProps } from "@/core/infrastructure/mongoose/types/implementations";
+import { ActualizarGithubTechsType } from "@/core/presentation/controllers/tech/github.controller";
 import { Leng } from "@/dynamic.types";
 
-const lengRepository = new MongooseLenguajesRepository()
+const monLengRepository = new MongooseLenguajesRepository()
+const apiLengRepository = new ApiTechRepository()
 
-export const readAllTechsUC=async()=>{
-    return await lengRepository.read({})
+export const apiReadAllTechsUC=async()=>{
+    return await apiLengRepository.readAll()
 }
+export const apiActualizarGithubTechsCApi=async (props:{type:ActualizarGithubTechsType})=>{
+    return await apiLengRepository.actualizarGithub(props)
+}
+export const apiDeleteTechUC = async (name:string) => {
+    return await apiLengRepository.delete({nameId:name})
+    
+}
+export const apiCreateTechUC = async (data: TechBase) => {
+    return await apiLengRepository.create(data as LengBase) 
+}
+export const apiUpdateTechUC = async (data: TechForm) => {
+    return await apiLengRepository.update(data)
+}
+  export const mongooseCreateTechUC =  async (data: TechBase) =>{
+    return await monLengRepository.create(data as LengBase)
+  }
+// export const readLengUC = async (
+// props: MongooseReadProps<Leng>
+// ) => {
+//     return await monLengRepository.read(props)
+// }
+export const mongooseReadAllTechsUC = async (
 
-export const readLengUC = async (
-props: MongooseReadProps<Leng>
 ) => {
-    return await lengRepository.read(props)
+    return await monLengRepository.read({})
 }
 
-export const readOneTechUC =  async (
+export const mongooseReadOneTechUC =  async (
     props: MongooseReadProps<Leng>
 ) => {
-    return await lengRepository.readOne(props)
+    return await monLengRepository.readOne(props)
 }
-export const deleteTechUC = async (
-    props: MongooseDeleteProps<Leng>
+export const mongooseDeleteTechUC = async (
+    props:MongooseDeleteProps<Leng>
   )=>{
-    return await lengRepository.delete(props)
+    return await monLengRepository.delete(props.filter)
   }
 
-  export const updateTechUC = async (
+  export const mongooseUpdateTechUC = async (
     props: MongooseUpdateProps<Leng>
   ) => {
-    return await lengRepository.update(props)
+    return await monLengRepository.update(props)
   }
 
-  export const createTechUC =  async (data: TechBase) =>{
-    return await lengRepository.create(data as LengBase)
-  }

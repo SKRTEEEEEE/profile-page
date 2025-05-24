@@ -1,9 +1,10 @@
 
 import type { JSX } from "react";
 import { DomainError } from "./core/domain/flows/domain.error";
-import { RoleBase } from "@/core/domain/entities/Role";
 import { LengBase } from "@/core/domain/entities/tech";
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
+import { RoleBase } from "./core/domain/entities/role";
+import { Modules } from "./core/infrastructure/api/base.repository";
 
 export type Role = RoleBase & MongooseBase
 export type Leng = LengBase & MongooseBase
@@ -18,6 +19,19 @@ export class StorageActionError extends DomainError {
     }){
         super(
             `Action: Storage ${action} ${meta?.type} doesn't worked` ,
+            ErrorAppCodes.STORAGE_ACTION,
+            meta?.optionalMessage
+        )
+    }
+}
+export class ApiResponseError extends DomainError{
+    constructor(action: string, meta?: {
+        module?: string | Modules,
+        optionalMessage?: string,
+    })
+    {
+        super(
+            `Action: Api Response ${action} ${meta?.module} doesn't worked` ,
             ErrorAppCodes.STORAGE_ACTION,
             meta?.optionalMessage
         )

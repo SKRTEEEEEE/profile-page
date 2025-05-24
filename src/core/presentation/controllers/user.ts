@@ -1,6 +1,6 @@
 import { getCookiesUC, logoutUC, setJwtUC, verifyPayloadUC } from "@/core/application/usecases/services/auth";
 import { createUserUC, deleteUserByIdUC, findUserAndUpdateUC, listUserByAddressUC, listUsersByIdUC, updateUserByIdUC } from "@/core/application/usecases/entities/user";
-// import { RoleType } from "@/core/domain/entities/Role";
+// import { RoleType } from "@/core/domain/entities/role";
 import { DatabaseFindError, DatabaseActionError, SetEnvError, UnauthorizedError } from "@/core/domain/flows/domain.error";
 import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
 import { createVerificationEmailUC, sendMailUC } from "@/core/application/usecases/services/email";

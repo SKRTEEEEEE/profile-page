@@ -293,7 +293,7 @@ export class MongooseUserRepository extends MongoDbConnection implements UserRep
 //src/core/infrastructure/repositories/mongoose-role-repository.ts
 import { RoleRepository } from "@/core/domain/repositories/role-repository";
 import { MongoDbConnection } from "../adapters/mongo-db-connection";
-import { Role, RoleType } from "@/core/domain/entities/Role";
+import { Role, RoleType } from "@/core/domain/entities/role";
 import { RoleDocument, RoleModel } from "@/models/user-role-schema";
 
 export class MongooseRoleRepository extends MongoDbConnection implements RoleRepository{

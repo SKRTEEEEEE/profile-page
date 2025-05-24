@@ -1,7 +1,7 @@
-// import { Role, RoleType } from "@/core/domain/entities/Role";
+// import { Role, RoleType } from "@/core/domain/entities/role";
 // import { RoleRepository } from "@/core/domain/repositories/role-repository";
 
-import { RoleBase } from "@/core/domain/entities/Role";
+import { RoleBase } from "@/core/domain/entities/role";
 import { RoleRepository } from "../../interfaces/entities/role";
 import { MongooseRoleRepository } from "@/core/infrastructure/mongoose/entities/role.repository";
 import { MongooseDeleteProps } from "@/core/infrastructure/mongoose/types/implementations";

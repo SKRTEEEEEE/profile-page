@@ -51,6 +51,8 @@ export function SearchPreTechCombobox({ title, name, form, isAdmin }: SearchComb
       startTransition(async () => {
         try {
           const res = await readByQueryPreTech(initialValue)
+          console.log('Initial value:', initialValue)
+          console.log('Response:', res)
           const results: (PreTechBase & MongooseBase)[] | [] = res.data! as (PreTechBase & MongooseBase)[] | []
           const found = results.find(tech => tech.nameId === initialValue)
           if (found) {
@@ -76,6 +78,7 @@ export function SearchPreTechCombobox({ title, name, form, isAdmin }: SearchComb
             setIsLoading(true)
             try {
               const results = await readByQueryPreTech(value)
+              console.log('Results:', results)
               setSearchResults(results.data! as (PreTechBase & MongooseBase)[] | [])
             } catch (error) {
               console.error('Error fetching results:', error)

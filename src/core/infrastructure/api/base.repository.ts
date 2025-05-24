@@ -7,7 +7,7 @@ export enum Modules {
 }
 
 type EndpointConfig = {
-    endpoint: string;
+    endpoint:  ((opt: string|string[])=>string )| string;
     method: "GET" | "POST" | "PUT" | "DELETE";
 };
 
@@ -21,7 +21,7 @@ type ModulesMap = {
 
 export abstract class ApiBaseRepository {
     private readonly _baseUrl: string;
-    private readonly module: Modules;
+    private readonly _module: Modules;
     private readonly modules: ModulesMap = {
         [Modules.PRE_TECH]: {
             readByQuery: { endpoint: "pre-tech", method: "GET" },
@@ -31,12 +31,19 @@ export abstract class ApiBaseRepository {
             // Ejemplo: list: { endpoint: "projects", method: "GET" }
         },
         [Modules.ROLE]: {},
-        [Modules.TECH]: {},
+        [Modules.TECH]: {
+            create: {endpoint: "tech", method: "POST"},
+            update: {endpoint: "tech", method: "PUT"},
+            actualizarGithub: {endpoint: (opt)=>`tech/${opt}`, method: "POST"},
+            readAll: {endpoint: "tech/all", method: "GET"},
+            delete: {endpoint: "tech", method: "DELETE"},
+
+        },
         [Modules.USER]: {}
     };
 
     constructor(module: Modules, baseUrl?: string) {
-        this.module = module;
+        this._module = module;
         this._baseUrl = baseUrl ?? 'http://localhost:3001';
     }
     public get baseUrl(){
@@ -58,13 +65,40 @@ export abstract class ApiBaseRepository {
             }
         });
     }
+    public get module() {return this._module}
 
     // Métodos privados para uso interno
     private getModuleConfig(): ModuleConfig {
-        return this.modules[this.module];
+        return this.modules[this._module];
     }
 
     protected getEndpointConfig(key: keyof ModuleConfig): EndpointConfig | undefined {
         return this.getModuleConfig()[key as string];
+    }
+    protected getEndpointModule(endpointKey: string){
+        return `${this._baseUrl}/${this.getModuleConfig()[endpointKey]?.endpoint}`;
+    }
+    protected getDynamicEndpointModule(endpointKey: string, opt: string | string[]) {
+        const endpointConfig = this.getModuleConfig()[endpointKey];
+        if (!endpointConfig) return null;
+
+        const endpoint = endpointConfig.endpoint;
+        if (typeof endpoint === "function") {
+            if (typeof opt === "string") {
+                return `${this._baseUrl}/${endpoint(opt)}`;
+            }
+            if (Array.isArray(opt)) {
+                return opt.map(o => `${this._baseUrl}/${endpoint(o)}`);
+            }
+        } else {
+            // Para endpoints estáticos
+            if (typeof opt === "string") {
+                return `${this._baseUrl}/${endpoint}/${opt}`;
+            }
+            if (Array.isArray(opt)) {
+                return opt.map(o => `${this._baseUrl}/${endpoint}/${o}`);
+            }
+        }
+        return null;
     }
 }

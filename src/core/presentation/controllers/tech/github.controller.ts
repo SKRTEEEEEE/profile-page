@@ -1,7 +1,7 @@
 import { updateGithubFileContentUC } from "@/actions/octokit"
 import { FullTechData } from "@/core/domain/entities/tech"
 import { MongooseBase } from "@/core/infrastructure/mongoose/types"
-import { readAllTechsCMongoose } from "./read.controller"
+import { readAllTechsCApi } from "./read.controller"
 import { getTranslations } from "next-intl/server"
 import { Leng } from "@/dynamic.types"
 // ⚠️ Hay que arreglar esto ⬇️⬇️
@@ -15,7 +15,11 @@ const path = { md: "about/techs.md", json: "sys/techs.json" };
 
 const techsHeaderBanner = `<img src="https://skillicons.dev/icons?i=solidity,ipfs,git,github,obsidian,md,html,css,styledcomponents,tailwind,threejs,react,js,ts,prisma,sqlite,mongodb,mysql,nextjs,nodejs,express,py,php,c,cpp,sentry,redux,firebase,vercel,bash,powershell,npm,vscode,notion,ableton,windows&perline=18" />`
 
-export enum ActualizarGithubTechsType {"md", "json", "all"}
+export enum ActualizarGithubTechsType {
+    ALL = "all",
+    MD = "md",
+    JSON = "json"
+}
 type ActualizarGithubTechsProps = {
     
     type: ActualizarGithubTechsType
@@ -25,8 +29,9 @@ type ActualizarGithubTechsProps = {
     }
     
 }
+
 export async function actualizarGithubTechsCMongoose(props:ActualizarGithubTechsProps){
-    const {flattenTechs, techs} = await readAllTechsCMongoose()
+    const {flattenTechs, techs} = await readAllTechsCApi()
     if(props.create!==undefined){
         try {
             await actualizarMd({create: props.create})
@@ -36,11 +41,11 @@ export async function actualizarGithubTechsCMongoose(props:ActualizarGithubTechs
         }
     } else {
         try {
-            if(props.type === ActualizarGithubTechsType.all){
+            if(props.type === ActualizarGithubTechsType.ALL){
                 await actualizarMd({proyectosDB:techs})
                 await actualizarJson(flattenTechs)
             } 
-            if(props.type === ActualizarGithubTechsType.json){
+            if(props.type === ActualizarGithubTechsType.JSON){
                 await actualizarJson(flattenTechs)
             }
         } catch (error) {

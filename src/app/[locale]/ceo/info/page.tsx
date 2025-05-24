@@ -1,16 +1,24 @@
 
 
 import SliderTechs from "@/components/ceo/slider-techs";
+import { toast } from "@/components/hooks/use-toast";
 import { MotionTransition } from "@/components/oth/transition-component";
 import TransitionPage from "@/components/oth/transition-page";
 import { Button } from "@/components/ui/button";
-import { readAllTechsCMongoose } from "@/core/presentation/controllers/tech/read.controller";
+import { apiReadAllTechsUC } from "@/core/application/usecases/entities/tech";
+import { FullTechData, ReadAllFlattenTechsRes } from "@/core/domain/entities/tech";
+import { MongooseBase } from "@/core/infrastructure/mongoose/types";
+import { readAllTechsCApi } from "@/core/presentation/controllers/tech/read.controller";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 
 const AboutMePage = async () => {
-    const {flattenTechs:allLeng} = await readAllTechsCMongoose()
+    // const res = await apiReadAllTechsUC()
+    // if(!res.success)console.error("Error at readAllTechsUC", res.message)
+    //     const idk = res.data!
+    const {flattenTechs:allLeng} = await readAllTechsCApi()
+    // const {flattenTechs:allLeng} = await readAllTechsCMongoose()
     const t = await getTranslations()
 
 

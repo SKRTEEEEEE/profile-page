@@ -1,4 +1,4 @@
-import { readAllTechsUC } from "@/core/application/usecases/entities/tech";
+import { apiReadAllTechsUC, mongooseReadAllTechsUC } from "@/core/application/usecases/entities/tech";
 import { FullTechData } from "@/core/domain/entities/tech";
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 import { Leng } from "@/dynamic.types";
@@ -164,7 +164,7 @@ type ReadAllFlattenTechsRes = {
     dispoLeng: {name:string}[]
 }
 export const readAllTechsCMongoose = async(): Promise<ReadAllFlattenTechsRes> => {
-    const proyectosDB = await readAllTechsUC()
+    const proyectosDB = await mongooseReadAllTechsUC()
     const dispoLeng = proyectosDB?.map((lenguaje: {nameId:string}) => ({ name: lenguaje.nameId }));
   const dispoFw = proyectosDB?.flatMap((lenguaje) => {
       if (Array.isArray(lenguaje.frameworks) && lenguaje.frameworks.length > 0) {
@@ -173,4 +173,10 @@ export const readAllTechsCMongoose = async(): Promise<ReadAllFlattenTechsRes> =>
       return [];
     });
     return {techs:proyectosDB,flattenTechs:flattenTechs(proyectosDB),dispoFw, dispoLeng}
+}
+
+export const readAllTechsCApi = async(): Promise<ReadAllFlattenTechsRes> => {
+    const res = await apiReadAllTechsUC()
+    if(!res.success)console.error("Error at readAllTechsUC", res.message)
+    return res.data! as ReadAllFlattenTechsRes
 }

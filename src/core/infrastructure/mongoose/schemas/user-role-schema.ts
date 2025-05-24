@@ -2,7 +2,7 @@
 
 import mongoose, { Schema } from "mongoose";
 import { MongooseBase } from "../types";
-import { RoleBase } from "@/core/domain/entities/Role";
+import { RoleBase } from "@/core/domain/entities/role";
 export const roleEnum = ['ADMIN', 'STUDENT', 'STUDENT_P', 'PROF_TEST', 'PROF', "PROF_PRO"]
 
 

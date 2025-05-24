@@ -1,4 +1,4 @@
-import { createTechUC, readAllTechsUC, readOneTechUC, updateTechUC } from "@/core/application/usecases/entities/tech";
+import { mongooseCreateTechUC, mongooseReadAllTechsUC, mongooseReadOneTechUC, mongooseUpdateTechUC } from "@/core/application/usecases/entities/tech";
 import { TechBase, TechForm } from "@/core/domain/entities/tech";
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 import { getTechGithubPercentageUC } from "@/actions/octokit";
@@ -67,7 +67,7 @@ export async function createTechCMongoose(data: TechForm, owner = "SKRTEEEEEE"):
 
     try {
         // 1. Obtener el estado actual de la BD y calcular uso de GitHub
-        const proyectosDB = await readAllTechsUC();
+        const proyectosDB = await mongooseReadAllTechsUC();
         const usoGithub = await getTechGithubPercentageUC(nameId, owner);
         
         // Calcular la siguiente preferencia disponible
@@ -92,14 +92,14 @@ export async function createTechCMongoose(data: TechForm, owner = "SKRTEEEEEE"):
 
         if (!lengTo) {
             // Caso 1: Publicar un nuevo lenguaje
-            const nuevoLenguaje = await createTechUC(nuevoItem);
+            const nuevoLenguaje = await mongooseCreateTechUC(nuevoItem);
             success = !!nuevoLenguaje;
             message = success 
                 ? `Lenguaje ${nameId} guardado correctamente en la BDD.`
                 : `No se ha podido guardar ${nameId} en la BDD.`;
 
         } else {
-            const lenguaje = await readOneTechUC({filter:{ nameId: lengTo }});
+            const lenguaje = await mongooseReadOneTechUC({filter:{ nameId: lengTo }});
             if (!lenguaje) {
                 return { success: false, message: `Lenguaje no encontrado: ${lengTo}` };
             }
@@ -107,7 +107,7 @@ export async function createTechCMongoose(data: TechForm, owner = "SKRTEEEEEE"):
             if (!fwTo) {
                 // Caso 2: Agregar un framework a un lenguaje
                 lenguaje.frameworks.push(nuevoItem);
-                const res = await updateTechUC({filter:{nameId: lengTo}, update:lenguaje, options:{new: true}});
+                const res = await mongooseUpdateTechUC({filter:{nameId: lengTo}, update:lenguaje, options:{new: true}});
                 const frameworkAgregado = res!.frameworks?.some((fw: TechBase) => fw.nameId === nuevoItem.nameId);
                 
                 success = !!frameworkAgregado;
@@ -139,7 +139,7 @@ export async function createTechCMongoose(data: TechForm, owner = "SKRTEEEEEE"):
         //     }),
         //     actualizarJson()
         // ]);
-        await actualizarGithubTechsCMongoose({type: ActualizarGithubTechsType.all, create:{base: {nameId, nameBadge, web, color}, oldTechs: proyectosDB} })
+        await actualizarGithubTechsCMongoose({type: ActualizarGithubTechsType.ALL, create:{base: {nameId, nameBadge, web, color}, oldTechs: proyectosDB} })
 
         return { success, message };
 

@@ -4,35 +4,36 @@ import { MongooseUpdateProps } from "@/core/infrastructure/mongoose/types/implem
 
 // 🧠👨‍🎓💡 Vamos a hacer la inyección aquí, SIN hacer EXPORT -> Así: nos aseguramos de solo utilizar la infra aquí(application)
 // 🧠🚧⚠️ En el futuro -> trataremos de solo usar tipos de domain - PROHIBIDO usar tipos de mongoose aquí ya
-const userRepository = new MongooseUserRepository()
+const monUserRepository = new MongooseUserRepository()
+
 
 
 export const listUsersByIdUC = async (id: string) => {
-    return await userRepository.readById(id)
+    return await monUserRepository.readById(id)
 }
 
 export const listUserByAddressUC = async (address: string) => {
-    return await userRepository.findByAddress(address)
+    return await monUserRepository.findByAddress(address)
 }
 
 export const listUsersUC = async () => {
-    return await userRepository.read({})
+    return await monUserRepository.read({})
 }
 
 export const createUserUC = async (data: Omit<UserBase, "id">) => {
-    return await userRepository.create(data)
+    return await monUserRepository.create(data)
 }
 
 export const findUserAndUpdateUC = async (
     props: MongooseUpdateProps<User<MongooseBase>>
 ) => {
-    return await userRepository.update(props)
+    return await monUserRepository.update(props)
 }
 export const updateUserByIdUC = async (id: string, user?: Partial<UserBase> | undefined) => {
-    return await userRepository.updateById({id, updateData:user})
+    return await monUserRepository.updateById({id, updateData:user})
 }
 export const deleteUserByIdUC = async (id: string) => {
-    return await userRepository.deleteById(id)
+    return await monUserRepository.deleteById(id)
 }
 
 

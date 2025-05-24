@@ -1,6 +1,6 @@
 import { ExtendedJWTPayload, JWTContext } from "@/types/auth";
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams, VerifyLoginPayloadResult } from "thirdweb/auth";
-import { RoleType } from "@/core/domain/entities/Role";
+import { RoleType } from "@/core/domain/entities/role";
 import { createAuth, VerifyLoginPayloadResult } from "thirdweb/auth";
 import { JWTPayload } from "thirdweb/utils";
 
