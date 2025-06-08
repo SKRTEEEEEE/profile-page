@@ -1,3 +1,5 @@
+import { giveRole } from "@/actions/user";
+
 export enum Modules {
     PRE_TECH = "PRE_TECH",
     PROJECTS = "PROJECTS",
@@ -45,6 +47,9 @@ export abstract class ApiBaseRepository {
             login: {endpoint: "user", method: "POST"},
             update: {endpoint: "user", method: "PUT"},
             updateSolicitud: {endpoint: "user/solicitud", method: "PUT"},
+            delete: {endpoint: "user/:id", method: "DELETE"},
+            giveRole: {endpoint: "user/role", method: "PUT"},
+            verifyEmail: {endpoint: "user/verify-email", method: "POST"},
         }
     };
 

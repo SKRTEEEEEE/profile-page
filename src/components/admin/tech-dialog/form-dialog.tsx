@@ -16,6 +16,7 @@ import { updateImg, uploadImg } from "@/actions/img";
 import { InputParseError } from "@/core/domain/flows/domain.error";
 import { z } from "zod";
 import { createIntlZodInput } from "@/core/presentation/validation";
+import { TechFormCategory } from "@/core/domain/entities/tech.type";
 
 export const firstStepTechSchema = z.object({
     nameId: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
@@ -159,7 +160,7 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
     resolver: zodResolver(techSchema),
     defaultValues: tech ?
     { 
-      category: tech.isLib ? "lib" : (tech.isFw ? "fw" : "leng") , 
+      category: tech.isLib ? TechFormCategory.LIB : (tech.isFw ? TechFormCategory.FW : TechFormCategory.LENG) , 
       lengTo: tech.isFw, 
       fwTo: tech.isLib,
       ...tech
@@ -172,7 +173,7 @@ export default function TechFormDialog({ renderButton, admins, tech, dispo }: Te
       afinidad: 25,
       img: null,
       desc: { es: "", en: "", ca: "", de: "" },
-      category: "leng",
+      category: TechFormCategory.LENG,
     },
   })
   const isUpdating = !!tech

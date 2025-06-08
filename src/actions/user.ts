@@ -2,9 +2,9 @@
 
 // -> ❕🧠⚠️❗⬇️ SOLO PARA ACCIONES QUE SON LLAMADAS DESDE EL CLIENTE! - sino usar UC/C ⬇️❗⚠️🧠❕
 
-import { apiUpdateUserByIdSolicitudUC, apiUpdateUserByIdUC, mongooseUpdateUserByIdUC } from "@/core/application/usecases/entities/user";
+import { apiDeleteUserUC, apiGiveRoleToUserUC, apiUpdateUserByIdSolicitudUC, apiUpdateUserByIdUC, mongooseUpdateUserByIdUC } from "@/core/application/usecases/entities/user";
 import { RoleType } from "@/core/domain/entities/role.type";
-import { InputParseError } from "@/core/domain/flows/domain.error";
+import { DatabaseActionError, InputParseError } from "@/core/domain/flows/domain.error";
 import { deleteUserAccountUCMongoose, giveRoleUCMongoose, resendVerificationEmailCMongoose, updateUserFormCMongoose } from "@/core/presentation/controllers/user";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -53,7 +53,9 @@ export async function deleteUser(payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
 },id:string, address: string) {
-    await deleteUserAccountUCMongoose(payload, id, address)
+    // await deleteUserAccountUCMongoose(payload, id, address)
+    const res = await apiDeleteUserUC({payload, id, address})
+    if(!res.success)throw new DatabaseActionError("deleteUser", {optionalMessage: res.message})
     revalidatePath("/dashboard/config")
 }
 
@@ -61,6 +63,8 @@ export async function giveRole(payload: {
     signature: `0x${string}`;
     payload: LoginPayload;
 },id:string, solicitud: RoleType.ADMIN){
-    await giveRoleUCMongoose(payload,id, solicitud)
+    // await giveRoleUCMongoose(payload,id, solicitud)
+    const res = await apiGiveRoleToUserUC({payload, id, solicitud})
+    if(!res.success)throw new DatabaseActionError("giveRole", {optionalMessage: res.message})
     revalidatePath("/admin/users")
 }

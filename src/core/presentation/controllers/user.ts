@@ -55,7 +55,7 @@ export const updateUserFormCMongoose = async(payload: VerifyLoginPayloadParams,u
     const res = await mongooseUpdateUserByIdUC(user.id, {...user, verifyToken, verifyTokenExpire, isVerified})
     if(!res) throw new DatabaseActionError("update user form")
     return await setJwtUC(payload,{nick:user.nick,id: user.id, role: userB.role, img: user.img || undefined})
-} //✅⁉️
+} //✅
 export const resendVerificationEmailCMongoose = async({id,email}:{id:string, email: string}) => {
     const {hashedToken, expireDate} = tokenGenerator()
 
@@ -92,7 +92,7 @@ export const verifyEmailCMongoose = async (id: string, verifyToken: string): Pro
     if(!sUser) throw new DatabaseActionError("update user")
     console.log(sUser)
     return true;
-} //⚠️🚧
+} //✅⁉️
 export const checkoutSessionCompletedC = async (session: Stripe.Response<Stripe.Checkout.Session>) => {
     
     const user: User<MongooseBase> | null = await mongooseListUsersByIdUC(session.client_reference_id!);
@@ -194,7 +194,7 @@ export const deleteUserAccountUCMongoose = async (payload: {
   }
   await mongooseDeleteUserByIdUC(id)
   await logoutUC()
-}//🚧
+}//✅
 
 
 export const giveRoleUCMongoose = async(payload: {
@@ -213,7 +213,7 @@ export const giveRoleUCMongoose = async(payload: {
        address: user.address, roleId: createdRole.id,
       role: solicitud, solicitud: null, img: user.img, email: user.email, isVerified: user.isVerified
     })
-}//🚧
+}//✅⁉️
 
 
 
@@ -229,16 +229,16 @@ export const loginUserUCMongoose = async (payload: VerifyLoginPayloadParams) => 
     user = await mongooseCreateUserUC({ address: verifiedPayload.payload.address, nick: null, roleId: null, role: null, solicitud: null, img: null, email: null , isVerified: false})
   }
 
-  const jwt = await setJwtUC(
-    payload,
-    {
-      role: user.role,
-      nick: user.nick,
-      id: user.id,
-      img: user.img || undefined
-    }
-  );
-  return jwt
+  // const jwt = await setJwtUC(
+  //   payload,
+  //   {
+  //     role: user.role,
+  //     nick: user.nick,
+  //     id: user.id,
+  //     img: user.img || undefined
+  //   }
+  // );
+  // return jwt -> traspased to action
 }//✅⁉️
 
 

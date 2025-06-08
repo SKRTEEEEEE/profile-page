@@ -1,7 +1,7 @@
 
 import { VerificacionEmailAlert } from "@/components/verify-email/verificacion-email-alert";
 import {  RenderAlert, VerifyEmailConfirmDialog } from "@/components/verify-email/verify-email-dialogs";
-import { apiReadUserByIdUC, mongooseListUsersByIdUC } from "@/core/application/usecases/entities/user";
+import { apiReadUserByIdUC, apiVerifyEmailUC, mongooseListUsersByIdUC } from "@/core/application/usecases/entities/user";
 import { verifyEmailCMongoose } from "@/core/presentation/controllers/user";
 import { Suspense } from "react";
 
@@ -27,7 +27,8 @@ async function VerifyEmailContent({ verifyToken, id }: SearchParams) {
   if (!user) {
     return <RenderAlert title="URL Invalida"  description="Si estas tratando de validar el email, intenta-lo después."/>
   } else if (user.verifyToken == verifyToken) {
-    const result = await verifyEmailCMongoose(id, verifyToken);
+    const result = await apiVerifyEmailUC({id, verifyToken});
+    // const result = await verifyEmailCMongoose(id, verifyToken);
 
     if (result) {
       return (

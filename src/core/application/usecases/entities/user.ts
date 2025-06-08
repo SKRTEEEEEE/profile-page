@@ -4,7 +4,7 @@ import { MongooseUserRepository } from "@/core/infrastructure/mongoose/entities/
 import { MongooseBase } from "@/core/infrastructure/mongoose/types";
 import { MongooseUpdateProps } from "@/core/infrastructure/mongoose/types/implementations";
 import { UserUpdateNodemailer } from "../../interfaces/entities/user";
-import { VerifyLoginPayloadParams } from "thirdweb/auth";
+import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
 
 // 🧠👨‍🎓💡 Vamos a hacer la inyección aquí, SIN hacer EXPORT -> Así: nos aseguramos de solo utilizar la infra aquí(application)
 // 🧠🚧⚠️ En el futuro -> trataremos de solo usar tipos de domain - PROHIBIDO usar tipos de mongoose aquí ya
@@ -44,6 +44,7 @@ export const mongooseFindUserAndUpdateUC = async (
 ) => {
     return await monUserRepository.update(props)
 } // 🚧 -> used for pay - agora
+
 export const mongooseUpdateUserByIdUC = async (id: string, user?: Partial<UserBase> | undefined) => {
     return await monUserRepository.updateById({id, updateData:user})
 }// ✅
@@ -55,6 +56,20 @@ export const apiUpdateUserByIdUC = async (props: UserUpdateNodemailer<MongooseBa
 }// ✅
 export const mongooseDeleteUserByIdUC = async (id: string) => {
     return await monUserRepository.deleteById(id)
-} // 🚧 -> use role -- working in backend
-
+} // ✅
+export const apiDeleteUserUC = async (props: {    payload: {
+  signature: `0x${string}`;
+  payload: LoginPayload;
+}, id: string, address: string})=>{
+    return await apiUserRepository.deleteById(props)
+} // ✅
+export const apiGiveRoleToUserUC = async (props: {payload: {
+  signature: `0x${string}`;
+  payload: LoginPayload;
+}, id: string, solicitud: RoleType.ADMIN}) => {
+    return await apiUserRepository.giveRole(props)
+} 
+export const apiVerifyEmailUC = async (props: { id: string, verifyToken: string}) => {
+    return await apiUserRepository.verifyEmail(props)
+} 
 
