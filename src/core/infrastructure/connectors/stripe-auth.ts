@@ -9,7 +9,7 @@ export abstract class StripeConnector {
         this._stripe = this.initialize()
     }
     private initialize(){
-        if(!this.api)throw new SetEnvError("stripe api")
+        if(!this.api)throw new SetEnvError("stripe api", StripeConnector)
         const stripe = new Stripe(this.api)
         return stripe
     }

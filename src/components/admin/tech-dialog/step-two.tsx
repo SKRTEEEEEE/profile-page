@@ -51,7 +51,7 @@ export function StepTwo({
     const validationResult = imageSchema.safeParse({ img: file });
     if (!validationResult.success) {
       onError(validationResult.error.errors.map(err => err.message));
-      throw new InputParseError("Error de validación de archivo"); //???????Salta este error en el update
+      throw new InputParseError(StepTwo, "Error de validación de archivo");
     }
   }
 
@@ -60,7 +60,7 @@ export function StepTwo({
     const file = ev.target.files?.[0]
     if (!file) {
       onError(["Error at select file"])
-      throw new InputParseError("Error at select file")
+      throw new InputParseError(StepTwo, "Error at select file");
     }
     fileCheck(file)
     const imgUrl = URL.createObjectURL(file)

@@ -14,8 +14,8 @@ export default function GiveRoleButton({solicitud, id,role, userIsAdmin}:{solici
 
     async function handleSubmit(event: React.FormEvent) {
         event.preventDefault()
-        if(!account)throw new UnauthorizedError("Please connect your wallet")
-        if(solicitud!==RoleType.ADMIN) throw new UnauthorizedError("Action not corresponding")   
+        if(!account)throw new UnauthorizedError(GiveRoleButton,"Please connect your wallet")
+        if(solicitud!==RoleType.ADMIN) throw new UnauthorizedError(GiveRoleButton,"Action not corresponding")   
         try {
 
             const payload = await generatePayload({address: account.address})

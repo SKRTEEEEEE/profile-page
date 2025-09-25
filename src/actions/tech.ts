@@ -2,9 +2,7 @@
 
 import { apiCreateTechUC, apiUpdateTechUC } from "@/core/application/usecases/entities/tech"
 import { TechForm } from "@/core/domain/entities/tech"
-import { createTechCMongoose } from "@/core/presentation/controllers/tech/create.controller"
 import { deleteTechCApi } from "@/core/presentation/controllers/tech/delete.controller"
-import { updateTechCMongoose } from "@/core/presentation/controllers/tech/update.controller"
 
 
 export async function createTech(params:TechForm) {

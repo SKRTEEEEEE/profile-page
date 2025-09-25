@@ -9,31 +9,33 @@ import { Modules } from "./core/infrastructure/api/base.repository";
 export type Role = RoleBase & MongooseBase
 export type Leng = LengBase & MongooseBase
 export enum ErrorAppCodes {
-    STORAGE_ACTION = "STORAGE_ACTION"
+    STORAGE_ACTION = "STORAGE_ACTION",
+    API_RESPONSE = "API_RESPONSE"
 }
 
 export class StorageActionError extends DomainError {
-    constructor(action: string, meta?: {
+    constructor(action: string,location:Function, meta?: {
         type?: string,
         optionalMessage?:string,
     }){
         super(
             `Action: Storage ${action} ${meta?.type} doesn't worked` ,
             ErrorAppCodes.STORAGE_ACTION,
-            meta?.optionalMessage
+            location.name, undefined,
+            {optionalMessage:meta?.optionalMessage}
         )
     }
 }
 export class ApiResponseError extends DomainError{
-    constructor(action: string, meta?: {
+    constructor(action: string,location: Function, meta?: {
         module?: string | Modules,
-        optionalMessage?: string,
+        optionalMessage?: string | undefined
     })
     {
         super(
-            `Action: Api Response ${action} ${meta?.module} doesn't worked` ,
-            ErrorAppCodes.STORAGE_ACTION,
-            meta?.optionalMessage
+            `Action: Api Response ${action} ${meta?.module} doesn't worked. ${meta?.optionalMessage}` ,
+            ErrorAppCodes.API_RESPONSE,
+            location.name
         )
     }
 }

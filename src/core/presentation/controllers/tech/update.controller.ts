@@ -67,11 +67,9 @@ export async function updateTechCMongoose(updateData: TechForm) {
 }
 
 function handleError(message: string) {
-    console.log(message);
     return { success: false, message: `Error: ${message}` };
 }
 
 function handleSuccess(message: string) {
-    console.log(message);
     return { success: true, message: `Éxito: ${message}` };
 }

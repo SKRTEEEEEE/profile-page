@@ -18,14 +18,14 @@ class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthReposito
 
   async setJwt(payload: VerifyLoginPayloadParams, context: JWTContext): Promise<ExtendedJWTPayload> {
     const verifiedPayload = await this.thirdwebAuth.verifyPayload(payload);
-    if (!verifiedPayload.valid)throw new UnauthorizedError("login payload") 
+    if (!verifiedPayload.valid)throw new UnauthorizedError(ThirdwebAuthRepository,"login payload") 
         const jwt = await this.thirdwebAuth.generateJWT({
             payload: verifiedPayload.payload,
             context
           });
           (await cookies()).set("jwt", jwt);
           const authRes = await this.thirdwebAuth.verifyJWT({jwt});
-        if(!authRes.valid)throw new UnauthorizedError("jwt login token")
+        if(!authRes.valid)throw new UnauthorizedError(ThirdwebAuthRepository,"jwt login token")
         return authRes.parsedJWT as ExtendedJWTPayload
     
   }
@@ -55,14 +55,14 @@ class ThirdwebAuthRepository extends ThirdwebAuthAdapter implements AuthReposito
   }
   async protAdmAct(): Promise<true> {
     const isAdmin = await this.isAdmin();
-    if (!isAdmin) throw new UnauthorizedError("Must be admin")
+    if (!isAdmin) throw new UnauthorizedError(ThirdwebAuthRepository,"Must be admin")
     return isAdmin
     
   }
   //Esta función limitara a que el usuario sea el mismo que el que ha iniciado sesión
   async protLogAct(): Promise<ExtendedJWTPayload> {
     const cookies = await this.getCookies()
-    if (!cookies) throw new UnauthorizedError("Must log in")
+    if (!cookies) throw new UnauthorizedError(ThirdwebAuthRepository,"Must log in")
     return cookies
   }
 

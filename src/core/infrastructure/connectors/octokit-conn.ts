@@ -10,7 +10,7 @@ export abstract class OctokitConfig{
     }
 
     private initialize(){
-        if(!this.auth)throw new SetEnvError("github token")
+        if(!this.auth)throw new SetEnvError("github token", OctokitConfig)
         return new Octokit({auth: this.auth})
     }
     protected get octokit(){

@@ -8,28 +8,28 @@ import { FwBase, LibBase } from "@/core/domain/entities/tech";
 
 
 async function doDeleteMongoose (tipo:string, name:string) {
-    console.log(`${tipo} ${name} eliminada correctamente`);
+    console.debug(`${tipo} ${name} eliminada correctamente`);
     // const proyectosDB = await mongooseReadAllTechsUC()
     //Pasar esto al deleteTechC
     // await actualizarJson();
     actualizarGithubTechsCMongoose({type: ActualizarGithubTechsType.ALL})//esto lo he de pasar a backend
-    console.log(`${tipo} ${name} eliminada correctamente del json`);
+    console.debug(`${tipo} ${name} eliminada correctamente del json`);
     // await actualizarMd(proyectosDB);
-    console.log(`${tipo} ${name} eliminada correctamente del md`);
+    console.debug(`${tipo} ${name} eliminada correctamente del md`);
     //Hay que hacer bien esta parte de aquí!
     revalidatePath("/admin/techs")
     revalidatePath("/test/mongodb")
     return true;
 }
 async function doDeleteApi (tipo:string, name:string) {
-    console.log(`${tipo} ${name} eliminada correctamente`);
+    console.debug(`${tipo} ${name} eliminada correctamente`);
     // const proyectosDB = await mongooseReadAllTechsUC()
     //Pasar esto al deleteTechC
     // await actualizarJson();
     apiActualizarGithubTechsCApi({type: ActualizarGithubTechsType.ALL})//esto lo he de pasar a backend
-    console.log(`${tipo} ${name} eliminada correctamente del json`);
+    console.debug(`${tipo} ${name} eliminada correctamente del json`);
     // await actualizarMd(proyectosDB);
-    console.log(`${tipo} ${name} eliminada correctamente del md`);
+    console.debug(`${tipo} ${name} eliminada correctamente del md`);
     //Hay que hacer bien esta parte de aquí!
     revalidatePath("/admin/techs")
     revalidatePath("/test/mongodb")

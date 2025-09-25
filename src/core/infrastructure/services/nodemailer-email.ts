@@ -7,7 +7,7 @@ import { SetEnvError } from "@/core/domain/flows/domain.error";
 class NodemailerEmailRepositoy extends NodemailerTransportConfig implements EmailRepository{
     private mFrom = process.env.SMTP_FROM_EMAIL
     async sendMail(params: SendMailParams): Promise<SMTPTransport.SentMessageInfo>{
-        if(!this.mFrom)throw new SetEnvError("mail sender")
+        if(!this.mFrom)throw new SetEnvError("mail sender", NodemailerEmailRepositoy)
         const mailOpt = {...params, from: this.mFrom}
         return await this.transporter.sendMail(mailOpt)
     }

@@ -19,7 +19,7 @@ export class MongooseUserRepository extends MongooseCRRUUD1Pattern<UserBase, Use
         async deleteRoleId(id: string): Promise<void> {
         await this.connect()
         const result = await this.Model.updateOne({ _id: id }, { $set: { roleId: null } });
-        if (result.matchedCount === 0) throw new DatabaseActionError(`User with id ${id} not found`);
+        if (result.matchedCount === 0) throw new DatabaseActionError("deleteRoleId", MongooseUserRepository,{optionalMessage:`User with id ${id} not found`});
         }
         async findByAddress(address: string): Promise<User<MongooseBase> | null> {
         await this.connect()

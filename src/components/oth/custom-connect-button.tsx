@@ -116,11 +116,11 @@ export const CConectButton =  ({connectButtonLabel="Iniciar session"}:{connectBu
         }}
         auth={{
             isLoggedIn: async (address:string )=> {
-                console.log("check if logged in: ", {address})
+                console.info("check if logged in: ", {address})
                 return await isLoggedIn()
             },
             doLogin: async (params) => {
-                console.log("loggin in!")
+                console.info("loggin in!")
                 const jwt = await login(params)
                 setImg(jwt.ctx.img)
                 rd("/")

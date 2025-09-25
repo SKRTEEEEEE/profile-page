@@ -89,7 +89,6 @@ export default function AdminTechTable({ lenguajes, isAdmin, dispo, admins }: Ad
             {
             
 
-              // console.log("tech tech-table: ",tech)
             
    // <Button variant="ghost" size="icon" asChild>
               //   <div>

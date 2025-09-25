@@ -30,7 +30,7 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Sea
       <h1 className="p-4 text-3xl xl:text-4xl font-bold mb-8">{t("ceo.proyectos.main.h1")}</h1>
       <ul className="w-11/12 xl:w-9/12 flex flex-col gap-4">
         {currentProjects.map((data: Project<MongooseBase>) => {
-          // console.log("data projects: ", data)
+          // console.debug("data projects: ", data)
           return (
             <li className="flex justify-between" key={data.id}>
               <h2 className='text-md xl:text-2xl'>{data.title[locale as IntlKey]}</h2>

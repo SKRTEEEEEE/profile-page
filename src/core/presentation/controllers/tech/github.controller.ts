@@ -76,7 +76,7 @@ ${techsHeaderBanner}
 </a>
 </p>\n\n\n***\n\n\n`;
             if(create){
-                console.log("create: ", create)
+                console.debug("create: ", create)
                 newMdContent += createBadgeTech(create.base, true)
             }
             
@@ -97,7 +97,7 @@ ${techsHeaderBanner}
             });
     
             await updateGithubFileContentUC(path.md, baseOptions,{message:"Actualizar archivo .md", content:newMdContent});
-            console.log("Archivo Markdown actualizado");
+            console.debug("Archivo Markdown actualizado");
         } catch (error) {
             console.error("Error actualizando el archivo .md:", error);
         }

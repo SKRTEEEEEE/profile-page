@@ -37,7 +37,7 @@ export abstract class ApiBaseRepository {
             create: {endpoint: "tech", method: "POST"},
             update: {endpoint: "tech", method: "PUT"},
             actualizarGithub: {endpoint: (opt)=>`tech/${opt}`, method: "POST"},
-            readAll: {endpoint: "tech", method: "GET"},
+            readAll: {endpoint: (opt)=>`tech/${opt}`, method: "GET"},
             delete: {endpoint: "tech", method: "DELETE"},
 
         },

@@ -1,4 +1,4 @@
-import { ResFlow } from "@/core/domain/flows/res.codes";
+import { ResFlow } from "@/core/domain/flows/res.type";
 import { MongooseBase } from "../mongoose/types";
 import { ApiBaseRepository, Modules } from "./base.repository";
 import { ApiResponseError } from "@/dynamic.types";
@@ -18,7 +18,9 @@ export class ApiPreTechRepository extends ApiBaseRepository{
     });
     console.log("response", response)
     if (!response.ok) {
-      throw new ApiResponseError("readByQuery",{module: this.module,optionalMessage:`Error fetching ${this.endpoints.readByQuery.endpoint}: ${response.statusText}`});
+            throw new ApiResponseError("readByQuery", ApiPreTechRepository, {
+        module: this.module,
+      });
     }
     const data = await response.json();
     console.log("data", data)
@@ -36,8 +38,9 @@ export class ApiPreTechRepository extends ApiBaseRepository{
       },
     });
     if (!response.ok) {
-      throw new ApiResponseError("readByQuery",{module: this.module,optionalMessage:`Error updating ${this.endpoints.updatePreTech.endpoint}: ${response.statusText}`});
-    }
+      throw new ApiResponseError("updatePreTech", ApiPreTechRepository, {
+        module: this.module,
+      });    }
     const data = await response.json();
     console.log("data", data)
     return data

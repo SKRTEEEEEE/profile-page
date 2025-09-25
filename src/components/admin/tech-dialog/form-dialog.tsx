@@ -142,7 +142,7 @@ const handleImageUpload = async (imageFile: any, tech?: FullTechData) => {
 
       const validation = techSchema.shape.img.safeParse(imgUrl)
       if (!validation.success) {
-        throw new InputParseError("Error with img upload storage")
+        throw new InputParseError(handleImageUpload, "Error with img upload storage");
       }
       return imgUrl
     }

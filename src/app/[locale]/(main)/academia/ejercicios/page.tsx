@@ -24,7 +24,6 @@ export default async function BlogPage(props: BlogPageProps) {
     const currentPage = Number(searchParams?.page) || 1
     const sortedPosts = sortPosts(ejercicios.filter(post=>post.published))
     const totalPages = Math.ceil(sortedPosts.length/POSTS_PAGE)
-    // console.log("ejercicios: ", ejercicios)
     const displayPosts = sortedPosts.slice(
         POSTS_PAGE * (currentPage - 1),
         POSTS_PAGE * currentPage

@@ -2,9 +2,9 @@ import { ApiResponseError } from "@/dynamic.types";
 import { ApiBaseRepository, Modules } from "./base.repository";
 import { FullTechData, FwBase, LengBase, LibBase, ReadAllFlattenTechsRes, TechBase, TechForm } from "@/core/domain/entities/tech";
 import { cookies } from "next/headers";
-import { ResFlow } from "@/core/domain/flows/res.codes";
 import { MongooseBase } from "../mongoose/types";
 import { ActualizarGithubTechsType } from "@/core/presentation/controllers/tech/github.controller";
+import { ResFlow } from "@/core/domain/flows/res.type";
 
 export class ApiTechRepository extends ApiBaseRepository {
     constructor(baseUrl?:string){
@@ -23,7 +23,7 @@ export class ApiTechRepository extends ApiBaseRepository {
                 ,body: JSON.stringify(data)
             }
         )
-        if(!response.ok)throw new ApiResponseError("create",{module: this.module, optionalMessage: `Error creating: ${response.statusText}`})
+        if(!response.ok)throw new ApiResponseError("create",ApiTechRepository,{module: this.module})
         const res = await response.json();
         console.log("data", res)
         return res
@@ -41,7 +41,7 @@ export class ApiTechRepository extends ApiBaseRepository {
                 ,body: JSON.stringify(tech)
             }
         )
-        if(!response.ok)throw new ApiResponseError("update",{module: this.module, optionalMessage: `Error updating: ${response.statusText}`})
+        if(!response.ok)throw new ApiResponseError("update",ApiTechRepository,{module: this.module})
         const res = await response.json();
         console.log("data", res)
         return res
@@ -73,7 +73,7 @@ export class ApiTechRepository extends ApiBaseRepository {
     }
     async readAll(): Promise<ResFlow<ReadAllFlattenTechsRes<MongooseBase>>>{
         const response = await fetch(
-            this.getEndpointModule("readAll"),
+            this.getDynamicEndpointModule("readAll", "full") as string,
             {
                 method: this.endpoints.readAll.method,
                 headers: {
@@ -82,9 +82,8 @@ export class ApiTechRepository extends ApiBaseRepository {
                 }
             }
         )
-        if(!response.ok)throw new ApiResponseError("readAll",{module: this.module, optionalMessage: `Error reading all: ${response.statusText}`})
+        if(!response.ok)throw new ApiResponseError("readAll",ApiTechRepository,{module: this.module})
         const res = await response.json();
-        console.log("data", res)
         return res
     }
     async delete( body: {nameId: string}){
@@ -100,7 +99,7 @@ export class ApiTechRepository extends ApiBaseRepository {
                 ,body: JSON.stringify(body)
             }
         )
-        if(!response.ok)throw new ApiResponseError("delete",{module: this.module, optionalMessage: `Error deleting: ${response.statusText}`})
+        if(!response.ok)throw new ApiResponseError("delete",ApiTechRepository,{module: this.module})
         const res = await response.json();
         console.log("data", res)
         return res

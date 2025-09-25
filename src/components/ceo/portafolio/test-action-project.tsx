@@ -8,7 +8,7 @@ export function TestAction () {
     <div>
       <h1>Test Action</h1>
       <Button onClick={async() => {
-        console.log("Test Action")
+        console.info("Test Action")
         await testPopulateUC() 
         }}>Test Action</Button>
     </div>
